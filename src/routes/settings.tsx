@@ -53,15 +53,6 @@ function SettingsPage() {
           </div>
         ))}
       </div>
-
-      <div className="mt-8 rounded-[28px] bg-indigo-deep p-5 text-white">
-        <p className="text-[10px] font-bold uppercase tracking-wider text-white/70">
-          Little reminder
-        </p>
-        <p className="mt-2 font-display text-lg font-bold leading-snug">
-          Innathekk mathi 😌 — you're doing great.
-        </p>
-      </div>
     </AppShell>
   );
 }
