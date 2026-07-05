@@ -1,0 +1,67 @@
+import { createFileRoute } from "@tanstack/react-router";
+import { AppShell } from "@/components/app-shell";
+import { Info, Bell, Palette, Heart } from "lucide-react";
+
+export const Route = createFileRoute("/settings")({
+  head: () => ({
+    meta: [
+      { title: "Settings · CS-B" },
+      { name: "description", content: "App preferences for CS-B Timetable." },
+    ],
+  }),
+  component: SettingsPage,
+});
+
+const rows = [
+  { icon: Bell, label: "Class reminders", hint: "Soon ⏰", tone: "bg-blush" },
+  { icon: Palette, label: "Appearance", hint: "System", tone: "bg-mint" },
+  { icon: Heart, label: "Made for CS-B", hint: "with love", tone: "bg-butter" },
+  { icon: Info, label: "About", hint: "v1.0", tone: "bg-lilac-soft" },
+];
+
+function SettingsPage() {
+  return (
+    <AppShell
+      header={
+        <header className="mb-5">
+          <p className="text-[11px] font-bold uppercase tracking-[0.22em] text-indigo">
+            CS-B ✦
+          </p>
+          <h1 className="mt-1 font-display text-[28px] font-bold text-ink">
+            Settings ⚙️
+          </h1>
+        </header>
+      }
+    >
+      <div className="space-y-2.5">
+        {rows.map((r) => (
+          <div
+            key={r.label}
+            className="flex items-center gap-3 rounded-3xl border border-border/60 bg-surface px-4 py-3.5"
+          >
+            <div
+              className={`grid h-10 w-10 shrink-0 place-items-center rounded-2xl ${r.tone} text-ink`}
+            >
+              <r.icon className="h-4 w-4" strokeWidth={2.4} />
+            </div>
+            <p className="min-w-0 flex-1 truncate text-sm font-bold text-ink">
+              {r.label}
+            </p>
+            <p className="shrink-0 text-[11px] font-semibold text-ink-soft">
+              {r.hint}
+            </p>
+          </div>
+        ))}
+      </div>
+
+      <div className="mt-8 rounded-[28px] bg-indigo-deep p-5 text-white">
+        <p className="text-[10px] font-bold uppercase tracking-wider text-white/70">
+          Little reminder
+        </p>
+        <p className="mt-2 font-display text-lg font-bold leading-snug">
+          Innathekk mathi 😌 — you're doing great.
+        </p>
+      </div>
+    </AppShell>
+  );
+}
