@@ -110,3 +110,19 @@ export function subjectInitial(subject: string): string {
   const s = subject.replace(/[^A-Za-z]/g, "");
   return (s[0] ?? "?").toUpperCase();
 }
+
+export function subjectEmoji(subject: string): string {
+  const map: Record<string, string> = {
+    "Elective": "🎨",
+    "Computer Networks": "🌐",
+    "Machine Learning": "🤖",
+    "Microcontrollers": "⚡",
+    "Design and Analysis of Algorithms": "🧩",
+    "Placement Training": "💼",
+    "MC Project": "🚀",
+    "Networks Lab": "🧪",
+    "Library / Mentoring": "📖",
+    "Activity / Association": "🎉",
+  };
+  return map[subject] ?? "📚";
+}

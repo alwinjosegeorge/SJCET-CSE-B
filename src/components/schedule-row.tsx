@@ -1,6 +1,6 @@
 import type { ScheduleItem } from "@/lib/schedule";
 import { fmt12 } from "@/lib/schedule";
-import { subjectInitial } from "@/lib/timetable";
+import { subjectEmoji } from "@/lib/timetable";
 import { Coffee, UtensilsCrossed, Check, Sparkles } from "lucide-react";
 
 interface Props {
@@ -67,7 +67,7 @@ export function ScheduleRow({ item, status }: Props) {
         {isDone ? (
           <Check className="h-5 w-5" strokeWidth={2.6} />
         ) : (
-          subjectInitial(item.subject!)
+          subjectEmoji(item.subject!)
         )}
       </div>
       <div className="min-w-0 flex-1">
