@@ -1,5 +1,5 @@
 globalThis.__nitro_main__ = import.meta.url;
-import { a as NodeResponse, n as HTTPError, r as defineLazyEventHandler, t as H3Core } from "./_libs/h3.mjs";
+import { a as NodeResponse, n as HTTPError, r as defineLazyEventHandler, t as H3Core } from "./_libs/h3+rou3+srvx.mjs";
 //#region #nitro-vite-setup
 function lazyService(loader) {
 	let promise, mod;
@@ -59,8 +59,7 @@ var errorHandler = (error, event) => {
 	return new NodeResponse(typeof res.body === "string" ? res.body : JSON.stringify(res.body, null, 2), res);
 };
 function defaultHandler(error, event) {
-	var _error$unhandled;
-	const unhandled = (_error$unhandled = error.unhandled) !== null && _error$unhandled !== void 0 ? _error$unhandled : !HTTPError.isError(error);
+	const unhandled = error.unhandled ?? !HTTPError.isError(error);
 	const { status = 500, statusText = "" } = unhandled ? {} : error;
 	if (status === 404) {
 		const url = event.url || new URL(event.req.url);
@@ -104,9 +103,8 @@ async function error_handler_default(error, event) {
 //#region #nitro/virtual/app
 function createNitroApp() {
 	const captureError = (error, errorCtx) => {
-		if (errorCtx === null || errorCtx === void 0 ? void 0 : errorCtx.event) {
-			var _errorCtx$event$req$c;
-			const errors = (_errorCtx$event$req$c = errorCtx.event.req.context) === null || _errorCtx$event$req$c === void 0 || (_errorCtx$event$req$c = _errorCtx$event$req$c.nitro) === null || _errorCtx$event$req$c === void 0 ? void 0 : _errorCtx$event$req$c.errors;
+		if (errorCtx?.event) {
+			const errors = errorCtx.event.req.context?.nitro?.errors;
 			if (errors) errors.push({
 				error,
 				context: errorCtx
@@ -117,7 +115,7 @@ function createNitroApp() {
 		return error_handler_default(error, event);
 	} });
 	let appHandler = (req) => {
-		req.context || (req.context = {});
+		req.context ||= {};
 		req.context.nitro = req.context.nitro || { errors: [] };
 		return h3App.fetch(req);
 	};
@@ -132,14 +130,13 @@ function createH3App(config) {
 	const h3App = new H3Core(config);
 	h3App["~findRoute"] = (event) => findRoute(event.req.method, event.url.pathname);
 	h3App["~getMiddleware"] = (event, route) => {
-		var _route$data;
 		const pathname = event.url.pathname;
 		const method = event.req.method;
 		const middleware = [];
 		const routeRules = getRouteRules(method, pathname);
-		event.context.routeRules = routeRules === null || routeRules === void 0 ? void 0 : routeRules.routeRules;
-		if (routeRules === null || routeRules === void 0 ? void 0 : routeRules.routeRuleMiddleware.length) middleware.push(...routeRules.routeRuleMiddleware);
-		if (route === null || route === void 0 || (_route$data = route.data) === null || _route$data === void 0 || (_route$data = _route$data.middleware) === null || _route$data === void 0 ? void 0 : _route$data.length) middleware.push(...route.data.middleware);
+		event.context.routeRules = routeRules?.routeRules;
+		if (routeRules?.routeRuleMiddleware.length) middleware.push(...routeRules.routeRuleMiddleware);
+		if (route?.data?.middleware?.length) middleware.push(...route.data.middleware);
 		return middleware;
 	};
 	return h3App;
@@ -157,7 +154,7 @@ function useNitroApp() {
 }
 function getRouteRules(method, pathname) {
 	const m = findRouteRules(method, pathname);
-	if (!(m === null || m === void 0 ? void 0 : m.length)) return { routeRuleMiddleware: [] };
+	if (!m?.length) return { routeRuleMiddleware: [] };
 	const routeRules = {};
 	for (const layer of m) for (const rule of layer.data) {
 		const currentRule = routeRules[rule.name];
@@ -182,10 +179,7 @@ function getRouteRules(method, pathname) {
 		};
 	}
 	const middleware = [];
-	const orderedRules = Object.values(routeRules).sort((a, b) => {
-		var _a$handler, _b$handler;
-		return (((_a$handler = a.handler) === null || _a$handler === void 0 ? void 0 : _a$handler.order) || 0) - (((_b$handler = b.handler) === null || _b$handler === void 0 ? void 0 : _b$handler.order) || 0);
-	});
+	const orderedRules = Object.values(routeRules).sort((a, b) => (a.handler?.order || 0) - (b.handler?.order || 0));
 	for (const rule of orderedRules) {
 		if (rule.options === false || !rule.handler) continue;
 		middleware.push(rule.handler(rule));
@@ -218,21 +212,19 @@ function isrRouteRewrite(reqUrl, xNowRouteMatches) {
 //#region node_modules/nitro/dist/presets/vercel/runtime/vercel.web.mjs
 var nitroApp = useNitroApp();
 var vercel_web_default = { fetch(req, context) {
-	var _req, _req$runtime;
 	const isrURL = isrRouteRewrite(req.url, req.headers.get("x-now-route-matches"));
 	if (isrURL) {
 		const { routeRules } = getRouteRules("", isrURL[0]);
-		if (routeRules === null || routeRules === void 0 ? void 0 : routeRules.isr) req = new Request(new URL(isrURL[0] + (isrURL[1] ? `?${isrURL[1]}` : ""), req.url).href, req);
+		if (routeRules?.isr) req = new Request(new URL(isrURL[0] + (isrURL[1] ? `?${isrURL[1]}` : ""), req.url).href, req);
 	}
-	(_req$runtime = (_req = req).runtime) !== null && _req$runtime !== void 0 || (_req.runtime = { name: "vercel" });
+	req.runtime ??= { name: "vercel" };
 	req.runtime.vercel = { context };
 	let ip;
 	Object.defineProperty(req, "ip", { get() {
-		var _ip, _h$split$shift;
 		const h = req.headers.get("x-forwarded-for");
-		return (_ip = ip) !== null && _ip !== void 0 ? _ip : ip = h === null || h === void 0 || (_h$split$shift = h.split(",").shift()) === null || _h$split$shift === void 0 ? void 0 : _h$split$shift.trim();
+		return ip ??= h?.split(",").shift()?.trim();
 	} });
-	req.waitUntil = context === null || context === void 0 ? void 0 : context.waitUntil;
+	req.waitUntil = context?.waitUntil;
 	return nitroApp.fetch(req);
 } };
 //#endregion

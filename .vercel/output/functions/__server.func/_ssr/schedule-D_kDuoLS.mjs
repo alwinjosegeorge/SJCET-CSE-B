@@ -1,4 +1,4 @@
-//#region node_modules/.nitro/vite/services/ssr/assets/schedule-BMKYyNHL.js
+//#region node_modules/.nitro/vite/services/ssr/assets/schedule-D_kDuoLS.js
 var PERIOD_SLOTS = [
 	{
 		id: "p1",
@@ -140,8 +140,7 @@ var TIMETABLE = {
 	]
 };
 function subjectEmoji(subject) {
-	var _map$subject;
-	return (_map$subject = {
+	return {
 		"Elective": "🎨",
 		"Computer Networks": "🌐",
 		"Machine Learning": "🤖",
@@ -152,7 +151,7 @@ function subjectEmoji(subject) {
 		"Networks Lab": "🧪",
 		"Library / Mentoring": "📖",
 		"Activity / Association": "🎉"
-	}[subject]) !== null && _map$subject !== void 0 ? _map$subject : "📚";
+	}[subject] ?? "📚";
 }
 function toMinutes(hhmm) {
 	const [h, m] = hhmm.split(":").map(Number);

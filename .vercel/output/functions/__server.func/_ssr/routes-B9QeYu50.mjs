@@ -3,9 +3,9 @@ import { n as require_jsx_runtime, r as require_react } from "../_libs/react+tan
 import { _ as ArrowUpRight, a as Sparkles, c as Moon, f as Coffee, i as Sun, n as UtensilsCrossed } from "../_libs/lucide-react.mjs";
 import { t as AppShell } from "./app-shell-Cur6NV4B.mjs";
 import { t as useNow } from "./use-now-DwH2zO-0.mjs";
-import { c as fmt12, o as computeNowState, t as DAY_LABEL } from "./schedule-BMKYyNHL.mjs";
-import { t as ScheduleRow } from "./schedule-row-FS2Z-v0v.mjs";
-//#region node_modules/.nitro/vite/services/ssr/assets/routes-DBMAJFIW.js
+import { c as fmt12, o as computeNowState, t as DAY_LABEL } from "./schedule-D_kDuoLS.mjs";
+import { t as ScheduleRow } from "./schedule-row-D4BtQ9Q2.mjs";
+//#region node_modules/.nitro/vite/services/ssr/assets/routes-B9QeYu50.js
 var import_react = /* @__PURE__ */ __toESM(require_react());
 var import_jsx_runtime = require_jsx_runtime();
 var SUBJECT_EMOJI = {
@@ -21,9 +21,8 @@ var SUBJECT_EMOJI = {
 	"Activity / Association": "🎉"
 };
 function subjectEmoji(subject) {
-	var _SUBJECT_EMOJI$subjec;
 	if (!subject) return "✨";
-	return (_SUBJECT_EMOJI$subjec = SUBJECT_EMOJI[subject]) !== null && _SUBJECT_EMOJI$subjec !== void 0 ? _SUBJECT_EMOJI$subjec : "📘";
+	return SUBJECT_EMOJI[subject] ?? "📘";
 }
 function niceTimeLeft(min) {
 	if (min <= 1) return "any second";

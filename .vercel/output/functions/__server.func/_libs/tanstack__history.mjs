@@ -13,17 +13,15 @@ function createHistory(opts) {
 		}));
 	};
 	const handleIndexChange = (action) => {
-		var _opts$notifyOnIndexCh;
-		if ((_opts$notifyOnIndexCh = opts.notifyOnIndexChange) !== null && _opts$notifyOnIndexCh !== void 0 ? _opts$notifyOnIndexCh : true) notify(action);
+		if (opts.notifyOnIndexChange ?? true) notify(action);
 		else location = opts.getLocation();
 	};
 	const tryNavigation = async ({ task, navigateOpts, ...actionInfo }) => {
-		var _navigateOpts$ignoreB, _opts$getBlockers, _opts$getBlockers2;
-		if ((_navigateOpts$ignoreB = navigateOpts === null || navigateOpts === void 0 ? void 0 : navigateOpts.ignoreBlocker) !== null && _navigateOpts$ignoreB !== void 0 ? _navigateOpts$ignoreB : false) {
+		if (navigateOpts?.ignoreBlocker ?? false) {
 			task();
 			return;
 		}
-		const blockers = (_opts$getBlockers = (_opts$getBlockers2 = opts.getBlockers) === null || _opts$getBlockers2 === void 0 ? void 0 : _opts$getBlockers2.call(opts)) !== null && _opts$getBlockers !== void 0 ? _opts$getBlockers : [];
+		const blockers = opts.getBlockers?.() ?? [];
 		const isPushOrReplace = actionInfo.type === "PUSH" || actionInfo.type === "REPLACE";
 		if (typeof document !== "undefined" && blockers.length && isPushOrReplace) for (const blocker of blockers) {
 			const nextLocation = parseHref(actionInfo.path, actionInfo.state);
@@ -32,8 +30,7 @@ function createHistory(opts) {
 				nextLocation,
 				action: actionInfo.type
 			})) {
-				var _opts$onBlocked;
-				(_opts$onBlocked = opts.onBlocked) === null || _opts$onBlocked === void 0 || _opts$onBlocked.call(opts);
+				opts.onBlocked?.();
 				return;
 			}
 		}
@@ -97,8 +94,7 @@ function createHistory(opts) {
 		back: (navigateOpts) => {
 			tryNavigation({
 				task: () => {
-					var _navigateOpts$ignoreB2;
-					opts.back((_navigateOpts$ignoreB2 = navigateOpts === null || navigateOpts === void 0 ? void 0 : navigateOpts.ignoreBlocker) !== null && _navigateOpts$ignoreB2 !== void 0 ? _navigateOpts$ignoreB2 : false);
+					opts.back(navigateOpts?.ignoreBlocker ?? false);
 					handleIndexChange({ type: "BACK" });
 				},
 				navigateOpts,
@@ -108,8 +104,7 @@ function createHistory(opts) {
 		forward: (navigateOpts) => {
 			tryNavigation({
 				task: () => {
-					var _navigateOpts$ignoreB3;
-					opts.forward((_navigateOpts$ignoreB3 = navigateOpts === null || navigateOpts === void 0 ? void 0 : navigateOpts.ignoreBlocker) !== null && _navigateOpts$ignoreB3 !== void 0 ? _navigateOpts$ignoreB3 : false);
+					opts.forward(navigateOpts?.ignoreBlocker ?? false);
 					handleIndexChange({ type: "FORWARD" });
 				},
 				navigateOpts,
@@ -119,24 +114,16 @@ function createHistory(opts) {
 		canGoBack: () => location.state[stateIndexKey] !== 0,
 		createHref: (str) => opts.createHref(str),
 		block: (blocker) => {
-			var _opts$getBlockers3, _opts$getBlockers4;
 			if (!opts.setBlockers) return () => {};
-			const blockers = (_opts$getBlockers3 = (_opts$getBlockers4 = opts.getBlockers) === null || _opts$getBlockers4 === void 0 ? void 0 : _opts$getBlockers4.call(opts)) !== null && _opts$getBlockers3 !== void 0 ? _opts$getBlockers3 : [];
+			const blockers = opts.getBlockers?.() ?? [];
 			opts.setBlockers([...blockers, blocker]);
 			return () => {
-				var _opts$getBlockers5, _opts$getBlockers6, _opts$setBlockers;
-				const blockers = (_opts$getBlockers5 = (_opts$getBlockers6 = opts.getBlockers) === null || _opts$getBlockers6 === void 0 ? void 0 : _opts$getBlockers6.call(opts)) !== null && _opts$getBlockers5 !== void 0 ? _opts$getBlockers5 : [];
-				(_opts$setBlockers = opts.setBlockers) === null || _opts$setBlockers === void 0 || _opts$setBlockers.call(opts, blockers.filter((b) => b !== blocker));
+				const blockers = opts.getBlockers?.() ?? [];
+				opts.setBlockers?.(blockers.filter((b) => b !== blocker));
 			};
 		},
-		flush: () => {
-			var _opts$flush;
-			return (_opts$flush = opts.flush) === null || _opts$flush === void 0 ? void 0 : _opts$flush.call(opts);
-		},
-		destroy: () => {
-			var _opts$destroy;
-			return (_opts$destroy = opts.destroy) === null || _opts$destroy === void 0 ? void 0 : _opts$destroy.call(opts);
-		},
+		flush: () => opts.flush?.(),
+		destroy: () => opts.destroy?.(),
 		notify
 	};
 }
@@ -167,16 +154,15 @@ function assignKeyAndIndex(index, state) {
 * @returns A history instance
 */
 function createBrowserHistory(opts) {
-	var _opts$window, _opts$createHref, _opts$parseLocation, _win$history$state, _win$history$state2;
-	const win = (_opts$window = opts === null || opts === void 0 ? void 0 : opts.window) !== null && _opts$window !== void 0 ? _opts$window : typeof document !== "undefined" ? window : void 0;
+	const win = opts?.window ?? (typeof document !== "undefined" ? window : void 0);
 	const originalPushState = win.history.pushState;
 	const originalReplaceState = win.history.replaceState;
 	let blockers = [];
 	const _getBlockers = () => blockers;
 	const _setBlockers = (newBlockers) => blockers = newBlockers;
-	const createHref = (_opts$createHref = opts === null || opts === void 0 ? void 0 : opts.createHref) !== null && _opts$createHref !== void 0 ? _opts$createHref : ((path) => path);
-	const parseLocation = (_opts$parseLocation = opts === null || opts === void 0 ? void 0 : opts.parseLocation) !== null && _opts$parseLocation !== void 0 ? _opts$parseLocation : (() => parseHref(`${win.location.pathname}${win.location.search}${win.location.hash}`, win.history.state));
-	if (!((_win$history$state = win.history.state) === null || _win$history$state === void 0 ? void 0 : _win$history$state.__TSR_key) && !((_win$history$state2 = win.history.state) === null || _win$history$state2 === void 0 ? void 0 : _win$history$state2.key)) {
+	const createHref = opts?.createHref ?? ((path) => path);
+	const parseLocation = opts?.parseLocation ?? (() => parseHref(`${win.location.pathname}${win.location.search}${win.location.hash}`, win.history.state));
+	if (!win.history.state?.__TSR_key && !win.history.state?.key) {
 		const addedKey = createRandomKey();
 		win.history.replaceState({
 			[stateIndexKey]: 0,
@@ -209,7 +195,7 @@ function createBrowserHistory(opts) {
 		next = {
 			href,
 			state,
-			isPush: (next === null || next === void 0 ? void 0 : next.isPush) || type === "push"
+			isPush: next?.isPush || type === "push"
 		};
 		if (!scheduled) scheduled = Promise.resolve().then(() => flush());
 	};
@@ -260,8 +246,7 @@ function createBrowserHistory(opts) {
 		let shouldBlock = false;
 		const blockers = _getBlockers();
 		if (typeof document !== "undefined" && blockers.length) for (const blocker of blockers) {
-			var _blocker$enableBefore;
-			const shouldHaveBeforeUnload = (_blocker$enableBefore = blocker.enableBeforeUnload) !== null && _blocker$enableBefore !== void 0 ? _blocker$enableBefore : true;
+			const shouldHaveBeforeUnload = blocker.enableBeforeUnload ?? true;
 			if (shouldHaveBeforeUnload === true) {
 				shouldBlock = true;
 				break;

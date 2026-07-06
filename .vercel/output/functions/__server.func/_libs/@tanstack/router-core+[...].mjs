@@ -1216,9 +1216,9 @@ var Lr = class {
 };
 function Fo(e, r) {
 	let t = e.valid.get(r);
-	t == null && (t = e.valid.size, e.valid.set(r, t));
+	t ?? (t = e.valid.size, e.valid.set(r, t));
 	let n = e.vars[t];
-	return n == null && (n = Vr(t), e.vars[t] = n), n;
+	return n ?? (n = Vr(t), e.vars[t] = n), n;
 }
 function Bo(e) {
 	return le + "[" + e + "]";
@@ -1494,7 +1494,7 @@ function la(e, r) {
 	let t = e.base.plugins;
 	if (t) for (let n = 0, a = t.length; n < a; n++) {
 		let s = t[n];
-		if (s.tag === r.c) return e.child == null && (e.child = new Lr(e)), s.serialize(r.s, e.child, { id: r.i });
+		if (s.tag === r.c) return e.child ??= new Lr(e), s.serialize(r.s, e.child, { id: r.i });
 	}
 	throw new X(r.c);
 }
@@ -2004,9 +2004,8 @@ function makeSerovalPlugin(serializationAdapter) {
 */
 var RawStream = class {
 	constructor(stream, options) {
-		var _options$hint;
 		this.stream = stream;
-		this.hint = (_options$hint = options === null || options === void 0 ? void 0 : options.hint) !== null && _options$hint !== void 0 ? _options$hint : "binary";
+		this.hint = options?.hint ?? "binary";
 	}
 };
 var BufferCtor = globalThis.Buffer;
@@ -2466,11 +2465,10 @@ var ScriptBuffer = class {
 		return this._queue.length > 0;
 	}
 	injectBufferedScripts() {
-		var _this$injectScript;
 		if (this._cleanedUp) return;
 		if (this._queue.length === 0) return;
 		const scriptsToInject = this.takeAll();
-		if (scriptsToInject) (_this$injectScript = this.injectScript) === null || _this$injectScript === void 0 || _this$injectScript.call(this, scriptsToInject);
+		if (scriptsToInject) this.injectScript?.(scriptsToInject);
 	}
 	cleanup() {
 		this._cleanedUp = true;
@@ -2489,11 +2487,10 @@ function getManifestCache(manifest) {
 	return newCache;
 }
 function getInlineCssForPreparedRoutes(manifest, preparedRoutes) {
-	var _manifest$inlineCss;
 	if (preparedRoutes.inlineCss !== void 0) return preparedRoutes.inlineCss;
-	const styles = (_manifest$inlineCss = manifest.inlineCss) === null || _manifest$inlineCss === void 0 ? void 0 : _manifest$inlineCss.styles;
+	const styles = manifest.inlineCss?.styles;
 	const hrefs = preparedRoutes.inlineCssHrefs;
-	if (!styles || !(hrefs === null || hrefs === void 0 ? void 0 : hrefs.length)) return void 0;
+	if (!styles || !hrefs?.length) return void 0;
 	let css = "";
 	for (const href of hrefs) css += styles[href];
 	preparedRoutes.inlineCss = css;
@@ -2518,8 +2515,7 @@ function getPreparedMatchedManifestRoutes(manifest, matches, cacheKey) {
 	return preparedRoutes;
 }
 function prepareMatchedManifestRoutes(manifest, matches) {
-	var _manifest$inlineCss2;
-	const inlineStyles = (_manifest$inlineCss2 = manifest.inlineCss) === null || _manifest$inlineCss2 === void 0 ? void 0 : _manifest$inlineCss2.styles;
+	const inlineStyles = manifest.inlineCss?.styles;
 	const routes = {};
 	if (!inlineStyles) {
 		for (const match of matches) {
@@ -2580,30 +2576,26 @@ function stripInlinedStylesheetAssetsFromRoute(inlineStyles, route, inlineCssHre
 	return nextRoute;
 }
 function hasRouteAssets(route) {
-	var _route$scripts, _route$css;
-	return !!((_route$scripts = route.scripts) === null || _route$scripts === void 0 ? void 0 : _route$scripts.length) || !!((_route$css = route.css) === null || _route$css === void 0 ? void 0 : _route$css.length);
+	return !!route.scripts?.length || !!route.css?.length;
 }
 function hasRequestAssets(assets) {
-	var _assets$preloads;
-	return !!assets && (!!((_assets$preloads = assets.preloads) === null || _assets$preloads === void 0 ? void 0 : _assets$preloads.length) || hasRouteAssets(assets));
+	return !!assets && (!!assets.preloads?.length || hasRouteAssets(assets));
 }
 function mergeRequestAssetsIntoRootRoute(rootRoute, requestAssets) {
-	var _requestAssets$preloa, _rootRoute$preloads, _requestAssets$script, _rootRoute$scripts, _requestAssets$css, _rootRoute$css;
-	const preloads = (requestAssets === null || requestAssets === void 0 || (_requestAssets$preloa = requestAssets.preloads) === null || _requestAssets$preloa === void 0 ? void 0 : _requestAssets$preloa.length) ? [...requestAssets.preloads, ...(_rootRoute$preloads = rootRoute === null || rootRoute === void 0 ? void 0 : rootRoute.preloads) !== null && _rootRoute$preloads !== void 0 ? _rootRoute$preloads : []] : rootRoute === null || rootRoute === void 0 ? void 0 : rootRoute.preloads;
-	const scripts = (requestAssets === null || requestAssets === void 0 || (_requestAssets$script = requestAssets.scripts) === null || _requestAssets$script === void 0 ? void 0 : _requestAssets$script.length) ? [...requestAssets.scripts, ...(_rootRoute$scripts = rootRoute === null || rootRoute === void 0 ? void 0 : rootRoute.scripts) !== null && _rootRoute$scripts !== void 0 ? _rootRoute$scripts : []] : rootRoute === null || rootRoute === void 0 ? void 0 : rootRoute.scripts;
-	const cssLinks = (requestAssets === null || requestAssets === void 0 || (_requestAssets$css = requestAssets.css) === null || _requestAssets$css === void 0 ? void 0 : _requestAssets$css.length) ? [...requestAssets.css, ...(_rootRoute$css = rootRoute === null || rootRoute === void 0 ? void 0 : rootRoute.css) !== null && _rootRoute$css !== void 0 ? _rootRoute$css : []] : rootRoute === null || rootRoute === void 0 ? void 0 : rootRoute.css;
+	const preloads = requestAssets?.preloads?.length ? [...requestAssets.preloads, ...rootRoute?.preloads ?? []] : rootRoute?.preloads;
+	const scripts = requestAssets?.scripts?.length ? [...requestAssets.scripts, ...rootRoute?.scripts ?? []] : rootRoute?.scripts;
+	const cssLinks = requestAssets?.css?.length ? [...requestAssets.css, ...rootRoute?.css ?? []] : rootRoute?.css;
 	return {
-		...rootRoute !== null && rootRoute !== void 0 ? rootRoute : {},
-		...(preloads === null || preloads === void 0 ? void 0 : preloads.length) ? { preloads } : {},
-		...(scripts === null || scripts === void 0 ? void 0 : scripts.length) ? { scripts } : {},
-		...(cssLinks === null || cssLinks === void 0 ? void 0 : cssLinks.length) ? { css: cssLinks } : {}
+		...rootRoute ?? {},
+		...preloads?.length ? { preloads } : {},
+		...scripts?.length ? { scripts } : {},
+		...cssLinks?.length ? { css: cssLinks } : {}
 	};
 }
 function attachRouterServerSsrUtils({ router, manifest, getRequestAssets }) {
-	var _router$serverSsrLife, _router$serverSsrLife2;
 	router.ssr = { get manifest() {
 		if (!manifest) return manifest;
-		const requestAssets = getRequestAssets === null || getRequestAssets === void 0 ? void 0 : getRequestAssets();
+		const requestAssets = getRequestAssets?.();
 		const matches = router.stores.matches.get();
 		const hasAssets = hasRequestAssets(requestAssets);
 		if (!hasAssets && !manifest.inlineCss) return manifest;
@@ -2663,13 +2655,11 @@ function attachRouterServerSsrUtils({ router, manifest, getRequestAssets }) {
 			callListeners(injectedHtmlListeners, "SSR injected HTML listener error");
 		},
 		injectScript: (script) => {
-			var _router$options$ssr;
 			if (!script || cleanupStarted) return;
-			const html = `<script${((_router$options$ssr = router.options.ssr) === null || _router$options$ssr === void 0 ? void 0 : _router$options$ssr.nonce) ? ` nonce='${router.options.ssr.nonce}'` : ""}>${script}<\/script>`;
+			const html = `<script${router.options.ssr?.nonce ? ` nonce='${router.options.ssr.nonce}'` : ""}>${script}<\/script>`;
 			serverSsr.injectHtml(html);
 		},
 		dehydrate: async (opts) => {
-			var _matchesToDehydrate, _router$options$dehyd, _router$options;
 			if (_dehydrated) invariant();
 			let matchesToDehydrate = router.stores.matches.get();
 			if (router.isShell()) matchesToDehydrate = matchesToDehydrate.slice(0, 1);
@@ -2683,7 +2673,7 @@ function attachRouterServerSsrUtils({ router, manifest, getRequestAssets }) {
 					...preparedManifest.inlineCssHrefs ? { inlineStyle: createInlineCssPlaceholderAsset() } : {},
 					routes: preparedManifest.routes
 				};
-				const requestAssets = opts === null || opts === void 0 ? void 0 : opts.requestAssets;
+				const requestAssets = opts?.requestAssets;
 				if (hasRequestAssets(requestAssets)) {
 					const existingRoot = manifestToDehydrate.routes[rootRouteId];
 					manifestToDehydrate.routes = {
@@ -2696,9 +2686,9 @@ function attachRouterServerSsrUtils({ router, manifest, getRequestAssets }) {
 				manifest: manifestToDehydrate,
 				matches
 			};
-			const lastMatchId = (_matchesToDehydrate = matchesToDehydrate[matchesToDehydrate.length - 1]) === null || _matchesToDehydrate === void 0 ? void 0 : _matchesToDehydrate.id;
+			const lastMatchId = matchesToDehydrate[matchesToDehydrate.length - 1]?.id;
 			if (lastMatchId) dehydratedRouter.lastMatchId = dehydrateSsrMatchId(lastMatchId);
-			const dehydratedData = await ((_router$options$dehyd = (_router$options = router.options).dehydrate) === null || _router$options$dehyd === void 0 ? void 0 : _router$options$dehyd.call(_router$options));
+			const dehydratedData = await router.options.dehydrate?.();
 			if (dehydratedData) dehydratedRouter.dehydratedData = dehydratedData;
 			_dehydrated = true;
 			const trackPlugins = { didRun: false };
@@ -2794,13 +2784,12 @@ function attachRouterServerSsrUtils({ router, manifest, getRequestAssets }) {
 			if (_serializationFinished) scriptBuffer.flush();
 		},
 		takeBufferedScripts() {
-			var _router$options$ssr2;
 			const scripts = scriptBuffer.takeAll();
 			if (!scripts) return void 0;
 			return {
 				tag: "script",
 				attrs: {
-					nonce: (_router$options$ssr2 = router.options.ssr) === null || _router$options$ssr2 === void 0 ? void 0 : _router$options$ssr2.nonce,
+					nonce: router.options.ssr?.nonce,
 					className: "$tsr",
 					id: TSR_SCRIPT_BARRIER_ID
 				},
@@ -2835,7 +2824,7 @@ function attachRouterServerSsrUtils({ router, manifest, getRequestAssets }) {
 		}
 	};
 	router.serverSsr = serverSsr;
-	for (const listener of (_router$serverSsrLife = (_router$serverSsrLife2 = router.serverSsrLifecycle) === null || _router$serverSsrLife2 === void 0 ? void 0 : _router$serverSsrLife2.onServerSsrAttach) !== null && _router$serverSsrLife !== void 0 ? _router$serverSsrLife : []) try {
+	for (const listener of router.serverSsrLifecycle?.onServerSsrAttach ?? []) try {
 		listener(serverSsr);
 	} catch (err) {
 		console.error("SSR attach listener error:", err);
