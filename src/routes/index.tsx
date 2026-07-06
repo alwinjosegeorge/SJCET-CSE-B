@@ -391,7 +391,7 @@ function AfterDay({
               <Moon className="h-3 w-3" /> Wrapped
             </span>
             <h2 className="mt-3 font-display text-[30px] font-bold leading-[1.03]">
-              Innathekk mathi 😌
+              Innathekk mathi 🧸✨
             </h2>
             <p className="mt-2 text-sm text-white/80">
               Classes done. Go rest, superstar.
