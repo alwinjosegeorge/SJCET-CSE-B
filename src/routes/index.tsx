@@ -119,7 +119,7 @@ function HeroCurrent({
 }) {
   const ring = progressRingPath(progress, 96, 9);
   return (
-    <div className="relative col-span-3 overflow-hidden rounded-[28px] bg-indigo-deep p-5 text-white shadow-[0_20px_60px_-24px_oklch(0.32_0.19_285_/_0.7)]">
+    <div className="relative col-span-3 overflow-hidden rounded-[28px] bg-indigo-deep p-5 text-white shadow-[0_20px_60px_-24px_rgba(76,47,115,0.7)]">
       <div className="pointer-events-none absolute inset-0 bg-dots text-white/10" />
       <div className="pointer-events-none absolute -right-16 -top-16 h-56 w-56 rounded-full bg-white/5 blur-2xl" />
 
@@ -145,7 +145,7 @@ function HeroCurrent({
               cx={ring.center}
               cy={ring.center}
               r={ring.r}
-              stroke="oklch(1 0 0 / 0.18)"
+              stroke="rgba(255, 255, 255, 0.18)"
               strokeWidth={ring.stroke}
               fill="none"
             />
@@ -310,7 +310,7 @@ function BreakBento({
   const Icon = isLunch ? UtensilsCrossed : Coffee;
   return (
     <section className="grid grid-cols-3 gap-3">
-      <div className="relative col-span-3 overflow-hidden rounded-[28px] bg-indigo-deep p-5 text-white shadow-[0_20px_60px_-24px_oklch(0.32_0.19_285_/_0.7)]">
+      <div className="relative col-span-3 overflow-hidden rounded-[28px] bg-indigo-deep p-5 text-white shadow-[0_20px_60px_-24px_rgba(76,47,115,0.7)]">
         <div className="pointer-events-none absolute inset-0 bg-dots text-white/10" />
         <div className="relative flex items-start justify-between gap-3">
           <div>
@@ -346,7 +346,7 @@ function BeforeDay({
 }) {
   return (
     <section className="grid grid-cols-3 gap-3">
-      <div className="relative col-span-3 overflow-hidden rounded-[28px] bg-indigo-deep p-5 text-white shadow-[0_20px_60px_-24px_oklch(0.32_0.19_285_/_0.7)]">
+      <div className="relative col-span-3 overflow-hidden rounded-[28px] bg-indigo-deep p-5 text-white shadow-[0_20px_60px_-24px_rgba(76,47,115,0.7)]">
         <div className="pointer-events-none absolute inset-0 bg-dots text-white/10" />
         <div className="relative flex items-start justify-between gap-3">
           <div>
@@ -382,7 +382,7 @@ function AfterDay({
   const firstTomorrow = state.tomorrowSchedule.find((x) => x.kind === "class");
   return (
     <section className="grid grid-cols-3 gap-3">
-      <div className="relative col-span-3 overflow-hidden rounded-[28px] bg-indigo-deep p-6 text-white shadow-[0_20px_60px_-24px_oklch(0.32_0.19_285_/_0.7)]">
+      <div className="relative col-span-3 overflow-hidden rounded-[28px] bg-indigo-deep p-6 text-white shadow-[0_20px_60px_-24px_rgba(76,47,115,0.7)]">
         <div className="pointer-events-none absolute inset-0 bg-dots text-white/10" />
         <div className="pointer-events-none absolute -right-10 -bottom-10 h-40 w-40 rounded-full bg-white/5 blur-2xl" />
         <div className="relative flex items-start justify-between gap-3">
@@ -437,7 +437,7 @@ function Weekend({
   const firstTomorrow = state.tomorrowSchedule.find((x) => x.kind === "class");
   return (
     <section className="grid grid-cols-3 gap-3">
-      <div className="relative col-span-3 overflow-hidden rounded-[28px] bg-indigo-deep p-6 text-white shadow-[0_20px_60px_-24px_oklch(0.32_0.19_285_/_0.7)]">
+      <div className="relative col-span-3 overflow-hidden rounded-[28px] bg-indigo-deep p-6 text-white shadow-[0_20px_60px_-24px_rgba(76,47,115,0.7)]">
         <div className="pointer-events-none absolute inset-0 bg-dots text-white/10" />
         <div className="relative flex items-start justify-between gap-3">
           <div>

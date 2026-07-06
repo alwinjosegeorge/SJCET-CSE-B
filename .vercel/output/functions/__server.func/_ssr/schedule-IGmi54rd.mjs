@@ -1,9 +1,9 @@
 import { r as __toESM } from "../_runtime.mjs";
 import { n as require_jsx_runtime, r as require_react } from "../_libs/react+tanstack__react-query.mjs";
-import { t as AppShell } from "./app-shell-Ds2zUS8U.mjs";
+import { t as AppShell } from "./app-shell-Cur6NV4B.mjs";
 import { a as buildDaySchedule, n as DAY_ORDER, r as DAY_SHORT, s as currentDayKey, t as DAY_LABEL } from "./schedule-D_kDuoLS.mjs";
-import { t as ScheduleRow } from "./schedule-row--8zQZjyK.mjs";
-//#region node_modules/.nitro/vite/services/ssr/assets/schedule-ybJy3PgU.js
+import { t as ScheduleRow } from "./schedule-row-D4BtQ9Q2.mjs";
+//#region node_modules/.nitro/vite/services/ssr/assets/schedule-IGmi54rd.js
 var import_react = /* @__PURE__ */ __toESM(require_react());
 var import_jsx_runtime = require_jsx_runtime();
 function SchedulePage() {
@@ -33,7 +33,7 @@ function SchedulePage() {
 				children: DAY_ORDER.map((d) => {
 					return /* @__PURE__ */ (0, import_jsx_runtime.jsx)("button", {
 						onClick: () => setDay(d),
-						className: `relative shrink-0 rounded-2xl px-4 py-2.5 text-sm font-bold transition ${d === day ? "bg-indigo-deep text-white shadow-[0_10px_24px_-12px_oklch(0.32_0.19_285_/_0.6)]" : "bg-surface text-ink-soft"}`,
+						className: `relative shrink-0 rounded-2xl px-4 py-2.5 text-sm font-bold transition ${d === day ? "bg-indigo-deep text-white shadow-[0_10px_24px_-12px_rgba(76,47,115,0.6)]" : "bg-surface text-ink-soft"}`,
 						children: DAY_SHORT[d]
 					}, d);
 				})

@@ -1,7 +1,7 @@
 import { n as require_jsx_runtime } from "../_libs/react+tanstack__react-query.mjs";
 import { d as Heart, g as Bell, l as Info, s as Palette } from "../_libs/lucide-react.mjs";
-import { t as AppShell } from "./app-shell-Ds2zUS8U.mjs";
-//#region node_modules/.nitro/vite/services/ssr/assets/settings-D6-tgaOr.js
+import { t as AppShell } from "./app-shell-Cur6NV4B.mjs";
+//#region node_modules/.nitro/vite/services/ssr/assets/settings-C8_sQ7Ud.js
 var import_jsx_runtime = require_jsx_runtime();
 var rows = [
 	{
