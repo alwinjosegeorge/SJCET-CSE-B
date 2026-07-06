@@ -57,13 +57,7 @@ function SchedulePage() {
               }`}
             >
               {DAY_SHORT[d]}
-              {isToday && (
-                <span
-                  className={`absolute top-1 right-1 h-1.5 w-1.5 rounded-full ${
-                    active ? "bg-blush" : "bg-indigo"
-                  }`}
-                />
-              )}
+
             </button>
           );
         })}
