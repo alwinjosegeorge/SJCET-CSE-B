@@ -100,10 +100,10 @@ function Home() {
 
 function getGreetingEmoji(d: Date): string {
   const h = d.getHours();
-  if (h < 12) return "🌤️";
-  if (h < 17) return "☀️";
-  if (h < 20) return "🌇";
-  return "🌙";
+  if (h < 12) return "🐣🌤️";
+  if (h < 17) return "🐼🕶️";
+  if (h < 20) return "🐱🌇";
+  return "🧸💤";
 }
 
 /* -------------------------- Bento tiles -------------------------- */
@@ -286,16 +286,16 @@ function InClass({
 }
 
 function pickVibe(p: number): string {
-  if (p < 0.25) return "Just started";
-  if (p < 0.6) return "Cruising";
-  if (p < 0.9) return "Almost";
-  return "Nearly done";
+  if (p < 0.25) return "Warmup 🐣";
+  if (p < 0.6) return "Cruising 🦦";
+  if (p < 0.9) return "Cooking 🚀";
+  return "Freedom 🎉";
 }
 function pickVibeEmoji(p: number): string {
   if (p < 0.25) return "🌱";
-  if (p < 0.6) return "🚴";
+  if (p < 0.6) return "🕶️";
   if (p < 0.9) return "🔥";
-  return "🏁";
+  return "🥳";
 }
 
 function BreakBento({
@@ -325,7 +325,7 @@ function BreakBento({
               Until {fmt12(state.current.end)}
             </p>
           </div>
-          <div className="text-5xl">{isLunch ? "🍱" : "☕"}</div>
+          <div className="text-5xl">{isLunch ? "🐼🍱" : "🍩☕"}</div>
         </div>
       </div>
       {state.next && <NextUpTile item={state.next} />}
@@ -360,7 +360,7 @@ function BeforeDay({
               You've got time. Grab chai ☕
             </p>
           </div>
-          <div className="text-5xl">🌅</div>
+          <div className="text-5xl">🐣🌤️</div>
         </div>
       </div>
       <NextUpTile item={state.next} />
@@ -450,7 +450,7 @@ function Weekend({
               Enjoy 🎈
             </h2>
           </div>
-          <div className="text-5xl">🛌</div>
+          <div className="text-5xl">🐼💤</div>
         </div>
       </div>
       {firstTomorrow && state.tomorrow && (
