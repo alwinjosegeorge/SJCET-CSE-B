@@ -1,4 +1,4 @@
-//#region node_modules/.nitro/vite/services/ssr/assets/_tanstack-start-manifest_v-EhSac36P.js
+//#region node_modules/.nitro/vite/services/ssr/assets/_tanstack-start-manifest_v-DNAeL05_.js
 var tsrStartManifest = () => ({ routes: {
 	__root__: {
 		filePath: "C:/Users/there/Downloads/csb-daily-flow-main/src/routes/__root.tsx",
@@ -9,48 +9,48 @@ var tsrStartManifest = () => ({ routes: {
 			"/settings",
 			"/sitemap.xml"
 		],
-		preloads: ["/assets/index-Cjm6N0dy.js"],
+		preloads: ["/assets/index-BJXSBi_d.js"],
 		scripts: [{ attrs: {
 			type: "module",
 			async: !0,
-			src: "/assets/index-Cjm6N0dy.js"
+			src: "/assets/index-BJXSBi_d.js"
 		} }]
 	},
 	"/": {
 		filePath: "C:/Users/there/Downloads/csb-daily-flow-main/src/routes/index.tsx",
 		children: void 0,
 		preloads: [
-			"/assets/routes-UtIkzaUg.js",
-			"/assets/app-shell-CrVlVEHg.js",
-			"/assets/schedule-row-DuKYxTdA.js",
-			"/assets/schedule-DXJ5J_UQ.js",
-			"/assets/use-now-CKeyWZB9.js"
+			"/assets/routes-8zHQKe7U.js",
+			"/assets/app-shell-X_nKGipM.js",
+			"/assets/schedule-row-D7ZKOB04.js",
+			"/assets/schedule-BnC90U7o.js",
+			"/assets/use-now-BGQ58sY3.js"
 		]
 	},
 	"/countdown": {
 		filePath: "C:/Users/there/Downloads/csb-daily-flow-main/src/routes/countdown.tsx",
 		children: void 0,
 		preloads: [
-			"/assets/countdown-DrUOviTb.js",
-			"/assets/app-shell-CrVlVEHg.js",
-			"/assets/schedule-DXJ5J_UQ.js",
-			"/assets/use-now-CKeyWZB9.js"
+			"/assets/countdown-4XyCxrTZ.js",
+			"/assets/app-shell-X_nKGipM.js",
+			"/assets/schedule-BnC90U7o.js",
+			"/assets/use-now-BGQ58sY3.js"
 		]
 	},
 	"/schedule": {
 		filePath: "C:/Users/there/Downloads/csb-daily-flow-main/src/routes/schedule.tsx",
 		children: void 0,
 		preloads: [
-			"/assets/schedule-xv_c-L9L.js",
-			"/assets/app-shell-CrVlVEHg.js",
-			"/assets/schedule-row-DuKYxTdA.js",
-			"/assets/schedule-DXJ5J_UQ.js"
+			"/assets/schedule-DjJkL0Aw.js",
+			"/assets/app-shell-X_nKGipM.js",
+			"/assets/schedule-row-D7ZKOB04.js",
+			"/assets/schedule-BnC90U7o.js"
 		]
 	},
 	"/settings": {
 		filePath: "C:/Users/there/Downloads/csb-daily-flow-main/src/routes/settings.tsx",
 		children: void 0,
-		preloads: ["/assets/settings-BCPxfxoN.js", "/assets/app-shell-CrVlVEHg.js"]
+		preloads: ["/assets/settings-B0Mv6Vhs.js", "/assets/app-shell-X_nKGipM.js"]
 	}
 } });
 //#endregion

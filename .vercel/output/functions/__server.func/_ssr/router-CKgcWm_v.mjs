@@ -1,7 +1,7 @@
 import { n as require_jsx_runtime, t as QueryClientProvider } from "../_libs/react+tanstack__react-query.mjs";
 import { _ as useRouter, c as HeadContent, d as createRouter, f as Outlet, g as Link, h as createRootRouteWithContext, m as createFileRoute, p as lazyRouteComponent, s as Scripts } from "../_libs/@tanstack/react-router+[...].mjs";
 import { t as QueryClient } from "../_libs/tanstack__query-core.mjs";
-//#region node_modules/.nitro/vite/services/ssr/assets/router-RMKQjDVt.js
+//#region node_modules/.nitro/vite/services/ssr/assets/router-CKgcWm_v.js
 var import_jsx_runtime = require_jsx_runtime();
 var styles_default = "/assets/styles-BHqAigTM.css";
 function NotFoundComponent() {
@@ -203,7 +203,7 @@ var Route$1 = createFileRoute("/countdown")({
 	}] }),
 	component: lazyRouteComponent($$splitComponentImporter$1, "component")
 });
-var $$splitComponentImporter = () => import("./routes-TKkykmaO.mjs");
+var $$splitComponentImporter = () => import("./routes-DUD_PRnQ.mjs");
 var Route = createFileRoute("/")({
 	head: () => ({ meta: [
 		{ title: "SJCET CSE-B Timetable" },

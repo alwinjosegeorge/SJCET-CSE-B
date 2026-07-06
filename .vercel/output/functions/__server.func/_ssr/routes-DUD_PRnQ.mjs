@@ -5,7 +5,7 @@ import { t as AppShell } from "./app-shell-Ds2zUS8U.mjs";
 import { t as useNow } from "./use-now-DwH2zO-0.mjs";
 import { c as fmt12, o as computeNowState, t as DAY_LABEL } from "./schedule-D_kDuoLS.mjs";
 import { t as ScheduleRow } from "./schedule-row--8zQZjyK.mjs";
-//#region node_modules/.nitro/vite/services/ssr/assets/routes-TKkykmaO.js
+//#region node_modules/.nitro/vite/services/ssr/assets/routes-DUD_PRnQ.js
 var import_react = /* @__PURE__ */ __toESM(require_react());
 var import_jsx_runtime = require_jsx_runtime();
 var SUBJECT_EMOJI = {
@@ -56,7 +56,8 @@ function Home() {
 	});
 	const timeLabel = now.toLocaleTimeString(void 0, {
 		hour: "numeric",
-		minute: "2-digit"
+		minute: "2-digit",
+		hour12: true
 	});
 	return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(AppShell, {
 		header: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("header", {
