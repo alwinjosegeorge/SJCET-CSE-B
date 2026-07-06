@@ -8,8 +8,8 @@ import { DAY_LABEL, DAY_ORDER, DAY_SHORT, type DayKey } from "@/lib/timetable";
 export const Route = createFileRoute("/schedule")({
   head: () => ({
     meta: [
-      { title: "Schedule · CS-B" },
-      { name: "description", content: "Full weekly timetable for CS-B." },
+      { title: "Schedule · SJCET CSE-B" },
+      { name: "description", content: "Full weekly timetable for SJCET CSE-B." },
     ],
   }),
   component: SchedulePage,
@@ -34,7 +34,7 @@ function SchedulePage() {
       header={
         <header className="mb-5">
           <p className="text-[11px] font-bold uppercase tracking-[0.22em] text-indigo">
-            CS-B ✦
+            SJCET CSE-B ✦
           </p>
           <h1 className="mt-1 font-display text-[28px] font-bold text-ink">
             The week 🗓️
@@ -59,7 +59,7 @@ function SchedulePage() {
               {DAY_SHORT[d]}
               {isToday && (
                 <span
-                  className={`absolute -top-1 -right-1 h-2.5 w-2.5 rounded-full ring-2 ring-background ${
+                  className={`absolute top-1 right-1 h-1.5 w-1.5 rounded-full ${
                     active ? "bg-blush" : "bg-indigo"
                   }`}
                 />

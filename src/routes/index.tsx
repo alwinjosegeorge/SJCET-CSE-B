@@ -22,14 +22,14 @@ import {
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "CS-B Timetable" },
+      { title: "SJCET CSE-B Timetable" },
       {
         name: "description",
         content:
-          "Live class schedule for CS-B — know exactly what's happening right now.",
+          "Live class schedule for SJCET CSE-B — know exactly what's happening right now.",
       },
-      { property: "og:title", content: "CS-B Timetable" },
-      { property: "og:description", content: "Live class schedule for CS-B." },
+      { property: "og:title", content: "SJCET CSE-B Timetable" },
+      { property: "og:description", content: "Live class schedule for SJCET CSE-B." },
     ],
   }),
   component: Home,
@@ -67,7 +67,7 @@ function Home() {
         <header className="mb-5 grid grid-cols-[minmax(0,1fr)_auto] items-center gap-3">
           <div className="min-w-0">
             <p className="text-[11px] font-bold uppercase tracking-[0.22em] text-indigo">
-              CS-B ✦
+              SJCET CSE-B ✦
             </p>
             <h1 className="mt-1 truncate font-display text-[28px] font-bold leading-tight text-ink">
               {headerDay}

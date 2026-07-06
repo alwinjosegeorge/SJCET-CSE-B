@@ -5,8 +5,8 @@ import { Info, Bell, Palette, Heart } from "lucide-react";
 export const Route = createFileRoute("/settings")({
   head: () => ({
     meta: [
-      { title: "Settings · CS-B" },
-      { name: "description", content: "App preferences for CS-B Timetable." },
+      { title: "Settings · SJCET CSE-B" },
+      { name: "description", content: "App preferences for SJCET CSE-B Timetable." },
     ],
   }),
   component: SettingsPage,
@@ -15,7 +15,7 @@ export const Route = createFileRoute("/settings")({
 const rows = [
   { icon: Bell, label: "Class reminders", hint: "Soon ⏰", tone: "bg-blush" },
   { icon: Palette, label: "Appearance", hint: "System", tone: "bg-mint" },
-  { icon: Heart, label: "Made for CS-B", hint: "with love", tone: "bg-butter" },
+  { icon: Heart, label: "Made for SJCET CSE-B", hint: "with love", tone: "bg-butter" },
   { icon: Info, label: "About", hint: "v1.0", tone: "bg-lilac-soft" },
 ];
 
@@ -25,7 +25,7 @@ function SettingsPage() {
       header={
         <header className="mb-5">
           <p className="text-[11px] font-bold uppercase tracking-[0.22em] text-indigo">
-            CS-B ✦
+            SJCET CSE-B ✦
           </p>
           <h1 className="mt-1 font-display text-[28px] font-bold text-ink">
             Settings ⚙️
