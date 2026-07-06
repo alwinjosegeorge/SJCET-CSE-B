@@ -17,6 +17,7 @@ import {
   Moon,
   Sparkles,
   ArrowUpRight,
+  Bell,
 } from "lucide-react";
 
 export const Route = createFileRoute("/")({
@@ -34,6 +35,83 @@ export const Route = createFileRoute("/")({
   }),
   component: Home,
 });
+
+function LiveCountdown({
+  state,
+  now,
+}: {
+  state: Extract<
+    ReturnType<typeof computeNowState>,
+    { phase: "in-class" | "break" | "lunch" | "before-day" }
+  >;
+  now: Date;
+}) {
+  const nowMin = now.getHours() * 60 + now.getMinutes() + now.getSeconds() / 60;
+
+  let targetMin = 0;
+  let label = "";
+
+  if (state.phase === "before-day") {
+    targetMin = state.next.startMin;
+    label = "First class starts";
+  } else if (state.phase === "in-class") {
+    targetMin = state.current.endMin;
+    label = `${state.current.subject ? `${state.current.subject} (${state.current.label})` : state.current.label} ends`;
+  } else {
+    // break or lunch
+    targetMin = state.current.endMin;
+    label = `${state.phase === "lunch" ? "Lunch break" : "Break"} ends`;
+  }
+
+  const totalSecondsLeft = Math.max(0, Math.floor((targetMin - nowMin) * 60));
+  const min = Math.floor(totalSecondsLeft / 60);
+  const sec = totalSecondsLeft % 60;
+
+  // Progress calculation
+  let startMin = 0;
+  if (state.phase === "before-day") {
+    startMin = state.next.startMin - 30; // assume starts 30 mins before first class
+  } else {
+    startMin = state.current.startMin;
+  }
+  const totalDurationSec = (targetMin - startMin) * 60;
+  const elapsedSec = totalDurationSec - totalSecondsLeft;
+  const progressPercent = totalDurationSec > 0 ? Math.min(100, Math.max(0, (elapsedSec / totalDurationSec) * 100)) : 100;
+
+  return (
+    <div className="mb-5 overflow-hidden rounded-[24px] border border-indigo/15 bg-gradient-to-r from-indigo/5 to-lilac-soft/20 p-4 shadow-sm">
+      <div className="flex items-center justify-between gap-3">
+        <div className="flex items-center gap-2.5">
+          <div className="grid h-8 w-8 place-items-center rounded-xl bg-indigo text-white shadow-sm">
+            <Bell className="h-4 w-4 animate-bounce" style={{ animationDuration: '2s' }} />
+          </div>
+          <div>
+            <p className="text-[10px] font-bold uppercase tracking-wider text-indigo-deep">
+              Live Countdown
+            </p>
+            <p className="text-xs font-semibold text-ink-soft">
+              {label}
+            </p>
+          </div>
+        </div>
+        <div className="text-right">
+          <p className="font-display text-2xl font-black tabular-nums tracking-tight text-indigo-deep">
+            {min}:{sec.toString().padStart(2, "0")}
+          </p>
+          <p className="text-[10px] font-bold uppercase tracking-wider text-indigo/70">
+            minutes left
+          </p>
+        </div>
+      </div>
+      <div className="mt-3.5 h-1.5 overflow-hidden rounded-full bg-indigo/10">
+        <div 
+          className="h-full rounded-full bg-gradient-to-r from-indigo to-indigo-deep transition-all duration-1000 ease-out" 
+          style={{ width: `${progressPercent}%` }}
+        />
+      </div>
+    </div>
+  );
+}
 
 function Home() {
   const now = useNow(1000);
@@ -82,6 +160,9 @@ function Home() {
         </header>
       }
     >
+      {state.phase !== "weekend" && state.phase !== "after-day" && (
+        <LiveCountdown state={state} now={now} />
+      )}
       {state.phase === "in-class" && <InClass state={state} />}
       {(state.phase === "break" || state.phase === "lunch") && (
         <BreakBento state={state} />
