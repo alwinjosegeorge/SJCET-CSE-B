@@ -1,8 +1,22 @@
+<div align="center">
+
 # 🏫 SJCET CSE-B Timetable 📅✨
 
-> A beautiful, calm, and mobile-first timetable app for **SJCET CSE-B** students. Built to help you know exactly what is happening right now, which class is next, and when the bell will ring! 🔔
+  <p align="center">
+    <img src="https://img.shields.io/badge/Made%20with%20%E2%9D%A4%EF%B8%8F-SJCET%20CSE--B-FF6B6B?style=for-the-badge" alt="Made for SJCET CSE-B" />
+    <img src="https://img.shields.io/badge/Vibe-🦦%20Cruising-4ECDC4?style=for-the-badge" alt="Vibe Cruising" />
+    <img src="https://img.shields.io/badge/Status-Bell%20Active%20%F0%9F%94%94-FFE66D?style=for-the-badge&labelColor=333333" alt="Bell Active" />
+  </p>
+
+  <h4>A super-cute, calm, and mobile-first timetable app designed for SJCET CSE-B classmates! Know exactly what class is happening, what's next, and when the bell will ring! 🧸✨</h4>
+
+  <p align="center">
+    <a href="https://ini-enthada-class.vercel.app/"><b>✨ Visit Live App ✨</b></a>
+  </p>
 
 ---
+
+</div>
 
 ## 🌟 Key Features
 
@@ -21,20 +35,25 @@
 ## 🎨 Cute Dashboard Indicators (Vibe Check)
 
 Depending on your progress during a class, the app will update its status with cute animal highlights:
-* 🐣 **Warmup**: Class just started. Let's get ready!
-* 🦦 **Cruising**: Halfway through the lecture. Keeping it smooth.
-* 🚀 **Cooking**: Almost there, stay focused!
-* 🎉 **Freedom**: Nearly done. Packing bags!
+
+| Progress | Vibe Name | Emoji | Meaning |
+| :--- | :--- | :---: | :--- |
+| **0% – 25%** | Warmup | 🐣 | Class just started. Let's get ready! |
+| **25% – 60%** | Cruising | 🦦 | Halfway through the lecture. Keeping it smooth. |
+| **60% – 90%** | Cooking | 🚀 | Almost there, stay focused! |
+| **90% – 100%** | Freedom | 🎉 | Nearly done. Packing bags! |
 
 ---
 
 ## 🛠️ Technology Stack
 
-* **Core**: [React](https://react.dev/) + [TypeScript](https://www.typescriptlang.org/)
-* **Routing**: [TanStack Router](https://tanstack.com/router)
-* **SSR**: [TanStack Start](https://tanstack.com/start)
-* **Styling**: [TailwindCSS](https://tailwindcss.com/)
-* **Build tool**: [Vite](https://vite.dev/)
+<p align="left">
+  <img src="https://img.shields.io/badge/React-20232A?style=flat-square&logo=react&logoColor=61DAFB" alt="React" />
+  <img src="https://img.shields.io/badge/TypeScript-007ACC?style=flat-square&logo=typescript&logoColor=white" alt="TypeScript" />
+  <img src="https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=flat-square&logo=tailwind-css&logoColor=white" alt="TailwindCSS" />
+  <img src="https://img.shields.io/badge/Vite-646CFF?style=flat-square&logo=vite&logoColor=white" alt="Vite" />
+  <img src="https://img.shields.io/badge/Vercel-000000?style=flat-square&logo=vercel&logoColor=white" alt="Vercel" />
+</p>
 
 ---
 
@@ -61,4 +80,7 @@ To run the project locally on your machine:
 
 ---
 
-## 🧸 Made for SJCET CSE-B 💖
+<div align="center">
+  <h3>Made with 💖 for SJCET CSE-B</h3>
+  <p>🧸✨ Keep cruising, superstars! ✨🧸</p>
+</div>
