@@ -3,8 +3,8 @@ import { n as require_jsx_runtime, r as require_react } from "../_libs/react+tan
 import { c as Moon, f as Coffee, g as Bell, h as BookOpen, i as Sun, n as UtensilsCrossed, r as Timer, t as Utensils } from "../_libs/lucide-react.mjs";
 import { t as AppShell } from "./app-shell-Cur6NV4B.mjs";
 import { t as useNow } from "./use-now-DwH2zO-0.mjs";
-import { c as fmt12, i as PERIOD_SLOTS, o as computeNowState, s as currentDayKey } from "./schedule-D_kDuoLS.mjs";
-//#region node_modules/.nitro/vite/services/ssr/assets/countdown-B2OJfskP.js
+import { c as fmt12, i as PERIOD_SLOTS, o as computeNowState, s as currentDayKey } from "./schedule-BMKYyNHL.mjs";
+//#region node_modules/.nitro/vite/services/ssr/assets/countdown-DeeQSFIY.js
 var import_react = /* @__PURE__ */ __toESM(require_react());
 var import_jsx_runtime = require_jsx_runtime();
 function CountdownPage() {
@@ -44,7 +44,8 @@ function CountdownPage() {
 		icon = state.phase === "lunch" ? /* @__PURE__ */ (0, import_jsx_runtime.jsx)(UtensilsCrossed, { className: "h-6 w-6 text-white" }) : /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Coffee, { className: "h-6 w-6 text-white" });
 		cardBg = "bg-gradient-to-br from-lilac to-indigo-deep text-white";
 	} else {
-		const firstTomorrow = state.tomorrowSchedule?.find((x) => x.kind === "class");
+		var _state$tomorrowSchedu;
+		const firstTomorrow = (_state$tomorrowSchedu = state.tomorrowSchedule) === null || _state$tomorrowSchedu === void 0 ? void 0 : _state$tomorrowSchedu.find((x) => x.kind === "class");
 		if (firstTomorrow) {
 			let addedMinutes = 0;
 			if (dk === "fri") {
