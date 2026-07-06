@@ -1,11 +1,11 @@
 import { r as __toESM } from "../_runtime.mjs";
 import { n as require_jsx_runtime, r as require_react } from "../_libs/react+tanstack__react-query.mjs";
 import { _ as ArrowUpRight, a as Sparkles, c as Moon, f as Coffee, i as Sun, n as UtensilsCrossed } from "../_libs/lucide-react.mjs";
-import { t as AppShell } from "./app-shell-Cur6NV4B.mjs";
+import { t as AppShell } from "./app-shell-Ds2zUS8U.mjs";
 import { t as useNow } from "./use-now-DwH2zO-0.mjs";
 import { c as fmt12, o as computeNowState, t as DAY_LABEL } from "./schedule-D_kDuoLS.mjs";
-import { t as ScheduleRow } from "./schedule-row-D4BtQ9Q2.mjs";
-//#region node_modules/.nitro/vite/services/ssr/assets/routes-B9QeYu50.js
+import { t as ScheduleRow } from "./schedule-row--8zQZjyK.mjs";
+//#region node_modules/.nitro/vite/services/ssr/assets/routes-TKkykmaO.js
 var import_react = /* @__PURE__ */ __toESM(require_react());
 var import_jsx_runtime = require_jsx_runtime();
 var SUBJECT_EMOJI = {
@@ -109,7 +109,7 @@ function getGreetingEmoji(d) {
 function HeroCurrent({ item, minutesLeft, progress }) {
 	const ring = progressRingPath(progress, 96, 9);
 	return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-		className: "relative col-span-3 overflow-hidden rounded-[28px] bg-indigo-deep p-5 text-white shadow-[0_20px_60px_-24px_rgba(76,47,115,0.7)]",
+		className: "relative col-span-3 overflow-hidden rounded-[28px] bg-indigo-deep p-5 text-white shadow-[0_20px_60px_-24px_oklch(0.32_0.19_285_/_0.7)]",
 		children: [
 			/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { className: "pointer-events-none absolute inset-0 bg-dots text-white/10" }),
 			/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { className: "pointer-events-none absolute -right-16 -top-16 h-56 w-56 rounded-full bg-white/5 blur-2xl" }),
@@ -158,7 +158,7 @@ function HeroCurrent({ item, minutesLeft, progress }) {
 							cx: ring.center,
 							cy: ring.center,
 							r: ring.r,
-							stroke: "rgba(255, 255, 255, 0.18)",
+							stroke: "oklch(1 0 0 / 0.18)",
 							strokeWidth: ring.stroke,
 							fill: "none"
 						}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("circle", {
@@ -315,7 +315,7 @@ function BreakBento({ state }) {
 		className: "grid grid-cols-3 gap-3",
 		children: [
 			/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-				className: "relative col-span-3 overflow-hidden rounded-[28px] bg-indigo-deep p-5 text-white shadow-[0_20px_60px_-24px_rgba(76,47,115,0.7)]",
+				className: "relative col-span-3 overflow-hidden rounded-[28px] bg-indigo-deep p-5 text-white shadow-[0_20px_60px_-24px_oklch(0.32_0.19_285_/_0.7)]",
 				children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { className: "pointer-events-none absolute inset-0 bg-dots text-white/10" }), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
 					className: "relative flex items-start justify-between gap-3",
 					children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { children: [
@@ -360,7 +360,7 @@ function BeforeDay({ state }) {
 		className: "grid grid-cols-3 gap-3",
 		children: [
 			/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-				className: "relative col-span-3 overflow-hidden rounded-[28px] bg-indigo-deep p-5 text-white shadow-[0_20px_60px_-24px_rgba(76,47,115,0.7)]",
+				className: "relative col-span-3 overflow-hidden rounded-[28px] bg-indigo-deep p-5 text-white shadow-[0_20px_60px_-24px_oklch(0.32_0.19_285_/_0.7)]",
 				children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { className: "pointer-events-none absolute inset-0 bg-dots text-white/10" }), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
 					className: "relative flex items-start justify-between gap-3",
 					children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { children: [
@@ -397,7 +397,7 @@ function AfterDay({ state }) {
 	return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("section", {
 		className: "grid grid-cols-3 gap-3",
 		children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-			className: "relative col-span-3 overflow-hidden rounded-[28px] bg-indigo-deep p-6 text-white shadow-[0_20px_60px_-24px_rgba(76,47,115,0.7)]",
+			className: "relative col-span-3 overflow-hidden rounded-[28px] bg-indigo-deep p-6 text-white shadow-[0_20px_60px_-24px_oklch(0.32_0.19_285_/_0.7)]",
 			children: [
 				/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { className: "pointer-events-none absolute inset-0 bg-dots text-white/10" }),
 				/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { className: "pointer-events-none absolute -right-10 -bottom-10 h-40 w-40 rounded-full bg-white/5 blur-2xl" }),
@@ -455,7 +455,7 @@ function Weekend({ state }) {
 	return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("section", {
 		className: "grid grid-cols-3 gap-3",
 		children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-			className: "relative col-span-3 overflow-hidden rounded-[28px] bg-indigo-deep p-6 text-white shadow-[0_20px_60px_-24px_rgba(76,47,115,0.7)]",
+			className: "relative col-span-3 overflow-hidden rounded-[28px] bg-indigo-deep p-6 text-white shadow-[0_20px_60px_-24px_oklch(0.32_0.19_285_/_0.7)]",
 			children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { className: "pointer-events-none absolute inset-0 bg-dots text-white/10" }), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
 				className: "relative flex items-start justify-between gap-3",
 				children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {

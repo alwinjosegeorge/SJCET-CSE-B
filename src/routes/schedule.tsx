@@ -52,7 +52,7 @@ function SchedulePage() {
               onClick={() => setDay(d)}
               className={`relative shrink-0 rounded-2xl px-4 py-2.5 text-sm font-bold transition ${
                 active
-                  ? "bg-indigo-deep text-white shadow-[0_10px_24px_-12px_rgba(76,47,115,0.6)]"
+                  ? "bg-indigo-deep text-white shadow-[0_10px_24px_-12px_oklch(0.32_0.19_285_/_0.6)]"
                   : "bg-surface text-ink-soft"
               }`}
             >

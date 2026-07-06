@@ -1,7 +1,7 @@
 import { n as require_jsx_runtime } from "../_libs/react+tanstack__react-query.mjs";
 import { a as Sparkles, f as Coffee, n as UtensilsCrossed, p as Check } from "../_libs/lucide-react.mjs";
 import { c as fmt12, l as subjectEmoji } from "./schedule-D_kDuoLS.mjs";
-//#region node_modules/.nitro/vite/services/ssr/assets/schedule-row-D4BtQ9Q2.js
+//#region node_modules/.nitro/vite/services/ssr/assets/schedule-row--8zQZjyK.js
 var import_jsx_runtime = require_jsx_runtime();
 function ScheduleRow({ item, status }) {
 	if (item.kind === "break" || item.kind === "lunch") {
@@ -38,7 +38,7 @@ function ScheduleRow({ item, status }) {
 	const isCurrent = status === "current";
 	const isDone = status === "done";
 	return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-		className: `relative flex items-center gap-3 rounded-3xl border px-4 py-3.5 transition ${isCurrent ? "border-transparent bg-indigo-deep text-white shadow-[0_16px_40px_-16px_rgba(76,47,115,0.55)]" : "border-border bg-surface text-ink"} ${isDone ? "opacity-50" : ""}`,
+		className: `relative flex items-center gap-3 rounded-3xl border px-4 py-3.5 transition ${isCurrent ? "border-transparent bg-indigo-deep text-white shadow-[0_16px_40px_-16px_oklch(0.32_0.19_285_/_0.55)]" : "border-border bg-surface text-ink"} ${isDone ? "opacity-50" : ""}`,
 		children: [
 			/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
 				className: `grid h-11 w-11 shrink-0 place-items-center rounded-2xl font-display text-lg font-bold ${isCurrent ? "bg-white/15 text-white" : isDone ? "bg-mint text-ink" : "bg-lilac-soft text-indigo-deep"}`,
