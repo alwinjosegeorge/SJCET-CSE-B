@@ -1,7 +1,7 @@
 import { n as require_jsx_runtime } from "../_libs/react+tanstack__react-query.mjs";
 import { d as Heart, g as Bell, l as Info, s as Palette } from "../_libs/lucide-react.mjs";
 import { t as AppShell } from "./app-shell-Ds2zUS8U.mjs";
-//#region node_modules/.nitro/vite/services/ssr/assets/settings-D6-tgaOr.js
+//#region node_modules/.nitro/vite/services/ssr/assets/settings-DXB_l0ZN.js
 var import_jsx_runtime = require_jsx_runtime();
 var rows = [
 	{
@@ -30,7 +30,7 @@ var rows = [
 	}
 ];
 function SettingsPage() {
-	return /* @__PURE__ */ (0, import_jsx_runtime.jsx)(AppShell, {
+	return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(AppShell, {
 		header: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("header", {
 			className: "mb-5",
 			children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
@@ -41,7 +41,7 @@ function SettingsPage() {
 				children: "Settings ⚙️"
 			})]
 		}),
-		children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+		children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
 			className: "space-y-2.5",
 			children: rows.map((r) => /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
 				className: "flex items-center gap-3 rounded-3xl border border-border/60 bg-surface px-4 py-3.5",
@@ -63,7 +63,26 @@ function SettingsPage() {
 					})
 				]
 			}, r.label))
-		})
+		}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+			className: "mt-10 flex flex-col items-center justify-center gap-1.5 pb-6",
+			children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("a", {
+				href: "https://codexorastudio.vercel.app/",
+				target: "_blank",
+				rel: "noopener noreferrer",
+				className: "group inline-flex items-center gap-1.5 rounded-full bg-lilac-soft/60 px-4 py-2.5 text-xs font-bold text-indigo transition-all duration-300 hover:bg-lilac-soft hover:scale-[1.02] active:scale-[0.98] shadow-sm",
+				children: [
+					/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { children: "Made with 💖 by" }),
+					/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
+						className: "underline decoration-indigo/35 decoration-2 underline-offset-2 group-hover:decoration-indigo",
+						children: "Codexora Studio"
+					}),
+					/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
+						className: "text-sm",
+						children: "✨"
+					})
+				]
+			})
+		})]
 	});
 }
 //#endregion

@@ -53,6 +53,21 @@ function SettingsPage() {
           </div>
         ))}
       </div>
+
+      <div className="mt-10 flex flex-col items-center justify-center gap-1.5 pb-6">
+        <a
+          href="https://codexorastudio.vercel.app/"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="group inline-flex items-center gap-1.5 rounded-full bg-lilac-soft/60 px-4 py-2.5 text-xs font-bold text-indigo transition-all duration-300 hover:bg-lilac-soft hover:scale-[1.02] active:scale-[0.98] shadow-sm"
+        >
+          <span>Made with 💖 by</span>
+          <span className="underline decoration-indigo/35 decoration-2 underline-offset-2 group-hover:decoration-indigo">
+            Codexora Studio
+          </span>
+          <span className="text-sm">✨</span>
+        </a>
+      </div>
     </AppShell>
   );
 }
