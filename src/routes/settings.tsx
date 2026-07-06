@@ -15,7 +15,7 @@ export const Route = createFileRoute("/settings")({
 const rows = [
   { icon: Bell, label: "Class reminders", hint: "Soon ⏰", tone: "bg-blush" },
   { icon: Palette, label: "Appearance", hint: "System", tone: "bg-mint" },
-  { icon: Heart, label: "Made for SJCET CSE-B", hint: "with love", tone: "bg-butter" },
+  { icon: Heart, label: "Made for SJCET CSE-B", hint: "", tone: "bg-butter" },
   { icon: Info, label: "About", hint: "v1.0", tone: "bg-lilac-soft" },
 ];
 
