@@ -3,7 +3,7 @@ import { useMemo } from "react";
 import { AppShell } from "@/components/app-shell";
 import { ScheduleRow } from "@/components/schedule-row";
 import { useNow } from "@/hooks/use-now";
-import { computeNowState, currentDayKey, fmt12, type ScheduleItem } from "@/lib/schedule";
+import { computeNowState, fmt12, type ScheduleItem } from "@/lib/schedule";
 import { DAY_LABEL } from "@/lib/timetable";
 import {
   niceTimeLeft,
@@ -17,7 +17,6 @@ import {
   Moon,
   Sparkles,
   ArrowUpRight,
-  Bell,
 } from "lucide-react";
 
 export const Route = createFileRoute("/")({
@@ -36,105 +35,6 @@ export const Route = createFileRoute("/")({
   component: Home,
 });
 
-function LiveCountdown({
-  state,
-  now,
-}: {
-  state: ReturnType<typeof computeNowState>;
-  now: Date;
-}) {
-  const dk = currentDayKey(now);
-  const nowMin = now.getHours() * 60 + now.getMinutes() + now.getSeconds() / 60;
-
-  let targetMin = 0;
-  let label = "";
-  let startMin = 0;
-
-  if (state.phase === "before-day") {
-    targetMin = state.next.startMin;
-    label = "First class starts";
-    startMin = state.next.startMin - 30; // assume countdown starts 30 mins before first class
-  } else if (state.phase === "in-class") {
-    targetMin = state.current.endMin;
-    label = `${state.current.subject ? `${state.current.subject} (${state.current.label})` : state.current.label} ends`;
-    startMin = state.current.startMin;
-  } else if (state.phase === "break" || state.phase === "lunch") {
-    targetMin = state.current.endMin;
-    label = `${state.phase === "lunch" ? "Lunch break" : "Break"} ends`;
-    startMin = state.current.startMin;
-  } else {
-    // after-day or weekend
-    const firstTomorrow = state.tomorrowSchedule?.find((x) => x.kind === "class");
-    if (!firstTomorrow) {
-      return null;
-    }
-
-    let addedMinutes = 0;
-    if (dk === "fri") {
-      addedMinutes = 1440 * 2; // Saturday + Sunday
-      label = "Monday's class starts";
-    } else if (dk === "sat") {
-      addedMinutes = 1440; // Sunday
-      label = "Monday's class starts";
-    } else if (dk === "sun") {
-      label = "Monday's class starts";
-    } else {
-      label = "Tomorrow's class starts";
-    }
-
-    targetMin = 1440 + addedMinutes + firstTomorrow.startMin;
-    startMin = nowMin; // just default progress bar to 0 or full
-  }
-
-  const totalSecondsLeft = Math.max(0, Math.floor((targetMin - nowMin) * 60));
-  const hrs = Math.floor(totalSecondsLeft / 3600);
-  const min = Math.floor((totalSecondsLeft % 3600) / 60);
-  const sec = totalSecondsLeft % 60;
-
-  const countdownStr = hrs > 0
-    ? `${hrs}h ${min}m ${sec.toString().padStart(2, "0")}s`
-    : `${min}:${sec.toString().padStart(2, "0")}`;
-
-  const totalDurationSec = (targetMin - startMin) * 60;
-  const elapsedSec = totalDurationSec - totalSecondsLeft;
-  const progressPercent = totalDurationSec > 0 ? Math.min(100, Math.max(0, (elapsedSec / totalDurationSec) * 100)) : 100;
-
-  return (
-    <div className="mb-5 overflow-hidden rounded-[24px] border border-indigo/15 bg-gradient-to-r from-indigo/5 to-lilac-soft/20 p-4 shadow-sm">
-      <div className="flex items-center justify-between gap-3">
-        <div className="flex items-center gap-2.5">
-          <div className="grid h-8 w-8 place-items-center rounded-xl bg-indigo text-white shadow-sm">
-            <Bell className="h-4 w-4 animate-bounce" style={{ animationDuration: '2s' }} />
-          </div>
-          <div>
-            <p className="text-[10px] font-bold uppercase tracking-wider text-indigo-deep">
-              Live Countdown
-            </p>
-            <p className="text-xs font-semibold text-ink-soft">
-              {label}
-            </p>
-          </div>
-        </div>
-        <div className="text-right">
-          <p className="font-display text-2xl font-black tabular-nums tracking-tight text-indigo-deep">
-            {countdownStr}
-          </p>
-          <p className="text-[10px] font-bold uppercase tracking-wider text-indigo/70">
-            {hrs > 0 ? "remaining" : "minutes left"}
-          </p>
-        </div>
-      </div>
-      {hrs === 0 && (
-        <div className="mt-3.5 h-1.5 overflow-hidden rounded-full bg-indigo/10">
-          <div 
-            className="h-full rounded-full bg-gradient-to-r from-indigo to-indigo-deep transition-all duration-1000 ease-out" 
-            style={{ width: `${progressPercent}%` }}
-          />
-        </div>
-      )}
-    </div>
-  );
-}
 
 function Home() {
   const now = useNow(1000);
@@ -182,7 +82,7 @@ function Home() {
         </header>
       }
     >
-      <LiveCountdown state={state} now={now} />
+
       {state.phase === "in-class" && <InClass state={state} />}
       {(state.phase === "break" || state.phase === "lunch") && (
         <BreakBento state={state} />
