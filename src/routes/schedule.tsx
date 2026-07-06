@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { AppShell } from "@/components/app-shell";
 import { ScheduleRow } from "@/components/schedule-row";
 import { buildDaySchedule, currentDayKey } from "@/lib/schedule";
@@ -16,11 +16,16 @@ export const Route = createFileRoute("/schedule")({
 });
 
 function SchedulePage() {
-  const todayKey = currentDayKey(new Date());
-  const initial: DayKey = DAY_ORDER.includes(todayKey as DayKey)
-    ? (todayKey as DayKey)
-    : "mon";
-  const [day, setDay] = useState<DayKey>(initial);
+  const [day, setDay] = useState<DayKey>("mon");
+  const [todayKey, setTodayKey] = useState<DayKey | "sat" | "sun" | null>(null);
+
+  useEffect(() => {
+    const key = currentDayKey(new Date());
+    setTodayKey(key);
+    if (DAY_ORDER.includes(key as DayKey)) {
+      setDay(key as DayKey);
+    }
+  }, []);
   const items = buildDaySchedule(day);
   const classCount = items.filter((x) => x.kind === "class").length;
 

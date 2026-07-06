@@ -37,6 +37,17 @@ export const Route = createFileRoute("/")({
 
 function Home() {
   const now = useNow(1000);
+
+  if (!now) {
+    return (
+      <AppShell>
+        <div className="flex h-[50vh] items-center justify-center">
+          <div className="h-6 w-6 animate-spin rounded-full border-2 border-indigo border-t-transparent" />
+        </div>
+      </AppShell>
+    );
+  }
+
   const state = useMemo(() => computeNowState(now), [now]);
 
   const headerDay =
@@ -80,7 +91,7 @@ function Home() {
       {state.phase === "weekend" && <Weekend state={state} />}
 
       {state.phase !== "weekend" && state.phase !== "after-day" && (
-        <TodaySchedule state={state} />
+        <TodaySchedule state={state} now={now} />
       )}
     </AppShell>
   );
@@ -468,14 +479,16 @@ function Weekend({
 
 function TodaySchedule({
   state,
+  now,
 }: {
   state: Extract<
     ReturnType<typeof computeNowState>,
     { phase: "in-class" | "break" | "lunch" | "before-day" }
   >;
+  now: Date;
 }) {
   const nowMin =
-    new Date().getHours() * 60 + new Date().getMinutes();
+    now.getHours() * 60 + now.getMinutes();
   const total = state.today.filter((x) => x.kind === "class").length;
   const done = state.today.filter(
     (x) => x.kind === "class" && nowMin >= x.endMin,

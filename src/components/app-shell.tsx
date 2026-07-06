@@ -1,4 +1,4 @@
-import type { ReactNode } from "react";
+import { useState, useEffect, type ReactNode } from "react";
 import { BottomNav } from "./bottom-nav";
 
 interface AppShellProps {
@@ -19,6 +19,17 @@ export function AppShell({ header, children }: AppShellProps) {
 }
 
 export function AppHeader({ day }: { day: string }) {
+  const [dateStr, setDateStr] = useState<string>("");
+
+  useEffect(() => {
+    setDateStr(
+      new Date().toLocaleDateString(undefined, {
+        day: "numeric",
+        month: "short",
+      })
+    );
+  }, []);
+
   return (
     <header className="mb-6 flex items-center justify-between">
       <div>
@@ -28,10 +39,7 @@ export function AppHeader({ day }: { day: string }) {
         <h1 className="mt-1 font-display text-3xl font-semibold text-ink">{day}</h1>
       </div>
       <div className="rounded-full border border-border/60 bg-surface px-3 py-1.5 text-[11px] font-medium text-ink-soft">
-        {new Date().toLocaleDateString(undefined, {
-          day: "numeric",
-          month: "short",
-        })}
+        {dateStr}
       </div>
     </header>
   );
