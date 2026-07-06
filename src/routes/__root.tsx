@@ -84,21 +84,22 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
         content:
           "A calm, mobile-first timetable for SJCET CSE-B. Open the app and instantly see what class is happening now.",
       },
+      { name: "keywords", content: "SJCET, SJCET CSE-B, SJCET CS-B, CSE-B, SJCET Timetable, CSE-B Timetable, St. Joseph's College of Engineering and Technology, SJCET Palai, CS-B Daily Flow, CS-B, SJCET CSE, CSE B, SJCET CSE B, College Timetable, engineering college timetable, SJCET CSE-B Class Schedule, SJCET CSE B Timetable" },
       { property: "og:title", content: "SJCET CSE-B Timetable" },
       {
         property: "og:description",
-        content: "Live class schedule for SJCET CSE-B — designed to feel like a native app.",
+        content: "Live class schedule for SJCET CSE-B — know exactly what's happening right now.",
       },
+      { property: "og:image", content: "/og-image.png" },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
       { name: "twitter:title", content: "SJCET CSE-B Timetable" },
-      { name: "description", content: "Live class schedule for SJCET CSE-B — know exactly what's happening right now." },
-      { property: "og:description", content: "Live class schedule for SJCET CSE-B — know exactly what's happening right now." },
       { name: "twitter:description", content: "Live class schedule for SJCET CSE-B — know exactly what's happening right now." },
+      { name: "twitter:image", content: "/og-image.png" },
     ],
     links: [
       { rel: "stylesheet", href: appCss },
-      { rel: "icon", href: "/favicon.ico", type: "image/x-icon" },
+      { rel: "icon", href: "/favicon.png", type: "image/png" },
       { rel: "preconnect", href: "https://fonts.googleapis.com" },
       { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
       {

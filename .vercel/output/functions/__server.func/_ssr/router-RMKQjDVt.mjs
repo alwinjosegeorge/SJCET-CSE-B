@@ -1,7 +1,7 @@
 import { n as require_jsx_runtime, t as QueryClientProvider } from "../_libs/react+tanstack__react-query.mjs";
 import { _ as useRouter, c as HeadContent, d as createRouter, f as Outlet, g as Link, h as createRootRouteWithContext, m as createFileRoute, p as lazyRouteComponent, s as Scripts } from "../_libs/@tanstack/react-router+[...].mjs";
 import { t as QueryClient } from "../_libs/tanstack__query-core.mjs";
-//#region node_modules/.nitro/vite/services/ssr/assets/router-DY-iCDUq.js
+//#region node_modules/.nitro/vite/services/ssr/assets/router-RMKQjDVt.js
 var import_jsx_runtime = require_jsx_runtime();
 var styles_default = "/assets/styles-BHqAigTM.css";
 function NotFoundComponent() {
@@ -87,12 +87,20 @@ var Route$5 = createRootRouteWithContext()({
 				content: "A calm, mobile-first timetable for SJCET CSE-B. Open the app and instantly see what class is happening now."
 			},
 			{
+				name: "keywords",
+				content: "SJCET, SJCET CSE-B, SJCET CS-B, CSE-B, SJCET Timetable, CSE-B Timetable, St. Joseph's College of Engineering and Technology, SJCET Palai, CS-B Daily Flow, CS-B, SJCET CSE, CSE B, SJCET CSE B, College Timetable, engineering college timetable, SJCET CSE-B Class Schedule, SJCET CSE B Timetable"
+			},
+			{
 				property: "og:title",
 				content: "SJCET CSE-B Timetable"
 			},
 			{
 				property: "og:description",
-				content: "Live class schedule for SJCET CSE-B — designed to feel like a native app."
+				content: "Live class schedule for SJCET CSE-B — know exactly what's happening right now."
+			},
+			{
+				property: "og:image",
+				content: "/og-image.png"
 			},
 			{
 				property: "og:type",
@@ -107,16 +115,12 @@ var Route$5 = createRootRouteWithContext()({
 				content: "SJCET CSE-B Timetable"
 			},
 			{
-				name: "description",
-				content: "Live class schedule for SJCET CSE-B — know exactly what's happening right now."
-			},
-			{
-				property: "og:description",
-				content: "Live class schedule for SJCET CSE-B — know exactly what's happening right now."
-			},
-			{
 				name: "twitter:description",
 				content: "Live class schedule for SJCET CSE-B — know exactly what's happening right now."
+			},
+			{
+				name: "twitter:image",
+				content: "/og-image.png"
 			}
 		],
 		links: [
@@ -126,8 +130,8 @@ var Route$5 = createRootRouteWithContext()({
 			},
 			{
 				rel: "icon",
-				href: "/favicon.ico",
-				type: "image/x-icon"
+				href: "/favicon.png",
+				type: "image/png"
 			},
 			{
 				rel: "preconnect",
