@@ -115,8 +115,9 @@ function LiveCountdown({
 
 function Home() {
   const now = useNow(1000);
+  const state = useMemo(() => (now ? computeNowState(now) : null), [now]);
 
-  if (!now) {
+  if (!now || !state) {
     return (
       <AppShell>
         <div className="flex h-[50vh] items-center justify-center">
@@ -125,8 +126,6 @@ function Home() {
       </AppShell>
     );
   }
-
-  const state = useMemo(() => computeNowState(now), [now]);
 
   const headerDay =
     state.phase === "weekend" ? "Weekend" : DAY_LABEL[state.day];
