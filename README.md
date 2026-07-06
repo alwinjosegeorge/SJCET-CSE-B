@@ -2,6 +2,8 @@
 
 # 🏫 SJCET CSE-B Timetable 📅✨
 
+  <img src="public/og-image.png" width="480" alt="SJCET CSE-B Preview Banner" style="border-radius: 24px; margin-bottom: 15px; box-shadow: 0 8px 30px rgba(0,0,0,0.12);" />
+
   <p align="center">
     <img src="https://img.shields.io/badge/Made%20with%20%E2%9D%A4%EF%B8%8F-SJCET%20CSE--B-FF6B6B?style=for-the-badge" alt="Made for SJCET CSE-B" />
     <img src="https://img.shields.io/badge/Vibe-🦦%20Cruising-4ECDC4?style=for-the-badge" alt="Vibe Cruising" />
