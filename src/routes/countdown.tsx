@@ -2,8 +2,9 @@ import { createFileRoute } from "@tanstack/react-router";
 import { useMemo } from "react";
 import { AppShell } from "@/components/app-shell";
 import { useNow } from "@/hooks/use-now";
-import { computeNowState, currentDayKey } from "@/lib/schedule";
-import { Bell, Coffee, UtensilsCrossed, Sun, Moon, Timer } from "lucide-react";
+import { computeNowState, currentDayKey, fmt12 } from "@/lib/schedule";
+import { PERIOD_SLOTS } from "@/lib/timetable";
+import { Bell, Coffee, UtensilsCrossed, Sun, Moon, Timer, BookOpen, Utensils } from "lucide-react";
 
 export const Route = createFileRoute("/countdown")({
   head: () => ({
@@ -157,32 +158,59 @@ function CountdownPage() {
         )}
       </div>
 
-      <div className="mt-6 rounded-[28px] border border-border/60 bg-surface p-5 text-center">
-        <h3 className="font-display text-base font-bold text-ink">
+      <div className="mt-6 rounded-[28px] border border-border/60 bg-surface p-5">
+        <h3 className="font-display text-[17px] font-bold text-ink text-center">
           College Bell Schedule ⏰
         </h3>
-        <p className="mt-1 text-xs text-ink-soft">
+        <p className="mt-1 text-center text-xs text-ink-soft mb-6">
           Bell rings precisely at these period intervals
         </p>
         
-        <div className="mt-4 grid grid-cols-2 gap-2 text-left">
-          <div className="rounded-2xl bg-lilac-soft/30 p-3">
-            <p className="text-[10px] font-bold uppercase tracking-wider text-indigo">Morning Sessions</p>
-            <p className="mt-1 text-xs font-semibold text-ink">P1: 9:00 AM – 9:55 AM</p>
-            <p className="text-xs font-semibold text-ink">P2: 9:55 AM – 10:50 AM</p>
-            <p className="text-xs font-medium text-ink-soft">Break: 10:50 AM – 11:05 AM</p>
-            <p className="text-xs font-semibold text-ink">P3: 11:05 AM – 11:55 AM</p>
-            <p className="text-xs font-semibold text-ink">P4: 11:55 AM – 12:45 PM</p>
-          </div>
-          
-          <div className="rounded-2xl bg-lilac-soft/30 p-3">
-            <p className="text-[10px] font-bold uppercase tracking-wider text-indigo">Afternoon Sessions</p>
-            <p className="mt-1 text-xs font-medium text-ink-soft">Lunch: 12:45 PM – 1:35 PM</p>
-            <p className="text-xs font-semibold text-ink">P5: 1:35 PM – 2:30 PM</p>
-            <p className="text-xs font-semibold text-ink">P6: 2:30 PM – 3:25 PM</p>
-            <p className="text-xs font-medium text-ink-soft">Break: 3:25 PM – 3:40 PM</p>
-            <p className="text-xs font-semibold text-ink">P7: 3:40 PM – 4:30 PM</p>
-          </div>
+        <div className="relative border-l-2 border-border/40 pl-6 ml-3.5 space-y-4">
+          {PERIOD_SLOTS.map((slot) => {
+            const isBreak = slot.kind === "break";
+            const isLunch = slot.kind === "lunch";
+            
+            let icon = <BookOpen className="h-3.5 w-3.5" />;
+            let iconBg = "bg-indigo/10 text-indigo";
+            let labelText = slot.label;
+            
+            if (isBreak) {
+              icon = <Coffee className="h-3.5 w-3.5" />;
+              iconBg = "bg-mint text-emerald-700";
+              labelText = "Short Break ☕";
+            } else if (isLunch) {
+              icon = <Utensils className="h-3.5 w-3.5" />;
+              iconBg = "bg-butter text-amber-700";
+              labelText = "Lunch Break 🍱";
+            } else {
+              labelText = `Period ${slot.label}`;
+            }
+
+            return (
+              <div key={slot.id} className="relative flex items-center justify-between gap-4">
+                {/* Timeline node icon */}
+                <div className={`absolute -left-[37px] grid h-7 w-7 place-items-center rounded-full ${iconBg} border border-background shadow-sm`}>
+                  {icon}
+                </div>
+
+                <div>
+                  <p className="text-sm font-bold text-ink">
+                    {labelText}
+                  </p>
+                  <p className="text-[11px] font-semibold text-ink-soft">
+                    {fmt12(slot.start)} – {fmt12(slot.end)}
+                  </p>
+                </div>
+
+                <span className={`rounded-full px-2.5 py-0.5 text-[9px] font-extrabold uppercase tracking-wider ${
+                  isBreak || isLunch ? "bg-slate-100 text-slate-500" : "bg-indigo-deep/15 text-indigo-deep"
+                }`}>
+                  {slot.kind}
+                </span>
+              </div>
+            );
+          })}
         </div>
       </div>
     </AppShell>
