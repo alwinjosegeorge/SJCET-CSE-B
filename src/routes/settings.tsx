@@ -54,6 +54,7 @@ function SettingsPage() {
         ))}
       </div>
 
+      {/* Codexora Studio credit footer link */}
       <div className="mt-10 flex flex-col items-center justify-center gap-1.5 pb-6">
         <a
           href="https://codexorastudio.vercel.app/"
