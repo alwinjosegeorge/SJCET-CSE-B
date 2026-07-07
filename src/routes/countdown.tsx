@@ -162,11 +162,11 @@ function CountdownPage() {
         <h3 className="font-display text-[17px] font-bold text-ink text-center">
           College Bell Schedule ⏰
         </h3>
-        <p className="mt-1 text-center text-xs text-ink-soft mb-6">
+        <p className="mt-1 text-center text-xs text-ink-soft mb-5">
           Bell rings precisely at these period intervals
         </p>
         
-        <div className="relative border-l-2 border-border/40 pl-6 ml-3.5 space-y-4">
+        <div className="space-y-2.5">
           {(() => {
             const parseMin = (t: string) => {
               const [h, m] = t.split(":").map(Number);
@@ -177,17 +177,14 @@ function CountdownPage() {
               const isBreak = slot.kind === "break";
               const isLunch = slot.kind === "lunch";
               
-              let icon = <BookOpen className="h-3.5 w-3.5" />;
-              let iconBg = "bg-indigo/10 text-indigo";
+              let icon = <BookOpen className="h-4.5 w-4.5" />;
               let labelText = slot.label;
               
               if (isBreak) {
-                icon = <Coffee className="h-3.5 w-3.5" />;
-                iconBg = "bg-mint text-emerald-700 dark:text-emerald-400";
+                icon = <Coffee className="h-4.5 w-4.5" />;
                 labelText = "Short Break ☕";
               } else if (isLunch) {
-                icon = <Utensils className="h-3.5 w-3.5" />;
-                iconBg = "bg-butter text-amber-700 dark:text-amber-400";
+                icon = <Utensils className="h-4.5 w-4.5" />;
                 labelText = "Lunch Break 🍱";
               } else {
                 labelText = `Period ${slot.label}`;
@@ -202,43 +199,59 @@ function CountdownPage() {
                 state.phase !== "after-day" &&
                 state.phase !== "before-day";
 
+              const isDone = nowMin >= endM && state.phase !== "weekend" && state.phase !== "before-day";
+
               return (
                 <div
                   key={slot.id}
-                  className={`relative flex items-center justify-between gap-4 transition-all duration-300 rounded-2xl -mx-3.5 px-3.5 ${
+                  className={`flex items-center gap-3.5 rounded-[22px] border px-4 py-3 transition-all duration-300 ${
                     isActive
-                      ? "bg-indigo-deep/5 dark:bg-indigo-deep/20 border border-indigo/20 dark:border-indigo/40 shadow-sm py-2.5"
-                      : "py-2 hover:bg-muted/30 dark:hover:bg-surface-2/40"
+                      ? "border-transparent bg-indigo-deep text-white shadow-[0_16px_36px_-16px_oklch(0.32_0.19_285_/_0.55)] scale-[1.01]"
+                      : isDone
+                        ? "border-border/40 bg-surface/50 opacity-40"
+                        : "border-border/60 bg-surface hover:border-indigo/25 dark:hover:border-lilac/25"
                   }`}
                 >
-                  {/* Timeline node icon */}
+                  {/* Left Icon with color tone */}
                   <div
-                    className={`absolute -left-[37px] grid h-7 w-7 place-items-center rounded-full ${iconBg} border border-background dark:border-surface shadow-sm transition-transform duration-300 ${
-                      isActive ? "scale-110 ring-2 ring-indigo animate-bounce z-10" : ""
+                    className={`grid h-10 w-10 shrink-0 place-items-center rounded-xl font-display text-lg font-bold transition duration-300 ${
+                      isActive
+                        ? "bg-white/20 text-white"
+                        : isBreak
+                          ? "bg-mint text-emerald-700 dark:text-emerald-400"
+                          : isLunch
+                            ? "bg-butter text-amber-700 dark:text-amber-400"
+                            : "bg-lilac-soft text-indigo-deep dark:bg-lilac-soft/10 dark:text-lilac"
                     }`}
                   >
                     {icon}
                   </div>
 
+                  {/* Middle Text details */}
                   <div className="min-w-0 flex-1">
-                    <p className="text-sm font-bold text-ink flex items-center gap-1.5 flex-wrap">
-                      {labelText}
+                    <div className="flex items-center gap-1.5 flex-wrap">
+                      <p className={`text-[14px] font-bold ${isActive ? "text-white" : "text-ink"}`}>
+                        {labelText}
+                      </p>
                       {isActive && (
-                        <span className="inline-flex items-center gap-1 rounded-full bg-indigo text-white dark:bg-lilac dark:text-indigo-deep px-1.5 py-0.5 text-[8px] font-extrabold uppercase tracking-wider animate-pulse">
-                          Here 📍
+                        <span className="inline-flex items-center gap-1 rounded-full bg-white/20 text-white px-1.5 py-0.5 text-[8px] font-extrabold uppercase tracking-wider animate-pulse">
+                          Active 📍
                         </span>
                       )}
-                    </p>
-                    <p className="text-[11px] font-semibold text-ink-soft mt-0.5">
+                    </div>
+                    <p className={`text-[11px] font-semibold mt-0.5 ${isActive ? "text-white/75" : "text-ink-soft"}`}>
                       {fmt12(slot.start)} – {fmt12(slot.end)}
                     </p>
                   </div>
 
+                  {/* Right Badge */}
                   <span
-                    className={`shrink-0 rounded-full px-2.5 py-0.5 text-[9px] font-extrabold uppercase tracking-wider ${
-                      isBreak || isLunch
-                        ? "bg-slate-100 dark:bg-surface-2 text-slate-500 dark:text-ink-soft"
-                        : "bg-indigo-deep/15 dark:bg-lilac-soft/20 text-indigo-deep dark:text-lilac"
+                    className={`shrink-0 rounded-full px-2 py-0.5 text-[8px] font-extrabold uppercase tracking-wider ${
+                      isActive
+                        ? "bg-white/20 text-white"
+                        : isBreak || isLunch
+                          ? "bg-muted/80 dark:bg-surface-2 text-ink-soft"
+                          : "bg-indigo-deep/10 dark:bg-lilac-soft/20 text-indigo-deep dark:text-lilac"
                     }`}
                   >
                     {slot.kind}

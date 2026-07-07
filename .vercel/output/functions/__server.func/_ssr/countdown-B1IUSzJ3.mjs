@@ -3,7 +3,7 @@ import { n as require_jsx_runtime, r as require_react } from "../_libs/react+tan
 import { a as Sun, b as Bell, h as Coffee, i as Timer, l as Moon, n as Utensils, r as UtensilsCrossed, y as BookOpen } from "../_libs/lucide-react.mjs";
 import { a as PERIOD_SLOTS, c as currentDayKey, l as fmt12, s as computeNowState, t as AppShell } from "./app-shell-BTcutmU8.mjs";
 import { t as useNow } from "./use-now-DwH2zO-0.mjs";
-//#region node_modules/.nitro/vite/services/ssr/assets/countdown-D3gDx6SG.js
+//#region node_modules/.nitro/vite/services/ssr/assets/countdown-B1IUSzJ3.js
 var import_react = /* @__PURE__ */ __toESM(require_react());
 var import_jsx_runtime = require_jsx_runtime();
 function CountdownPage() {
@@ -137,11 +137,11 @@ function CountdownPage() {
 					children: "College Bell Schedule ⏰"
 				}),
 				/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
-					className: "mt-1 text-center text-xs text-ink-soft mb-6",
+					className: "mt-1 text-center text-xs text-ink-soft mb-5",
 					children: "Bell rings precisely at these period intervals"
 				}),
 				/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
-					className: "relative border-l-2 border-border/40 pl-6 ml-3.5 space-y-4",
+					className: "space-y-2.5",
 					children: (() => {
 						const parseMin = (t) => {
 							const [h, m] = t.split(":").map(Number);
@@ -150,38 +150,39 @@ function CountdownPage() {
 						return PERIOD_SLOTS.map((slot) => {
 							const isBreak = slot.kind === "break";
 							const isLunch = slot.kind === "lunch";
-							let icon = /* @__PURE__ */ (0, import_jsx_runtime.jsx)(BookOpen, { className: "h-3.5 w-3.5" });
-							let iconBg = "bg-indigo/10 text-indigo";
+							let icon = /* @__PURE__ */ (0, import_jsx_runtime.jsx)(BookOpen, { className: "h-4.5 w-4.5" });
 							let labelText = slot.label;
 							if (isBreak) {
-								icon = /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Coffee, { className: "h-3.5 w-3.5" });
-								iconBg = "bg-mint text-emerald-700 dark:text-emerald-400";
+								icon = /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Coffee, { className: "h-4.5 w-4.5" });
 								labelText = "Short Break ☕";
 							} else if (isLunch) {
-								icon = /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Utensils, { className: "h-3.5 w-3.5" });
-								iconBg = "bg-butter text-amber-700 dark:text-amber-400";
+								icon = /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Utensils, { className: "h-4.5 w-4.5" });
 								labelText = "Lunch Break 🍱";
 							} else labelText = `Period ${slot.label}`;
 							const startM = parseMin(slot.start);
 							const endM = parseMin(slot.end);
 							const isActive = nowMin >= startM && nowMin < endM && state.phase !== "weekend" && state.phase !== "after-day" && state.phase !== "before-day";
+							const isDone = nowMin >= endM && state.phase !== "weekend" && state.phase !== "before-day";
 							return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-								className: `relative flex items-center justify-between gap-4 transition-all duration-300 rounded-2xl -mx-3.5 px-3.5 ${isActive ? "bg-indigo-deep/5 dark:bg-indigo-deep/20 border border-indigo/20 dark:border-indigo/40 shadow-sm py-2.5" : "py-2 hover:bg-muted/30 dark:hover:bg-surface-2/40"}`,
+								className: `flex items-center gap-3.5 rounded-[22px] border px-4 py-3 transition-all duration-300 ${isActive ? "border-transparent bg-indigo-deep text-white shadow-[0_16px_36px_-16px_oklch(0.32_0.19_285_/_0.55)] scale-[1.01]" : isDone ? "border-border/40 bg-surface/50 opacity-40" : "border-border/60 bg-surface hover:border-indigo/25 dark:hover:border-lilac/25"}`,
 								children: [
 									/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
-										className: `absolute -left-[37px] grid h-7 w-7 place-items-center rounded-full ${iconBg} border border-background dark:border-surface shadow-sm transition-transform duration-300 ${isActive ? "scale-110 ring-2 ring-indigo animate-bounce z-10" : ""}`,
+										className: `grid h-10 w-10 shrink-0 place-items-center rounded-xl font-display text-lg font-bold transition duration-300 ${isActive ? "bg-white/20 text-white" : isBreak ? "bg-mint text-emerald-700 dark:text-emerald-400" : isLunch ? "bg-butter text-amber-700 dark:text-amber-400" : "bg-lilac-soft text-indigo-deep dark:bg-lilac-soft/10 dark:text-lilac"}`,
 										children: icon
 									}),
 									/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
 										className: "min-w-0 flex-1",
-										children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("p", {
-											className: "text-sm font-bold text-ink flex items-center gap-1.5 flex-wrap",
-											children: [labelText, isActive && /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
-												className: "inline-flex items-center gap-1 rounded-full bg-indigo text-white dark:bg-lilac dark:text-indigo-deep px-1.5 py-0.5 text-[8px] font-extrabold uppercase tracking-wider animate-pulse",
-												children: "Here 📍"
+										children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+											className: "flex items-center gap-1.5 flex-wrap",
+											children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+												className: `text-[14px] font-bold ${isActive ? "text-white" : "text-ink"}`,
+												children: labelText
+											}), isActive && /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
+												className: "inline-flex items-center gap-1 rounded-full bg-white/20 text-white px-1.5 py-0.5 text-[8px] font-extrabold uppercase tracking-wider animate-pulse",
+												children: "Active 📍"
 											})]
 										}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("p", {
-											className: "text-[11px] font-semibold text-ink-soft mt-0.5",
+											className: `text-[11px] font-semibold mt-0.5 ${isActive ? "text-white/75" : "text-ink-soft"}`,
 											children: [
 												fmt12(slot.start),
 												" – ",
@@ -190,7 +191,7 @@ function CountdownPage() {
 										})]
 									}),
 									/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
-										className: `shrink-0 rounded-full px-2.5 py-0.5 text-[9px] font-extrabold uppercase tracking-wider ${isBreak || isLunch ? "bg-slate-100 dark:bg-surface-2 text-slate-500 dark:text-ink-soft" : "bg-indigo-deep/15 dark:bg-lilac-soft/20 text-indigo-deep dark:text-lilac"}`,
+										className: `shrink-0 rounded-full px-2 py-0.5 text-[8px] font-extrabold uppercase tracking-wider ${isActive ? "bg-white/20 text-white" : isBreak || isLunch ? "bg-muted/80 dark:bg-surface-2 text-ink-soft" : "bg-indigo-deep/10 dark:bg-lilac-soft/20 text-indigo-deep dark:text-lilac"}`,
 										children: slot.kind
 									})
 								]
