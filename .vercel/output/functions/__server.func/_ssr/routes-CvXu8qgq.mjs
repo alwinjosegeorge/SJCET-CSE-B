@@ -4,7 +4,7 @@ import { a as Sparkles, c as Moon, f as Coffee, i as Sun, n as UtensilsCrossed, 
 import { l as fmt12, n as DAY_LABEL, s as computeNowState, t as AppShell } from "./app-shell-DWt6SLuI.mjs";
 import { t as useNow } from "./use-now-DwH2zO-0.mjs";
 import { t as ScheduleRow } from "./schedule-row-BGz_c58T.mjs";
-//#region node_modules/.nitro/vite/services/ssr/assets/routes-COya5hde.js
+//#region node_modules/.nitro/vite/services/ssr/assets/routes-CvXu8qgq.js
 var import_react = /* @__PURE__ */ __toESM(require_react());
 var import_jsx_runtime = require_jsx_runtime();
 var SUBJECT_EMOJI = {
@@ -286,28 +286,10 @@ function InClass({ state }) {
 				label: "Day ends",
 				value: fmt12(lastItem.end),
 				sub: "then freedom 🕊️",
-				span: 2
-			}),
-			/* @__PURE__ */ (0, import_jsx_runtime.jsx)(StatTile, {
-				bg: "bg-mint",
-				label: "Vibe check",
-				value: pickVibe(state.progress),
-				emoji: pickVibeEmoji(state.progress)
+				span: 3
 			})
 		]
 	});
-}
-function pickVibe(p) {
-	if (p < .25) return "Warmup 🐣";
-	if (p < .6) return "Cruising 🦦";
-	if (p < .9) return "Cooking 🚀";
-	return "Freedom 🎉";
-}
-function pickVibeEmoji(p) {
-	if (p < .25) return "🌱";
-	if (p < .6) return "🕶️";
-	if (p < .9) return "🔥";
-	return "🥳";
 }
 function BreakBento({ state }) {
 	const isLunch = state.phase === "lunch";

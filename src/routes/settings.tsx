@@ -78,51 +78,56 @@ function SettingsPage() {
       }
     >
       <div className="space-y-2.5">
-        {rows.map((r) => (
-          <div
-            key={r.label}
-            onClick={
-              r.href
-                ? () => window.open(r.href, "_blank", "noopener,noreferrer")
-                : undefined
-            }
-            className={`flex items-center gap-3 rounded-3xl border border-border/60 bg-surface px-4 py-3.5 ${
-              r.href
-                ? "cursor-pointer transition hover:border-indigo/25 active:scale-[0.99]"
-                : ""
-            }`}
-          >
-            <div
-              className={`grid h-10 w-10 shrink-0 place-items-center rounded-2xl ${r.tone} text-ink`}
-            >
-              <r.icon className="h-4 w-4" strokeWidth={2.4} />
-            </div>
-            <p className="min-w-0 flex-1 truncate text-sm font-bold text-ink">
-              {r.label}
-            </p>
-            {r.label === "Class reminders" ? (
-              <button
-                onClick={(e) => {
-                  e.stopPropagation();
-                  toggleNotifications();
-                }}
-                className={`relative inline-flex h-6 w-11 shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none ${
-                  notificationsEnabled ? "bg-indigo" : "bg-border/80"
-                }`}
+        {rows.map((r) => {
+          const isLink = !!r.href;
+          const CardTag = isLink ? "a" : "div";
+          const linkProps = isLink
+            ? {
+                href: r.href,
+                target: "_blank",
+                rel: "noopener noreferrer",
+                className:
+                  "flex items-center gap-3 rounded-3xl border border-border/60 bg-surface px-4 py-3.5 no-underline hover:no-underline cursor-pointer transition active:scale-[0.99]",
+              }
+            : {
+                className:
+                  "flex items-center gap-3 rounded-3xl border border-border/60 bg-surface px-4 py-3.5",
+              };
+
+          return (
+            <CardTag key={r.label} {...(linkProps as any)}>
+              <div
+                className={`grid h-10 w-10 shrink-0 place-items-center rounded-2xl ${r.tone} text-ink`}
               >
-                <span
-                  className={`pointer-events-none inline-block h-5 w-5 transform rounded-full bg-white shadow ring-0 transition duration-200 ease-in-out ${
-                    notificationsEnabled ? "translate-x-5" : "translate-x-0"
-                  }`}
-                />
-              </button>
-            ) : (
-              <p className="shrink-0 text-[11px] font-semibold text-ink-soft">
-                {r.hint}
+                <r.icon className="h-4 w-4" strokeWidth={2.4} />
+              </div>
+              <p className="min-w-0 flex-1 truncate text-sm font-bold text-ink no-underline">
+                {r.label}
               </p>
-            )}
-          </div>
-        ))}
+              {r.label === "Class reminders" ? (
+                <button
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    toggleNotifications();
+                  }}
+                  className={`relative inline-flex h-6 w-11 shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none ${
+                    notificationsEnabled ? "bg-indigo" : "bg-border/80"
+                  }`}
+                >
+                  <span
+                    className={`pointer-events-none inline-block h-5 w-5 transform rounded-full bg-white shadow ring-0 transition duration-200 ease-in-out ${
+                      notificationsEnabled ? "translate-x-5" : "translate-x-0"
+                    }`}
+                  />
+                </button>
+              ) : (
+                <p className="shrink-0 text-[11px] font-semibold text-ink-soft">
+                  {r.hint}
+                </p>
+              )}
+            </CardTag>
+          );
+        })}
       </div>
     </AppShell>
   );

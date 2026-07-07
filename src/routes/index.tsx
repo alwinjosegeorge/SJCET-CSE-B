@@ -274,13 +274,7 @@ function InClass({
         label="Day ends"
         value={fmt12(lastItem.end)}
         sub="then freedom 🕊️"
-        span={2}
-      />
-      <StatTile
-        bg="bg-mint"
-        label="Vibe check"
-        value={pickVibe(state.progress)}
-        emoji={pickVibeEmoji(state.progress)}
+        span={3}
       />
     </section>
   );
