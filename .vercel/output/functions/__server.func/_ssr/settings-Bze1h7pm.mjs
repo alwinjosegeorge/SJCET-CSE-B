@@ -1,7 +1,7 @@
 import { n as require_jsx_runtime } from "../_libs/react+tanstack__react-query.mjs";
 import { _ as Bell, d as Heart, l as Info, p as CodeXml, s as Palette } from "../_libs/lucide-react.mjs";
 import { t as AppShell } from "./app-shell-Ds2zUS8U.mjs";
-//#region node_modules/.nitro/vite/services/ssr/assets/settings-D3PA0MTP.js
+//#region node_modules/.nitro/vite/services/ssr/assets/settings-Bze1h7pm.js
 var import_jsx_runtime = require_jsx_runtime();
 var rows = [
 	{
@@ -50,33 +50,27 @@ function SettingsPage() {
 		}),
 		children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
 			className: "space-y-2.5",
-			children: rows.map((r) => {
-				return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(r.href ? "a" : "div", {
-					...r.href ? {
-						href: r.href,
-						target: "_blank",
-						rel: "noopener noreferrer",
-						className: "flex items-center gap-3 rounded-3xl border border-border/60 bg-surface px-4 py-3.5 transition hover:scale-[1.01] hover:border-indigo/30 active:scale-[0.99] cursor-pointer"
-					} : { className: "flex items-center gap-3 rounded-3xl border border-border/60 bg-surface px-4 py-3.5" },
-					children: [
-						/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
-							className: `grid h-10 w-10 shrink-0 place-items-center rounded-2xl ${r.tone} text-ink`,
-							children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(r.icon, {
-								className: "h-4 w-4",
-								strokeWidth: 2.4
-							})
-						}),
-						/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
-							className: "min-w-0 flex-1 truncate text-sm font-bold text-ink",
-							children: r.label
-						}),
-						/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
-							className: "shrink-0 text-[11px] font-semibold text-ink-soft",
-							children: r.hint
+			children: rows.map((r) => /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+				onClick: r.href ? () => window.open(r.href, "_blank", "noopener,noreferrer") : void 0,
+				className: `flex items-center gap-3 rounded-3xl border border-border/60 bg-surface px-4 py-3.5 ${r.href ? "cursor-pointer transition hover:border-indigo/25 active:scale-[0.99]" : ""}`,
+				children: [
+					/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+						className: `grid h-10 w-10 shrink-0 place-items-center rounded-2xl ${r.tone} text-ink`,
+						children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(r.icon, {
+							className: "h-4 w-4",
+							strokeWidth: 2.4
 						})
-					]
-				}, r.label);
-			})
+					}),
+					/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+						className: "min-w-0 flex-1 truncate text-sm font-bold text-ink",
+						children: r.label
+					}),
+					/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+						className: "shrink-0 text-[11px] font-semibold text-ink-soft",
+						children: r.hint
+					})
+				]
+			}, r.label))
 		})
 	});
 }

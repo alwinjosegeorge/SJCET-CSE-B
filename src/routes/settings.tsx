@@ -41,37 +41,33 @@ function SettingsPage() {
       }
     >
       <div className="space-y-2.5">
-        {rows.map((r) => {
-          const CardTag = r.href ? "a" : "div";
-          const linkProps = r.href
-            ? {
-                href: r.href,
-                target: "_blank",
-                rel: "noopener noreferrer",
-                className:
-                  "flex items-center gap-3 rounded-3xl border border-border/60 bg-surface px-4 py-3.5 transition hover:scale-[1.01] hover:border-indigo/30 active:scale-[0.99] cursor-pointer",
-              }
-            : {
-                className:
-                  "flex items-center gap-3 rounded-3xl border border-border/60 bg-surface px-4 py-3.5",
-              };
-
-          return (
-            <CardTag key={r.label} {...(linkProps as any)}>
-              <div
-                className={`grid h-10 w-10 shrink-0 place-items-center rounded-2xl ${r.tone} text-ink`}
-              >
-                <r.icon className="h-4 w-4" strokeWidth={2.4} />
-              </div>
-              <p className="min-w-0 flex-1 truncate text-sm font-bold text-ink">
-                {r.label}
-              </p>
-              <p className="shrink-0 text-[11px] font-semibold text-ink-soft">
-                {r.hint}
-              </p>
-            </CardTag>
-          );
-        })}
+        {rows.map((r) => (
+          <div
+            key={r.label}
+            onClick={
+              r.href
+                ? () => window.open(r.href, "_blank", "noopener,noreferrer")
+                : undefined
+            }
+            className={`flex items-center gap-3 rounded-3xl border border-border/60 bg-surface px-4 py-3.5 ${
+              r.href
+                ? "cursor-pointer transition hover:border-indigo/25 active:scale-[0.99]"
+                : ""
+            }`}
+          >
+            <div
+              className={`grid h-10 w-10 shrink-0 place-items-center rounded-2xl ${r.tone} text-ink`}
+            >
+              <r.icon className="h-4 w-4" strokeWidth={2.4} />
+            </div>
+            <p className="min-w-0 flex-1 truncate text-sm font-bold text-ink">
+              {r.label}
+            </p>
+            <p className="shrink-0 text-[11px] font-semibold text-ink-soft">
+              {r.hint}
+            </p>
+          </div>
+        ))}
       </div>
     </AppShell>
   );
