@@ -1,7 +1,7 @@
 import { n as require_jsx_runtime } from "../_libs/react+tanstack__react-query.mjs";
 import { _ as Bell, d as Heart, l as Info, p as CodeXml, s as Palette } from "../_libs/lucide-react.mjs";
 import { t as AppShell } from "./app-shell-Ds2zUS8U.mjs";
-//#region node_modules/.nitro/vite/services/ssr/assets/settings-Bze1h7pm.js
+//#region node_modules/.nitro/vite/services/ssr/assets/settings-BM0jHNbJ.js
 var import_jsx_runtime = require_jsx_runtime();
 var rows = [
 	{
@@ -25,7 +25,7 @@ var rows = [
 	{
 		icon: CodeXml,
 		label: "Made by Codexora Studio",
-		hint: "Visit 🌐",
+		hint: "",
 		tone: "bg-lilac-soft",
 		href: "https://codexorastudio.vercel.app/"
 	},

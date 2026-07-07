@@ -19,7 +19,7 @@ const rows = [
   {
     icon: Code2,
     label: "Made by Codexora Studio",
-    hint: "Visit 🌐",
+    hint: "",
     tone: "bg-lilac-soft",
     href: "https://codexorastudio.vercel.app/",
   },
