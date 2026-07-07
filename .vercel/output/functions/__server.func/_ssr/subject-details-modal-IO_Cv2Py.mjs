@@ -1,7 +1,7 @@
 import { n as require_jsx_runtime } from "../_libs/react+tanstack__react-query.mjs";
 import { _ as Check, h as Coffee, m as GraduationCap, o as Sparkles, r as UtensilsCrossed, t as X, u as Layers, y as BookOpen } from "../_libs/lucide-react.mjs";
-import { l as fmt12, u as subjectEmoji } from "./app-shell-DWt6SLuI.mjs";
-//#region node_modules/.nitro/vite/services/ssr/assets/subject-details-modal-BkFylBec.js
+import { l as fmt12, u as subjectEmoji } from "./app-shell-BpdV1HOy.mjs";
+//#region node_modules/.nitro/vite/services/ssr/assets/subject-details-modal-IO_Cv2Py.js
 var import_jsx_runtime = require_jsx_runtime();
 function ScheduleRow({ item, status, onClick }) {
 	if (item.kind === "break" || item.kind === "lunch") {
@@ -151,6 +151,7 @@ function SubjectDetailsModal({ subjectName, onClose }) {
 		teachers: ["N/A"]
 	};
 	const emoji = subjectEmoji(subjectName);
+	const isLab = subjectName === "Lab";
 	return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
 		className: "fixed inset-0 z-50 flex items-end justify-center p-4 bg-black/40 backdrop-blur-sm transition-opacity duration-300",
 		children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
@@ -170,9 +171,83 @@ function SubjectDetailsModal({ subjectName, onClose }) {
 				}),
 				/* @__PURE__ */ (0, import_jsx_runtime.jsx)("h3", {
 					className: "text-center font-display text-xl font-extrabold text-ink px-4 leading-tight",
-					children: details.name
+					children: isLab ? "Networks & ML Lab" : details.name
 				}),
-				/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+				isLab ? /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+					className: "mt-6 space-y-4",
+					children: [
+						/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+							className: "text-center text-xs text-ink-soft px-4",
+							children: "Class is split into two batches running in parallel sessions:"
+						}),
+						/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+							className: "rounded-2xl border border-border/60 bg-coral/5 p-4",
+							children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+								className: "flex items-center gap-2 mb-2.5",
+								children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
+									className: "rounded-lg bg-indigo-deep px-2 py-0.5 text-[9px] font-bold text-white uppercase tracking-wider",
+									children: "Batch A"
+								}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("h4", {
+									className: "text-sm font-bold text-ink",
+									children: "Networks Lab"
+								})]
+							}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+								className: "space-y-1.5 text-xs text-ink-soft pl-1",
+								children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("p", { children: [
+									/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
+										className: "font-semibold text-ink-soft",
+										children: "Course Code:"
+									}),
+									" ",
+									/* @__PURE__ */ (0, import_jsx_runtime.jsx)("code", {
+										className: "font-mono bg-surface px-1 py-0.5 rounded border border-border/60 text-[11px] text-ink font-semibold",
+										children: "24SJPCCSL507"
+									})
+								] }), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("p", { children: [
+									/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
+										className: "font-semibold text-ink-soft",
+										children: "Teachers:"
+									}),
+									" ",
+									"Mary Treesa Thomas & Ashly Thomas"
+								] })]
+							})]
+						}),
+						/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+							className: "rounded-2xl border border-border/60 bg-sage/5 p-4",
+							children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+								className: "flex items-center gap-2 mb-2.5",
+								children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
+									className: "rounded-lg bg-indigo px-2 py-0.5 text-[9px] font-bold text-white uppercase tracking-wider",
+									children: "Batch B"
+								}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("h4", {
+									className: "text-sm font-bold text-ink",
+									children: "Machine Learning Lab"
+								})]
+							}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+								className: "space-y-1.5 text-xs text-ink-soft pl-1",
+								children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("p", { children: [
+									/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
+										className: "font-semibold text-ink-soft",
+										children: "Course Code:"
+									}),
+									" ",
+									/* @__PURE__ */ (0, import_jsx_runtime.jsx)("code", {
+										className: "font-mono bg-surface px-1 py-0.5 rounded border border-border/60 text-[11px] text-ink font-semibold",
+										children: "24SJPCCSL508"
+									})
+								] }), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("p", { children: [
+									/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
+										className: "font-semibold text-ink-soft",
+										children: "Teachers:"
+									}),
+									" ",
+									"Sarju S & Merlin Joshi"
+								] })]
+							})]
+						})
+					]
+				}) : /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
 					className: "mt-6 space-y-3.5",
 					children: [
 						/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {

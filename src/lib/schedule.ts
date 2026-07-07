@@ -32,7 +32,7 @@ export function fmt12(hhmm: string): string {
 }
 
 // Subjects that when adjacent should be merged into a single block.
-const MERGEABLE = new Set(["Networks Lab"]);
+const MERGEABLE = new Set(["Lab"]);
 
 export function buildDaySchedule(day: DayKey): ScheduleItem[] {
   const subjects = TIMETABLE[day];

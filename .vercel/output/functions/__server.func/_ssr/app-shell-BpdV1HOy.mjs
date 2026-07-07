@@ -2,7 +2,7 @@ import { r as __toESM } from "../_runtime.mjs";
 import { n as require_jsx_runtime, r as require_react } from "../_libs/react+tanstack__react-query.mjs";
 import { g as Link, l as useRouterState } from "../_libs/@tanstack/react-router+[...].mjs";
 import { b as Bell, f as House, s as Settings, v as CalendarDays } from "../_libs/lucide-react.mjs";
-//#region node_modules/.nitro/vite/services/ssr/assets/app-shell-DWt6SLuI.js
+//#region node_modules/.nitro/vite/services/ssr/assets/app-shell-BpdV1HOy.js
 var import_react = /* @__PURE__ */ __toESM(require_react());
 var import_jsx_runtime = require_jsx_runtime();
 var items = [
@@ -174,15 +174,15 @@ var TIMETABLE = {
 		"Machine Learning",
 		"MC Project",
 		"Design and Analysis of Algorithms",
-		"Networks Lab",
-		"Networks Lab",
-		"Networks Lab"
+		"Lab",
+		"Lab",
+		"Lab"
 	],
 	fri: [
 		"Elective",
-		"Networks Lab",
-		"Networks Lab",
-		"Networks Lab",
+		"Lab",
+		"Lab",
+		"Lab",
 		"Microcontrollers",
 		"Library / Mentoring",
 		"Microcontrollers"
@@ -197,7 +197,7 @@ function subjectEmoji(subject) {
 		"Design and Analysis of Algorithms": "🧩",
 		"Placement Training": "💼",
 		"MC Project": "🚀",
-		"Networks Lab": "🧪",
+		"Lab": "🧪",
 		"Library / Mentoring": "📖",
 		"Activity / Association": "🎉"
 	}[subject] ?? "📚";
@@ -211,7 +211,7 @@ function fmt12(hhmm) {
 	const suffix = h >= 12 ? "PM" : "AM";
 	return `${(h + 11) % 12 + 1}:${m.toString().padStart(2, "0")} ${suffix}`;
 }
-var MERGEABLE = /* @__PURE__ */ new Set(["Networks Lab"]);
+var MERGEABLE = /* @__PURE__ */ new Set(["Lab"]);
 function buildDaySchedule(day) {
 	const subjects = TIMETABLE[day];
 	const items = [];

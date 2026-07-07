@@ -94,6 +94,8 @@ export function SubjectDetailsModal({ subjectName, onClose }: SubjectDetailsModa
 
   const emoji = subjectEmoji(subjectName);
 
+  const isLab = subjectName === "Lab";
+
   return (
     <div className="fixed inset-0 z-50 flex items-end justify-center p-4 bg-black/40 backdrop-blur-sm transition-opacity duration-300">
       {/* Click outside to close */}
@@ -114,55 +116,107 @@ export function SubjectDetailsModal({ subjectName, onClose }: SubjectDetailsModa
         </div>
 
         <h3 className="text-center font-display text-xl font-extrabold text-ink px-4 leading-tight">
-          {details.name}
+          {isLab ? "Networks & ML Lab" : details.name}
         </h3>
 
-        <div className="mt-6 space-y-3.5">
-          {/* Course Code */}
-          <div className="flex items-center gap-3 rounded-2xl border border-border/50 bg-surface/50 p-3">
-            <div className="grid h-9 w-9 shrink-0 place-items-center rounded-xl bg-blush text-ink">
-              <BookOpen className="h-4.5 w-4.5 text-indigo-deep" strokeWidth={2.4} />
-            </div>
-            <div className="min-w-0 flex-1">
-              <p className="text-[10px] font-bold uppercase tracking-wider text-ink-soft">
-                Course Code
-              </p>
-              <p className="font-mono text-[13px] font-bold text-ink truncate mt-0.5">
-                {details.code}
-              </p>
-            </div>
-          </div>
+        {isLab ? (
+          <div className="mt-6 space-y-4">
+            <p className="text-center text-xs text-ink-soft px-4">
+              Class is split into two batches running in parallel sessions:
+            </p>
 
-          {/* Class Type */}
-          <div className="flex items-center gap-3 rounded-2xl border border-border/50 bg-surface/50 p-3">
-            <div className="grid h-9 w-9 shrink-0 place-items-center rounded-xl bg-mint text-ink">
-              <Layers className="h-4.5 w-4.5 text-ink" strokeWidth={2.4} />
+            {/* Batch A (Networks Lab) */}
+            <div className="rounded-2xl border border-border/60 bg-coral/5 p-4">
+              <div className="flex items-center gap-2 mb-2.5">
+                <span className="rounded-lg bg-indigo-deep px-2 py-0.5 text-[9px] font-bold text-white uppercase tracking-wider">
+                  Batch A
+                </span>
+                <h4 className="text-sm font-bold text-ink">Networks Lab</h4>
+              </div>
+              <div className="space-y-1.5 text-xs text-ink-soft pl-1">
+                <p>
+                  <span className="font-semibold text-ink-soft">Course Code:</span>{" "}
+                  <code className="font-mono bg-surface px-1 py-0.5 rounded border border-border/60 text-[11px] text-ink font-semibold">
+                    24SJPCCSL507
+                  </code>
+                </p>
+                <p>
+                  <span className="font-semibold text-ink-soft">Teachers:</span>{" "}
+                  Mary Treesa Thomas & Ashly Thomas
+                </p>
+              </div>
             </div>
-            <div className="min-w-0 flex-1">
-              <p className="text-[10px] font-bold uppercase tracking-wider text-ink-soft">
-                Class Type
-              </p>
-              <p className="text-[13px] font-bold text-ink truncate mt-0.5">
-                {details.type}
-              </p>
-            </div>
-          </div>
 
-          {/* Teacher */}
-          <div className="flex items-center gap-3 rounded-2xl border border-border/50 bg-surface/50 p-3">
-            <div className="grid h-9 w-9 shrink-0 place-items-center rounded-xl bg-butter text-ink">
-              <GraduationCap className="h-4.5 w-4.5 text-ink" strokeWidth={2.4} />
-            </div>
-            <div className="min-w-0 flex-1">
-              <p className="text-[10px] font-bold uppercase tracking-wider text-ink-soft">
-                Teacher
-              </p>
-              <p className="text-[13px] font-bold text-ink mt-0.5 leading-tight">
-                {details.teachers.join(" & ")}
-              </p>
+            {/* Batch B (Machine Learning Lab) */}
+            <div className="rounded-2xl border border-border/60 bg-sage/5 p-4">
+              <div className="flex items-center gap-2 mb-2.5">
+                <span className="rounded-lg bg-indigo px-2 py-0.5 text-[9px] font-bold text-white uppercase tracking-wider">
+                  Batch B
+                </span>
+                <h4 className="text-sm font-bold text-ink">Machine Learning Lab</h4>
+              </div>
+              <div className="space-y-1.5 text-xs text-ink-soft pl-1">
+                <p>
+                  <span className="font-semibold text-ink-soft">Course Code:</span>{" "}
+                  <code className="font-mono bg-surface px-1 py-0.5 rounded border border-border/60 text-[11px] text-ink font-semibold">
+                    24SJPCCSL508
+                  </code>
+                </p>
+                <p>
+                  <span className="font-semibold text-ink-soft">Teachers:</span>{" "}
+                  Sarju S & Merlin Joshi
+                </p>
+              </div>
             </div>
           </div>
-        </div>
+        ) : (
+          <div className="mt-6 space-y-3.5">
+            {/* Course Code */}
+            <div className="flex items-center gap-3 rounded-2xl border border-border/50 bg-surface/50 p-3">
+              <div className="grid h-9 w-9 shrink-0 place-items-center rounded-xl bg-blush text-ink">
+                <BookOpen className="h-4.5 w-4.5 text-indigo-deep" strokeWidth={2.4} />
+              </div>
+              <div className="min-w-0 flex-1">
+                <p className="text-[10px] font-bold uppercase tracking-wider text-ink-soft">
+                  Course Code
+                </p>
+                <p className="font-mono text-[13px] font-bold text-ink truncate mt-0.5">
+                  {details.code}
+                </p>
+              </div>
+            </div>
+
+            {/* Class Type */}
+            <div className="flex items-center gap-3 rounded-2xl border border-border/50 bg-surface/50 p-3">
+              <div className="grid h-9 w-9 shrink-0 place-items-center rounded-xl bg-mint text-ink">
+                <Layers className="h-4.5 w-4.5 text-ink" strokeWidth={2.4} />
+              </div>
+              <div className="min-w-0 flex-1">
+                <p className="text-[10px] font-bold uppercase tracking-wider text-ink-soft">
+                  Class Type
+                </p>
+                <p className="text-[13px] font-bold text-ink truncate mt-0.5">
+                  {details.type}
+                </p>
+              </div>
+            </div>
+
+            {/* Teacher */}
+            <div className="flex items-center gap-3 rounded-2xl border border-border/50 bg-surface/50 p-3">
+              <div className="grid h-9 w-9 shrink-0 place-items-center rounded-xl bg-butter text-ink">
+                <GraduationCap className="h-4.5 w-4.5 text-ink" strokeWidth={2.4} />
+              </div>
+              <div className="min-w-0 flex-1">
+                <p className="text-[10px] font-bold uppercase tracking-wider text-ink-soft">
+                  Teacher
+                </p>
+                <p className="text-[13px] font-bold text-ink mt-0.5 leading-tight">
+                  {details.teachers.join(" & ")}
+                </p>
+              </div>
+            </div>
+          </div>
+        )}
 
         <button
           onClick={onClose}
