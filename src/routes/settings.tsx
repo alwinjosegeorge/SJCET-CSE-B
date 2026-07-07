@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { AppShell } from "@/components/app-shell";
-import { Info, Bell, Palette, Heart, Code2 } from "lucide-react";
+import { Info, Bell, Palette, Heart, Code2, Sun, Moon, Laptop } from "lucide-react";
 import { useState, useEffect } from "react";
 
 export const Route = createFileRoute("/settings")({
@@ -53,9 +53,6 @@ function SettingsPage() {
     setTheme(newTheme);
     localStorage.setItem("sjcet_theme", newTheme);
     applyTheme(newTheme);
-    if (typeof navigator !== "undefined" && navigator.vibrate) {
-      navigator.vibrate(40);
-    }
   };
 
   const toggleNotifications = async () => {
@@ -143,31 +140,43 @@ function SettingsPage() {
                   />
                 </button>
               ) : r.label === "Appearance" ? (
-                <div className="flex p-0.5 bg-muted/65 dark:bg-surface-2 rounded-full border border-border/40 shrink-0">
-                  {([
-                    { id: "light", icon: "☀️", name: "Light" },
-                    { id: "dark", icon: "🌙", name: "Dark" },
-                    { id: "system", icon: "💻", name: "Sys" },
-                  ] as const).map((t) => {
-                    const isActive = theme === t.id;
-                    return (
-                      <button
-                        key={t.id}
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          changeTheme(t.id);
-                        }}
-                        className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full text-[11px] font-extrabold transition-all duration-200 active:scale-[0.93] ${
-                          isActive
-                            ? "bg-indigo-deep text-white shadow-[0_4px_12px_-4px_oklch(0.32_0.19_285_/_0.5)] dark:bg-indigo dark:text-white"
-                            : "text-ink-soft hover:text-ink"
-                        }`}
-                      >
-                        <span>{t.icon}</span>
-                        <span>{t.name}</span>
-                      </button>
-                    );
-                  })}
+                <div 
+                  onClick={(e) => e.stopPropagation()}
+                  className="relative shrink-0 flex items-center bg-muted/60 dark:bg-surface-2 rounded-full p-0.75 border border-border/40 gap-0.5"
+                >
+                  <button
+                    onClick={() => changeTheme("light")}
+                    className={`rounded-full p-1.5 transition duration-200 active:scale-90 ${
+                      theme === "light"
+                        ? "bg-surface dark:bg-indigo-deep text-indigo dark:text-white shadow-[0_2px_8px_rgba(0,0,0,0.06)]"
+                        : "text-ink-soft opacity-60 hover:opacity-100"
+                    }`}
+                    title="Light Mode"
+                  >
+                    <Sun className="h-4.5 w-4.5" strokeWidth={2.4} />
+                  </button>
+                  <button
+                    onClick={() => changeTheme("dark")}
+                    className={`rounded-full p-1.5 transition duration-200 active:scale-90 ${
+                      theme === "dark"
+                        ? "bg-indigo-deep text-white shadow-[0_2px_8px_rgba(0,0,0,0.3)]"
+                        : "text-ink-soft opacity-60 hover:opacity-100"
+                    }`}
+                    title="Dark Mode"
+                  >
+                    <Moon className="h-4.5 w-4.5" strokeWidth={2.4} />
+                  </button>
+                  <button
+                    onClick={() => changeTheme("system")}
+                    className={`rounded-full p-1.5 transition duration-200 active:scale-90 ${
+                      theme === "system"
+                        ? "bg-surface dark:bg-indigo-deep text-indigo dark:text-white shadow-[0_2px_8px_rgba(0,0,0,0.06)]"
+                        : "text-ink-soft opacity-60 hover:opacity-100"
+                    }`}
+                    title="System Theme"
+                  >
+                    <Laptop className="h-4.5 w-4.5" strokeWidth={2.4} />
+                  </button>
                 </div>
               ) : (
                 <p className="shrink-0 text-[11px] font-semibold text-ink-soft">

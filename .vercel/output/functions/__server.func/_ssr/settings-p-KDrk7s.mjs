@@ -1,8 +1,8 @@
 import { r as __toESM } from "../_runtime.mjs";
 import { n as require_jsx_runtime, r as require_react } from "../_libs/react+tanstack__react-query.mjs";
-import { b as Bell, c as Palette, d as Info, g as CodeXml, p as Heart } from "../_libs/lucide-react.mjs";
+import { _ as CodeXml, a as Sun, c as Palette, d as Laptop, f as Info, l as Moon, m as Heart, x as Bell } from "../_libs/lucide-react.mjs";
 import { t as AppShell } from "./app-shell-Dp86dGwd.mjs";
-//#region node_modules/.nitro/vite/services/ssr/assets/settings-CijyeWAC.js
+//#region node_modules/.nitro/vite/services/ssr/assets/settings-p-KDrk7s.js
 var import_react = /* @__PURE__ */ __toESM(require_react());
 var import_jsx_runtime = require_jsx_runtime();
 var rows = [
@@ -53,7 +53,6 @@ function SettingsPage() {
 		setTheme(newTheme);
 		localStorage.setItem("sjcet_theme", newTheme);
 		applyTheme(newTheme);
-		if (typeof navigator !== "undefined" && navigator.vibrate) navigator.vibrate(40);
 	};
 	const toggleNotifications = async () => {
 		if (!notificationsEnabled) {
@@ -120,34 +119,38 @@ function SettingsPage() {
 							},
 							className: `relative inline-flex h-6 w-11 shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none ${notificationsEnabled ? "bg-indigo" : "bg-border/80"}`,
 							children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { className: `pointer-events-none inline-block h-5 w-5 transform rounded-full bg-white shadow ring-0 transition duration-200 ease-in-out ${notificationsEnabled ? "translate-x-5" : "translate-x-0"}` })
-						}) : r.label === "Appearance" ? /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
-							className: "flex p-0.5 bg-muted/65 dark:bg-surface-2 rounded-full border border-border/40 shrink-0",
+						}) : r.label === "Appearance" ? /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+							onClick: (e) => e.stopPropagation(),
+							className: "relative shrink-0 flex items-center bg-muted/60 dark:bg-surface-2 rounded-full p-0.75 border border-border/40 gap-0.5",
 							children: [
-								{
-									id: "light",
-									icon: "☀️",
-									name: "Light"
-								},
-								{
-									id: "dark",
-									icon: "🌙",
-									name: "Dark"
-								},
-								{
-									id: "system",
-									icon: "💻",
-									name: "Sys"
-								}
-							].map((t) => {
-								return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("button", {
-									onClick: (e) => {
-										e.stopPropagation();
-										changeTheme(t.id);
-									},
-									className: `flex items-center gap-1.5 px-3 py-1.5 rounded-full text-[11px] font-extrabold transition-all duration-200 active:scale-[0.93] ${theme === t.id ? "bg-indigo-deep text-white shadow-[0_4px_12px_-4px_oklch(0.32_0.19_285_/_0.5)] dark:bg-indigo dark:text-white" : "text-ink-soft hover:text-ink"}`,
-									children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { children: t.icon }), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { children: t.name })]
-								}, t.id);
-							})
+								/* @__PURE__ */ (0, import_jsx_runtime.jsx)("button", {
+									onClick: () => changeTheme("light"),
+									className: `rounded-full p-1.5 transition duration-200 active:scale-90 ${theme === "light" ? "bg-surface dark:bg-indigo-deep text-indigo dark:text-white shadow-[0_2px_8px_rgba(0,0,0,0.06)]" : "text-ink-soft opacity-60 hover:opacity-100"}`,
+									title: "Light Mode",
+									children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Sun, {
+										className: "h-4.5 w-4.5",
+										strokeWidth: 2.4
+									})
+								}),
+								/* @__PURE__ */ (0, import_jsx_runtime.jsx)("button", {
+									onClick: () => changeTheme("dark"),
+									className: `rounded-full p-1.5 transition duration-200 active:scale-90 ${theme === "dark" ? "bg-indigo-deep text-white shadow-[0_2px_8px_rgba(0,0,0,0.3)]" : "text-ink-soft opacity-60 hover:opacity-100"}`,
+									title: "Dark Mode",
+									children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Moon, {
+										className: "h-4.5 w-4.5",
+										strokeWidth: 2.4
+									})
+								}),
+								/* @__PURE__ */ (0, import_jsx_runtime.jsx)("button", {
+									onClick: () => changeTheme("system"),
+									className: `rounded-full p-1.5 transition duration-200 active:scale-90 ${theme === "system" ? "bg-surface dark:bg-indigo-deep text-indigo dark:text-white shadow-[0_2px_8px_rgba(0,0,0,0.06)]" : "text-ink-soft opacity-60 hover:opacity-100"}`,
+									title: "System Theme",
+									children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Laptop, {
+										className: "h-4.5 w-4.5",
+										strokeWidth: 2.4
+									})
+								})
+							]
 						}) : /* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
 							className: "shrink-0 text-[11px] font-semibold text-ink-soft",
 							children: r.hint

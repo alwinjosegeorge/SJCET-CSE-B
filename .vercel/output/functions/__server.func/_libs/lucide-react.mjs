@@ -325,6 +325,19 @@ var Info = createLucideIcon("info", [
 * This source code is licensed under the ISC license.
 * See the LICENSE file in the root directory of this source tree.
 */
+var Laptop = createLucideIcon("laptop", [["path", {
+	d: "M18 5a2 2 0 0 1 2 2v8.526a2 2 0 0 0 .212.897l1.068 2.127a1 1 0 0 1-.9 1.45H3.62a1 1 0 0 1-.9-1.45l1.068-2.127A2 2 0 0 0 4 15.526V7a2 2 0 0 1 2-2z",
+	key: "1pdavp"
+}], ["path", {
+	d: "M20.054 15.987H3.946",
+	key: "14rxg9"
+}]]);
+/**
+* @license lucide-react v0.575.0 - ISC
+*
+* This source code is licensed under the ISC license.
+* See the LICENSE file in the root directory of this source tree.
+*/
 var Layers = createLucideIcon("layers", [
 	["path", {
 		d: "M12.83 2.18a2 2 0 0 0-1.66 0L2.6 6.08a1 1 0 0 0 0 1.83l8.58 3.91a2 2 0 0 0 1.66 0l8.58-3.9a1 1 0 0 0 0-1.83z",
@@ -562,4 +575,4 @@ var X = createLucideIcon("x", [["path", {
 	key: "d8bk6v"
 }]]);
 //#endregion
-export { Check as _, Sun as a, Bell as b, Palette as c, Info as d, House as f, CodeXml as g, Coffee as h, Timer as i, Moon as l, GraduationCap as m, Utensils as n, Sparkles as o, Heart as p, UtensilsCrossed as r, Settings as s, X as t, Layers as u, CalendarDays as v, ArrowUpRight as x, BookOpen as y };
+export { ArrowUpRight as S, CodeXml as _, Sun as a, BookOpen as b, Palette as c, Laptop as d, Info as f, Coffee as g, GraduationCap as h, Timer as i, Moon as l, Heart as m, Utensils as n, Sparkles as o, House as p, UtensilsCrossed as r, Settings as s, X as t, Layers as u, Check as v, Bell as x, CalendarDays as y };
