@@ -1,8 +1,8 @@
 import { r as __toESM } from "../_runtime.mjs";
 import { n as require_jsx_runtime, r as require_react } from "../_libs/react+tanstack__react-query.mjs";
 import { _ as Bell, d as Heart, l as Info, p as CodeXml, s as Palette } from "../_libs/lucide-react.mjs";
-import { t as AppShell } from "./app-shell-DXQFBZgR.mjs";
-//#region node_modules/.nitro/vite/services/ssr/assets/settings-Cgr0SxWi.js
+import { t as AppShell } from "./app-shell-DWt6SLuI.mjs";
+//#region node_modules/.nitro/vite/services/ssr/assets/settings-Dx33U2vi.js
 var import_react = /* @__PURE__ */ __toESM(require_react());
 var import_jsx_runtime = require_jsx_runtime();
 var rows = [
@@ -56,6 +56,11 @@ function SettingsPage() {
 					body: "We will notify you 10 minutes before each class starts! 🧸✨",
 					icon: "/favicon.png"
 				});
+				if (typeof navigator !== "undefined" && navigator.vibrate) navigator.vibrate([
+					100,
+					50,
+					100
+				]);
 			} else alert("Notification permissions denied. Please enable them in your browser settings.");
 		} else {
 			localStorage.setItem("sjcet_notifications_enabled", "false");

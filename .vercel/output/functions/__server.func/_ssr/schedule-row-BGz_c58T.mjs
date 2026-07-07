@@ -1,7 +1,7 @@
 import { n as require_jsx_runtime } from "../_libs/react+tanstack__react-query.mjs";
 import { a as Sparkles, f as Coffee, m as Check, n as UtensilsCrossed } from "../_libs/lucide-react.mjs";
-import { l as fmt12, u as subjectEmoji } from "./app-shell-DXQFBZgR.mjs";
-//#region node_modules/.nitro/vite/services/ssr/assets/schedule-row-fyCPDZUY.js
+import { l as fmt12, u as subjectEmoji } from "./app-shell-DWt6SLuI.mjs";
+//#region node_modules/.nitro/vite/services/ssr/assets/schedule-row-BGz_c58T.js
 var import_jsx_runtime = require_jsx_runtime();
 function ScheduleRow({ item, status }) {
 	if (item.kind === "break" || item.kind === "lunch") {

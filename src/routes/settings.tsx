@@ -50,6 +50,9 @@ function SettingsPage() {
           body: "We will notify you 10 minutes before each class starts! 🧸✨",
           icon: "/favicon.png",
         });
+        if (typeof navigator !== "undefined" && navigator.vibrate) {
+          navigator.vibrate([100, 50, 100]);
+        }
       } else {
         alert(
           "Notification permissions denied. Please enable them in your browser settings."

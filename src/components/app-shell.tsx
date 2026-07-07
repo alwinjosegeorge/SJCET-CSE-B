@@ -34,6 +34,9 @@ export function AppShell({ header, children }: AppShellProps) {
               body: `Class starts in ${Math.round(diff)} minutes (${item.start} – ${item.end})! 🧸✨`,
               icon: "/favicon.png",
             });
+            if (typeof navigator !== "undefined" && navigator.vibrate) {
+              navigator.vibrate([100, 50, 100]);
+            }
             localStorage.setItem("sjcet_last_notified_class", item.key);
           }
           break; // only notify for one upcoming class at a time
