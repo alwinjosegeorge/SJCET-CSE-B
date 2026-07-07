@@ -1,5 +1,5 @@
 import { n as require_jsx_runtime } from "../_libs/react+tanstack__react-query.mjs";
-import { a as Sparkles, f as Coffee, n as UtensilsCrossed, p as Check } from "../_libs/lucide-react.mjs";
+import { a as Sparkles, f as Coffee, m as Check, n as UtensilsCrossed } from "../_libs/lucide-react.mjs";
 import { c as fmt12, l as subjectEmoji } from "./schedule-D_kDuoLS.mjs";
 //#region node_modules/.nitro/vite/services/ssr/assets/schedule-row--8zQZjyK.js
 var import_jsx_runtime = require_jsx_runtime();

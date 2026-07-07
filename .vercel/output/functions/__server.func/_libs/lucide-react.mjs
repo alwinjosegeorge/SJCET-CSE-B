@@ -216,6 +216,26 @@ var Check = createLucideIcon("check", [["path", {
 * This source code is licensed under the ISC license.
 * See the LICENSE file in the root directory of this source tree.
 */
+var CodeXml = createLucideIcon("code-xml", [
+	["path", {
+		d: "m18 16 4-4-4-4",
+		key: "1inbqp"
+	}],
+	["path", {
+		d: "m6 8-4 4 4 4",
+		key: "15zrgr"
+	}],
+	["path", {
+		d: "m14.5 4-5 16",
+		key: "e7oirm"
+	}]
+]);
+/**
+* @license lucide-react v0.575.0 - ISC
+*
+* This source code is licensed under the ISC license.
+* See the LICENSE file in the root directory of this source tree.
+*/
 var Coffee = createLucideIcon("coffee", [
 	["path", {
 		d: "M10 2v2",
@@ -489,4 +509,4 @@ var Utensils = createLucideIcon("utensils", [
 	}]
 ]);
 //#endregion
-export { ArrowUpRight as _, Sparkles as a, Moon as c, Heart as d, Coffee as f, Bell as g, BookOpen as h, Sun as i, Info as l, CalendarDays as m, UtensilsCrossed as n, Settings as o, Check as p, Timer as r, Palette as s, Utensils as t, House as u };
+export { Bell as _, Sparkles as a, Moon as c, Heart as d, Coffee as f, BookOpen as g, CalendarDays as h, Sun as i, Info as l, Check as m, UtensilsCrossed as n, Settings as o, CodeXml as p, Timer as r, Palette as s, Utensils as t, House as u, ArrowUpRight as v };
