@@ -53,26 +53,11 @@ export function AppShell({ header, children }: AppShellProps) {
 
   useEffect(() => {
     const selectedTheme = localStorage.getItem("sjcet_theme") || "light";
-    const apply = (t: string) => {
-      if (
-        t === "dark" ||
-        (t === "system" && window.matchMedia("(prefers-color-scheme: dark)").matches)
-      ) {
-        document.documentElement.classList.add("dark");
-      } else {
-        document.documentElement.classList.remove("dark");
-      }
-    };
-    apply(selectedTheme);
-
-    const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
-    const handler = () => {
-      if (localStorage.getItem("sjcet_theme") === "system") {
-        apply("system");
-      }
-    };
-    mediaQuery.addEventListener("change", handler);
-    return () => mediaQuery.removeEventListener("change", handler);
+    if (selectedTheme === "dark") {
+      document.documentElement.classList.add("dark");
+    } else {
+      document.documentElement.classList.remove("dark");
+    }
   }, []);
 
   return (

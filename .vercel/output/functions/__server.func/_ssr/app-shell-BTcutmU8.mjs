@@ -1,8 +1,8 @@
 import { r as __toESM } from "../_runtime.mjs";
 import { n as require_jsx_runtime, r as require_react } from "../_libs/react+tanstack__react-query.mjs";
 import { g as Link, l as useRouterState } from "../_libs/@tanstack/react-router+[...].mjs";
-import { p as House, s as Settings, x as Bell, y as CalendarDays } from "../_libs/lucide-react.mjs";
-//#region node_modules/.nitro/vite/services/ssr/assets/app-shell-Dp86dGwd.js
+import { b as Bell, f as House, s as Settings, v as CalendarDays } from "../_libs/lucide-react.mjs";
+//#region node_modules/.nitro/vite/services/ssr/assets/app-shell-BTcutmU8.js
 var import_react = /* @__PURE__ */ __toESM(require_react());
 var import_jsx_runtime = require_jsx_runtime();
 var items = [
@@ -415,18 +415,8 @@ function AppShell({ header, children }) {
 		return () => clearInterval(id);
 	}, []);
 	(0, import_react.useEffect)(() => {
-		const selectedTheme = localStorage.getItem("sjcet_theme") || "light";
-		const apply = (t) => {
-			if (t === "dark" || t === "system" && window.matchMedia("(prefers-color-scheme: dark)").matches) document.documentElement.classList.add("dark");
-			else document.documentElement.classList.remove("dark");
-		};
-		apply(selectedTheme);
-		const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
-		const handler = () => {
-			if (localStorage.getItem("sjcet_theme") === "system") apply("system");
-		};
-		mediaQuery.addEventListener("change", handler);
-		return () => mediaQuery.removeEventListener("change", handler);
+		if ((localStorage.getItem("sjcet_theme") || "light") === "dark") document.documentElement.classList.add("dark");
+		else document.documentElement.classList.remove("dark");
 	}, []);
 	return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
 		className: "min-h-screen bg-background",

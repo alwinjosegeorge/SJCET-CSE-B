@@ -1,10 +1,10 @@
 import { r as __toESM } from "../_runtime.mjs";
 import { n as require_jsx_runtime, r as require_react } from "../_libs/react+tanstack__react-query.mjs";
-import { S as ArrowUpRight, a as Sun, g as Coffee, l as Moon, o as Sparkles, r as UtensilsCrossed } from "../_libs/lucide-react.mjs";
-import { l as fmt12, n as DAY_LABEL, s as computeNowState, t as AppShell } from "./app-shell-Dp86dGwd.mjs";
+import { a as Sun, h as Coffee, l as Moon, o as Sparkles, r as UtensilsCrossed, x as ArrowUpRight } from "../_libs/lucide-react.mjs";
+import { l as fmt12, n as DAY_LABEL, s as computeNowState, t as AppShell } from "./app-shell-BTcutmU8.mjs";
 import { t as useNow } from "./use-now-DwH2zO-0.mjs";
-import { n as SubjectDetailsModal, t as ScheduleRow } from "./subject-details-modal-SRxbIx5R.mjs";
-//#region node_modules/.nitro/vite/services/ssr/assets/routes-CKg3o8Tj.js
+import { n as SubjectDetailsModal, t as ScheduleRow } from "./subject-details-modal-tWWnESba.mjs";
+//#region node_modules/.nitro/vite/services/ssr/assets/routes-TwnBjkNf.js
 var import_react = /* @__PURE__ */ __toESM(require_react());
 var import_jsx_runtime = require_jsx_runtime();
 var SUBJECT_EMOJI = {

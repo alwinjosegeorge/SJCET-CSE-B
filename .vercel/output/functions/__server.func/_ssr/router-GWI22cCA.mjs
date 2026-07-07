@@ -1,7 +1,7 @@
 import { n as require_jsx_runtime, t as QueryClientProvider } from "../_libs/react+tanstack__react-query.mjs";
 import { _ as useRouter, c as HeadContent, d as createRouter, f as Outlet, g as Link, h as createRootRouteWithContext, m as createFileRoute, p as lazyRouteComponent, s as Scripts } from "../_libs/@tanstack/react-router+[...].mjs";
 import { t as QueryClient } from "../_libs/tanstack__query-core.mjs";
-//#region node_modules/.nitro/vite/services/ssr/assets/router-CMjgRq5T.js
+//#region node_modules/.nitro/vite/services/ssr/assets/router-GWI22cCA.js
 var import_jsx_runtime = require_jsx_runtime();
 var styles_default = "/assets/styles-Bx0gytME.css";
 function NotFoundComponent() {
@@ -179,7 +179,7 @@ var Route$4 = createFileRoute("/sitemap.xml")({ server: { handlers: { GET: async
 		"Cache-Control": "public, max-age=3600"
 	} });
 } } } });
-var $$splitComponentImporter$3 = () => import("./settings-p-KDrk7s.mjs");
+var $$splitComponentImporter$3 = () => import("./settings-mSVoqri8.mjs");
 var Route$3 = createFileRoute("/settings")({
 	head: () => ({ meta: [{ title: "Settings · SJCET CSE-B" }, {
 		name: "description",
@@ -187,7 +187,7 @@ var Route$3 = createFileRoute("/settings")({
 	}] }),
 	component: lazyRouteComponent($$splitComponentImporter$3, "component")
 });
-var $$splitComponentImporter$2 = () => import("./schedule-D2nHfn3_.mjs");
+var $$splitComponentImporter$2 = () => import("./schedule-DHiSqTfV.mjs");
 var Route$2 = createFileRoute("/schedule")({
 	head: () => ({ meta: [{ title: "Schedule · SJCET CSE-B" }, {
 		name: "description",
@@ -195,7 +195,7 @@ var Route$2 = createFileRoute("/schedule")({
 	}] }),
 	component: lazyRouteComponent($$splitComponentImporter$2, "component")
 });
-var $$splitComponentImporter$1 = () => import("./countdown-aP1MiE1z.mjs");
+var $$splitComponentImporter$1 = () => import("./countdown-D3gDx6SG.mjs");
 var Route$1 = createFileRoute("/countdown")({
 	head: () => ({ meta: [{ title: "Countdown · SJCET CSE-B" }, {
 		name: "description",
@@ -203,7 +203,7 @@ var Route$1 = createFileRoute("/countdown")({
 	}] }),
 	component: lazyRouteComponent($$splitComponentImporter$1, "component")
 });
-var $$splitComponentImporter = () => import("./routes-CKg3o8Tj.mjs");
+var $$splitComponentImporter = () => import("./routes-TwnBjkNf.mjs");
 var Route = createFileRoute("/")({
 	head: () => ({ meta: [
 		{ title: "SJCET CSE-B Timetable" },

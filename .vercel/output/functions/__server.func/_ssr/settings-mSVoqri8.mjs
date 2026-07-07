@@ -1,8 +1,8 @@
 import { r as __toESM } from "../_runtime.mjs";
 import { n as require_jsx_runtime, r as require_react } from "../_libs/react+tanstack__react-query.mjs";
-import { _ as CodeXml, a as Sun, c as Palette, d as Laptop, f as Info, l as Moon, m as Heart, x as Bell } from "../_libs/lucide-react.mjs";
-import { t as AppShell } from "./app-shell-Dp86dGwd.mjs";
-//#region node_modules/.nitro/vite/services/ssr/assets/settings-p-KDrk7s.js
+import { a as Sun, b as Bell, c as Palette, d as Info, g as CodeXml, l as Moon, p as Heart } from "../_libs/lucide-react.mjs";
+import { t as AppShell } from "./app-shell-BTcutmU8.mjs";
+//#region node_modules/.nitro/vite/services/ssr/assets/settings-mSVoqri8.js
 var import_react = /* @__PURE__ */ __toESM(require_react());
 var import_jsx_runtime = require_jsx_runtime();
 var rows = [
@@ -46,7 +46,7 @@ function SettingsPage() {
 		setTheme(localStorage.getItem("sjcet_theme") || "light");
 	}, []);
 	const applyTheme = (targetTheme) => {
-		if (targetTheme === "dark" || targetTheme === "system" && window.matchMedia("(prefers-color-scheme: dark)").matches) document.documentElement.classList.add("dark");
+		if (targetTheme === "dark") document.documentElement.classList.add("dark");
 		else document.documentElement.classList.remove("dark");
 	};
 	const changeTheme = (newTheme) => {
@@ -122,35 +122,23 @@ function SettingsPage() {
 						}) : r.label === "Appearance" ? /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
 							onClick: (e) => e.stopPropagation(),
 							className: "relative shrink-0 flex items-center bg-muted/60 dark:bg-surface-2 rounded-full p-0.75 border border-border/40 gap-0.5",
-							children: [
-								/* @__PURE__ */ (0, import_jsx_runtime.jsx)("button", {
-									onClick: () => changeTheme("light"),
-									className: `rounded-full p-1.5 transition duration-200 active:scale-90 ${theme === "light" ? "bg-surface dark:bg-indigo-deep text-indigo dark:text-white shadow-[0_2px_8px_rgba(0,0,0,0.06)]" : "text-ink-soft opacity-60 hover:opacity-100"}`,
-									title: "Light Mode",
-									children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Sun, {
-										className: "h-4.5 w-4.5",
-										strokeWidth: 2.4
-									})
-								}),
-								/* @__PURE__ */ (0, import_jsx_runtime.jsx)("button", {
-									onClick: () => changeTheme("dark"),
-									className: `rounded-full p-1.5 transition duration-200 active:scale-90 ${theme === "dark" ? "bg-indigo-deep text-white shadow-[0_2px_8px_rgba(0,0,0,0.3)]" : "text-ink-soft opacity-60 hover:opacity-100"}`,
-									title: "Dark Mode",
-									children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Moon, {
-										className: "h-4.5 w-4.5",
-										strokeWidth: 2.4
-									})
-								}),
-								/* @__PURE__ */ (0, import_jsx_runtime.jsx)("button", {
-									onClick: () => changeTheme("system"),
-									className: `rounded-full p-1.5 transition duration-200 active:scale-90 ${theme === "system" ? "bg-surface dark:bg-indigo-deep text-indigo dark:text-white shadow-[0_2px_8px_rgba(0,0,0,0.06)]" : "text-ink-soft opacity-60 hover:opacity-100"}`,
-									title: "System Theme",
-									children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Laptop, {
-										className: "h-4.5 w-4.5",
-										strokeWidth: 2.4
-									})
+							children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("button", {
+								onClick: () => changeTheme("light"),
+								className: `rounded-full p-1.5 transition duration-200 active:scale-90 ${theme === "light" ? "bg-surface dark:bg-indigo-deep text-indigo dark:text-white shadow-[0_2px_8px_rgba(0,0,0,0.06)]" : "text-ink-soft opacity-60 hover:opacity-100"}`,
+								title: "Light Mode",
+								children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Sun, {
+									className: "h-4.5 w-4.5",
+									strokeWidth: 2.4
 								})
-							]
+							}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("button", {
+								onClick: () => changeTheme("dark"),
+								className: `rounded-full p-1.5 transition duration-200 active:scale-90 ${theme === "dark" ? "bg-indigo-deep text-white shadow-[0_2px_8px_rgba(0,0,0,0.3)]" : "text-ink-soft opacity-60 hover:opacity-100"}`,
+								title: "Dark Mode",
+								children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Moon, {
+									className: "h-4.5 w-4.5",
+									strokeWidth: 2.4
+								})
+							})]
 						}) : /* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
 							className: "shrink-0 text-[11px] font-semibold text-ink-soft",
 							children: r.hint

@@ -29,7 +29,7 @@ const rows = [
 
 function SettingsPage() {
   const [notificationsEnabled, setNotificationsEnabled] = useState(false);
-  const [theme, setTheme] = useState<"light" | "dark" | "system">("light");
+  const [theme, setTheme] = useState<"light" | "dark">("light");
 
   useEffect(() => {
     setNotificationsEnabled(
@@ -38,18 +38,15 @@ function SettingsPage() {
     setTheme((localStorage.getItem("sjcet_theme") as any) || "light");
   }, []);
 
-  const applyTheme = (targetTheme: "light" | "dark" | "system") => {
-    if (
-      targetTheme === "dark" ||
-      (targetTheme === "system" && window.matchMedia("(prefers-color-scheme: dark)").matches)
-    ) {
+  const applyTheme = (targetTheme: "light" | "dark") => {
+    if (targetTheme === "dark") {
       document.documentElement.classList.add("dark");
     } else {
       document.documentElement.classList.remove("dark");
     }
   };
 
-  const changeTheme = (newTheme: "light" | "dark" | "system") => {
+  const changeTheme = (newTheme: "light" | "dark") => {
     setTheme(newTheme);
     localStorage.setItem("sjcet_theme", newTheme);
     applyTheme(newTheme);
@@ -165,17 +162,6 @@ function SettingsPage() {
                     title="Dark Mode"
                   >
                     <Moon className="h-4.5 w-4.5" strokeWidth={2.4} />
-                  </button>
-                  <button
-                    onClick={() => changeTheme("system")}
-                    className={`rounded-full p-1.5 transition duration-200 active:scale-90 ${
-                      theme === "system"
-                        ? "bg-surface dark:bg-indigo-deep text-indigo dark:text-white shadow-[0_2px_8px_rgba(0,0,0,0.06)]"
-                        : "text-ink-soft opacity-60 hover:opacity-100"
-                    }`}
-                    title="System Theme"
-                  >
-                    <Laptop className="h-4.5 w-4.5" strokeWidth={2.4} />
                   </button>
                 </div>
               ) : (
