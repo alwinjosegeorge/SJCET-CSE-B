@@ -168,19 +168,6 @@ function CountdownPage() {
         
         <div className="relative border-l-2 border-border/40 pl-6 ml-3.5 space-y-4">
           {(() => {
-            const SLOT_CUTE_DESC: Record<string, string> = {
-              p1: "Wakey wakey! 🥱",
-              p2: "Focus mode ON 🧠",
-              b1: "Chai & gossip! ☕️✨",
-              p3: "Almost at lunch 🍱",
-              p4: "Last stretch before food! 🦦",
-              lunch: "Yum yum! Go eat! 🍛🥘",
-              p5: "Post-lunch sleepiness... 😴",
-              p6: "Getting closer! 🚀",
-              b2: "Quick breather 💨",
-              p7: "Freedom is near! 🕊️",
-            };
-
             const parseMin = (t: string) => {
               const [h, m] = t.split(":").map(Number);
               return h * 60 + m;
@@ -218,10 +205,10 @@ function CountdownPage() {
               return (
                 <div
                   key={slot.id}
-                  className={`relative flex items-center justify-between gap-4 transition-all duration-300 ${
+                  className={`relative flex items-center justify-between gap-4 transition-all duration-300 rounded-2xl -mx-3.5 px-3.5 ${
                     isActive
-                      ? "bg-indigo-deep/5 dark:bg-indigo-deep/20 border border-indigo/20 dark:border-indigo/40 shadow-sm rounded-2xl -mx-3.5 px-3.5 py-2.5"
-                      : "py-0.5"
+                      ? "bg-indigo-deep/5 dark:bg-indigo-deep/20 border border-indigo/20 dark:border-indigo/40 shadow-sm py-2.5"
+                      : "py-2 hover:bg-muted/30 dark:hover:bg-surface-2/40"
                   }`}
                 >
                   {/* Timeline node icon */}
@@ -244,9 +231,6 @@ function CountdownPage() {
                     </p>
                     <p className="text-[11px] font-semibold text-ink-soft mt-0.5">
                       {fmt12(slot.start)} – {fmt12(slot.end)}
-                    </p>
-                    <p className="text-[10px] italic font-bold text-indigo dark:text-lilac mt-1">
-                      {SLOT_CUTE_DESC[slot.id]}
                     </p>
                   </div>
 

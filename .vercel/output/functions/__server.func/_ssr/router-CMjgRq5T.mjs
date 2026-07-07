@@ -1,9 +1,9 @@
 import { n as require_jsx_runtime, t as QueryClientProvider } from "../_libs/react+tanstack__react-query.mjs";
 import { _ as useRouter, c as HeadContent, d as createRouter, f as Outlet, g as Link, h as createRootRouteWithContext, m as createFileRoute, p as lazyRouteComponent, s as Scripts } from "../_libs/@tanstack/react-router+[...].mjs";
 import { t as QueryClient } from "../_libs/tanstack__query-core.mjs";
-//#region node_modules/.nitro/vite/services/ssr/assets/router-BanD83jx.js
+//#region node_modules/.nitro/vite/services/ssr/assets/router-CMjgRq5T.js
 var import_jsx_runtime = require_jsx_runtime();
-var styles_default = "/assets/styles-tl9hWn9O.css";
+var styles_default = "/assets/styles-Bx0gytME.css";
 function NotFoundComponent() {
 	return /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
 		className: "flex min-h-screen items-center justify-center bg-background px-4",
@@ -195,7 +195,7 @@ var Route$2 = createFileRoute("/schedule")({
 	}] }),
 	component: lazyRouteComponent($$splitComponentImporter$2, "component")
 });
-var $$splitComponentImporter$1 = () => import("./countdown-CtJ4-KPk.mjs");
+var $$splitComponentImporter$1 = () => import("./countdown-aP1MiE1z.mjs");
 var Route$1 = createFileRoute("/countdown")({
 	head: () => ({ meta: [{ title: "Countdown · SJCET CSE-B" }, {
 		name: "description",

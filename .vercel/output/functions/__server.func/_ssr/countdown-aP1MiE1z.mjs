@@ -3,7 +3,7 @@ import { n as require_jsx_runtime, r as require_react } from "../_libs/react+tan
 import { a as Sun, b as BookOpen, g as Coffee, i as Timer, l as Moon, n as Utensils, r as UtensilsCrossed, x as Bell } from "../_libs/lucide-react.mjs";
 import { a as PERIOD_SLOTS, c as currentDayKey, l as fmt12, s as computeNowState, t as AppShell } from "./app-shell-Dp86dGwd.mjs";
 import { t as useNow } from "./use-now-DwH2zO-0.mjs";
-//#region node_modules/.nitro/vite/services/ssr/assets/countdown-CtJ4-KPk.js
+//#region node_modules/.nitro/vite/services/ssr/assets/countdown-aP1MiE1z.js
 var import_react = /* @__PURE__ */ __toESM(require_react());
 var import_jsx_runtime = require_jsx_runtime();
 function CountdownPage() {
@@ -143,18 +143,6 @@ function CountdownPage() {
 				/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
 					className: "relative border-l-2 border-border/40 pl-6 ml-3.5 space-y-4",
 					children: (() => {
-						const SLOT_CUTE_DESC = {
-							p1: "Wakey wakey! 🥱",
-							p2: "Focus mode ON 🧠",
-							b1: "Chai & gossip! ☕️✨",
-							p3: "Almost at lunch 🍱",
-							p4: "Last stretch before food! 🦦",
-							lunch: "Yum yum! Go eat! 🍛🥘",
-							p5: "Post-lunch sleepiness... 😴",
-							p6: "Getting closer! 🚀",
-							b2: "Quick breather 💨",
-							p7: "Freedom is near! 🕊️"
-						};
 						const parseMin = (t) => {
 							const [h, m] = t.split(":").map(Number);
 							return h * 60 + m;
@@ -178,7 +166,7 @@ function CountdownPage() {
 							const endM = parseMin(slot.end);
 							const isActive = nowMin >= startM && nowMin < endM && state.phase !== "weekend" && state.phase !== "after-day" && state.phase !== "before-day";
 							return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-								className: `relative flex items-center justify-between gap-4 transition-all duration-300 ${isActive ? "bg-indigo-deep/5 dark:bg-indigo-deep/20 border border-indigo/20 dark:border-indigo/40 shadow-sm rounded-2xl -mx-3.5 px-3.5 py-2.5" : "py-0.5"}`,
+								className: `relative flex items-center justify-between gap-4 transition-all duration-300 rounded-2xl -mx-3.5 px-3.5 ${isActive ? "bg-indigo-deep/5 dark:bg-indigo-deep/20 border border-indigo/20 dark:border-indigo/40 shadow-sm py-2.5" : "py-2 hover:bg-muted/30 dark:hover:bg-surface-2/40"}`,
 								children: [
 									/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
 										className: `absolute -left-[37px] grid h-7 w-7 place-items-center rounded-full ${iconBg} border border-background dark:border-surface shadow-sm transition-transform duration-300 ${isActive ? "scale-110 ring-2 ring-indigo animate-bounce z-10" : ""}`,
@@ -186,27 +174,20 @@ function CountdownPage() {
 									}),
 									/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
 										className: "min-w-0 flex-1",
-										children: [
-											/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("p", {
-												className: "text-sm font-bold text-ink flex items-center gap-1.5 flex-wrap",
-												children: [labelText, isActive && /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
-													className: "inline-flex items-center gap-1 rounded-full bg-indigo text-white dark:bg-lilac dark:text-indigo-deep px-1.5 py-0.5 text-[8px] font-extrabold uppercase tracking-wider animate-pulse",
-													children: "Here 📍"
-												})]
-											}),
-											/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("p", {
-												className: "text-[11px] font-semibold text-ink-soft mt-0.5",
-												children: [
-													fmt12(slot.start),
-													" – ",
-													fmt12(slot.end)
-												]
-											}),
-											/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
-												className: "text-[10px] italic font-bold text-indigo dark:text-lilac mt-1",
-												children: SLOT_CUTE_DESC[slot.id]
-											})
-										]
+										children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("p", {
+											className: "text-sm font-bold text-ink flex items-center gap-1.5 flex-wrap",
+											children: [labelText, isActive && /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
+												className: "inline-flex items-center gap-1 rounded-full bg-indigo text-white dark:bg-lilac dark:text-indigo-deep px-1.5 py-0.5 text-[8px] font-extrabold uppercase tracking-wider animate-pulse",
+												children: "Here 📍"
+											})]
+										}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("p", {
+											className: "text-[11px] font-semibold text-ink-soft mt-0.5",
+											children: [
+												fmt12(slot.start),
+												" – ",
+												fmt12(slot.end)
+											]
+										})]
 									}),
 									/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
 										className: `shrink-0 rounded-full px-2.5 py-0.5 text-[9px] font-extrabold uppercase tracking-wider ${isBreak || isLunch ? "bg-slate-100 dark:bg-surface-2 text-slate-500 dark:text-ink-soft" : "bg-indigo-deep/15 dark:bg-lilac-soft/20 text-indigo-deep dark:text-lilac"}`,
