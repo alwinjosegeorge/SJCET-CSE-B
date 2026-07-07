@@ -29,13 +29,13 @@ const rows = [
 
 function SettingsPage() {
   const [notificationsEnabled, setNotificationsEnabled] = useState(false);
-  const [theme, setTheme] = useState<"light" | "dark" | "system">("system");
+  const [theme, setTheme] = useState<"light" | "dark" | "system">("light");
 
   useEffect(() => {
     setNotificationsEnabled(
       localStorage.getItem("sjcet_notifications_enabled") === "true"
     );
-    setTheme((localStorage.getItem("sjcet_theme") as any) || "system");
+    setTheme((localStorage.getItem("sjcet_theme") as any) || "light");
   }, []);
 
   const applyTheme = (targetTheme: "light" | "dark" | "system") => {
@@ -53,6 +53,9 @@ function SettingsPage() {
     setTheme(newTheme);
     localStorage.setItem("sjcet_theme", newTheme);
     applyTheme(newTheme);
+    if (typeof navigator !== "undefined" && navigator.vibrate) {
+      navigator.vibrate(40);
+    }
   };
 
   const toggleNotifications = async () => {
@@ -140,16 +143,31 @@ function SettingsPage() {
                   />
                 </button>
               ) : r.label === "Appearance" ? (
-                <div className="relative shrink-0 flex items-center bg-muted/60 dark:bg-surface-2 rounded-xl px-2.5 py-1.5 border border-border/40">
-                  <select
-                    value={theme}
-                    onChange={(e) => changeTheme(e.target.value as any)}
-                    className="bg-transparent text-xs font-bold text-ink focus:outline-none cursor-pointer pr-1"
-                  >
-                    <option value="light" className="bg-surface text-ink">Light ☀️</option>
-                    <option value="dark" className="bg-surface text-ink">Dark 🌙</option>
-                    <option value="system" className="bg-surface text-ink">System 💻</option>
-                  </select>
+                <div className="flex p-0.5 bg-muted/65 dark:bg-surface-2 rounded-full border border-border/40 shrink-0">
+                  {([
+                    { id: "light", icon: "☀️", name: "Light" },
+                    { id: "dark", icon: "🌙", name: "Dark" },
+                    { id: "system", icon: "💻", name: "Sys" },
+                  ] as const).map((t) => {
+                    const isActive = theme === t.id;
+                    return (
+                      <button
+                        key={t.id}
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          changeTheme(t.id);
+                        }}
+                        className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full text-[11px] font-extrabold transition-all duration-200 active:scale-[0.93] ${
+                          isActive
+                            ? "bg-indigo-deep text-white shadow-[0_4px_12px_-4px_oklch(0.32_0.19_285_/_0.5)] dark:bg-indigo dark:text-white"
+                            : "text-ink-soft hover:text-ink"
+                        }`}
+                      >
+                        <span>{t.icon}</span>
+                        <span>{t.name}</span>
+                      </button>
+                    );
+                  })}
                 </div>
               ) : (
                 <p className="shrink-0 text-[11px] font-semibold text-ink-soft">

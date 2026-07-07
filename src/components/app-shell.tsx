@@ -52,7 +52,7 @@ export function AppShell({ header, children }: AppShellProps) {
   }, []);
 
   useEffect(() => {
-    const selectedTheme = localStorage.getItem("sjcet_theme") || "system";
+    const selectedTheme = localStorage.getItem("sjcet_theme") || "light";
     const apply = (t: string) => {
       if (
         t === "dark" ||
@@ -67,7 +67,7 @@ export function AppShell({ header, children }: AppShellProps) {
 
     const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
     const handler = () => {
-      if (localStorage.getItem("sjcet_theme") === "system" || !localStorage.getItem("sjcet_theme")) {
+      if (localStorage.getItem("sjcet_theme") === "system") {
         apply("system");
       }
     };
