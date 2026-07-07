@@ -1,8 +1,8 @@
 import { r as __toESM } from "../_runtime.mjs";
 import { n as require_jsx_runtime, r as require_react } from "../_libs/react+tanstack__react-query.mjs";
-import { c as currentDayKey, i as DAY_SHORT, n as DAY_LABEL, o as buildDaySchedule, r as DAY_ORDER, t as AppShell } from "./app-shell-BpdV1HOy.mjs";
-import { n as SubjectDetailsModal, t as ScheduleRow } from "./subject-details-modal-IO_Cv2Py.mjs";
-//#region node_modules/.nitro/vite/services/ssr/assets/schedule-C6gcSZeF.js
+import { c as currentDayKey, i as DAY_SHORT, n as DAY_LABEL, o as buildDaySchedule, r as DAY_ORDER, t as AppShell } from "./app-shell-a6eilKya.mjs";
+import { n as SubjectDetailsModal, t as ScheduleRow } from "./subject-details-modal-BksSkx4P.mjs";
+//#region node_modules/.nitro/vite/services/ssr/assets/schedule-BxDhWHTo.js
 var import_react = /* @__PURE__ */ __toESM(require_react());
 var import_jsx_runtime = require_jsx_runtime();
 function SchedulePage() {

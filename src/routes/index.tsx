@@ -212,16 +212,16 @@ function NextUpTile({ item, onClick }: { item: ScheduleItem; onClick?: () => voi
       onClick={onClick}
       className="relative col-span-2 overflow-hidden rounded-[24px] bg-lilac-soft p-4 cursor-pointer hover:scale-[1.005] active:scale-[0.995] transition duration-200"
     >
-      <p className="text-[10px] font-bold uppercase tracking-wider text-indigo-deep/70">
+      <p className="text-[10px] font-bold uppercase tracking-wider text-indigo-deep/70 dark:text-lilac/70">
         Up next
       </p>
       <div className="mt-1 flex items-start justify-between gap-2">
-        <p className="font-display text-[17px] font-bold leading-tight text-indigo-deep">
+        <p className="font-display text-[17px] font-bold leading-tight text-indigo-deep dark:text-lilac">
           {item.subject}
         </p>
         <span className="text-2xl leading-none">{subjectEmoji(item.subject)}</span>
       </div>
-      <p className="mt-2 text-[11px] font-medium text-indigo-deep/70">
+      <p className="mt-2 text-[11px] font-medium text-indigo-deep/70 dark:text-lilac/70">
         {fmt12(item.start)} – {fmt12(item.end)}
       </p>
     </div>

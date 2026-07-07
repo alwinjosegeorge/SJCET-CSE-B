@@ -1,10 +1,10 @@
 import { r as __toESM } from "../_runtime.mjs";
 import { n as require_jsx_runtime, r as require_react } from "../_libs/react+tanstack__react-query.mjs";
 import { a as Sun, h as Coffee, l as Moon, o as Sparkles, r as UtensilsCrossed, x as ArrowUpRight } from "../_libs/lucide-react.mjs";
-import { l as fmt12, n as DAY_LABEL, s as computeNowState, t as AppShell } from "./app-shell-BpdV1HOy.mjs";
+import { l as fmt12, n as DAY_LABEL, s as computeNowState, t as AppShell } from "./app-shell-a6eilKya.mjs";
 import { t as useNow } from "./use-now-DwH2zO-0.mjs";
-import { n as SubjectDetailsModal, t as ScheduleRow } from "./subject-details-modal-IO_Cv2Py.mjs";
-//#region node_modules/.nitro/vite/services/ssr/assets/routes-DNNaMO3P.js
+import { n as SubjectDetailsModal, t as ScheduleRow } from "./subject-details-modal-BksSkx4P.mjs";
+//#region node_modules/.nitro/vite/services/ssr/assets/routes-BjaK1SCn.js
 var import_react = /* @__PURE__ */ __toESM(require_react());
 var import_jsx_runtime = require_jsx_runtime();
 var SUBJECT_EMOJI = {
@@ -229,13 +229,13 @@ function NextUpTile({ item, onClick }) {
 		className: "relative col-span-2 overflow-hidden rounded-[24px] bg-lilac-soft p-4 cursor-pointer hover:scale-[1.005] active:scale-[0.995] transition duration-200",
 		children: [
 			/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
-				className: "text-[10px] font-bold uppercase tracking-wider text-indigo-deep/70",
+				className: "text-[10px] font-bold uppercase tracking-wider text-indigo-deep/70 dark:text-lilac/70",
 				children: "Up next"
 			}),
 			/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
 				className: "mt-1 flex items-start justify-between gap-2",
 				children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
-					className: "font-display text-[17px] font-bold leading-tight text-indigo-deep",
+					className: "font-display text-[17px] font-bold leading-tight text-indigo-deep dark:text-lilac",
 					children: item.subject
 				}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
 					className: "text-2xl leading-none",
@@ -243,7 +243,7 @@ function NextUpTile({ item, onClick }) {
 				})]
 			}),
 			/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("p", {
-				className: "mt-2 text-[11px] font-medium text-indigo-deep/70",
+				className: "mt-2 text-[11px] font-medium text-indigo-deep/70 dark:text-lilac/70",
 				children: [
 					fmt12(item.start),
 					" – ",

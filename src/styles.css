@@ -140,3 +140,44 @@
 @utility animate-slide-up {
   animation: slideUp 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
+
+.dark {
+  --background: oklch(0.14 0.015 285);
+  --foreground: oklch(0.95 0.01 285);
+
+  --surface: oklch(0.20 0.02 285);
+  --surface-2: oklch(0.24 0.02 285);
+  --ink: oklch(0.95 0.01 285);
+  --ink-soft: oklch(0.70 0.01 285);
+
+  --card: oklch(0.20 0.02 285);
+  --card-foreground: oklch(0.95 0.01 285);
+  --popover: oklch(0.20 0.02 285);
+  --popover-foreground: oklch(0.95 0.01 285);
+
+  --indigo-deep: oklch(0.38 0.18 285);
+  --indigo: oklch(0.50 0.20 285);
+  --lilac: oklch(0.78 0.08 285);
+  --lilac-soft: oklch(0.25 0.03 285);
+  --blush: oklch(0.28 0.06 20);
+  --mint: oklch(0.28 0.06 165);
+  --butter: oklch(0.28 0.07 90);
+
+  --primary: oklch(0.50 0.20 285);
+  --primary-foreground: oklch(0.99 0.005 285);
+
+  --secondary: oklch(0.24 0.02 285);
+  --secondary-foreground: oklch(0.95 0.01 285);
+
+  --muted: oklch(0.24 0.02 285);
+  --muted-foreground: oklch(0.65 0.02 285);
+
+  --accent: oklch(0.28 0.06 20);
+  --accent-foreground: oklch(0.95 0.01 285);
+
+  --destructive: oklch(0.5 0.2 25);
+  --destructive-foreground: oklch(0.95 0.01 285);
+  --border: oklch(0.24 0.02 285);
+  --input: oklch(0.24 0.02 285);
+  --ring: oklch(0.50 0.20 285);
+}

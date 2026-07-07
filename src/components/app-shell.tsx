@@ -51,6 +51,30 @@ export function AppShell({ header, children }: AppShellProps) {
     return () => clearInterval(id);
   }, []);
 
+  useEffect(() => {
+    const selectedTheme = localStorage.getItem("sjcet_theme") || "system";
+    const apply = (t: string) => {
+      if (
+        t === "dark" ||
+        (t === "system" && window.matchMedia("(prefers-color-scheme: dark)").matches)
+      ) {
+        document.documentElement.classList.add("dark");
+      } else {
+        document.documentElement.classList.remove("dark");
+      }
+    };
+    apply(selectedTheme);
+
+    const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
+    const handler = () => {
+      if (localStorage.getItem("sjcet_theme") === "system" || !localStorage.getItem("sjcet_theme")) {
+        apply("system");
+      }
+    };
+    mediaQuery.addEventListener("change", handler);
+    return () => mediaQuery.removeEventListener("change", handler);
+  }, []);
+
   return (
     <div className="min-h-screen bg-background">
       <div className="mx-auto flex min-h-screen max-w-md flex-col px-5 pb-32 pt-[max(env(safe-area-inset-top),1.25rem)]">

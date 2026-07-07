@@ -29,12 +29,31 @@ const rows = [
 
 function SettingsPage() {
   const [notificationsEnabled, setNotificationsEnabled] = useState(false);
+  const [theme, setTheme] = useState<"light" | "dark" | "system">("system");
 
   useEffect(() => {
     setNotificationsEnabled(
       localStorage.getItem("sjcet_notifications_enabled") === "true"
     );
+    setTheme((localStorage.getItem("sjcet_theme") as any) || "system");
   }, []);
+
+  const applyTheme = (targetTheme: "light" | "dark" | "system") => {
+    if (
+      targetTheme === "dark" ||
+      (targetTheme === "system" && window.matchMedia("(prefers-color-scheme: dark)").matches)
+    ) {
+      document.documentElement.classList.add("dark");
+    } else {
+      document.documentElement.classList.remove("dark");
+    }
+  };
+
+  const changeTheme = (newTheme: "light" | "dark" | "system") => {
+    setTheme(newTheme);
+    localStorage.setItem("sjcet_theme", newTheme);
+    applyTheme(newTheme);
+  };
 
   const toggleNotifications = async () => {
     if (!notificationsEnabled) {
@@ -120,6 +139,18 @@ function SettingsPage() {
                     }`}
                   />
                 </button>
+              ) : r.label === "Appearance" ? (
+                <div className="relative shrink-0 flex items-center bg-muted/60 dark:bg-surface-2 rounded-xl px-2.5 py-1.5 border border-border/40">
+                  <select
+                    value={theme}
+                    onChange={(e) => changeTheme(e.target.value as any)}
+                    className="bg-transparent text-xs font-bold text-ink focus:outline-none cursor-pointer pr-1"
+                  >
+                    <option value="light" className="bg-surface text-ink">Light ☀️</option>
+                    <option value="dark" className="bg-surface text-ink">Dark 🌙</option>
+                    <option value="system" className="bg-surface text-ink">System 💻</option>
+                  </select>
+                </div>
               ) : (
                 <p className="shrink-0 text-[11px] font-semibold text-ink-soft">
                   {r.hint}

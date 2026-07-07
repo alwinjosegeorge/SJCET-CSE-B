@@ -1,8 +1,8 @@
 import { r as __toESM } from "../_runtime.mjs";
 import { n as require_jsx_runtime, r as require_react } from "../_libs/react+tanstack__react-query.mjs";
 import { b as Bell, c as Palette, d as Info, g as CodeXml, p as Heart } from "../_libs/lucide-react.mjs";
-import { t as AppShell } from "./app-shell-BpdV1HOy.mjs";
-//#region node_modules/.nitro/vite/services/ssr/assets/settings-DqQnc6p6.js
+import { t as AppShell } from "./app-shell-a6eilKya.mjs";
+//#region node_modules/.nitro/vite/services/ssr/assets/settings-DantKxVo.js
 var import_react = /* @__PURE__ */ __toESM(require_react());
 var import_jsx_runtime = require_jsx_runtime();
 var rows = [
@@ -40,9 +40,20 @@ var rows = [
 ];
 function SettingsPage() {
 	const [notificationsEnabled, setNotificationsEnabled] = (0, import_react.useState)(false);
+	const [theme, setTheme] = (0, import_react.useState)("system");
 	(0, import_react.useEffect)(() => {
 		setNotificationsEnabled(localStorage.getItem("sjcet_notifications_enabled") === "true");
+		setTheme(localStorage.getItem("sjcet_theme") || "system");
 	}, []);
+	const applyTheme = (targetTheme) => {
+		if (targetTheme === "dark" || targetTheme === "system" && window.matchMedia("(prefers-color-scheme: dark)").matches) document.documentElement.classList.add("dark");
+		else document.documentElement.classList.remove("dark");
+	};
+	const changeTheme = (newTheme) => {
+		setTheme(newTheme);
+		localStorage.setItem("sjcet_theme", newTheme);
+		applyTheme(newTheme);
+	};
 	const toggleNotifications = async () => {
 		if (!notificationsEnabled) {
 			if (!("Notification" in window)) {
@@ -108,6 +119,30 @@ function SettingsPage() {
 							},
 							className: `relative inline-flex h-6 w-11 shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none ${notificationsEnabled ? "bg-indigo" : "bg-border/80"}`,
 							children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { className: `pointer-events-none inline-block h-5 w-5 transform rounded-full bg-white shadow ring-0 transition duration-200 ease-in-out ${notificationsEnabled ? "translate-x-5" : "translate-x-0"}` })
+						}) : r.label === "Appearance" ? /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+							className: "relative shrink-0 flex items-center bg-muted/60 dark:bg-surface-2 rounded-xl px-2.5 py-1.5 border border-border/40",
+							children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("select", {
+								value: theme,
+								onChange: (e) => changeTheme(e.target.value),
+								className: "bg-transparent text-xs font-bold text-ink focus:outline-none cursor-pointer pr-1",
+								children: [
+									/* @__PURE__ */ (0, import_jsx_runtime.jsx)("option", {
+										value: "light",
+										className: "bg-surface text-ink",
+										children: "Light ☀️"
+									}),
+									/* @__PURE__ */ (0, import_jsx_runtime.jsx)("option", {
+										value: "dark",
+										className: "bg-surface text-ink",
+										children: "Dark 🌙"
+									}),
+									/* @__PURE__ */ (0, import_jsx_runtime.jsx)("option", {
+										value: "system",
+										className: "bg-surface text-ink",
+										children: "System 💻"
+									})
+								]
+							})
 						}) : /* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
 							className: "shrink-0 text-[11px] font-semibold text-ink-soft",
 							children: r.hint
