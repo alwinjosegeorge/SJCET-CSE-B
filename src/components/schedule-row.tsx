@@ -6,9 +6,10 @@ import { Coffee, UtensilsCrossed, Check, Sparkles } from "lucide-react";
 interface Props {
   item: ScheduleItem;
   status: "done" | "current" | "upcoming";
+  onClick?: () => void;
 }
 
-export function ScheduleRow({ item, status }: Props) {
+export function ScheduleRow({ item, status, onClick }: Props) {
   if (item.kind === "break" || item.kind === "lunch") {
     const Icon = item.kind === "lunch" ? UtensilsCrossed : Coffee;
     const isCurrent = status === "current";
@@ -49,7 +50,8 @@ export function ScheduleRow({ item, status }: Props) {
 
   return (
     <div
-      className={`relative flex items-center gap-3 rounded-3xl border px-4 py-3.5 transition ${
+      onClick={onClick}
+      className={`relative flex items-center gap-3 rounded-3xl border px-4 py-3.5 transition cursor-pointer hover:border-indigo/35 active:scale-[0.99] ${
         isCurrent
           ? "border-transparent bg-indigo-deep text-white shadow-[0_16px_40px_-16px_oklch(0.32_0.19_285_/_0.55)]"
           : "border-border bg-surface text-ink"

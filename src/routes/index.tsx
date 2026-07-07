@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { useMemo } from "react";
+import { useMemo, useState } from "react";
 import { AppShell } from "@/components/app-shell";
 import { ScheduleRow } from "@/components/schedule-row";
 import { useNow } from "@/hooks/use-now";
@@ -18,6 +18,7 @@ import {
   Sparkles,
   ArrowUpRight,
 } from "lucide-react";
+import { SubjectDetailsModal } from "@/components/subject-details-modal";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -39,6 +40,7 @@ export const Route = createFileRoute("/")({
 function Home() {
   const now = useNow(1000);
   const state = useMemo(() => (now ? computeNowState(now) : null), [now]);
+  const [selectedSubject, setSelectedSubject] = useState<string | null>(null);
 
   if (!now || !state) {
     return (
@@ -83,18 +85,34 @@ function Home() {
         </header>
       }
     >
-
-      {state.phase === "in-class" && <InClass state={state} />}
-      {(state.phase === "break" || state.phase === "lunch") && (
-        <BreakBento state={state} />
+      {state.phase === "in-class" && (
+        <InClass state={state} onSelectSubject={setSelectedSubject} />
       )}
-      {state.phase === "before-day" && <BeforeDay state={state} />}
-      {state.phase === "after-day" && <AfterDay state={state} />}
-      {state.phase === "weekend" && <Weekend state={state} />}
+      {(state.phase === "break" || state.phase === "lunch") && (
+        <BreakBento state={state} onSelectSubject={setSelectedSubject} />
+      )}
+      {state.phase === "before-day" && (
+        <BeforeDay state={state} onSelectSubject={setSelectedSubject} />
+      )}
+      {state.phase === "after-day" && (
+        <AfterDay state={state} onSelectSubject={setSelectedSubject} />
+      )}
+      {state.phase === "weekend" && (
+        <Weekend state={state} onSelectSubject={setSelectedSubject} />
+      )}
 
       {state.phase !== "weekend" && state.phase !== "after-day" && (
-        <TodaySchedule state={state} now={now} />
+        <TodaySchedule
+          state={state}
+          now={now}
+          onSelectSubject={setSelectedSubject}
+        />
       )}
+
+      <SubjectDetailsModal
+        subjectName={selectedSubject}
+        onClose={() => setSelectedSubject(null)}
+      />
     </AppShell>
   );
 }
@@ -113,14 +131,19 @@ function HeroCurrent({
   item,
   minutesLeft,
   progress,
+  onClick,
 }: {
   item: ScheduleItem;
   minutesLeft: number;
   progress: number;
+  onClick?: () => void;
 }) {
   const ring = progressRingPath(progress, 96, 9);
   return (
-    <div className="relative col-span-3 overflow-hidden rounded-[28px] bg-indigo-deep p-5 text-white shadow-[0_20px_60px_-24px_oklch(0.32_0.19_285_/_0.7)]">
+    <div
+      onClick={onClick}
+      className="relative col-span-3 overflow-hidden rounded-[28px] bg-indigo-deep p-5 text-white shadow-[0_20px_60px_-24px_oklch(0.32_0.19_285_/_0.7)] cursor-pointer hover:scale-[1.005] active:scale-[0.995] transition duration-200"
+    >
       <div className="pointer-events-none absolute inset-0 bg-dots text-white/10" />
       <div className="pointer-events-none absolute -right-16 -top-16 h-56 w-56 rounded-full bg-white/5 blur-2xl" />
 
@@ -183,9 +206,12 @@ function HeroCurrent({
   );
 }
 
-function NextUpTile({ item }: { item: ScheduleItem }) {
+function NextUpTile({ item, onClick }: { item: ScheduleItem; onClick?: () => void }) {
   return (
-    <div className="relative col-span-2 overflow-hidden rounded-[24px] bg-lilac-soft p-4">
+    <div
+      onClick={onClick}
+      className="relative col-span-2 overflow-hidden rounded-[24px] bg-lilac-soft p-4 cursor-pointer hover:scale-[1.005] active:scale-[0.995] transition duration-200"
+    >
       <p className="text-[10px] font-bold uppercase tracking-wider text-indigo-deep/70">
         Up next
       </p>
@@ -235,13 +261,14 @@ function StatTile({
 
 function InClass({
   state,
+  onSelectSubject,
 }: {
   state: Extract<ReturnType<typeof computeNowState>, { phase: "in-class" }>;
+  onSelectSubject: (name: string) => void;
 }) {
   const remainingClasses = state.today.filter(
     (x) => x.kind === "class" && x.startMin > state.current.startMin,
   ).length;
-  const lastItem = state.today[state.today.length - 1];
 
   return (
     <section className="grid grid-cols-3 gap-3">
@@ -249,9 +276,13 @@ function InClass({
         item={state.current}
         minutesLeft={state.minutesLeft}
         progress={state.progress}
+        onClick={() => onSelectSubject(state.current.subject!)}
       />
       {state.next ? (
-        <NextUpTile item={state.next} />
+        <NextUpTile
+          item={state.next}
+          onClick={() => onSelectSubject(state.next!.subject!)}
+        />
       ) : (
         <StatTile
           bg="bg-mint"
@@ -268,13 +299,6 @@ function InClass({
         value={`${remainingClasses}`}
         sub={remainingClasses === 1 ? "class to go" : "classes to go"}
         emoji="📚"
-      />
-      <StatTile
-        bg="bg-butter"
-        label="Day ends"
-        value={fmt12(lastItem.end)}
-        sub="then freedom 🕊️"
-        span={3}
       />
     </section>
   );
@@ -295,11 +319,13 @@ function pickVibeEmoji(p: number): string {
 
 function BreakBento({
   state,
+  onSelectSubject,
 }: {
   state: Extract<
     ReturnType<typeof computeNowState>,
     { phase: "break" | "lunch" }
   >;
+  onSelectSubject: (name: string) => void;
 }) {
   const isLunch = state.phase === "lunch";
   const Icon = isLunch ? UtensilsCrossed : Coffee;
@@ -323,7 +349,12 @@ function BreakBento({
           <div className="text-5xl">{isLunch ? "🐼🍱" : "🍩☕"}</div>
         </div>
       </div>
-      {state.next && <NextUpTile item={state.next} />}
+      {state.next && (
+        <NextUpTile
+          item={state.next}
+          onClick={() => onSelectSubject(state.next!.subject!)}
+        />
+      )}
       <StatTile
         bg="bg-butter"
         label="Starts in"
@@ -336,8 +367,10 @@ function BreakBento({
 
 function BeforeDay({
   state,
+  onSelectSubject,
 }: {
   state: Extract<ReturnType<typeof computeNowState>, { phase: "before-day" }>;
+  onSelectSubject: (name: string) => void;
 }) {
   return (
     <section className="grid grid-cols-3 gap-3">
@@ -358,7 +391,10 @@ function BeforeDay({
           <div className="text-5xl">🐣🌤️</div>
         </div>
       </div>
-      <NextUpTile item={state.next} />
+      <NextUpTile
+        item={state.next}
+        onClick={() => onSelectSubject(state.next.subject!)}
+      />
       <StatTile
         bg="bg-butter"
         label="Kicks off"
@@ -371,8 +407,10 @@ function BeforeDay({
 
 function AfterDay({
   state,
+  onSelectSubject,
 }: {
   state: Extract<ReturnType<typeof computeNowState>, { phase: "after-day" }>;
+  onSelectSubject: (name: string) => void;
 }) {
   const firstTomorrow = state.tomorrowSchedule.find((x) => x.kind === "class");
   return (
@@ -406,7 +444,10 @@ function AfterDay({
               {state.tomorrow ? DAY_LABEL[state.tomorrow] : ""}
             </p>
           </div>
-          <NextUpTile item={firstTomorrow} />
+          <NextUpTile
+            item={firstTomorrow}
+            onClick={() => onSelectSubject(firstTomorrow.subject!)}
+          />
           <StatTile
             bg="bg-butter"
             label="Starts at"
@@ -415,7 +456,16 @@ function AfterDay({
           />
           <div className="col-span-3 mt-2 space-y-2.5">
             {state.tomorrowSchedule.map((item) => (
-              <ScheduleRow key={item.key} item={item} status="upcoming" />
+              <ScheduleRow
+                key={item.key}
+                item={item}
+                status="upcoming"
+                onClick={
+                  item.kind === "class"
+                    ? () => onSelectSubject(item.subject!)
+                    : undefined
+                }
+              />
             ))}
           </div>
         </>
@@ -426,8 +476,10 @@ function AfterDay({
 
 function Weekend({
   state,
+  onSelectSubject,
 }: {
   state: Extract<ReturnType<typeof computeNowState>, { phase: "weekend" }>;
+  onSelectSubject: (name: string) => void;
 }) {
   const firstTomorrow = state.tomorrowSchedule.find((x) => x.kind === "class");
   return (
@@ -455,7 +507,10 @@ function Weekend({
               {DAY_LABEL[state.tomorrow]} coming up
             </h3>
           </div>
-          <NextUpTile item={firstTomorrow} />
+          <NextUpTile
+            item={firstTomorrow}
+            onClick={() => onSelectSubject(firstTomorrow.subject!)}
+          />
           <StatTile
             bg="bg-butter"
             label="Kicks off"
@@ -464,7 +519,16 @@ function Weekend({
           />
           <div className="col-span-3 mt-2 space-y-2.5">
             {state.tomorrowSchedule.map((item) => (
-              <ScheduleRow key={item.key} item={item} status="upcoming" />
+              <ScheduleRow
+                key={item.key}
+                item={item}
+                status="upcoming"
+                onClick={
+                  item.kind === "class"
+                    ? () => onSelectSubject(item.subject!)
+                    : undefined
+                }
+              />
             ))}
           </div>
         </>
@@ -476,12 +540,14 @@ function Weekend({
 function TodaySchedule({
   state,
   now,
+  onSelectSubject,
 }: {
   state: Extract<
     ReturnType<typeof computeNowState>,
     { phase: "in-class" | "break" | "lunch" | "before-day" }
   >;
   now: Date;
+  onSelectSubject: (name: string) => void;
 }) {
   const nowMin =
     now.getHours() * 60 + now.getMinutes();
@@ -504,7 +570,18 @@ function TodaySchedule({
           let status: "done" | "current" | "upcoming" = "upcoming";
           if (nowMin >= item.endMin) status = "done";
           else if (nowMin >= item.startMin) status = "current";
-          return <ScheduleRow key={item.key} item={item} status={status} />;
+          return (
+            <ScheduleRow
+              key={item.key}
+              item={item}
+              status={status}
+              onClick={
+                item.kind === "class"
+                  ? () => onSelectSubject(item.subject!)
+                  : undefined
+              }
+            />
+          );
         })}
       </div>
       <p className="mt-6 text-center text-[11px] font-medium text-ink-soft">

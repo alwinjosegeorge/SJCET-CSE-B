@@ -4,6 +4,7 @@ import { AppShell } from "@/components/app-shell";
 import { ScheduleRow } from "@/components/schedule-row";
 import { buildDaySchedule, currentDayKey } from "@/lib/schedule";
 import { DAY_LABEL, DAY_ORDER, DAY_SHORT, type DayKey } from "@/lib/timetable";
+import { SubjectDetailsModal } from "@/components/subject-details-modal";
 
 export const Route = createFileRoute("/schedule")({
   head: () => ({
@@ -18,6 +19,7 @@ export const Route = createFileRoute("/schedule")({
 function SchedulePage() {
   const [day, setDay] = useState<DayKey>("mon");
   const [todayKey, setTodayKey] = useState<DayKey | "sat" | "sun" | null>(null);
+  const [selectedSubject, setSelectedSubject] = useState<string | null>(null);
 
   useEffect(() => {
     const key = currentDayKey(new Date());
@@ -73,9 +75,23 @@ function SchedulePage() {
       </div>
       <div className="space-y-2.5">
         {items.map((item) => (
-          <ScheduleRow key={item.key} item={item} status="upcoming" />
+          <ScheduleRow
+            key={item.key}
+            item={item}
+            status="upcoming"
+            onClick={
+              item.kind === "class"
+                ? () => setSelectedSubject(item.subject!)
+                : undefined
+            }
+          />
         ))}
       </div>
+
+      <SubjectDetailsModal
+        subjectName={selectedSubject}
+        onClose={() => setSelectedSubject(null)}
+      />
     </AppShell>
   );
 }

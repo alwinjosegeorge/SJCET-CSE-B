@@ -1,10 +1,10 @@
 import { r as __toESM } from "../_runtime.mjs";
 import { n as require_jsx_runtime, r as require_react } from "../_libs/react+tanstack__react-query.mjs";
-import { a as Sparkles, c as Moon, f as Coffee, i as Sun, n as UtensilsCrossed, v as ArrowUpRight } from "../_libs/lucide-react.mjs";
+import { a as Sun, h as Coffee, l as Moon, o as Sparkles, r as UtensilsCrossed, x as ArrowUpRight } from "../_libs/lucide-react.mjs";
 import { l as fmt12, n as DAY_LABEL, s as computeNowState, t as AppShell } from "./app-shell-DWt6SLuI.mjs";
 import { t as useNow } from "./use-now-DwH2zO-0.mjs";
-import { t as ScheduleRow } from "./schedule-row-BGz_c58T.mjs";
-//#region node_modules/.nitro/vite/services/ssr/assets/routes-CvXu8qgq.js
+import { n as SubjectDetailsModal, t as ScheduleRow } from "./subject-details-modal-BkFylBec.mjs";
+//#region node_modules/.nitro/vite/services/ssr/assets/routes-C2w3nxQF.js
 var import_react = /* @__PURE__ */ __toESM(require_react());
 var import_jsx_runtime = require_jsx_runtime();
 var SUBJECT_EMOJI = {
@@ -44,6 +44,7 @@ function progressRingPath(progress, size = 92, stroke = 8) {
 function Home() {
 	const now = useNow(1e3);
 	const state = (0, import_react.useMemo)(() => now ? computeNowState(now) : null, [now]);
+	const [selectedSubject, setSelectedSubject] = (0, import_react.useState)(null);
 	if (!now || !state) return /* @__PURE__ */ (0, import_jsx_runtime.jsx)(AppShell, { children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
 		className: "flex h-[50vh] items-center justify-center",
 		children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { className: "h-6 w-6 animate-spin rounded-full border-2 border-indigo border-t-transparent" })
@@ -87,14 +88,34 @@ function Home() {
 			})]
 		}),
 		children: [
-			state.phase === "in-class" && /* @__PURE__ */ (0, import_jsx_runtime.jsx)(InClass, { state }),
-			(state.phase === "break" || state.phase === "lunch") && /* @__PURE__ */ (0, import_jsx_runtime.jsx)(BreakBento, { state }),
-			state.phase === "before-day" && /* @__PURE__ */ (0, import_jsx_runtime.jsx)(BeforeDay, { state }),
-			state.phase === "after-day" && /* @__PURE__ */ (0, import_jsx_runtime.jsx)(AfterDay, { state }),
-			state.phase === "weekend" && /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Weekend, { state }),
+			state.phase === "in-class" && /* @__PURE__ */ (0, import_jsx_runtime.jsx)(InClass, {
+				state,
+				onSelectSubject: setSelectedSubject
+			}),
+			(state.phase === "break" || state.phase === "lunch") && /* @__PURE__ */ (0, import_jsx_runtime.jsx)(BreakBento, {
+				state,
+				onSelectSubject: setSelectedSubject
+			}),
+			state.phase === "before-day" && /* @__PURE__ */ (0, import_jsx_runtime.jsx)(BeforeDay, {
+				state,
+				onSelectSubject: setSelectedSubject
+			}),
+			state.phase === "after-day" && /* @__PURE__ */ (0, import_jsx_runtime.jsx)(AfterDay, {
+				state,
+				onSelectSubject: setSelectedSubject
+			}),
+			state.phase === "weekend" && /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Weekend, {
+				state,
+				onSelectSubject: setSelectedSubject
+			}),
 			state.phase !== "weekend" && state.phase !== "after-day" && /* @__PURE__ */ (0, import_jsx_runtime.jsx)(TodaySchedule, {
 				state,
-				now
+				now,
+				onSelectSubject: setSelectedSubject
+			}),
+			/* @__PURE__ */ (0, import_jsx_runtime.jsx)(SubjectDetailsModal, {
+				subjectName: selectedSubject,
+				onClose: () => setSelectedSubject(null)
 			})
 		]
 	});
@@ -106,10 +127,11 @@ function getGreetingEmoji(d) {
 	if (h < 20) return "🐱🌇";
 	return "🧸💤";
 }
-function HeroCurrent({ item, minutesLeft, progress }) {
+function HeroCurrent({ item, minutesLeft, progress, onClick }) {
 	const ring = progressRingPath(progress, 96, 9);
 	return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-		className: "relative col-span-3 overflow-hidden rounded-[28px] bg-indigo-deep p-5 text-white shadow-[0_20px_60px_-24px_oklch(0.32_0.19_285_/_0.7)]",
+		onClick,
+		className: "relative col-span-3 overflow-hidden rounded-[28px] bg-indigo-deep p-5 text-white shadow-[0_20px_60px_-24px_oklch(0.32_0.19_285_/_0.7)] cursor-pointer hover:scale-[1.005] active:scale-[0.995] transition duration-200",
 		children: [
 			/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { className: "pointer-events-none absolute inset-0 bg-dots text-white/10" }),
 			/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { className: "pointer-events-none absolute -right-16 -top-16 h-56 w-56 rounded-full bg-white/5 blur-2xl" }),
@@ -201,9 +223,10 @@ function HeroCurrent({ item, minutesLeft, progress }) {
 		]
 	});
 }
-function NextUpTile({ item }) {
+function NextUpTile({ item, onClick }) {
 	return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-		className: "relative col-span-2 overflow-hidden rounded-[24px] bg-lilac-soft p-4",
+		onClick,
+		className: "relative col-span-2 overflow-hidden rounded-[24px] bg-lilac-soft p-4 cursor-pointer hover:scale-[1.005] active:scale-[0.995] transition duration-200",
 		children: [
 			/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
 				className: "text-[10px] font-bold uppercase tracking-wider text-indigo-deep/70",
@@ -255,18 +278,21 @@ function StatTile({ bg, label, value, sub, emoji, span = 1 }) {
 		]
 	});
 }
-function InClass({ state }) {
+function InClass({ state, onSelectSubject }) {
 	const remainingClasses = state.today.filter((x) => x.kind === "class" && x.startMin > state.current.startMin).length;
-	const lastItem = state.today[state.today.length - 1];
 	return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("section", {
 		className: "grid grid-cols-3 gap-3",
 		children: [
 			/* @__PURE__ */ (0, import_jsx_runtime.jsx)(HeroCurrent, {
 				item: state.current,
 				minutesLeft: state.minutesLeft,
-				progress: state.progress
+				progress: state.progress,
+				onClick: () => onSelectSubject(state.current.subject)
 			}),
-			state.next ? /* @__PURE__ */ (0, import_jsx_runtime.jsx)(NextUpTile, { item: state.next }) : /* @__PURE__ */ (0, import_jsx_runtime.jsx)(StatTile, {
+			state.next ? /* @__PURE__ */ (0, import_jsx_runtime.jsx)(NextUpTile, {
+				item: state.next,
+				onClick: () => onSelectSubject(state.next.subject)
+			}) : /* @__PURE__ */ (0, import_jsx_runtime.jsx)(StatTile, {
 				bg: "bg-mint",
 				label: "Almost done",
 				value: "Last one",
@@ -280,18 +306,11 @@ function InClass({ state }) {
 				value: `${remainingClasses}`,
 				sub: remainingClasses === 1 ? "class to go" : "classes to go",
 				emoji: "📚"
-			}),
-			/* @__PURE__ */ (0, import_jsx_runtime.jsx)(StatTile, {
-				bg: "bg-butter",
-				label: "Day ends",
-				value: fmt12(lastItem.end),
-				sub: "then freedom 🕊️",
-				span: 3
 			})
 		]
 	});
 }
-function BreakBento({ state }) {
+function BreakBento({ state, onSelectSubject }) {
 	const isLunch = state.phase === "lunch";
 	return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("section", {
 		className: "grid grid-cols-3 gap-3",
@@ -327,7 +346,10 @@ function BreakBento({ state }) {
 					})]
 				})]
 			}),
-			state.next && /* @__PURE__ */ (0, import_jsx_runtime.jsx)(NextUpTile, { item: state.next }),
+			state.next && /* @__PURE__ */ (0, import_jsx_runtime.jsx)(NextUpTile, {
+				item: state.next,
+				onClick: () => onSelectSubject(state.next.subject)
+			}),
 			/* @__PURE__ */ (0, import_jsx_runtime.jsx)(StatTile, {
 				bg: "bg-butter",
 				label: "Starts in",
@@ -337,7 +359,7 @@ function BreakBento({ state }) {
 		]
 	});
 }
-function BeforeDay({ state }) {
+function BeforeDay({ state, onSelectSubject }) {
 	return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("section", {
 		className: "grid grid-cols-3 gap-3",
 		children: [
@@ -364,7 +386,10 @@ function BeforeDay({ state }) {
 					})]
 				})]
 			}),
-			/* @__PURE__ */ (0, import_jsx_runtime.jsx)(NextUpTile, { item: state.next }),
+			/* @__PURE__ */ (0, import_jsx_runtime.jsx)(NextUpTile, {
+				item: state.next,
+				onClick: () => onSelectSubject(state.next.subject)
+			}),
 			/* @__PURE__ */ (0, import_jsx_runtime.jsx)(StatTile, {
 				bg: "bg-butter",
 				label: "Kicks off",
@@ -374,7 +399,7 @@ function BeforeDay({ state }) {
 		]
 	});
 }
-function AfterDay({ state }) {
+function AfterDay({ state, onSelectSubject }) {
 	const firstTomorrow = state.tomorrowSchedule.find((x) => x.kind === "class");
 	return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("section", {
 		className: "grid grid-cols-3 gap-3",
@@ -415,7 +440,10 @@ function AfterDay({ state }) {
 					children: state.tomorrow ? DAY_LABEL[state.tomorrow] : ""
 				})]
 			}),
-			/* @__PURE__ */ (0, import_jsx_runtime.jsx)(NextUpTile, { item: firstTomorrow }),
+			/* @__PURE__ */ (0, import_jsx_runtime.jsx)(NextUpTile, {
+				item: firstTomorrow,
+				onClick: () => onSelectSubject(firstTomorrow.subject)
+			}),
 			/* @__PURE__ */ (0, import_jsx_runtime.jsx)(StatTile, {
 				bg: "bg-butter",
 				label: "Starts at",
@@ -426,13 +454,14 @@ function AfterDay({ state }) {
 				className: "col-span-3 mt-2 space-y-2.5",
 				children: state.tomorrowSchedule.map((item) => /* @__PURE__ */ (0, import_jsx_runtime.jsx)(ScheduleRow, {
 					item,
-					status: "upcoming"
+					status: "upcoming",
+					onClick: item.kind === "class" ? () => onSelectSubject(item.subject) : void 0
 				}, item.key))
 			})
 		] })]
 	});
 }
-function Weekend({ state }) {
+function Weekend({ state, onSelectSubject }) {
 	const firstTomorrow = state.tomorrowSchedule.find((x) => x.kind === "class");
 	return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("section", {
 		className: "grid grid-cols-3 gap-3",
@@ -463,7 +492,10 @@ function Weekend({ state }) {
 					children: [DAY_LABEL[state.tomorrow], " coming up"]
 				})
 			}),
-			/* @__PURE__ */ (0, import_jsx_runtime.jsx)(NextUpTile, { item: firstTomorrow }),
+			/* @__PURE__ */ (0, import_jsx_runtime.jsx)(NextUpTile, {
+				item: firstTomorrow,
+				onClick: () => onSelectSubject(firstTomorrow.subject)
+			}),
 			/* @__PURE__ */ (0, import_jsx_runtime.jsx)(StatTile, {
 				bg: "bg-butter",
 				label: "Kicks off",
@@ -474,13 +506,14 @@ function Weekend({ state }) {
 				className: "col-span-3 mt-2 space-y-2.5",
 				children: state.tomorrowSchedule.map((item) => /* @__PURE__ */ (0, import_jsx_runtime.jsx)(ScheduleRow, {
 					item,
-					status: "upcoming"
+					status: "upcoming",
+					onClick: item.kind === "class" ? () => onSelectSubject(item.subject) : void 0
 				}, item.key))
 			})
 		] })]
 	});
 }
-function TodaySchedule({ state, now }) {
+function TodaySchedule({ state, now, onSelectSubject }) {
 	const nowMin = now.getHours() * 60 + now.getMinutes();
 	const total = state.today.filter((x) => x.kind === "class").length;
 	const done = state.today.filter((x) => x.kind === "class" && nowMin >= x.endMin).length;
@@ -510,7 +543,8 @@ function TodaySchedule({ state, now }) {
 					else if (nowMin >= item.startMin) status = "current";
 					return /* @__PURE__ */ (0, import_jsx_runtime.jsx)(ScheduleRow, {
 						item,
-						status
+						status,
+						onClick: item.kind === "class" ? () => onSelectSubject(item.subject) : void 0
 					}, item.key);
 				})
 			}),
