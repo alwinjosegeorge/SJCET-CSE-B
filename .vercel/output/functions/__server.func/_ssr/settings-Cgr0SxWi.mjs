@@ -1,7 +1,9 @@
-import { n as require_jsx_runtime } from "../_libs/react+tanstack__react-query.mjs";
+import { r as __toESM } from "../_runtime.mjs";
+import { n as require_jsx_runtime, r as require_react } from "../_libs/react+tanstack__react-query.mjs";
 import { _ as Bell, d as Heart, l as Info, p as CodeXml, s as Palette } from "../_libs/lucide-react.mjs";
-import { t as AppShell } from "./app-shell-Ds2zUS8U.mjs";
-//#region node_modules/.nitro/vite/services/ssr/assets/settings-BM0jHNbJ.js
+import { t as AppShell } from "./app-shell-DXQFBZgR.mjs";
+//#region node_modules/.nitro/vite/services/ssr/assets/settings-Cgr0SxWi.js
+var import_react = /* @__PURE__ */ __toESM(require_react());
 var import_jsx_runtime = require_jsx_runtime();
 var rows = [
 	{
@@ -37,6 +39,29 @@ var rows = [
 	}
 ];
 function SettingsPage() {
+	const [notificationsEnabled, setNotificationsEnabled] = (0, import_react.useState)(false);
+	(0, import_react.useEffect)(() => {
+		setNotificationsEnabled(localStorage.getItem("sjcet_notifications_enabled") === "true");
+	}, []);
+	const toggleNotifications = async () => {
+		if (!notificationsEnabled) {
+			if (!("Notification" in window)) {
+				alert("This browser does not support desktop notifications.");
+				return;
+			}
+			if (await Notification.requestPermission() === "granted") {
+				localStorage.setItem("sjcet_notifications_enabled", "true");
+				setNotificationsEnabled(true);
+				new Notification("Class reminders active! 🔔", {
+					body: "We will notify you 10 minutes before each class starts! 🧸✨",
+					icon: "/favicon.png"
+				});
+			} else alert("Notification permissions denied. Please enable them in your browser settings.");
+		} else {
+			localStorage.setItem("sjcet_notifications_enabled", "false");
+			setNotificationsEnabled(false);
+		}
+	};
 	return /* @__PURE__ */ (0, import_jsx_runtime.jsx)(AppShell, {
 		header: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("header", {
 			className: "mb-5",
@@ -65,7 +90,14 @@ function SettingsPage() {
 						className: "min-w-0 flex-1 truncate text-sm font-bold text-ink",
 						children: r.label
 					}),
-					/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+					r.label === "Class reminders" ? /* @__PURE__ */ (0, import_jsx_runtime.jsx)("button", {
+						onClick: (e) => {
+							e.stopPropagation();
+							toggleNotifications();
+						},
+						className: `relative inline-flex h-6 w-11 shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none ${notificationsEnabled ? "bg-indigo" : "bg-border/80"}`,
+						children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { className: `pointer-events-none inline-block h-5 w-5 transform rounded-full bg-white shadow ring-0 transition duration-200 ease-in-out ${notificationsEnabled ? "translate-x-5" : "translate-x-0"}` })
+					}) : /* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
 						className: "shrink-0 text-[11px] font-semibold text-ink-soft",
 						children: r.hint
 					})

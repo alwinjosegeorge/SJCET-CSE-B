@@ -1,5 +1,6 @@
 import { useState, useEffect, type ReactNode } from "react";
 import { BottomNav } from "./bottom-nav";
+import { currentDayKey, buildDaySchedule } from "@/lib/schedule";
 
 interface AppShellProps {
   header?: ReactNode;
@@ -7,6 +8,46 @@ interface AppShellProps {
 }
 
 export function AppShell({ header, children }: AppShellProps) {
+  useEffect(() => {
+    // Schedule check every 30 seconds
+    const checkSchedule = () => {
+      if (typeof window === "undefined" || !("Notification" in window)) return;
+      if (Notification.permission !== "granted") return;
+      if (localStorage.getItem("sjcet_notifications_enabled") !== "true") return;
+
+      const now = new Date();
+      const dk = currentDayKey(now);
+      if (dk === "sat" || dk === "sun") return;
+
+      const currentMinutes = now.getHours() * 60 + now.getMinutes();
+      const schedule = buildDaySchedule(dk);
+
+      for (const item of schedule) {
+        if (item.kind !== "class") continue;
+        const diff = item.startMin - currentMinutes;
+
+        // If class starts in 10 minutes or less
+        if (diff > 0 && diff <= 10) {
+          const lastNotified = localStorage.getItem("sjcet_last_notified_class");
+          if (lastNotified !== item.key) {
+            new Notification(`${item.subject} starting soon! ⏰`, {
+              body: `Class starts in ${Math.round(diff)} minutes (${item.start} – ${item.end})! 🧸✨`,
+              icon: "/favicon.png",
+            });
+            localStorage.setItem("sjcet_last_notified_class", item.key);
+          }
+          break; // only notify for one upcoming class at a time
+        }
+      }
+    };
+
+    // Run check immediately on mount
+    checkSchedule();
+
+    const id = setInterval(checkSchedule, 30000);
+    return () => clearInterval(id);
+  }, []);
+
   return (
     <div className="min-h-screen bg-background">
       <div className="mx-auto flex min-h-screen max-w-md flex-col px-5 pb-32 pt-[max(env(safe-area-inset-top),1.25rem)]">
