@@ -2,7 +2,7 @@ import { r as __toESM } from "../_runtime.mjs";
 import { n as require_jsx_runtime, r as require_react } from "../_libs/react+tanstack__react-query.mjs";
 import { C as ArrowUp, D as ArrowDown, E as ArrowLeft, S as Bell, T as ArrowRight, d as Moon, h as Heart, i as Trophy, l as RotateCcw, o as Sun, p as Info, t as X, u as Palette, v as CodeXml } from "../_libs/lucide-react.mjs";
 import { t as AppShell } from "./app-shell-BTcutmU8.mjs";
-//#region node_modules/.nitro/vite/services/ssr/assets/settings-DhROdi1V.js
+//#region node_modules/.nitro/vite/services/ssr/assets/settings-JWZev8rk.js
 var import_react = /* @__PURE__ */ __toESM(require_react());
 var import_jsx_runtime = require_jsx_runtime();
 function SecretGames({ onClose }) {
@@ -293,11 +293,48 @@ function TicTacToe() {
 		resetGame();
 	};
 	if (gameType === "choose") return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-		className: "flex flex-col items-center justify-center py-6 text-center space-y-6 max-w-xs mx-auto",
+		className: "flex flex-col items-center justify-center py-4 text-center space-y-6 max-w-sm mx-auto animate-slide-up",
 		children: [
-			/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
-				className: "text-5xl animate-pulse",
-				children: "❌⭕"
+			/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+				className: "grid grid-cols-3 gap-2 w-28 mx-auto p-2 bg-muted/40 rounded-2xl border border-border/40",
+				children: [
+					/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+						className: "aspect-square flex items-center justify-center text-lg font-black text-rose-500",
+						children: "❌"
+					}),
+					/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+						className: "aspect-square flex items-center justify-center text-lg font-black text-indigo",
+						children: "⭕"
+					}),
+					/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+						className: "aspect-square flex items-center justify-center text-lg font-black text-rose-500",
+						children: "❌"
+					}),
+					/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+						className: "aspect-square flex items-center justify-center text-lg font-black text-indigo",
+						children: "⭕"
+					}),
+					/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+						className: "aspect-square flex items-center justify-center text-[10px] text-ink-soft/40 font-bold",
+						children: "VS"
+					}),
+					/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+						className: "aspect-square flex items-center justify-center text-lg font-black text-rose-500",
+						children: "❌"
+					}),
+					/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+						className: "aspect-square flex items-center justify-center text-[14px]",
+						children: "🧸"
+					}),
+					/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+						className: "aspect-square flex items-center justify-center text-lg font-black text-indigo",
+						children: "⭕"
+					}),
+					/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+						className: "aspect-square flex items-center justify-center text-[14px]",
+						children: "🤖"
+					})
+				]
 			}),
 			/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("h3", {
 				className: "font-display text-lg font-bold text-ink",
@@ -307,15 +344,41 @@ function TicTacToe() {
 				children: "Play against a smart AI robot or challenge a classmate sitting next to you!"
 			})] }),
 			/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-				className: "w-full space-y-3 pt-2",
+				className: "w-full grid grid-cols-2 gap-3.5 pt-2",
 				children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("button", {
 					onClick: () => selectMode("vs_ai"),
-					className: "w-full py-3.5 rounded-2xl bg-indigo/10 border border-indigo/20 text-indigo hover:bg-indigo/15 active:scale-95 transition font-display font-bold text-sm flex items-center justify-center gap-2",
-					children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { children: "🧸 vs 🤖" }), " Play vs Robot AI"]
+					className: "group flex flex-col items-center text-center p-4 rounded-3xl border border-rose-100 dark:border-rose-950 bg-rose-50/50 dark:bg-rose-950/15 hover:bg-rose-50 dark:hover:bg-rose-950/20 hover:border-rose-200 active:scale-95 transition shadow-xs",
+					children: [
+						/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+							className: "h-12 w-12 rounded-2xl bg-rose-100 dark:bg-rose-900/30 flex items-center justify-center text-2xl mb-3 shadow-xs",
+							children: "🤖"
+						}),
+						/* @__PURE__ */ (0, import_jsx_runtime.jsx)("h4", {
+							className: "font-display text-xs font-black text-rose-900 dark:text-rose-200",
+							children: "vs Robot AI"
+						}),
+						/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+							className: "text-[10px] text-rose-600/70 dark:text-rose-400/70 mt-1 leading-tight font-semibold",
+							children: "Panda vs AI bot in boring class 🧸"
+						})
+					]
 				}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("button", {
 					onClick: () => selectMode("two_player"),
-					className: "w-full py-3.5 rounded-2xl bg-indigo-deep text-white shadow-md hover:bg-indigo-deep/95 active:scale-95 transition font-display font-bold text-sm flex items-center justify-center gap-2",
-					children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { children: "❌ vs ⭕" }), " Pass & Play (2 Players)"]
+					className: "group flex flex-col items-center text-center p-4 rounded-3xl border border-indigo-100 dark:border-indigo-950 bg-indigo-50/50 dark:bg-indigo-950/15 hover:bg-indigo-50 dark:hover:bg-indigo-950/20 hover:border-indigo-200 active:scale-95 transition shadow-xs",
+					children: [
+						/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+							className: "h-12 w-12 rounded-2xl bg-indigo-100 dark:bg-indigo-900/30 flex items-center justify-center text-2xl mb-3 shadow-xs",
+							children: "👥"
+						}),
+						/* @__PURE__ */ (0, import_jsx_runtime.jsx)("h4", {
+							className: "font-display text-xs font-black text-indigo-deep dark:text-indigo-200",
+							children: "2 Players"
+						}),
+						/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+							className: "text-[10px] text-indigo/70 dark:text-indigo-300/70 mt-1 leading-tight font-semibold",
+							children: "Classic XOX with a friend! ❌⭕"
+						})
+					]
 				})]
 			})
 		]

@@ -1,9 +1,9 @@
 import { n as require_jsx_runtime, t as QueryClientProvider } from "../_libs/react+tanstack__react-query.mjs";
 import { c as HeadContent, d as createRouter, f as Outlet, g as Link, h as createRootRouteWithContext, m as createFileRoute, p as lazyRouteComponent, s as Scripts, v as useRouter } from "../_libs/@tanstack/react-router+[...].mjs";
 import { t as QueryClient } from "../_libs/tanstack__query-core.mjs";
-//#region node_modules/.nitro/vite/services/ssr/assets/router-BBfLCsTA.js
+//#region node_modules/.nitro/vite/services/ssr/assets/router-CMP8nPsI.js
 var import_jsx_runtime = require_jsx_runtime();
-var styles_default = "/assets/styles-CYc5j-LV.css";
+var styles_default = "/assets/styles-B_sJX4kR.css";
 function NotFoundComponent() {
 	return /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
 		className: "flex min-h-screen items-center justify-center bg-background px-4",
@@ -179,7 +179,7 @@ var Route$4 = createFileRoute("/sitemap.xml")({ server: { handlers: { GET: async
 		"Cache-Control": "public, max-age=3600"
 	} });
 } } } });
-var $$splitComponentImporter$3 = () => import("./settings-DhROdi1V.mjs");
+var $$splitComponentImporter$3 = () => import("./settings-JWZev8rk.mjs");
 var Route$3 = createFileRoute("/settings")({
 	head: () => ({ meta: [{ title: "Settings · SJCET CSE-B" }, {
 		name: "description",

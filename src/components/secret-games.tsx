@@ -282,8 +282,22 @@ function TicTacToe() {
 
   if (gameType === "choose") {
     return (
-      <div className="flex flex-col items-center justify-center py-6 text-center space-y-6 max-w-xs mx-auto">
-        <div className="text-5xl animate-pulse">❌⭕</div>
+      <div className="flex flex-col items-center justify-center py-4 text-center space-y-6 max-w-sm mx-auto animate-slide-up">
+        {/* Cute Tic Tac Toe Grid Illustration */}
+        <div className="grid grid-cols-3 gap-2 w-28 mx-auto p-2 bg-muted/40 rounded-2xl border border-border/40">
+          <div className="aspect-square flex items-center justify-center text-lg font-black text-rose-500">❌</div>
+          <div className="aspect-square flex items-center justify-center text-lg font-black text-indigo">⭕</div>
+          <div className="aspect-square flex items-center justify-center text-lg font-black text-rose-500">❌</div>
+          
+          <div className="aspect-square flex items-center justify-center text-lg font-black text-indigo">⭕</div>
+          <div className="aspect-square flex items-center justify-center text-[10px] text-ink-soft/40 font-bold">VS</div>
+          <div className="aspect-square flex items-center justify-center text-lg font-black text-rose-500">❌</div>
+          
+          <div className="aspect-square flex items-center justify-center text-[14px]">🧸</div>
+          <div className="aspect-square flex items-center justify-center text-lg font-black text-indigo">⭕</div>
+          <div className="aspect-square flex items-center justify-center text-[14px]">🤖</div>
+        </div>
+
         <div>
           <h3 className="font-display text-lg font-bold text-ink">Tic Tac Toe (XOX)</h3>
           <p className="text-xs text-ink-soft mt-1 leading-relaxed px-4">
@@ -291,18 +305,33 @@ function TicTacToe() {
           </p>
         </div>
 
-        <div className="w-full space-y-3 pt-2">
+        <div className="w-full grid grid-cols-2 gap-3.5 pt-2">
+          {/* Card 1: Play vs AI */}
           <button
             onClick={() => selectMode("vs_ai")}
-            className="w-full py-3.5 rounded-2xl bg-indigo/10 border border-indigo/20 text-indigo hover:bg-indigo/15 active:scale-95 transition font-display font-bold text-sm flex items-center justify-center gap-2"
+            className="group flex flex-col items-center text-center p-4 rounded-3xl border border-rose-100 dark:border-rose-950 bg-rose-50/50 dark:bg-rose-950/15 hover:bg-rose-50 dark:hover:bg-rose-950/20 hover:border-rose-200 active:scale-95 transition shadow-xs"
           >
-            <span>🧸 vs 🤖</span> Play vs Robot AI
+            <div className="h-12 w-12 rounded-2xl bg-rose-100 dark:bg-rose-900/30 flex items-center justify-center text-2xl mb-3 shadow-xs">
+              🤖
+            </div>
+            <h4 className="font-display text-xs font-black text-rose-900 dark:text-rose-200">vs Robot AI</h4>
+            <p className="text-[10px] text-rose-600/70 dark:text-rose-400/70 mt-1 leading-tight font-semibold">
+              Panda vs AI bot in boring class 🧸
+            </p>
           </button>
+
+          {/* Card 2: Pass & Play */}
           <button
             onClick={() => selectMode("two_player")}
-            className="w-full py-3.5 rounded-2xl bg-indigo-deep text-white shadow-md hover:bg-indigo-deep/95 active:scale-95 transition font-display font-bold text-sm flex items-center justify-center gap-2"
+            className="group flex flex-col items-center text-center p-4 rounded-3xl border border-indigo-100 dark:border-indigo-950 bg-indigo-50/50 dark:bg-indigo-950/15 hover:bg-indigo-50 dark:hover:bg-indigo-950/20 hover:border-indigo-200 active:scale-95 transition shadow-xs"
           >
-            <span>❌ vs ⭕</span> Pass & Play (2 Players)
+            <div className="h-12 w-12 rounded-2xl bg-indigo-100 dark:bg-indigo-900/30 flex items-center justify-center text-2xl mb-3 shadow-xs">
+              👥
+            </div>
+            <h4 className="font-display text-xs font-black text-indigo-deep dark:text-indigo-200">2 Players</h4>
+            <p className="text-[10px] text-indigo/70 dark:text-indigo-300/70 mt-1 leading-tight font-semibold">
+              Classic XOX with a friend! ❌⭕
+            </p>
           </button>
         </div>
       </div>
