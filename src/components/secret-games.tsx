@@ -1292,25 +1292,23 @@ function ImposterGame() {
                     /* IMPOSTER CARD DESIGN */
                     <div className="rounded-[28px] bg-gradient-to-br from-red-600 via-red-700 to-red-950 p-6 text-white text-center shadow-lg border border-red-500/30 relative overflow-hidden animate-slide-up">
                       <div className="absolute inset-0 bg-dots opacity-10" />
-                      <div className="relative space-y-4">
+                      <div className="relative space-y-5">
                         <div className="text-5xl">{selectedRevealPlayer.emoji}</div>
                         <div>
                           <p className="text-[10px] font-bold uppercase tracking-wider text-white/60">Your Name</p>
                           <h2 className="font-display text-xl font-black">{selectedRevealPlayer.name}</h2>
                         </div>
-                        <div className="py-2.5 border-y border-white/10">
-                          <span className="inline-flex items-center gap-1.5 rounded-full bg-red-500/30 px-3.5 py-1 text-xs font-extrabold uppercase tracking-wider text-red-200 border border-red-500/25 animate-pulse">
-                            🕵️‍♂️ IMPOSTER (Undercover)
-                          </span>
-                        </div>
-                        <div className="py-4 space-y-1">
-                          <p className="text-xs text-red-200/90 leading-relaxed font-bold">
-                            You don't have a secret word! 🤫
-                          </p>
-                          <p className="text-[11px] text-red-300/80 leading-relaxed max-w-[200px] mx-auto">
-                            Listen to other players' descriptions, try to blend in, and guess the word!
+                        
+                        <div className="py-8 flex flex-col items-center justify-center space-y-2">
+                          <span className="text-6xl animate-bounce">🕵️‍♂️</span>
+                          <h1 className="font-display text-4xl font-black tracking-wider text-white uppercase drop-shadow-[0_4px_12px_rgba(0,0,0,0.3)]">
+                            IMPOSTER
+                          </h1>
+                          <p className="text-[11px] text-red-200/70 font-semibold tracking-wide uppercase">
+                            🤫 Keep it secret!
                           </p>
                         </div>
+                        
                         <p className="text-[10px] text-white/50 italic">Tap below to close the card safely.</p>
                       </div>
                     </div>

@@ -2,7 +2,7 @@ import { r as __toESM } from "../_runtime.mjs";
 import { n as require_jsx_runtime, r as require_react } from "../_libs/react+tanstack__react-query.mjs";
 import { S as Bell, d as Moon, h as Heart, i as Trophy, l as RotateCcw, o as Sun, p as Info, t as X, u as Palette, v as CodeXml, w as ArrowLeft } from "../_libs/lucide-react.mjs";
 import { t as AppShell } from "./app-shell-BTcutmU8.mjs";
-//#region node_modules/.nitro/vite/services/ssr/assets/settings-Cf29het4.js
+//#region node_modules/.nitro/vite/services/ssr/assets/settings-BWQHPr2W.js
 var import_react = /* @__PURE__ */ __toESM(require_react());
 var import_jsx_runtime = require_jsx_runtime();
 function SecretGames({ onClose }) {
@@ -1628,7 +1628,7 @@ function ImposterGame() {
 						children: [selectedRevealPlayer.role === "imposter" ? /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
 							className: "rounded-[28px] bg-gradient-to-br from-red-600 via-red-700 to-red-950 p-6 text-white text-center shadow-lg border border-red-500/30 relative overflow-hidden animate-slide-up",
 							children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { className: "absolute inset-0 bg-dots opacity-10" }), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-								className: "relative space-y-4",
+								className: "relative space-y-5",
 								children: [
 									/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
 										className: "text-5xl",
@@ -1641,22 +1641,22 @@ function ImposterGame() {
 										className: "font-display text-xl font-black",
 										children: selectedRevealPlayer.name
 									})] }),
-									/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
-										className: "py-2.5 border-y border-white/10",
-										children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
-											className: "inline-flex items-center gap-1.5 rounded-full bg-red-500/30 px-3.5 py-1 text-xs font-extrabold uppercase tracking-wider text-red-200 border border-red-500/25 animate-pulse",
-											children: "🕵️‍♂️ IMPOSTER (Undercover)"
-										})
-									}),
 									/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-										className: "py-4 space-y-1",
-										children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
-											className: "text-xs text-red-200/90 leading-relaxed font-bold",
-											children: "You don't have a secret word! 🤫"
-										}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
-											className: "text-[11px] text-red-300/80 leading-relaxed max-w-[200px] mx-auto",
-											children: "Listen to other players' descriptions, try to blend in, and guess the word!"
-										})]
+										className: "py-8 flex flex-col items-center justify-center space-y-2",
+										children: [
+											/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
+												className: "text-6xl animate-bounce",
+												children: "🕵️‍♂️"
+											}),
+											/* @__PURE__ */ (0, import_jsx_runtime.jsx)("h1", {
+												className: "font-display text-4xl font-black tracking-wider text-white uppercase drop-shadow-[0_4px_12px_rgba(0,0,0,0.3)]",
+												children: "IMPOSTER"
+											}),
+											/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+												className: "text-[11px] text-red-200/70 font-semibold tracking-wide uppercase",
+												children: "🤫 Keep it secret!"
+											})
+										]
 									}),
 									/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
 										className: "text-[10px] text-white/50 italic",
