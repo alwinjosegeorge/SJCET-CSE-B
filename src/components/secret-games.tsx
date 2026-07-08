@@ -67,29 +67,33 @@ function GameMenu({ onSelectGame }: { onSelectGame: (mode: GameMode) => void }) 
       id: "imposter" as GameMode,
       title: "Imposter Finder 🕵️‍♂️",
       desc: "Find the sus classmate before they sabotage the group project!",
-      emoji: "🕵️‍♂️🤫",
-      color: "bg-lilac-soft text-indigo-deep",
+      primaryEmoji: "🕵️‍♂️",
+      secondaryEmoji: "🤫",
+      color: "bg-indigo-50 dark:bg-indigo-950/30 text-indigo-deep border border-indigo-100/30 dark:border-indigo-900/30",
     },
     {
       id: "tictactoe" as GameMode,
       title: "Panda vs Robot",
       desc: "Play Tic Tac Toe against an AI Bot in your boring class!",
-      emoji: "🤖🧸",
-      color: "bg-blush",
+      primaryEmoji: "🤖",
+      secondaryEmoji: "🧸",
+      color: "bg-red-50 dark:bg-red-950/30 text-red-900 border border-red-100/30 dark:border-red-900/30",
     },
     {
       id: "memory" as GameMode,
       title: "Emoji Match",
       desc: "Test your memory limit by pairing cute campus emojis!",
-      emoji: "🃏🧠",
-      color: "bg-mint",
+      primaryEmoji: "🃏",
+      secondaryEmoji: "🧠",
+      color: "bg-emerald-50 dark:bg-emerald-950/30 text-emerald-900 border border-emerald-100/30 dark:border-emerald-900/30",
     },
     {
       id: "scramble" as GameMode,
       title: "Campus Word Guess",
       desc: "Unscramble campus & teacher names from SJCET!",
-      emoji: "🏫📝",
-      color: "bg-butter",
+      primaryEmoji: "🏫",
+      secondaryEmoji: "📝",
+      color: "bg-amber-50 dark:bg-amber-950/30 text-amber-900 border border-amber-100/30 dark:border-amber-900/30",
     },
   ];
 
@@ -117,8 +121,9 @@ function GameMenu({ onSelectGame }: { onSelectGame: (mode: GameMode) => void }) 
             onClick={() => onSelectGame(g.id)}
             className="w-full flex items-center gap-4 rounded-3xl border border-border/60 bg-surface p-4 text-left hover:border-indigo/25 transition active:scale-[0.99]"
           >
-            <div className={`grid h-12 w-12 shrink-0 place-items-center rounded-2xl ${g.color} text-2xl`}>
-              {g.emoji}
+            <div className={`relative h-12 w-12 shrink-0 flex items-center justify-center rounded-full ${g.color}`}>
+              <span className="text-2xl leading-none">{g.primaryEmoji}</span>
+              <span className="absolute -bottom-1 -left-1 text-base leading-none drop-shadow-sm">{g.secondaryEmoji}</span>
             </div>
             <div className="min-w-0 flex-1">
               <h4 className="font-display text-sm font-bold text-ink">{g.title}</h4>

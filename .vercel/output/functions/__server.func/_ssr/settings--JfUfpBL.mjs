@@ -2,7 +2,7 @@ import { r as __toESM } from "../_runtime.mjs";
 import { n as require_jsx_runtime, r as require_react } from "../_libs/react+tanstack__react-query.mjs";
 import { S as Bell, d as Moon, h as Heart, i as Trophy, l as RotateCcw, o as Sun, p as Info, t as X, u as Palette, v as CodeXml, w as ArrowLeft } from "../_libs/lucide-react.mjs";
 import { t as AppShell } from "./app-shell-BTcutmU8.mjs";
-//#region node_modules/.nitro/vite/services/ssr/assets/settings-BWQHPr2W.js
+//#region node_modules/.nitro/vite/services/ssr/assets/settings--JfUfpBL.js
 var import_react = /* @__PURE__ */ __toESM(require_react());
 var import_jsx_runtime = require_jsx_runtime();
 function SecretGames({ onClose }) {
@@ -87,36 +87,46 @@ function GameMenu({ onSelectGame }) {
 						id: "imposter",
 						title: "Imposter Finder 🕵️‍♂️",
 						desc: "Find the sus classmate before they sabotage the group project!",
-						emoji: "🕵️‍♂️🤫",
-						color: "bg-lilac-soft text-indigo-deep"
+						primaryEmoji: "🕵️‍♂️",
+						secondaryEmoji: "🤫",
+						color: "bg-indigo-50 dark:bg-indigo-950/30 text-indigo-deep border border-indigo-100/30 dark:border-indigo-900/30"
 					},
 					{
 						id: "tictactoe",
 						title: "Panda vs Robot",
 						desc: "Play Tic Tac Toe against an AI Bot in your boring class!",
-						emoji: "🤖🧸",
-						color: "bg-blush"
+						primaryEmoji: "🤖",
+						secondaryEmoji: "🧸",
+						color: "bg-red-50 dark:bg-red-950/30 text-red-900 border border-red-100/30 dark:border-red-900/30"
 					},
 					{
 						id: "memory",
 						title: "Emoji Match",
 						desc: "Test your memory limit by pairing cute campus emojis!",
-						emoji: "🃏🧠",
-						color: "bg-mint"
+						primaryEmoji: "🃏",
+						secondaryEmoji: "🧠",
+						color: "bg-emerald-50 dark:bg-emerald-950/30 text-emerald-900 border border-emerald-100/30 dark:border-emerald-900/30"
 					},
 					{
 						id: "scramble",
 						title: "Campus Word Guess",
 						desc: "Unscramble campus & teacher names from SJCET!",
-						emoji: "🏫📝",
-						color: "bg-butter"
+						primaryEmoji: "🏫",
+						secondaryEmoji: "📝",
+						color: "bg-amber-50 dark:bg-amber-950/30 text-amber-900 border border-amber-100/30 dark:border-amber-900/30"
 					}
 				].map((g) => /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("button", {
 					onClick: () => onSelectGame(g.id),
 					className: "w-full flex items-center gap-4 rounded-3xl border border-border/60 bg-surface p-4 text-left hover:border-indigo/25 transition active:scale-[0.99]",
-					children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
-						className: `grid h-12 w-12 shrink-0 place-items-center rounded-2xl ${g.color} text-2xl`,
-						children: g.emoji
+					children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+						className: `relative h-12 w-12 shrink-0 flex items-center justify-center rounded-full ${g.color}`,
+						children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
+							className: "text-2xl leading-none",
+							children: g.primaryEmoji
+						}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
+							className: "absolute -bottom-1 -left-1 text-base leading-none drop-shadow-sm",
+							children: g.secondaryEmoji
+						})]
 					}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
 						className: "min-w-0 flex-1",
 						children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("h4", {
