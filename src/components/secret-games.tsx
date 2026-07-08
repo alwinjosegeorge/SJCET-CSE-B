@@ -1230,13 +1230,20 @@ function ImposterGame() {
             <div className="space-y-6 text-center animate-slide-up">
               {revealCardState === "hidden" ? (
                 <div className="space-y-6">
-                  <div className="rounded-[28px] border border-border/60 bg-surface p-8 shadow-sm text-center">
+                  <div className="rounded-[28px] border border-border/60 bg-surface p-6 shadow-sm text-center">
                     <p className="text-[10px] font-bold uppercase tracking-wider text-ink-soft">Pass the phone to:</p>
-                    <h2 className="font-display text-2xl font-black text-indigo mt-2">
+                    <h2 className="font-display text-2xl font-black text-indigo mt-1">
                       {selectedRevealPlayer.name}
                     </h2>
-                    <div className="mt-8 text-6xl animate-bounce">🎴</div>
-                    <p className="text-xs text-ink-soft mt-8 leading-relaxed">
+                    
+                    {/* Mystery Card Illustration */}
+                    <div className="relative mx-auto w-28 h-40 rounded-2xl bg-gradient-to-br from-indigo-500 via-indigo-600 to-purple-600 shadow-md border-2 border-white/20 flex flex-col items-center justify-center text-white overflow-hidden my-6">
+                      <div className="absolute inset-0 bg-dots opacity-10" />
+                      <span className="text-4xl">❓</span>
+                      <span className="text-[9px] font-extrabold uppercase tracking-widest mt-3 opacity-60">Secret Card</span>
+                    </div>
+
+                    <p className="text-xs text-ink-soft leading-relaxed px-4">
                       Make sure no one else is looking, then tap the card to check your secret role!
                     </p>
                   </div>
@@ -1261,13 +1268,15 @@ function ImposterGame() {
                           <h2 className="font-display text-xl font-black">{selectedRevealPlayer.name}</h2>
                         </div>
                         
-                        <div className="py-8 flex flex-col items-center justify-center space-y-2">
-                          <span className="text-6xl animate-bounce">🕵️‍♂️</span>
-                          <h1 className="font-display text-4xl font-black tracking-wider text-white uppercase drop-shadow-[0_4px_12px_rgba(0,0,0,0.3)]">
+                        <div className="py-8 flex flex-col items-center justify-center space-y-3">
+                          <div className="relative flex items-center justify-center h-20 w-20 bg-white/10 rounded-full border border-white/10 backdrop-blur-xs">
+                            <span className="text-5xl">🕵️‍♂️</span>
+                          </div>
+                          <h1 className="font-display text-4.5xl font-black tracking-wider text-white uppercase drop-shadow-[0_4px_12px_rgba(0,0,0,0.35)]">
                             IMPOSTER
                           </h1>
-                          <p className="text-[11px] text-red-200/70 font-semibold tracking-wide uppercase">
-                            🤫 Keep it secret!
+                          <p className="text-[10px] text-red-200/70 font-extrabold tracking-widest uppercase bg-black/25 px-3 py-1 rounded-full">
+                            🤫 KEEP IT SECRET!
                           </p>
                         </div>
                         
@@ -1289,12 +1298,16 @@ function ImposterGame() {
                             🟢 CREWMATE (Citizen)
                           </span>
                         </div>
-                        <div className="py-2">
-                          <p className="text-[10px] font-bold uppercase tracking-wider text-white/60">Your Secret Word Card</p>
-                          <h1 className="font-display text-3xl font-black tracking-widest mt-1 uppercase text-butter">
+                        
+                        <div className="py-6 flex flex-col items-center justify-center space-y-3">
+                          <p className="text-[10px] font-bold uppercase tracking-wider text-emerald-200/70 tracking-widest bg-black/15 px-3 py-0.5 rounded-full">
+                            Your Word Card 🏷️
+                          </p>
+                          <h1 className="font-display text-3.5xl font-black tracking-widest uppercase text-butter drop-shadow-sm">
                             {selectedRevealPlayer.word}
                           </h1>
                         </div>
+
                         <p className="text-[10px] text-white/50 italic">Memorize the word and tap below to hide it immediately!</p>
                       </div>
                     </div>

@@ -2,7 +2,7 @@ import { r as __toESM } from "../_runtime.mjs";
 import { n as require_jsx_runtime, r as require_react } from "../_libs/react+tanstack__react-query.mjs";
 import { S as Bell, d as Moon, h as Heart, i as Trophy, l as RotateCcw, o as Sun, p as Info, t as X, u as Palette, v as CodeXml, w as ArrowLeft } from "../_libs/lucide-react.mjs";
 import { t as AppShell } from "./app-shell-BTcutmU8.mjs";
-//#region node_modules/.nitro/vite/services/ssr/assets/settings-Dj9wRrtA.js
+//#region node_modules/.nitro/vite/services/ssr/assets/settings-BnrTuyUn.js
 var import_react = /* @__PURE__ */ __toESM(require_react());
 var import_jsx_runtime = require_jsx_runtime();
 function SecretGames({ onClose }) {
@@ -1573,22 +1573,32 @@ function ImposterGame() {
 					children: revealCardState === "hidden" ? /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
 						className: "space-y-6",
 						children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-							className: "rounded-[28px] border border-border/60 bg-surface p-8 shadow-sm text-center",
+							className: "rounded-[28px] border border-border/60 bg-surface p-6 shadow-sm text-center",
 							children: [
 								/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
 									className: "text-[10px] font-bold uppercase tracking-wider text-ink-soft",
 									children: "Pass the phone to:"
 								}),
 								/* @__PURE__ */ (0, import_jsx_runtime.jsx)("h2", {
-									className: "font-display text-2xl font-black text-indigo mt-2",
+									className: "font-display text-2xl font-black text-indigo mt-1",
 									children: selectedRevealPlayer.name
 								}),
-								/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
-									className: "mt-8 text-6xl animate-bounce",
-									children: "🎴"
+								/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+									className: "relative mx-auto w-28 h-40 rounded-2xl bg-gradient-to-br from-indigo-500 via-indigo-600 to-purple-600 shadow-md border-2 border-white/20 flex flex-col items-center justify-center text-white overflow-hidden my-6",
+									children: [
+										/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { className: "absolute inset-0 bg-dots opacity-10" }),
+										/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
+											className: "text-4xl",
+											children: "❓"
+										}),
+										/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
+											className: "text-[9px] font-extrabold uppercase tracking-widest mt-3 opacity-60",
+											children: "Secret Card"
+										})
+									]
 								}),
 								/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
-									className: "text-xs text-ink-soft mt-8 leading-relaxed",
+									className: "text-xs text-ink-soft leading-relaxed px-4",
 									children: "Make sure no one else is looking, then tap the card to check your secret role!"
 								})
 							]
@@ -1616,19 +1626,22 @@ function ImposterGame() {
 										children: selectedRevealPlayer.name
 									})] }),
 									/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-										className: "py-8 flex flex-col items-center justify-center space-y-2",
+										className: "py-8 flex flex-col items-center justify-center space-y-3",
 										children: [
-											/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
-												className: "text-6xl animate-bounce",
-												children: "🕵️‍♂️"
+											/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+												className: "relative flex items-center justify-center h-20 w-20 bg-white/10 rounded-full border border-white/10 backdrop-blur-xs",
+												children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
+													className: "text-5xl",
+													children: "🕵️‍♂️"
+												})
 											}),
 											/* @__PURE__ */ (0, import_jsx_runtime.jsx)("h1", {
-												className: "font-display text-4xl font-black tracking-wider text-white uppercase drop-shadow-[0_4px_12px_rgba(0,0,0,0.3)]",
+												className: "font-display text-4.5xl font-black tracking-wider text-white uppercase drop-shadow-[0_4px_12px_rgba(0,0,0,0.35)]",
 												children: "IMPOSTER"
 											}),
 											/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
-												className: "text-[11px] text-red-200/70 font-semibold tracking-wide uppercase",
-												children: "🤫 Keep it secret!"
+												className: "text-[10px] text-red-200/70 font-extrabold tracking-widest uppercase bg-black/25 px-3 py-1 rounded-full",
+												children: "🤫 KEEP IT SECRET!"
 											})
 										]
 									}),
@@ -1662,12 +1675,12 @@ function ImposterGame() {
 										})
 									}),
 									/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-										className: "py-2",
+										className: "py-6 flex flex-col items-center justify-center space-y-3",
 										children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
-											className: "text-[10px] font-bold uppercase tracking-wider text-white/60",
-											children: "Your Secret Word Card"
+											className: "text-[10px] font-bold uppercase tracking-wider text-emerald-200/70 tracking-widest bg-black/15 px-3 py-0.5 rounded-full",
+											children: "Your Word Card 🏷️"
 										}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("h1", {
-											className: "font-display text-3xl font-black tracking-widest mt-1 uppercase text-butter",
+											className: "font-display text-3.5xl font-black tracking-widest uppercase text-butter drop-shadow-sm",
 											children: selectedRevealPlayer.word
 										})]
 									}),
