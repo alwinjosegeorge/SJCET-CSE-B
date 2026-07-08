@@ -2,7 +2,7 @@ import { r as __toESM } from "../_runtime.mjs";
 import { n as require_jsx_runtime, r as require_react } from "../_libs/react+tanstack__react-query.mjs";
 import { C as ArrowUp, D as ArrowDown, E as ArrowLeft, S as Bell, T as ArrowRight, d as Moon, h as Heart, i as Trophy, l as RotateCcw, o as Sun, p as Info, t as X, u as Palette, v as CodeXml } from "../_libs/lucide-react.mjs";
 import { t as AppShell } from "./app-shell-BTcutmU8.mjs";
-//#region node_modules/.nitro/vite/services/ssr/assets/settings-ZgJWIGNG.js
+//#region node_modules/.nitro/vite/services/ssr/assets/settings-DhROdi1V.js
 var import_react = /* @__PURE__ */ __toESM(require_react());
 var import_jsx_runtime = require_jsx_runtime();
 function SecretGames({ onClose }) {
@@ -154,12 +154,15 @@ function GameMenu({ onSelectGame }) {
 	});
 }
 function TicTacToe() {
+	const [gameType, setGameType] = (0, import_react.useState)("choose");
 	const [board, setBoard] = (0, import_react.useState)(Array(9).fill(null));
 	const [isPlayerTurn, setIsPlayerTurn] = (0, import_react.useState)(true);
 	const [winner, setWinner] = (0, import_react.useState)(null);
 	const [winningLine, setWinningLine] = (0, import_react.useState)(null);
 	const P_SYMBOL = "🧸";
 	const B_SYMBOL = "🤖";
+	const X_SYMBOL = "❌";
+	const O_SYMBOL = "⭕";
 	const winPatterns = [
 		[
 			0,
@@ -217,18 +220,30 @@ function TicTacToe() {
 		return null;
 	};
 	const handleCellClick = (index) => {
-		if (board[index] || winner || !isPlayerTurn) return;
-		const nextBoard = [...board];
-		nextBoard[index] = P_SYMBOL;
-		setBoard(nextBoard);
-		const winStatus = checkWinner(nextBoard);
-		if (winStatus) {
-			setWinner(winStatus.winner);
-			setWinningLine(winStatus.line);
-		} else setIsPlayerTurn(false);
+		if (board[index] || winner) return;
+		if (gameType === "vs_ai") {
+			if (!isPlayerTurn) return;
+			const nextBoard = [...board];
+			nextBoard[index] = P_SYMBOL;
+			setBoard(nextBoard);
+			const winStatus = checkWinner(nextBoard);
+			if (winStatus) {
+				setWinner(winStatus.winner);
+				setWinningLine(winStatus.line);
+			} else setIsPlayerTurn(false);
+		} else if (gameType === "two_player") {
+			const nextBoard = [...board];
+			nextBoard[index] = isPlayerTurn ? X_SYMBOL : O_SYMBOL;
+			setBoard(nextBoard);
+			const winStatus = checkWinner(nextBoard);
+			if (winStatus) {
+				setWinner(winStatus.winner);
+				setWinningLine(winStatus.line);
+			} else setIsPlayerTurn(!isPlayerTurn);
+		}
 	};
 	(0, import_react.useEffect)(() => {
-		if (isPlayerTurn || winner) return;
+		if (gameType !== "vs_ai" || isPlayerTurn || winner) return;
 		const timeout = setTimeout(() => {
 			const emptyCells = board.map((cell, idx) => cell === null ? idx : null).filter((val) => val !== null);
 			if (emptyCells.length === 0) return;
@@ -262,6 +277,7 @@ function TicTacToe() {
 		}, 600);
 		return () => clearTimeout(timeout);
 	}, [
+		gameType,
 		isPlayerTurn,
 		board,
 		winner
@@ -272,43 +288,82 @@ function TicTacToe() {
 		setWinner(null);
 		setWinningLine(null);
 	};
+	const selectMode = (mode) => {
+		setGameType(mode);
+		resetGame();
+	};
+	if (gameType === "choose") return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+		className: "flex flex-col items-center justify-center py-6 text-center space-y-6 max-w-xs mx-auto",
+		children: [
+			/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+				className: "text-5xl animate-pulse",
+				children: "❌⭕"
+			}),
+			/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("h3", {
+				className: "font-display text-lg font-bold text-ink",
+				children: "Tic Tac Toe (XOX)"
+			}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+				className: "text-xs text-ink-soft mt-1 leading-relaxed px-4",
+				children: "Play against a smart AI robot or challenge a classmate sitting next to you!"
+			})] }),
+			/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+				className: "w-full space-y-3 pt-2",
+				children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("button", {
+					onClick: () => selectMode("vs_ai"),
+					className: "w-full py-3.5 rounded-2xl bg-indigo/10 border border-indigo/20 text-indigo hover:bg-indigo/15 active:scale-95 transition font-display font-bold text-sm flex items-center justify-center gap-2",
+					children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { children: "🧸 vs 🤖" }), " Play vs Robot AI"]
+				}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("button", {
+					onClick: () => selectMode("two_player"),
+					className: "w-full py-3.5 rounded-2xl bg-indigo-deep text-white shadow-md hover:bg-indigo-deep/95 active:scale-95 transition font-display font-bold text-sm flex items-center justify-center gap-2",
+					children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { children: "❌ vs ⭕" }), " Pass & Play (2 Players)"]
+				})]
+			})
+		]
+	});
 	return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
 		className: "flex flex-col items-center justify-center py-4",
-		children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
-			className: "grid grid-cols-3 gap-3 w-full max-w-[280px]",
-			children: board.map((cell, idx) => {
-				const isWinningCell = winningLine?.includes(idx);
-				return /* @__PURE__ */ (0, import_jsx_runtime.jsx)("button", {
-					onClick: () => handleCellClick(idx),
-					className: `h-[80px] rounded-2xl border border-border/80 flex items-center justify-center text-3xl font-bold transition active:scale-95 ${isWinningCell ? "bg-indigo-deep text-white border-transparent scale-[1.03]" : "bg-surface hover:border-indigo/20 text-ink"}`,
-					children: cell
-				}, idx);
-			})
-		}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-			className: "mt-8 text-center",
-			children: [winner ? /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-				className: "space-y-1",
-				children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("h4", {
-					className: "font-display text-xl font-extrabold text-indigo flex items-center justify-center gap-1.5 animate-bounce",
-					children: [
-						/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Trophy, { className: "h-5 w-5 text-butter fill-butter" }),
-						winner === P_SYMBOL && "Panda Wins! 🐼🎉",
-						winner === B_SYMBOL && "Robot Wins! 🤖❌",
-						winner === "Draw" && "It is a Draw! 🤝"
-					]
-				}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
-					className: "text-xs text-ink-soft",
-					children: "Good game!"
+		children: [
+			/* @__PURE__ */ (0, import_jsx_runtime.jsx)("button", {
+				onClick: () => setGameType("choose"),
+				className: "mb-6 inline-flex items-center gap-1 text-[10px] font-extrabold uppercase tracking-wider text-indigo bg-indigo-50 dark:bg-indigo-950/20 px-3 py-1.5 rounded-full active:scale-95 transition",
+				children: "⬅️ Change Game Mode"
+			}),
+			/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+				className: "grid grid-cols-3 gap-3 w-full max-w-[280px]",
+				children: board.map((cell, idx) => {
+					const isWinningCell = winningLine?.includes(idx);
+					return /* @__PURE__ */ (0, import_jsx_runtime.jsx)("button", {
+						onClick: () => handleCellClick(idx),
+						className: `h-[80px] rounded-2xl border border-border/80 flex items-center justify-center text-3xl font-bold transition active:scale-95 ${isWinningCell ? "bg-indigo-deep text-white border-transparent scale-[1.03]" : "bg-surface hover:border-indigo/20 text-ink"}`,
+						children: cell
+					}, idx);
+				})
+			}),
+			/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+				className: "mt-8 text-center",
+				children: [winner ? /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+					className: "space-y-1",
+					children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("h4", {
+						className: "font-display text-xl font-extrabold text-indigo flex items-center justify-center gap-1.5 animate-bounce",
+						children: [
+							/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Trophy, { className: "h-5 w-5 text-butter fill-butter" }),
+							gameType === "vs_ai" ? /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(import_jsx_runtime.Fragment, { children: [winner === P_SYMBOL && "Panda Wins! 🐼🎉", winner === B_SYMBOL && "Robot Wins! 🤖❌"] }) : /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(import_jsx_runtime.Fragment, { children: [winner === X_SYMBOL && "X Wins! ❌🎉", winner === O_SYMBOL && "O Wins! ⭕🎉"] }),
+							winner === "Draw" && "It is a Draw! 🤝"
+						]
+					}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+						className: "text-xs text-ink-soft",
+						children: "Good game!"
+					})]
+				}) : /* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+					className: "text-sm font-bold text-ink-soft flex items-center justify-center gap-2",
+					children: gameType === "vs_ai" ? isPlayerTurn ? /* @__PURE__ */ (0, import_jsx_runtime.jsx)(import_jsx_runtime.Fragment, { children: "Your Turn 🐼" }) : /* @__PURE__ */ (0, import_jsx_runtime.jsx)(import_jsx_runtime.Fragment, { children: "Robot is thinking... 🤖" }) : isPlayerTurn ? /* @__PURE__ */ (0, import_jsx_runtime.jsx)(import_jsx_runtime.Fragment, { children: "Player 1 Turn (❌)" }) : /* @__PURE__ */ (0, import_jsx_runtime.jsx)(import_jsx_runtime.Fragment, { children: "Player 2 Turn (⭕)" })
+				}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("button", {
+					onClick: resetGame,
+					className: "mt-6 flex items-center justify-center gap-2 mx-auto px-5 py-3 rounded-2xl bg-indigo-deep text-white font-display font-bold text-xs shadow-md active:scale-95 transition",
+					children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(RotateCcw, { className: "h-3.5 w-3.5" }), " Restart Game"]
 				})]
-			}) : /* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
-				className: "text-sm font-bold text-ink-soft flex items-center justify-center gap-2",
-				children: isPlayerTurn ? /* @__PURE__ */ (0, import_jsx_runtime.jsx)(import_jsx_runtime.Fragment, { children: "Your Turn 🐼" }) : /* @__PURE__ */ (0, import_jsx_runtime.jsx)(import_jsx_runtime.Fragment, { children: "Robot is thinking... 🤖" })
-			}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("button", {
-				onClick: resetGame,
-				className: "mt-6 flex items-center justify-center gap-2 mx-auto px-5 py-3 rounded-2xl bg-indigo-deep text-white font-display font-bold text-xs shadow-md active:scale-95 transition",
-				children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(RotateCcw, { className: "h-3.5 w-3.5" }), " Restart Game"]
-			})]
-		})]
+			})
+		]
 	});
 }
 function MemoryGame() {

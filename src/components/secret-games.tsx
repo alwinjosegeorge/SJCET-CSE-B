@@ -147,13 +147,16 @@ function GameMenu({ onSelectGame }: { onSelectGame: (mode: GameMode) => void }) 
 
 /* -------------------------- Game: Tic Tac Toe -------------------------- */
 function TicTacToe() {
+  const [gameType, setGameType] = useState<"choose" | "vs_ai" | "two_player">("choose");
   const [board, setBoard] = useState<(string | null)[]>(Array(9).fill(null));
   const [isPlayerTurn, setIsPlayerTurn] = useState(true);
   const [winner, setWinner] = useState<string | null>(null);
   const [winningLine, setWinningLine] = useState<number[] | null>(null);
 
-  const P_SYMBOL = "🧸"; // Player Panda
-  const B_SYMBOL = "🤖"; // Bot Robot
+  const P_SYMBOL = "🧸"; // Player Panda (AI Mode)
+  const B_SYMBOL = "🤖"; // Bot Robot (AI Mode)
+  const X_SYMBOL = "❌"; // Player 1 (2P Mode)
+  const O_SYMBOL = "⭕"; // Player 2 (2P Mode)
 
   const winPatterns = [
     [0, 1, 2], [3, 4, 5], [6, 7, 8], // Rows
@@ -175,32 +178,46 @@ function TicTacToe() {
   };
 
   const handleCellClick = (index: number) => {
-    if (board[index] || winner || !isPlayerTurn) return;
+    if (board[index] || winner) return;
 
-    // Player move
-    const nextBoard = [...board];
-    nextBoard[index] = P_SYMBOL;
-    setBoard(nextBoard);
+    if (gameType === "vs_ai") {
+      if (!isPlayerTurn) return;
 
-    const winStatus = checkWinner(nextBoard);
-    if (winStatus) {
-      setWinner(winStatus.winner);
-      setWinningLine(winStatus.line);
-    } else {
-      setIsPlayerTurn(false);
+      const nextBoard = [...board];
+      nextBoard[index] = P_SYMBOL;
+      setBoard(nextBoard);
+
+      const winStatus = checkWinner(nextBoard);
+      if (winStatus) {
+        setWinner(winStatus.winner);
+        setWinningLine(winStatus.line);
+      } else {
+        setIsPlayerTurn(false);
+      }
+    } else if (gameType === "two_player") {
+      const nextBoard = [...board];
+      const currentSymbol = isPlayerTurn ? X_SYMBOL : O_SYMBOL;
+      nextBoard[index] = currentSymbol;
+      setBoard(nextBoard);
+
+      const winStatus = checkWinner(nextBoard);
+      if (winStatus) {
+        setWinner(winStatus.winner);
+        setWinningLine(winStatus.line);
+      } else {
+        setIsPlayerTurn(!isPlayerTurn);
+      }
     }
   };
 
   // Bot logic
   useEffect(() => {
-    if (isPlayerTurn || winner) return;
+    if (gameType !== "vs_ai" || isPlayerTurn || winner) return;
 
     const timeout = setTimeout(() => {
-      // Find empty cells
       const emptyCells = board.map((cell, idx) => cell === null ? idx : null).filter(val => val !== null) as number[];
       if (emptyCells.length === 0) return;
 
-      // Simple AI: Check if bot can win or player is about to win
       let choice = -1;
 
       // 1. Can Bot win?
@@ -249,7 +266,7 @@ function TicTacToe() {
     }, 600);
 
     return () => clearTimeout(timeout);
-  }, [isPlayerTurn, board, winner]);
+  }, [gameType, isPlayerTurn, board, winner]);
 
   const resetGame = () => {
     setBoard(Array(9).fill(null));
@@ -258,8 +275,50 @@ function TicTacToe() {
     setWinningLine(null);
   };
 
+  const selectMode = (mode: "vs_ai" | "two_player") => {
+    setGameType(mode);
+    resetGame();
+  };
+
+  if (gameType === "choose") {
+    return (
+      <div className="flex flex-col items-center justify-center py-6 text-center space-y-6 max-w-xs mx-auto">
+        <div className="text-5xl animate-pulse">❌⭕</div>
+        <div>
+          <h3 className="font-display text-lg font-bold text-ink">Tic Tac Toe (XOX)</h3>
+          <p className="text-xs text-ink-soft mt-1 leading-relaxed px-4">
+            Play against a smart AI robot or challenge a classmate sitting next to you!
+          </p>
+        </div>
+
+        <div className="w-full space-y-3 pt-2">
+          <button
+            onClick={() => selectMode("vs_ai")}
+            className="w-full py-3.5 rounded-2xl bg-indigo/10 border border-indigo/20 text-indigo hover:bg-indigo/15 active:scale-95 transition font-display font-bold text-sm flex items-center justify-center gap-2"
+          >
+            <span>🧸 vs 🤖</span> Play vs Robot AI
+          </button>
+          <button
+            onClick={() => selectMode("two_player")}
+            className="w-full py-3.5 rounded-2xl bg-indigo-deep text-white shadow-md hover:bg-indigo-deep/95 active:scale-95 transition font-display font-bold text-sm flex items-center justify-center gap-2"
+          >
+            <span>❌ vs ⭕</span> Pass & Play (2 Players)
+          </button>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="flex flex-col items-center justify-center py-4">
+      {/* Back button */}
+      <button
+        onClick={() => setGameType("choose")}
+        className="mb-6 inline-flex items-center gap-1 text-[10px] font-extrabold uppercase tracking-wider text-indigo bg-indigo-50 dark:bg-indigo-950/20 px-3 py-1.5 rounded-full active:scale-95 transition"
+      >
+        ⬅️ Change Game Mode
+      </button>
+
       {/* Game board */}
       <div className="grid grid-cols-3 gap-3 w-full max-w-[280px]">
         {board.map((cell, idx) => {
@@ -286,18 +345,35 @@ function TicTacToe() {
           <div className="space-y-1">
             <h4 className="font-display text-xl font-extrabold text-indigo flex items-center justify-center gap-1.5 animate-bounce">
               <Trophy className="h-5 w-5 text-butter fill-butter" />
-              {winner === P_SYMBOL && "Panda Wins! 🐼🎉"}
-              {winner === B_SYMBOL && "Robot Wins! 🤖❌"}
+              {gameType === "vs_ai" ? (
+                <>
+                  {winner === P_SYMBOL && "Panda Wins! 🐼🎉"}
+                  {winner === B_SYMBOL && "Robot Wins! 🤖❌"}
+                </>
+              ) : (
+                <>
+                  {winner === X_SYMBOL && "X Wins! ❌🎉"}
+                  {winner === O_SYMBOL && "O Wins! ⭕🎉"}
+                </>
+              )}
               {winner === "Draw" && "It is a Draw! 🤝"}
             </h4>
             <p className="text-xs text-ink-soft">Good game!</p>
           </div>
         ) : (
           <p className="text-sm font-bold text-ink-soft flex items-center justify-center gap-2">
-            {isPlayerTurn ? (
-              <>Your Turn 🐼</>
+            {gameType === "vs_ai" ? (
+              isPlayerTurn ? (
+                <>Your Turn 🐼</>
+              ) : (
+                <>Robot is thinking... 🤖</>
+              )
             ) : (
-              <>Robot is thinking... 🤖</>
+              isPlayerTurn ? (
+                <>Player 1 Turn (❌)</>
+              ) : (
+                <>Player 2 Turn (⭕)</>
+              )
             )}
           </p>
         )}
