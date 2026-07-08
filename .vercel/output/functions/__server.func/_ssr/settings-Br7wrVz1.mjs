@@ -2,7 +2,7 @@ import { r as __toESM } from "../_runtime.mjs";
 import { n as require_jsx_runtime, r as require_react } from "../_libs/react+tanstack__react-query.mjs";
 import { S as Bell, d as Moon, h as Heart, i as Trophy, l as RotateCcw, o as Sun, p as Info, t as X, u as Palette, v as CodeXml, w as ArrowLeft } from "../_libs/lucide-react.mjs";
 import { t as AppShell } from "./app-shell-BTcutmU8.mjs";
-//#region node_modules/.nitro/vite/services/ssr/assets/settings--JfUfpBL.js
+//#region node_modules/.nitro/vite/services/ssr/assets/settings-Br7wrVz1.js
 var import_react = /* @__PURE__ */ __toESM(require_react());
 var import_jsx_runtime = require_jsx_runtime();
 function SecretGames({ onClose }) {
@@ -1317,8 +1317,6 @@ function ImposterGame() {
 	const [wordPair, setWordPair] = (0, import_react.useState)(IMPOSTER_POOL[0]);
 	const [selectedRevealPlayer, setSelectedRevealPlayer] = (0, import_react.useState)(null);
 	const [revealCardState, setRevealCardState] = (0, import_react.useState)("hidden");
-	const [eliminationConfirmPlayer, setEliminationConfirmPlayer] = (0, import_react.useState)(null);
-	const [winnerTeam, setWinnerTeam] = (0, import_react.useState)(null);
 	(0, import_react.useEffect)(() => {
 		setPlayerNames(Array(playerCount).fill(""));
 	}, [playerCount]);
@@ -1363,14 +1361,12 @@ function ImposterGame() {
 				colorClass: PASTEL_COLORS[idx % PASTEL_COLORS.length],
 				role,
 				word,
-				isEliminated: false,
 				isSeen: false
 			};
 		});
 		setGamePlayers(initialPlayers);
 		setSelectedRevealPlayer(null);
 		setRevealCardState("hidden");
-		setWinnerTeam(null);
 		setPhase("reveal");
 	};
 	const handleRevealCard = () => {
@@ -1390,40 +1386,11 @@ function ImposterGame() {
 		setSelectedRevealPlayer(null);
 		setRevealCardState("hidden");
 	};
-	const checkGameWinner = (currentPlayers) => {
-		const active = currentPlayers.filter((p) => !p.isEliminated);
-		const activeImposters = active.filter((p) => p.role === "imposter").length;
-		const activeCitizens = active.filter((p) => p.role === "citizen").length;
-		if (activeImposters === 0) {
-			setWinnerTeam("citizen");
-			setPhase("revealWinners");
-		} else if (activeImposters >= activeCitizens) {
-			setWinnerTeam("imposter");
-			setPhase("revealWinners");
-		}
-	};
-	const handleEliminatePlayer = (p) => {
-		setEliminationConfirmPlayer(p);
-	};
-	const confirmEliminate = () => {
-		if (!eliminationConfirmPlayer) return;
-		const updated = gamePlayers.map((p) => {
-			if (p.id === eliminationConfirmPlayer.id) return {
-				...p,
-				isEliminated: true
-			};
-			return p;
-		});
-		setGamePlayers(updated);
-		setEliminationConfirmPlayer(null);
-		checkGameWinner(updated);
-		if (typeof navigator !== "undefined" && navigator.vibrate) navigator.vibrate([100]);
-	};
 	const restartGame = () => {
 		setPhase("welcome");
 	};
-	const activeImposters = gamePlayers.filter((p) => p.role === "imposter" && !p.isEliminated).length;
-	const activeCitizens = gamePlayers.filter((p) => p.role === "citizen" && !p.isEliminated).length;
+	gamePlayers.filter((p) => p.role === "imposter" && !p.isEliminated).length;
+	gamePlayers.filter((p) => p.role === "citizen" && !p.isEliminated).length;
 	return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
 		className: "space-y-4 max-w-sm mx-auto py-2",
 		children: [
@@ -1599,7 +1566,7 @@ function ImposterGame() {
 						}),
 						/* @__PURE__ */ (0, import_jsx_runtime.jsx)("button", {
 							disabled: !gamePlayers.every((p) => p.isSeen),
-							onClick: () => setPhase("gameplay"),
+							onClick: () => setPhase("discuss"),
 							className: `w-full py-4 rounded-2xl font-display font-bold text-sm shadow-md transition ${gamePlayers.every((p) => p.isSeen) ? "bg-indigo-deep text-white active:scale-95 cursor-pointer" : "bg-muted text-ink-soft opacity-60 cursor-not-allowed"}`,
 							children: gamePlayers.every((p) => p.isSeen) ? "Start Discussion & Vote ➡️" : "Waiting for everyone to check cards... ⏳"
 						})
@@ -1721,82 +1688,43 @@ function ImposterGame() {
 					})
 				})
 			}),
-			phase === "gameplay" && /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-				className: "space-y-4 py-2",
+			phase === "discuss" && /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+				className: "space-y-5 py-2",
 				children: [
 					/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-						className: "rounded-2xl border border-border/60 bg-surface p-3.5 flex justify-between text-xs font-bold text-ink-soft",
-						children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("span", {
-							className: "flex items-center gap-1",
-							children: ["🟢 Citizens: ", activeCitizens]
-						}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("span", {
-							className: "flex items-center gap-1",
-							children: ["🔴 Imposters: ", activeImposters]
+						className: "rounded-[28px] border border-border/60 bg-surface p-5 text-center shadow-sm",
+						children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("h3", {
+							className: "font-display text-base font-bold text-ink",
+							children: "Discuss & Guess! 🤫"
+						}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+							className: "text-xs text-ink-soft mt-1 leading-relaxed",
+							children: "Describe your words in real life, debate, and vote out who you think is faking it!"
 						})]
-					}),
-					/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
-						className: "rounded-2xl bg-indigo-deep/5 border border-indigo/25 p-3.5 text-center text-xs font-semibold text-indigo",
-						children: "Take turns describing your word card in one word. Talk to each other, then vote who is faking it! 🕵️‍♂️💬"
 					}),
 					/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
 						className: "grid grid-cols-2 gap-3",
 						children: gamePlayers.map((p) => /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-							onClick: () => !p.isEliminated && handleEliminatePlayer(p),
-							className: `relative border rounded-[22px] p-4 text-center transition-all duration-300 select-none ${p.isEliminated ? "border-border/40 bg-surface/50 opacity-40 scale-95" : `${p.colorClass} border-transparent shadow-xs cursor-pointer hover:scale-[1.015] active:scale-[0.985]`}`,
+							className: `border border-border/40 bg-surface rounded-[22px] p-4 text-center select-none shadow-xs`,
 							children: [
 								/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
 									className: "text-4xl mb-2",
 									children: p.emoji
 								}),
 								/* @__PURE__ */ (0, import_jsx_runtime.jsx)("h4", {
-									className: "font-display text-sm font-bold truncate leading-tight",
+									className: "font-display text-sm font-bold truncate leading-tight text-ink",
 									children: p.name
 								}),
-								p.isEliminated ? /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
-									className: "mt-2 inline-flex items-center gap-1 rounded-full bg-slate-200/50 px-2 py-0.5 text-[8px] font-extrabold uppercase tracking-wider text-slate-500",
-									children: "💀 Voted Out"
-								}) : /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
-									className: "mt-2 inline-flex items-center gap-1 rounded-full bg-white/20 px-2 py-0.5 text-[8px] font-extrabold uppercase tracking-wider",
-									children: "Alive"
+								/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
+									className: "mt-2.5 inline-flex items-center gap-1 rounded-full bg-indigo-50 dark:bg-indigo-950/20 px-2.5 py-0.5 text-[8px] font-extrabold uppercase tracking-wider text-indigo",
+									children: "Playing"
 								})
 							]
 						}, p.id))
 					}),
-					eliminationConfirmPlayer && /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
-						className: "fixed inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-xs p-5",
-						children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-							className: "w-full max-w-[280px] rounded-3xl bg-surface border border-border/80 p-5 text-center shadow-lg animate-slide-up",
-							children: [
-								/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
-									className: "text-4xl",
-									children: eliminationConfirmPlayer.emoji
-								}),
-								/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("h3", {
-									className: "font-display text-base font-bold text-ink mt-3",
-									children: [
-										"Vote out ",
-										eliminationConfirmPlayer.name,
-										"?"
-									]
-								}),
-								/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
-									className: "text-xs text-ink-soft mt-1 leading-relaxed",
-									children: "This will reveal their secret role to everyone."
-								}),
-								/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-									className: "mt-5 flex gap-3.5",
-									children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("button", {
-										onClick: () => setEliminationConfirmPlayer(null),
-										className: "flex-1 py-2.5 rounded-xl border border-border/60 text-ink text-xs font-bold transition active:scale-95",
-										children: "Cancel"
-									}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("button", {
-										onClick: confirmEliminate,
-										className: "flex-1 py-2.5 rounded-xl bg-red-600 text-white text-xs font-bold transition active:scale-95",
-										children: "Yes, Vote Out"
-									})]
-								})
-							]
-						})
+					/* @__PURE__ */ (0, import_jsx_runtime.jsx)("button", {
+						onClick: () => setPhase("revealWinners"),
+						className: "w-full py-4 rounded-2xl bg-indigo-deep text-white font-display font-bold text-sm shadow-md active:scale-95 transition",
+						children: "Reveal Results 🏆"
 					})
 				]
 			}),
@@ -1807,25 +1735,25 @@ function ImposterGame() {
 					children: [
 						/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
 							className: "text-5xl animate-bounce",
-							children: winnerTeam === "citizen" ? "🏆🎉" : "🤫👾"
+							children: "🕵️‍♂️🤫"
 						}),
 						/* @__PURE__ */ (0, import_jsx_runtime.jsx)("h3", {
 							className: "font-display text-xl font-extrabold text-ink",
-							children: winnerTeam === "citizen" ? "Crewmates Win! 🧑‍🎓" : "Imposters Win! 🤫"
+							children: "Game Results"
 						}),
 						/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
 							className: "text-xs text-ink-soft leading-relaxed",
-							children: winnerTeam === "citizen" ? "The citizens successfully identified and voted out all the hidden imposters!" : "The undercover imposters successfully survived and sabotaged the class!"
+							children: "Here is the answer key. See who was right!"
 						}),
 						/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
 							className: "border-t border-border/40 pt-4 text-left space-y-2.5",
 							children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("h4", {
 								className: "text-[10px] font-bold uppercase tracking-wider text-ink-soft",
-								children: "The Imposters Were:"
+								children: "The Imposters:"
 							}), gamePlayers.filter((p) => p.role === "imposter").map((p) => /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
 								className: "flex items-center justify-between text-xs font-semibold",
 								children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("span", {
-									className: "flex items-center gap-1.5",
+									className: "flex items-center gap-1.5 text-ink",
 									children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { children: p.emoji }), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { children: p.name })]
 								}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("span", {
 									className: "text-red-600 dark:text-red-400 uppercase text-[10px] font-extrabold",
@@ -1841,11 +1769,11 @@ function ImposterGame() {
 							className: "border-t border-border/40 pt-4 text-left space-y-2.5",
 							children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("h4", {
 								className: "text-[10px] font-bold uppercase tracking-wider text-ink-soft",
-								children: "The Crewmates Were:"
+								children: "The Crewmates:"
 							}), gamePlayers.filter((p) => p.role === "citizen").map((p) => /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
 								className: "flex items-center justify-between text-xs font-semibold",
 								children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("span", {
-									className: "flex items-center gap-1.5",
+									className: "flex items-center gap-1.5 text-ink",
 									children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { children: p.emoji }), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { children: p.name })]
 								}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("span", {
 									className: "text-emerald-600 dark:text-emerald-400 uppercase text-[10px] font-extrabold",

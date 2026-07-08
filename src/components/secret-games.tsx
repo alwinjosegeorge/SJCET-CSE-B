@@ -941,9 +941,6 @@ function ImposterGame() {
   const [wordPair, setWordPair] = useState<ImposterWordPair>(IMPOSTER_POOL[0]);
   const [selectedRevealPlayer, setSelectedRevealPlayer] = useState<PartyPlayer | null>(null);
   const [revealCardState, setRevealCardState] = useState<"hidden" | "revealed">("hidden");
-  
-  const [eliminationConfirmPlayer, setEliminationConfirmPlayer] = useState<PartyPlayer | null>(null);
-  const [winnerTeam, setWinnerTeam] = useState<"citizen" | "imposter" | null>(null);
 
   // Initialize empty player names when playerCount changes
   useEffect(() => {
@@ -1006,7 +1003,6 @@ function ImposterGame() {
         colorClass: PASTEL_COLORS[idx % PASTEL_COLORS.length],
         role,
         word,
-        isEliminated: false,
         isSeen: false
       };
     });
@@ -1014,7 +1010,6 @@ function ImposterGame() {
     setGamePlayers(initialPlayers);
     setSelectedRevealPlayer(null);
     setRevealCardState("hidden");
-    setWinnerTeam(null);
     setPhase("reveal");
   };
 
@@ -1037,43 +1032,6 @@ function ImposterGame() {
     setGamePlayers(updated);
     setSelectedRevealPlayer(null);
     setRevealCardState("hidden");
-  };
-
-  const checkGameWinner = (currentPlayers: PartyPlayer[]) => {
-    const active = currentPlayers.filter(p => !p.isEliminated);
-    const activeImposters = active.filter(p => p.role === "imposter").length;
-    const activeCitizens = active.filter(p => p.role === "citizen").length;
-
-    if (activeImposters === 0) {
-      setWinnerTeam("citizen");
-      setPhase("revealWinners");
-    } else if (activeImposters >= activeCitizens) {
-      setWinnerTeam("imposter");
-      setPhase("revealWinners");
-    }
-  };
-
-  const handleEliminatePlayer = (p: PartyPlayer) => {
-    setEliminationConfirmPlayer(p);
-  };
-
-  const confirmEliminate = () => {
-    if (!eliminationConfirmPlayer) return;
-    
-    const updated = gamePlayers.map(p => {
-      if (p.id === eliminationConfirmPlayer.id) {
-        return { ...p, isEliminated: true };
-      }
-      return p;
-    });
-    
-    setGamePlayers(updated);
-    setEliminationConfirmPlayer(null);
-    checkGameWinner(updated);
-
-    if (typeof navigator !== "undefined" && navigator.vibrate) {
-      navigator.vibrate([100]);
-    }
   };
 
   const restartGame = () => {
@@ -1255,7 +1213,7 @@ function ImposterGame() {
               {/* Start game button */}
               <button
                 disabled={!gamePlayers.every(p => p.isSeen)}
-                onClick={() => setPhase("gameplay")}
+                onClick={() => setPhase("discuss")}
                 className={`w-full py-4 rounded-2xl font-display font-bold text-sm shadow-md transition ${
                   gamePlayers.every(p => p.isSeen)
                     ? "bg-indigo-deep text-white active:scale-95 cursor-pointer"
@@ -1356,17 +1314,14 @@ function ImposterGame() {
         </div>
       )}
 
-      {/* 6. Active Gameplay List (Bento-style Grid) */}
-      {phase === "gameplay" && (
-        <div className="space-y-4 py-2">
-          {/* Top Info Bar */}
-          <div className="rounded-2xl border border-border/60 bg-surface p-3.5 flex justify-between text-xs font-bold text-ink-soft">
-            <span className="flex items-center gap-1">🟢 Citizens: {activeCitizens}</span>
-            <span className="flex items-center gap-1">🔴 Imposters: {activeImposters}</span>
-          </div>
-
-          <div className="rounded-2xl bg-indigo-deep/5 border border-indigo/25 p-3.5 text-center text-xs font-semibold text-indigo">
-            Take turns describing your word card in one word. Talk to each other, then vote who is faking it! 🕵️‍♂️💬
+      {/* 6. Discussion Room */}
+      {phase === "discuss" && (
+        <div className="space-y-5 py-2">
+          <div className="rounded-[28px] border border-border/60 bg-surface p-5 text-center shadow-sm">
+            <h3 className="font-display text-base font-bold text-ink">Discuss & Guess! 🤫</h3>
+            <p className="text-xs text-ink-soft mt-1 leading-relaxed">
+              Describe your words in real life, debate, and vote out who you think is faking it!
+            </p>
           </div>
 
           {/* Cards Grid */}
@@ -1374,84 +1329,44 @@ function ImposterGame() {
             {gamePlayers.map((p) => (
               <div
                 key={p.id}
-                onClick={() => !p.isEliminated && handleEliminatePlayer(p)}
-                className={`relative border rounded-[22px] p-4 text-center transition-all duration-300 select-none ${
-                  p.isEliminated
-                    ? "border-border/40 bg-surface/50 opacity-40 scale-95"
-                    : `${p.colorClass} border-transparent shadow-xs cursor-pointer hover:scale-[1.015] active:scale-[0.985]`
-                }`}
+                className={`border border-border/40 bg-surface rounded-[22px] p-4 text-center select-none shadow-xs`}
               >
                 <div className="text-4xl mb-2">{p.emoji}</div>
-                <h4 className="font-display text-sm font-bold truncate leading-tight">{p.name}</h4>
-                
-                {p.isEliminated ? (
-                  <span className="mt-2 inline-flex items-center gap-1 rounded-full bg-slate-200/50 px-2 py-0.5 text-[8px] font-extrabold uppercase tracking-wider text-slate-500">
-                    💀 Voted Out
-                  </span>
-                ) : (
-                  <span className="mt-2 inline-flex items-center gap-1 rounded-full bg-white/20 px-2 py-0.5 text-[8px] font-extrabold uppercase tracking-wider">
-                    Alive
-                  </span>
-                )}
+                <h4 className="font-display text-sm font-bold truncate leading-tight text-ink">{p.name}</h4>
+                <span className="mt-2.5 inline-flex items-center gap-1 rounded-full bg-indigo-50 dark:bg-indigo-950/20 px-2.5 py-0.5 text-[8px] font-extrabold uppercase tracking-wider text-indigo">
+                  Playing
+                </span>
               </div>
             ))}
           </div>
 
-          {/* Elimination Confirmation Dialog Overlay */}
-          {eliminationConfirmPlayer && (
-            <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-xs p-5">
-              <div className="w-full max-w-[280px] rounded-3xl bg-surface border border-border/80 p-5 text-center shadow-lg animate-slide-up">
-                <div className="text-4xl">{eliminationConfirmPlayer.emoji}</div>
-                <h3 className="font-display text-base font-bold text-ink mt-3">
-                  Vote out {eliminationConfirmPlayer.name}?
-                </h3>
-                <p className="text-xs text-ink-soft mt-1 leading-relaxed">
-                  This will reveal their secret role to everyone.
-                </p>
-                <div className="mt-5 flex gap-3.5">
-                  <button
-                    onClick={() => setEliminationConfirmPlayer(null)}
-                    className="flex-1 py-2.5 rounded-xl border border-border/60 text-ink text-xs font-bold transition active:scale-95"
-                  >
-                    Cancel
-                  </button>
-                  <button
-                    onClick={confirmEliminate}
-                    className="flex-1 py-2.5 rounded-xl bg-red-600 text-white text-xs font-bold transition active:scale-95"
-                  >
-                    Yes, Vote Out
-                  </button>
-                </div>
-              </div>
-            </div>
-          )}
+          <button
+            onClick={() => setPhase("revealWinners")}
+            className="w-full py-4 rounded-2xl bg-indigo-deep text-white font-display font-bold text-sm shadow-md active:scale-95 transition"
+          >
+            Reveal Results 🏆
+          </button>
         </div>
       )}
 
-      {/* 7. Reveal Winners */}
+      {/* 7. Reveal Results */}
       {phase === "revealWinners" && (
         <div className="space-y-5 text-center py-4">
           <div className="rounded-[28px] border border-border/60 bg-surface p-6 shadow-sm space-y-4">
-            <div className="text-5xl animate-bounce">
-              {winnerTeam === "citizen" ? "🏆🎉" : "🤫👾"}
-            </div>
+            <div className="text-5xl animate-bounce">🕵️‍♂️🤫</div>
             
             <h3 className="font-display text-xl font-extrabold text-ink">
-              {winnerTeam === "citizen" ? "Crewmates Win! 🧑‍🎓" : "Imposters Win! 🤫"}
+              Game Results
             </h3>
-            
             <p className="text-xs text-ink-soft leading-relaxed">
-              {winnerTeam === "citizen"
-                ? "The citizens successfully identified and voted out all the hidden imposters!"
-                : "The undercover imposters successfully survived and sabotaged the class!"
-            }
+              Here is the answer key. See who was right!
             </p>
 
             <div className="border-t border-border/40 pt-4 text-left space-y-2.5">
-              <h4 className="text-[10px] font-bold uppercase tracking-wider text-ink-soft">The Imposters Were:</h4>
+              <h4 className="text-[10px] font-bold uppercase tracking-wider text-ink-soft">The Imposters:</h4>
               {gamePlayers.filter(p => p.role === "imposter").map(p => (
                 <div key={p.id} className="flex items-center justify-between text-xs font-semibold">
-                  <span className="flex items-center gap-1.5">
+                  <span className="flex items-center gap-1.5 text-ink">
                     <span>{p.emoji}</span>
                     <span>{p.name}</span>
                   </span>
@@ -1463,10 +1378,10 @@ function ImposterGame() {
             </div>
 
             <div className="border-t border-border/40 pt-4 text-left space-y-2.5">
-              <h4 className="text-[10px] font-bold uppercase tracking-wider text-ink-soft">The Crewmates Were:</h4>
+              <h4 className="text-[10px] font-bold uppercase tracking-wider text-ink-soft">The Crewmates:</h4>
               {gamePlayers.filter(p => p.role === "citizen").map(p => (
                 <div key={p.id} className="flex items-center justify-between text-xs font-semibold">
-                  <span className="flex items-center gap-1.5">
+                  <span className="flex items-center gap-1.5 text-ink">
                     <span>{p.emoji}</span>
                     <span>{p.name}</span>
                   </span>
