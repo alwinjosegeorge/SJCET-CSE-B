@@ -339,40 +339,48 @@ function TicTacToe() {
   }
 
   return (
-    <div className="flex flex-col items-center justify-center py-4">
+    <div className="flex flex-col items-center justify-center py-4 relative">
       {/* Back button */}
       <button
         onClick={() => setGameType("choose")}
-        className="mb-6 inline-flex items-center gap-1 text-[10px] font-extrabold uppercase tracking-wider text-indigo bg-indigo-50 dark:bg-indigo-950/20 px-3 py-1.5 rounded-full active:scale-95 transition"
+        className="absolute top-0 left-0 grid h-9 w-9 place-items-center rounded-xl bg-muted text-ink-soft hover:text-ink active:scale-95 transition"
       >
-        ⬅️ Change Game Mode
+        <ArrowLeft className="h-4.5 w-4.5" strokeWidth={2.4} />
       </button>
 
-      {/* Game board */}
-      <div className="grid grid-cols-3 gap-3 w-full max-w-[280px]">
-        {board.map((cell, idx) => {
-          const isWinningCell = winningLine?.includes(idx);
-          return (
-            <button
-              key={idx}
-              onClick={() => handleCellClick(idx)}
-              className={`h-[80px] rounded-2xl border border-border/80 flex items-center justify-center text-3xl font-bold transition active:scale-95 ${
-                isWinningCell 
-                  ? "bg-indigo-deep text-white border-transparent scale-[1.03]" 
-                  : "bg-surface hover:border-indigo/20 text-ink"
-              }`}
-            >
-              {cell}
-            </button>
-          );
-        })}
+      {/* Game board wrapper to look like a game board */}
+      <div className="mt-12 p-3 bg-muted/40 rounded-[28px] border border-border/40 w-full max-w-[290px] shadow-sm">
+        <div className="grid grid-cols-3 gap-2.5">
+          {board.map((cell, idx) => {
+            const isWinningCell = winningLine?.includes(idx);
+            
+            let cellStyle = "bg-surface border-border/60 hover:border-indigo/20 text-ink";
+            if (isWinningCell) {
+              cellStyle = "bg-indigo-deep text-white border-transparent scale-[1.03] shadow-md shadow-indigo/20";
+            } else if (cell === "❌" || cell === "🧸") {
+              cellStyle = "bg-rose-50/70 dark:bg-rose-950/20 border-rose-100/50 dark:border-rose-900/30 text-rose-600 dark:text-rose-400";
+            } else if (cell === "⭕" || cell === "🤖") {
+              cellStyle = "bg-indigo-50/70 dark:bg-indigo-950/20 border-indigo-100/50 dark:border-indigo-900/30 text-indigo dark:text-indigo-400";
+            }
+
+            return (
+              <button
+                key={idx}
+                onClick={() => handleCellClick(idx)}
+                className={`h-[78px] rounded-[18px] border flex items-center justify-center text-3xl font-bold transition active:scale-95 shadow-xs ${cellStyle}`}
+              >
+                {cell}
+              </button>
+            );
+          })}
+        </div>
       </div>
 
       {/* Info status */}
       <div className="mt-8 text-center">
         {winner ? (
           <div className="space-y-1">
-            <h4 className="font-display text-xl font-extrabold text-indigo flex items-center justify-center gap-1.5 animate-bounce">
+            <h4 className="font-display text-lg font-extrabold text-indigo flex items-center justify-center gap-1.5 animate-bounce">
               <Trophy className="h-5 w-5 text-butter fill-butter" />
               {gameType === "vs_ai" ? (
                 <>
@@ -381,30 +389,54 @@ function TicTacToe() {
                 </>
               ) : (
                 <>
-                  {winner === X_SYMBOL && "X Wins! ❌🎉"}
-                  {winner === O_SYMBOL && "O Wins! ⭕🎉"}
+                  {winner === X_SYMBOL && "Player 1 Wins! ❌🎉"}
+                  {winner === O_SYMBOL && "Player 2 Wins! ⭕🎉"}
                 </>
               )}
               {winner === "Draw" && "It is a Draw! 🤝"}
             </h4>
-            <p className="text-xs text-ink-soft">Good game!</p>
+            <p className="text-xs text-ink-soft font-semibold">Good game!</p>
           </div>
         ) : (
-          <p className="text-sm font-bold text-ink-soft flex items-center justify-center gap-2">
+          <div className="inline-flex items-center gap-2.5 px-4 py-2 rounded-full border border-border/60 bg-surface shadow-xs text-xs font-bold text-ink-soft">
             {gameType === "vs_ai" ? (
               isPlayerTurn ? (
-                <>Your Turn 🐼</>
+                <span className="flex items-center gap-1.5 text-emerald-600 dark:text-emerald-400">
+                  <span className="relative flex h-2 w-2">
+                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                    <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+                  </span>
+                  Your Turn 🧸
+                </span>
               ) : (
-                <>Robot is thinking... 🤖</>
+                <span className="flex items-center gap-1.5 text-indigo">
+                  <span className="relative flex h-2 w-2">
+                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-indigo-400 opacity-75"></span>
+                    <span className="relative inline-flex rounded-full h-2 w-2 bg-indigo-500"></span>
+                  </span>
+                  Robot is thinking... 🤖
+                </span>
               )
             ) : (
               isPlayerTurn ? (
-                <>Player 1 Turn (❌)</>
+                <span className="flex items-center gap-1.5 text-rose-500">
+                  <span className="relative flex h-2 w-2">
+                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-rose-400 opacity-75"></span>
+                    <span className="relative inline-flex rounded-full h-2 w-2 bg-rose-500"></span>
+                  </span>
+                  Player 1 Turn (❌)
+                </span>
               ) : (
-                <>Player 2 Turn (⭕)</>
+                <span className="flex items-center gap-1.5 text-indigo">
+                  <span className="relative flex h-2 w-2">
+                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-indigo-400 opacity-75"></span>
+                    <span className="relative inline-flex rounded-full h-2 w-2 bg-indigo-500"></span>
+                  </span>
+                  Player 2 Turn (⭕)
+                </span>
               )
             )}
-          </p>
+          </div>
         )}
 
         <button

@@ -2,7 +2,7 @@ import { r as __toESM } from "../_runtime.mjs";
 import { n as require_jsx_runtime, r as require_react } from "../_libs/react+tanstack__react-query.mjs";
 import { C as ArrowUp, D as ArrowDown, E as ArrowLeft, S as Bell, T as ArrowRight, d as Moon, h as Heart, i as Trophy, l as RotateCcw, o as Sun, p as Info, t as X, u as Palette, v as CodeXml } from "../_libs/lucide-react.mjs";
 import { t as AppShell } from "./app-shell-BTcutmU8.mjs";
-//#region node_modules/.nitro/vite/services/ssr/assets/settings-JWZev8rk.js
+//#region node_modules/.nitro/vite/services/ssr/assets/settings-B2Y6o-bT.js
 var import_react = /* @__PURE__ */ __toESM(require_react());
 var import_jsx_runtime = require_jsx_runtime();
 function SecretGames({ onClose }) {
@@ -384,22 +384,32 @@ function TicTacToe() {
 		]
 	});
 	return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-		className: "flex flex-col items-center justify-center py-4",
+		className: "flex flex-col items-center justify-center py-4 relative",
 		children: [
 			/* @__PURE__ */ (0, import_jsx_runtime.jsx)("button", {
 				onClick: () => setGameType("choose"),
-				className: "mb-6 inline-flex items-center gap-1 text-[10px] font-extrabold uppercase tracking-wider text-indigo bg-indigo-50 dark:bg-indigo-950/20 px-3 py-1.5 rounded-full active:scale-95 transition",
-				children: "⬅️ Change Game Mode"
+				className: "absolute top-0 left-0 grid h-9 w-9 place-items-center rounded-xl bg-muted text-ink-soft hover:text-ink active:scale-95 transition",
+				children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(ArrowLeft, {
+					className: "h-4.5 w-4.5",
+					strokeWidth: 2.4
+				})
 			}),
 			/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
-				className: "grid grid-cols-3 gap-3 w-full max-w-[280px]",
-				children: board.map((cell, idx) => {
-					const isWinningCell = winningLine?.includes(idx);
-					return /* @__PURE__ */ (0, import_jsx_runtime.jsx)("button", {
-						onClick: () => handleCellClick(idx),
-						className: `h-[80px] rounded-2xl border border-border/80 flex items-center justify-center text-3xl font-bold transition active:scale-95 ${isWinningCell ? "bg-indigo-deep text-white border-transparent scale-[1.03]" : "bg-surface hover:border-indigo/20 text-ink"}`,
-						children: cell
-					}, idx);
+				className: "mt-12 p-3 bg-muted/40 rounded-[28px] border border-border/40 w-full max-w-[290px] shadow-sm",
+				children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+					className: "grid grid-cols-3 gap-2.5",
+					children: board.map((cell, idx) => {
+						const isWinningCell = winningLine?.includes(idx);
+						let cellStyle = "bg-surface border-border/60 hover:border-indigo/20 text-ink";
+						if (isWinningCell) cellStyle = "bg-indigo-deep text-white border-transparent scale-[1.03] shadow-md shadow-indigo/20";
+						else if (cell === "❌" || cell === "🧸") cellStyle = "bg-rose-50/70 dark:bg-rose-950/20 border-rose-100/50 dark:border-rose-900/30 text-rose-600 dark:text-rose-400";
+						else if (cell === "⭕" || cell === "🤖") cellStyle = "bg-indigo-50/70 dark:bg-indigo-950/20 border-indigo-100/50 dark:border-indigo-900/30 text-indigo dark:text-indigo-400";
+						return /* @__PURE__ */ (0, import_jsx_runtime.jsx)("button", {
+							onClick: () => handleCellClick(idx),
+							className: `h-[78px] rounded-[18px] border flex items-center justify-center text-3xl font-bold transition active:scale-95 shadow-xs ${cellStyle}`,
+							children: cell
+						}, idx);
+					})
 				})
 			}),
 			/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
@@ -407,19 +417,43 @@ function TicTacToe() {
 				children: [winner ? /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
 					className: "space-y-1",
 					children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("h4", {
-						className: "font-display text-xl font-extrabold text-indigo flex items-center justify-center gap-1.5 animate-bounce",
+						className: "font-display text-lg font-extrabold text-indigo flex items-center justify-center gap-1.5 animate-bounce",
 						children: [
 							/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Trophy, { className: "h-5 w-5 text-butter fill-butter" }),
-							gameType === "vs_ai" ? /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(import_jsx_runtime.Fragment, { children: [winner === P_SYMBOL && "Panda Wins! 🐼🎉", winner === B_SYMBOL && "Robot Wins! 🤖❌"] }) : /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(import_jsx_runtime.Fragment, { children: [winner === X_SYMBOL && "X Wins! ❌🎉", winner === O_SYMBOL && "O Wins! ⭕🎉"] }),
+							gameType === "vs_ai" ? /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(import_jsx_runtime.Fragment, { children: [winner === P_SYMBOL && "Panda Wins! 🐼🎉", winner === B_SYMBOL && "Robot Wins! 🤖❌"] }) : /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(import_jsx_runtime.Fragment, { children: [winner === X_SYMBOL && "Player 1 Wins! ❌🎉", winner === O_SYMBOL && "Player 2 Wins! ⭕🎉"] }),
 							winner === "Draw" && "It is a Draw! 🤝"
 						]
 					}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
-						className: "text-xs text-ink-soft",
+						className: "text-xs text-ink-soft font-semibold",
 						children: "Good game!"
 					})]
-				}) : /* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
-					className: "text-sm font-bold text-ink-soft flex items-center justify-center gap-2",
-					children: gameType === "vs_ai" ? isPlayerTurn ? /* @__PURE__ */ (0, import_jsx_runtime.jsx)(import_jsx_runtime.Fragment, { children: "Your Turn 🐼" }) : /* @__PURE__ */ (0, import_jsx_runtime.jsx)(import_jsx_runtime.Fragment, { children: "Robot is thinking... 🤖" }) : isPlayerTurn ? /* @__PURE__ */ (0, import_jsx_runtime.jsx)(import_jsx_runtime.Fragment, { children: "Player 1 Turn (❌)" }) : /* @__PURE__ */ (0, import_jsx_runtime.jsx)(import_jsx_runtime.Fragment, { children: "Player 2 Turn (⭕)" })
+				}) : /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+					className: "inline-flex items-center gap-2.5 px-4 py-2 rounded-full border border-border/60 bg-surface shadow-xs text-xs font-bold text-ink-soft",
+					children: gameType === "vs_ai" ? isPlayerTurn ? /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("span", {
+						className: "flex items-center gap-1.5 text-emerald-600 dark:text-emerald-400",
+						children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("span", {
+							className: "relative flex h-2 w-2",
+							children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { className: "animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" }), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { className: "relative inline-flex rounded-full h-2 w-2 bg-emerald-500" })]
+						}), "Your Turn 🧸"]
+					}) : /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("span", {
+						className: "flex items-center gap-1.5 text-indigo",
+						children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("span", {
+							className: "relative flex h-2 w-2",
+							children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { className: "animate-ping absolute inline-flex h-full w-full rounded-full bg-indigo-400 opacity-75" }), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { className: "relative inline-flex rounded-full h-2 w-2 bg-indigo-500" })]
+						}), "Robot is thinking... 🤖"]
+					}) : isPlayerTurn ? /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("span", {
+						className: "flex items-center gap-1.5 text-rose-500",
+						children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("span", {
+							className: "relative flex h-2 w-2",
+							children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { className: "animate-ping absolute inline-flex h-full w-full rounded-full bg-rose-400 opacity-75" }), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { className: "relative inline-flex rounded-full h-2 w-2 bg-rose-500" })]
+						}), "Player 1 Turn (❌)"]
+					}) : /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("span", {
+						className: "flex items-center gap-1.5 text-indigo",
+						children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("span", {
+							className: "relative flex h-2 w-2",
+							children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { className: "animate-ping absolute inline-flex h-full w-full rounded-full bg-indigo-400 opacity-75" }), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { className: "relative inline-flex rounded-full h-2 w-2 bg-indigo-500" })]
+						}), "Player 2 Turn (⭕)"]
+					})
 				}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("button", {
 					onClick: resetGame,
 					className: "mt-6 flex items-center justify-center gap-2 mx-auto px-5 py-3 rounded-2xl bg-indigo-deep text-white font-display font-bold text-xs shadow-md active:scale-95 transition",
