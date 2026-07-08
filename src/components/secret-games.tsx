@@ -934,8 +934,8 @@ function ImposterGame() {
   
   const [gamePlayers, setGamePlayers] = useState<PartyPlayer[]>([]);
   const [wordPair, setWordPair] = useState<ImposterWordPair>(IMPOSTER_POOL[0]);
-  const [currentRevealIdx, setCurrentRevealIdx] = useState(0);
-  const [revealState, setRevealState] = useState<"hidden" | "revealed">("hidden");
+  const [selectedRevealPlayer, setSelectedRevealPlayer] = useState<PartyPlayer | null>(null);
+  const [revealCardState, setRevealCardState] = useState<"hidden" | "revealed">("hidden");
   
   const [eliminationConfirmPlayer, setEliminationConfirmPlayer] = useState<PartyPlayer | null>(null);
   const [winnerTeam, setWinnerTeam] = useState<"citizen" | "imposter" | null>(null);
@@ -1001,31 +1001,37 @@ function ImposterGame() {
         colorClass: PASTEL_COLORS[idx % PASTEL_COLORS.length],
         role,
         word,
-        isEliminated: false
+        isEliminated: false,
+        isSeen: false
       };
     });
 
     setGamePlayers(initialPlayers);
-    setCurrentRevealIdx(0);
-    setRevealState("hidden");
+    setSelectedRevealPlayer(null);
+    setRevealCardState("hidden");
     setWinnerTeam(null);
     setPhase("reveal");
   };
 
   const handleRevealCard = () => {
-    setRevealState("revealed");
+    setRevealCardState("revealed");
     if (typeof navigator !== "undefined" && navigator.vibrate) {
       navigator.vibrate([60]);
     }
   };
 
-  const handleHideAndNext = () => {
-    setRevealState("hidden");
-    if (currentRevealIdx + 1 < playerCount) {
-      setCurrentRevealIdx(prev => prev + 1);
-    } else {
-      setPhase("gameplay");
-    }
+  const handleHideAndFinishReveal = () => {
+    if (!selectedRevealPlayer) return;
+    
+    const updated = gamePlayers.map(p => {
+      if (p.id === selectedRevealPlayer.id) {
+        return { ...p, isSeen: true };
+      }
+      return p;
+    });
+    setGamePlayers(updated);
+    setSelectedRevealPlayer(null);
+    setRevealCardState("hidden");
   };
 
   const checkGameWinner = (currentPlayers: PartyPlayer[]) => {
@@ -1196,71 +1202,150 @@ function ImposterGame() {
         </div>
       )}
 
-      {/* 5. Reveal Cards One by One */}
+      {/* 5. Reveal Cards (Player Selected Grid) */}
       {phase === "reveal" && (
-        <div className="space-y-6 text-center py-4">
-          {revealState === "hidden" ? (
-            <div className="space-y-6">
-              <div className="rounded-[28px] border border-border/60 bg-surface p-8 shadow-sm text-center">
-                <p className="text-[10px] font-bold uppercase tracking-wider text-ink-soft">Pass the phone to:</p>
-                <h2 className="font-display text-2xl font-black text-indigo mt-2">
-                  {gamePlayers[currentRevealIdx]?.name}
-                </h2>
-                <div className="mt-8 text-6xl animate-bounce">🎴</div>
-                <p className="text-xs text-ink-soft mt-8 leading-relaxed">
-                  Make sure no one else is looking, then tap the card to check your secret role!
+        <div className="space-y-5 py-2">
+          {selectedRevealPlayer === null ? (
+            <div className="space-y-4">
+              <div className="rounded-[28px] border border-border/60 bg-surface p-5 text-center shadow-sm">
+                <h3 className="font-display text-base font-bold text-ink">Claim & Reveal Roles 🔒</h3>
+                <p className="text-xs text-ink-soft mt-1 leading-relaxed">
+                  Pass the phone around. Each player, tap on your name to check your secret word card!
                 </p>
               </div>
 
-              <button
-                onClick={handleRevealCard}
-                className="w-full py-4 rounded-2xl bg-indigo-deep text-white font-display font-bold text-sm shadow-md active:scale-95 transition"
-              >
-                Tap to Reveal Card 🔑
-              </button>
-            </div>
-          ) : (
-            <div className="space-y-6">
-              <div className="rounded-[28px] bg-indigo-deep p-6 text-white text-center shadow-lg relative overflow-hidden animate-slide-up">
-                <div className="absolute inset-0 bg-dots opacity-10" />
-                
-                <div className="relative space-y-4">
-                  <div className="text-5xl">{gamePlayers[currentRevealIdx]?.emoji}</div>
-                  
-                  <div>
-                    <p className="text-[10px] font-bold uppercase tracking-wider text-white/60">Your Name</p>
-                    <h2 className="font-display text-xl font-black">{gamePlayers[currentRevealIdx]?.name}</h2>
-                  </div>
-                  
-                  <div className="py-3 border-y border-white/10">
-                    {gamePlayers[currentRevealIdx]?.role === "citizen" ? (
-                      <span className="inline-flex items-center gap-1.5 rounded-full bg-emerald-500/25 px-3 py-1 text-xs font-bold uppercase tracking-wider text-emerald-300">
-                        🟢 CREWMATE (Citizen)
+              {/* Grid of players to select */}
+              <div className="grid grid-cols-2 gap-3">
+                {gamePlayers.map((p) => (
+                  <div
+                    key={p.id}
+                    onClick={() => {
+                      if (!p.isSeen) {
+                        setSelectedRevealPlayer(p);
+                        setRevealCardState("hidden");
+                      }
+                    }}
+                    className={`border rounded-[22px] p-4 text-center transition-all duration-300 select-none ${
+                      p.isSeen
+                        ? "border-emerald-500/20 bg-emerald-500/5 opacity-80"
+                        : "border-border/60 bg-surface cursor-pointer hover:border-indigo active:scale-95"
+                    }`}
+                  >
+                    <div className="text-4xl mb-2">{p.emoji}</div>
+                    <h4 className="font-display text-sm font-bold truncate leading-tight text-ink">{p.name}</h4>
+                    
+                    {p.isSeen ? (
+                      <span className="mt-2.5 inline-flex items-center gap-1 rounded-full bg-emerald-500/10 dark:bg-emerald-500/20 px-2.5 py-0.5 text-[8px] font-extrabold uppercase tracking-wider text-emerald-600 dark:text-emerald-400">
+                        👁️ Checked
                       </span>
                     ) : (
-                      <span className="inline-flex items-center gap-1.5 rounded-full bg-red-500/25 px-3 py-1 text-xs font-bold uppercase tracking-wider text-red-300">
-                        🔴 IMPOSTER (Undercover)
+                      <span className="mt-2.5 inline-flex items-center gap-1 rounded-full bg-muted px-2.5 py-0.5 text-[8px] font-extrabold uppercase tracking-wider text-ink-soft">
+                        🔒 Tap to see
                       </span>
                     )}
                   </div>
-                  
-                  <div className="py-2">
-                    <p className="text-[10px] font-bold uppercase tracking-wider text-white/60">Your Secret Word Card</p>
-                    <h1 className="font-display text-3xl font-black tracking-widest mt-1 uppercase text-butter">
-                      {gamePlayers[currentRevealIdx]?.word}
-                    </h1>
-                  </div>
-
-                  <p className="text-[10px] text-white/50 italic">Memorize the word and tap below to hide it immediately!</p>
-                </div>
+                ))}
               </div>
 
+              {/* Start game button */}
               <button
-                onClick={handleHideAndNext}
-                className="w-full py-4 rounded-2xl bg-indigo-deep text-white font-display font-bold text-sm shadow-md active:scale-95 transition"
+                disabled={!gamePlayers.every(p => p.isSeen)}
+                onClick={() => setPhase("gameplay")}
+                className={`w-full py-4 rounded-2xl font-display font-bold text-sm shadow-md transition ${
+                  gamePlayers.every(p => p.isSeen)
+                    ? "bg-indigo-deep text-white active:scale-95 cursor-pointer"
+                    : "bg-muted text-ink-soft opacity-60 cursor-not-allowed"
+                }`}
               >
-                Hide Card & Continue 🤫
+                {gamePlayers.every(p => p.isSeen) 
+                  ? "Start Discussion & Vote ➡️" 
+                  : "Waiting for everyone to check cards... ⏳"
+                }
               </button>
+            </div>
+          ) : (
+            /* Reveal overlay modal */
+            <div className="space-y-6 text-center animate-slide-up">
+              {revealCardState === "hidden" ? (
+                <div className="space-y-6">
+                  <div className="rounded-[28px] border border-border/60 bg-surface p-8 shadow-sm text-center">
+                    <p className="text-[10px] font-bold uppercase tracking-wider text-ink-soft">Pass the phone to:</p>
+                    <h2 className="font-display text-2xl font-black text-indigo mt-2">
+                      {selectedRevealPlayer.name}
+                    </h2>
+                    <div className="mt-8 text-6xl animate-bounce">🎴</div>
+                    <p className="text-xs text-ink-soft mt-8 leading-relaxed">
+                      Make sure no one else is looking, then tap the card to check your secret role!
+                    </p>
+                  </div>
+
+                  <button
+                    onClick={handleRevealCard}
+                    className="w-full py-4 rounded-2xl bg-indigo-deep text-white font-display font-bold text-sm shadow-md active:scale-95 transition"
+                  >
+                    Tap to Reveal Card 🔑
+                  </button>
+                </div>
+              ) : (
+                <div className="space-y-6">
+                  {selectedRevealPlayer.role === "imposter" ? (
+                    /* IMPOSTER CARD DESIGN */
+                    <div className="rounded-[28px] bg-gradient-to-br from-red-600 to-rose-950 p-6 text-white text-center shadow-lg border border-red-500/30 relative overflow-hidden animate-slide-up">
+                      <div className="absolute inset-0 bg-dots opacity-10" />
+                      <div className="relative space-y-4">
+                        <div className="text-5xl">{selectedRevealPlayer.emoji}</div>
+                        <div>
+                          <p className="text-[10px] font-bold uppercase tracking-wider text-white/60">Your Name</p>
+                          <h2 className="font-display text-xl font-black">{selectedRevealPlayer.name}</h2>
+                        </div>
+                        <div className="py-2.5 border-y border-white/10">
+                          <span className="inline-flex items-center gap-1.5 rounded-full bg-red-500/30 px-3.5 py-1 text-xs font-extrabold uppercase tracking-wider text-red-200 border border-red-500/25">
+                            🕵️‍♂️ IMPOSTER (Undercover)
+                          </span>
+                        </div>
+                        <div className="py-2">
+                          <p className="text-[10px] font-bold uppercase tracking-wider text-white/60">Your Secret Word Card</p>
+                          <h1 className="font-display text-3xl font-black tracking-widest mt-1 uppercase text-butter">
+                            {selectedRevealPlayer.word}
+                          </h1>
+                        </div>
+                        <p className="text-[10px] text-white/50 italic">Memorize the word and tap below to hide it immediately!</p>
+                      </div>
+                    </div>
+                  ) : (
+                    /* CREWMATE CARD DESIGN */
+                    <div className="rounded-[28px] bg-gradient-to-br from-emerald-600 to-teal-850 p-6 text-white text-center shadow-lg border border-emerald-500/30 relative overflow-hidden animate-slide-up">
+                      <div className="absolute inset-0 bg-dots opacity-10" />
+                      <div className="relative space-y-4">
+                        <div className="text-5xl">{selectedRevealPlayer.emoji}</div>
+                        <div>
+                          <p className="text-[10px] font-bold uppercase tracking-wider text-white/60">Your Name</p>
+                          <h2 className="font-display text-xl font-black">{selectedRevealPlayer.name}</h2>
+                        </div>
+                        <div className="py-2.5 border-y border-white/10">
+                          <span className="inline-flex items-center gap-1.5 rounded-full bg-emerald-500/30 px-3.5 py-1 text-xs font-extrabold uppercase tracking-wider text-emerald-200 border border-emerald-500/25">
+                            🟢 CREWMATE (Citizen)
+                          </span>
+                        </div>
+                        <div className="py-2">
+                          <p className="text-[10px] font-bold uppercase tracking-wider text-white/60">Your Secret Word Card</p>
+                          <h1 className="font-display text-3xl font-black tracking-widest mt-1 uppercase text-butter">
+                            {selectedRevealPlayer.word}
+                          </h1>
+                        </div>
+                        <p className="text-[10px] text-white/50 italic">Memorize the word and tap below to hide it immediately!</p>
+                      </div>
+                    </div>
+                  )}
+
+                  <button
+                    onClick={handleHideAndFinishReveal}
+                    className="w-full py-4 rounded-2xl bg-indigo-deep text-white font-display font-bold text-sm shadow-md active:scale-95 transition"
+                  >
+                    Hide Card & Continue 🤫
+                  </button>
+                </div>
+              )}
             </div>
           )}
         </div>

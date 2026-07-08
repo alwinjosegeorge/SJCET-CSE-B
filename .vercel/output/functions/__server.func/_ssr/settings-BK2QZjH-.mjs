@@ -2,7 +2,7 @@ import { r as __toESM } from "../_runtime.mjs";
 import { n as require_jsx_runtime, r as require_react } from "../_libs/react+tanstack__react-query.mjs";
 import { S as Bell, d as Moon, h as Heart, i as Trophy, l as RotateCcw, o as Sun, p as Info, t as X, u as Palette, v as CodeXml, w as ArrowLeft } from "../_libs/lucide-react.mjs";
 import { t as AppShell } from "./app-shell-BTcutmU8.mjs";
-//#region node_modules/.nitro/vite/services/ssr/assets/settings-IaUU7oh-.js
+//#region node_modules/.nitro/vite/services/ssr/assets/settings-BK2QZjH-.js
 var import_react = /* @__PURE__ */ __toESM(require_react());
 var import_jsx_runtime = require_jsx_runtime();
 function SecretGames({ onClose }) {
@@ -1305,8 +1305,8 @@ function ImposterGame() {
 	const [imposterCount, setImposterCount] = (0, import_react.useState)(1);
 	const [gamePlayers, setGamePlayers] = (0, import_react.useState)([]);
 	const [wordPair, setWordPair] = (0, import_react.useState)(IMPOSTER_POOL[0]);
-	const [currentRevealIdx, setCurrentRevealIdx] = (0, import_react.useState)(0);
-	const [revealState, setRevealState] = (0, import_react.useState)("hidden");
+	const [selectedRevealPlayer, setSelectedRevealPlayer] = (0, import_react.useState)(null);
+	const [revealCardState, setRevealCardState] = (0, import_react.useState)("hidden");
 	const [eliminationConfirmPlayer, setEliminationConfirmPlayer] = (0, import_react.useState)(null);
 	const [winnerTeam, setWinnerTeam] = (0, import_react.useState)(null);
 	(0, import_react.useEffect)(() => {
@@ -1353,23 +1353,32 @@ function ImposterGame() {
 				colorClass: PASTEL_COLORS[idx % PASTEL_COLORS.length],
 				role,
 				word,
-				isEliminated: false
+				isEliminated: false,
+				isSeen: false
 			};
 		});
 		setGamePlayers(initialPlayers);
-		setCurrentRevealIdx(0);
-		setRevealState("hidden");
+		setSelectedRevealPlayer(null);
+		setRevealCardState("hidden");
 		setWinnerTeam(null);
 		setPhase("reveal");
 	};
 	const handleRevealCard = () => {
-		setRevealState("revealed");
+		setRevealCardState("revealed");
 		if (typeof navigator !== "undefined" && navigator.vibrate) navigator.vibrate([60]);
 	};
-	const handleHideAndNext = () => {
-		setRevealState("hidden");
-		if (currentRevealIdx + 1 < playerCount) setCurrentRevealIdx((prev) => prev + 1);
-		else setPhase("gameplay");
+	const handleHideAndFinishReveal = () => {
+		if (!selectedRevealPlayer) return;
+		const updated = gamePlayers.map((p) => {
+			if (p.id === selectedRevealPlayer.id) return {
+				...p,
+				isSeen: true
+			};
+			return p;
+		});
+		setGamePlayers(updated);
+		setSelectedRevealPlayer(null);
+		setRevealCardState("hidden");
 	};
 	const checkGameWinner = (currentPlayers) => {
 		const active = currentPlayers.filter((p) => !p.isEliminated);
@@ -1535,83 +1544,171 @@ function ImposterGame() {
 				})]
 			}),
 			phase === "reveal" && /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
-				className: "space-y-6 text-center py-4",
-				children: revealState === "hidden" ? /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-					className: "space-y-6",
-					children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-						className: "rounded-[28px] border border-border/60 bg-surface p-8 shadow-sm text-center",
-						children: [
-							/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
-								className: "text-[10px] font-bold uppercase tracking-wider text-ink-soft",
-								children: "Pass the phone to:"
-							}),
-							/* @__PURE__ */ (0, import_jsx_runtime.jsx)("h2", {
-								className: "font-display text-2xl font-black text-indigo mt-2",
-								children: gamePlayers[currentRevealIdx]?.name
-							}),
-							/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
-								className: "mt-8 text-6xl animate-bounce",
-								children: "🎴"
-							}),
-							/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
-								className: "text-xs text-ink-soft mt-8 leading-relaxed",
-								children: "Make sure no one else is looking, then tap the card to check your secret role!"
-							})
-						]
-					}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("button", {
-						onClick: handleRevealCard,
-						className: "w-full py-4 rounded-2xl bg-indigo-deep text-white font-display font-bold text-sm shadow-md active:scale-95 transition",
-						children: "Tap to Reveal Card 🔑"
-					})]
-				}) : /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-					className: "space-y-6",
-					children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-						className: "rounded-[28px] bg-indigo-deep p-6 text-white text-center shadow-lg relative overflow-hidden animate-slide-up",
-						children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { className: "absolute inset-0 bg-dots opacity-10" }), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-							className: "relative space-y-4",
-							children: [
-								/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
-									className: "text-5xl",
-									children: gamePlayers[currentRevealIdx]?.emoji
-								}),
-								/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
-									className: "text-[10px] font-bold uppercase tracking-wider text-white/60",
-									children: "Your Name"
-								}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("h2", {
-									className: "font-display text-xl font-black",
-									children: gamePlayers[currentRevealIdx]?.name
-								})] }),
-								/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
-									className: "py-3 border-y border-white/10",
-									children: gamePlayers[currentRevealIdx]?.role === "citizen" ? /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
-										className: "inline-flex items-center gap-1.5 rounded-full bg-emerald-500/25 px-3 py-1 text-xs font-bold uppercase tracking-wider text-emerald-300",
-										children: "🟢 CREWMATE (Citizen)"
+				className: "space-y-5 py-2",
+				children: selectedRevealPlayer === null ? /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+					className: "space-y-4",
+					children: [
+						/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+							className: "rounded-[28px] border border-border/60 bg-surface p-5 text-center shadow-sm",
+							children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("h3", {
+								className: "font-display text-base font-bold text-ink",
+								children: "Claim & Reveal Roles 🔒"
+							}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+								className: "text-xs text-ink-soft mt-1 leading-relaxed",
+								children: "Pass the phone around. Each player, tap on your name to check your secret word card!"
+							})]
+						}),
+						/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+							className: "grid grid-cols-2 gap-3",
+							children: gamePlayers.map((p) => /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+								onClick: () => {
+									if (!p.isSeen) {
+										setSelectedRevealPlayer(p);
+										setRevealCardState("hidden");
+									}
+								},
+								className: `border rounded-[22px] p-4 text-center transition-all duration-300 select-none ${p.isSeen ? "border-emerald-500/20 bg-emerald-500/5 opacity-80" : "border-border/60 bg-surface cursor-pointer hover:border-indigo active:scale-95"}`,
+								children: [
+									/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+										className: "text-4xl mb-2",
+										children: p.emoji
+									}),
+									/* @__PURE__ */ (0, import_jsx_runtime.jsx)("h4", {
+										className: "font-display text-sm font-bold truncate leading-tight text-ink",
+										children: p.name
+									}),
+									p.isSeen ? /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
+										className: "mt-2.5 inline-flex items-center gap-1 rounded-full bg-emerald-500/10 dark:bg-emerald-500/20 px-2.5 py-0.5 text-[8px] font-extrabold uppercase tracking-wider text-emerald-600 dark:text-emerald-400",
+										children: "👁️ Checked"
 									}) : /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
-										className: "inline-flex items-center gap-1.5 rounded-full bg-red-500/25 px-3 py-1 text-xs font-bold uppercase tracking-wider text-red-300",
-										children: "🔴 IMPOSTER (Undercover)"
+										className: "mt-2.5 inline-flex items-center gap-1 rounded-full bg-muted px-2.5 py-0.5 text-[8px] font-extrabold uppercase tracking-wider text-ink-soft",
+										children: "🔒 Tap to see"
 									})
+								]
+							}, p.id))
+						}),
+						/* @__PURE__ */ (0, import_jsx_runtime.jsx)("button", {
+							disabled: !gamePlayers.every((p) => p.isSeen),
+							onClick: () => setPhase("gameplay"),
+							className: `w-full py-4 rounded-2xl font-display font-bold text-sm shadow-md transition ${gamePlayers.every((p) => p.isSeen) ? "bg-indigo-deep text-white active:scale-95 cursor-pointer" : "bg-muted text-ink-soft opacity-60 cursor-not-allowed"}`,
+							children: gamePlayers.every((p) => p.isSeen) ? "Start Discussion & Vote ➡️" : "Waiting for everyone to check cards... ⏳"
+						})
+					]
+				}) : /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+					className: "space-y-6 text-center animate-slide-up",
+					children: revealCardState === "hidden" ? /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+						className: "space-y-6",
+						children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+							className: "rounded-[28px] border border-border/60 bg-surface p-8 shadow-sm text-center",
+							children: [
+								/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+									className: "text-[10px] font-bold uppercase tracking-wider text-ink-soft",
+									children: "Pass the phone to:"
 								}),
-								/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-									className: "py-2",
-									children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
-										className: "text-[10px] font-bold uppercase tracking-wider text-white/60",
-										children: "Your Secret Word Card"
-									}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("h1", {
-										className: "font-display text-3xl font-black tracking-widest mt-1 uppercase text-butter",
-										children: gamePlayers[currentRevealIdx]?.word
-									})]
+								/* @__PURE__ */ (0, import_jsx_runtime.jsx)("h2", {
+									className: "font-display text-2xl font-black text-indigo mt-2",
+									children: selectedRevealPlayer.name
+								}),
+								/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+									className: "mt-8 text-6xl animate-bounce",
+									children: "🎴"
 								}),
 								/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
-									className: "text-[10px] text-white/50 italic",
-									children: "Memorize the word and tap below to hide it immediately!"
+									className: "text-xs text-ink-soft mt-8 leading-relaxed",
+									children: "Make sure no one else is looking, then tap the card to check your secret role!"
 								})
 							]
+						}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("button", {
+							onClick: handleRevealCard,
+							className: "w-full py-4 rounded-2xl bg-indigo-deep text-white font-display font-bold text-sm shadow-md active:scale-95 transition",
+							children: "Tap to Reveal Card 🔑"
 						})]
-					}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("button", {
-						onClick: handleHideAndNext,
-						className: "w-full py-4 rounded-2xl bg-indigo-deep text-white font-display font-bold text-sm shadow-md active:scale-95 transition",
-						children: "Hide Card & Continue 🤫"
-					})]
+					}) : /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+						className: "space-y-6",
+						children: [selectedRevealPlayer.role === "imposter" ? /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+							className: "rounded-[28px] bg-gradient-to-br from-red-600 to-rose-950 p-6 text-white text-center shadow-lg border border-red-500/30 relative overflow-hidden animate-slide-up",
+							children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { className: "absolute inset-0 bg-dots opacity-10" }), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+								className: "relative space-y-4",
+								children: [
+									/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+										className: "text-5xl",
+										children: selectedRevealPlayer.emoji
+									}),
+									/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+										className: "text-[10px] font-bold uppercase tracking-wider text-white/60",
+										children: "Your Name"
+									}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("h2", {
+										className: "font-display text-xl font-black",
+										children: selectedRevealPlayer.name
+									})] }),
+									/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+										className: "py-2.5 border-y border-white/10",
+										children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
+											className: "inline-flex items-center gap-1.5 rounded-full bg-red-500/30 px-3.5 py-1 text-xs font-extrabold uppercase tracking-wider text-red-200 border border-red-500/25",
+											children: "🕵️‍♂️ IMPOSTER (Undercover)"
+										})
+									}),
+									/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+										className: "py-2",
+										children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+											className: "text-[10px] font-bold uppercase tracking-wider text-white/60",
+											children: "Your Secret Word Card"
+										}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("h1", {
+											className: "font-display text-3xl font-black tracking-widest mt-1 uppercase text-butter",
+											children: selectedRevealPlayer.word
+										})]
+									}),
+									/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+										className: "text-[10px] text-white/50 italic",
+										children: "Memorize the word and tap below to hide it immediately!"
+									})
+								]
+							})]
+						}) : /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+							className: "rounded-[28px] bg-gradient-to-br from-emerald-600 to-teal-850 p-6 text-white text-center shadow-lg border border-emerald-500/30 relative overflow-hidden animate-slide-up",
+							children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { className: "absolute inset-0 bg-dots opacity-10" }), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+								className: "relative space-y-4",
+								children: [
+									/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+										className: "text-5xl",
+										children: selectedRevealPlayer.emoji
+									}),
+									/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+										className: "text-[10px] font-bold uppercase tracking-wider text-white/60",
+										children: "Your Name"
+									}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("h2", {
+										className: "font-display text-xl font-black",
+										children: selectedRevealPlayer.name
+									})] }),
+									/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+										className: "py-2.5 border-y border-white/10",
+										children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
+											className: "inline-flex items-center gap-1.5 rounded-full bg-emerald-500/30 px-3.5 py-1 text-xs font-extrabold uppercase tracking-wider text-emerald-200 border border-emerald-500/25",
+											children: "🟢 CREWMATE (Citizen)"
+										})
+									}),
+									/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+										className: "py-2",
+										children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+											className: "text-[10px] font-bold uppercase tracking-wider text-white/60",
+											children: "Your Secret Word Card"
+										}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("h1", {
+											className: "font-display text-3xl font-black tracking-widest mt-1 uppercase text-butter",
+											children: selectedRevealPlayer.word
+										})]
+									}),
+									/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+										className: "text-[10px] text-white/50 italic",
+										children: "Memorize the word and tap below to hide it immediately!"
+									})
+								]
+							})]
+						}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("button", {
+							onClick: handleHideAndFinishReveal,
+							className: "w-full py-4 rounded-2xl bg-indigo-deep text-white font-display font-bold text-sm shadow-md active:scale-95 transition",
+							children: "Hide Card & Continue 🤫"
+						})]
+					})
 				})
 			}),
 			phase === "gameplay" && /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
