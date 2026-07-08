@@ -1,11 +1,11 @@
 import { useState, useEffect } from "react";
-import { X, RotateCcw, ArrowLeft, Trophy, Sparkles, User, Cpu, Heart } from "lucide-react";
+import { X, RotateCcw, ArrowLeft, Trophy, Sparkles, User, Cpu, Heart, Check, AlertCircle } from "lucide-react";
 
 interface SecretGamesProps {
   onClose: () => void;
 }
 
-type GameMode = "menu" | "tictactoe" | "memory" | "scramble";
+type GameMode = "menu" | "tictactoe" | "memory" | "scramble" | "imposter";
 
 export function SecretGames({ onClose }: SecretGamesProps) {
   const [mode, setMode] = useState<GameMode>("menu");
@@ -29,12 +29,14 @@ export function SecretGames({ onClose }: SecretGamesProps) {
               {mode === "tictactoe" && <>Panda vs Robot 🧸</>}
               {mode === "memory" && <>Emoji Match 🃏</>}
               {mode === "scramble" && <>Campus Guess 🧠</>}
+              {mode === "imposter" && <>Imposter Finder 🕵️‍♂️</>}
             </h2>
             <p className="text-[10px] font-semibold text-ink-soft mt-0.5 leading-none">
               {mode === "menu" && "Secret campus arcade. Shhh! 🤫"}
               {mode === "tictactoe" && "Tic Tac Toe against AI bot"}
               {mode === "memory" && "Find matching emoji pairs"}
               {mode === "scramble" && "Unscramble CSE-B words"}
+              {mode === "imposter" && "Who is the imposter in CSE-B? 🤫"}
             </p>
           </div>
         </div>
@@ -52,6 +54,7 @@ export function SecretGames({ onClose }: SecretGamesProps) {
         {mode === "tictactoe" && <TicTacToe />}
         {mode === "memory" && <MemoryGame />}
         {mode === "scramble" && <WordScramble />}
+        {mode === "imposter" && <ImposterGame />}
       </main>
     </div>
   );
@@ -60,6 +63,13 @@ export function SecretGames({ onClose }: SecretGamesProps) {
 /* -------------------------- Game Menu -------------------------- */
 function GameMenu({ onSelectGame }: { onSelectGame: (mode: GameMode) => void }) {
   const games = [
+    {
+      id: "imposter" as GameMode,
+      title: "Imposter Finder 🕵️‍♂️",
+      desc: "Find the sus classmate before they sabotage the group project!",
+      emoji: "🕵️‍♂️🤫",
+      color: "bg-lilac-soft text-indigo-deep",
+    },
     {
       id: "tictactoe" as GameMode,
       title: "Panda vs Robot",
@@ -457,7 +467,6 @@ function WordScramble() {
       [arr[i], arr[j]] = [arr[j], arr[i]];
     }
     const res = arr.join("");
-    // If somehow scrambled is same as word, scramble again
     if (res === w && w.length > 1) return scramble(w);
     return res;
   };
@@ -604,6 +613,441 @@ function WordScramble() {
               </button>
             </div>
           )}
+        </div>
+      )}
+    </div>
+  );
+}
+
+/* -------------------------- Game: Imposter Finder -------------------------- */
+interface ImposterWordPair {
+  category: string;
+  citizenWord: string;
+  imposterWord: string;
+  citizenClues: string[];
+  imposterClues: string[];
+}
+
+const IMPOSTER_POOL: ImposterWordPair[] = [
+  {
+    category: "Drinks ☕",
+    citizenWord: "CHAI",
+    imposterWord: "COFFEE",
+    citizenClues: ["Leaves 🍃", "Milk 🥛", "Morning ☀️", "Cup ☕"],
+    imposterClues: ["Beans 🫘", "Black 🖤", "Starbucks 🥤", "Bitter 😵‍💫"],
+  },
+  {
+    category: "College Places 🏫",
+    citizenWord: "CLASSROOM",
+    imposterWord: "LAB",
+    citizenClues: ["Desk 🪑", "Blackboard 📋", "Lecture 🥱", "Teacher 🧑‍🏫"],
+    imposterClues: ["Computers 💻", "AC ❄️", "Coding 🐍", "Chairs 🪑"],
+  },
+  {
+    category: "Chat Apps 📱",
+    citizenWord: "WHATSAPP",
+    imposterWord: "TELEGRAM",
+    citizenClues: ["Green 💚", "Status 🤳", "Group chat 💬", "Calls 📞"],
+    imposterClues: ["Channels 📢", "Blue 💙", "Files 📂", "Stickers ✨"],
+  },
+  {
+    category: "Devices 💻",
+    citizenWord: "LAPTOP",
+    imposterWord: "PHONE",
+    citizenClues: ["Keyboard ⌨️", "Screen 🖥️", "Programming 💻", "Heavy 🎒"],
+    imposterClues: ["Pocket 👖", "Camera 📸", "Touchscreen 📱", "Vibrate 📳"],
+  },
+  {
+    category: "SJCET Legends 🏫",
+    citizenWord: "SARJU",
+    imposterWord: "ALWIN",
+    citizenClues: ["Machine learning 🤖", "Syllabus 📚", "Active 🏃", "Guide 🧭"],
+    imposterClues: ["Student 🧑‍🎓", "Vercel 🚀", "Developer 💻", "Code 💻"],
+  }
+];
+
+type ImposterPhase = "setup" | "clues" | "voting" | "reveal";
+
+interface ImposterPlayer {
+  id: string;
+  name: string;
+  emoji: string;
+  isBot: boolean;
+  role: "citizen" | "imposter";
+  word: string;
+  clue: string;
+  voteTarget?: string;
+  votesReceived: number;
+}
+
+function ImposterGame() {
+  const [phase, setPhase] = useState<ImposterPhase>("setup");
+  const [pair, setPair] = useState<ImposterWordPair>(IMPOSTER_POOL[0]);
+  const [players, setPlayers] = useState<ImposterPlayer[]>([]);
+  const [playerClueInput, setPlayerClueInput] = useState("");
+  const [winnerTeam, setWinnerTeam] = useState<"citizen" | "imposter" | null>(null);
+
+  const startNewGame = () => {
+    const selectedPair = IMPOSTER_POOL[Math.floor(Math.random() * IMPOSTER_POOL.length)];
+    setPair(selectedPair);
+    setPlayerClueInput("");
+    setWinnerTeam(null);
+
+    const roles: ("citizen" | "imposter")[] = ["citizen", "citizen", "citizen", "imposter"];
+    for (let i = roles.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [roles[i], roles[j]] = [roles[j], roles[i]];
+    }
+
+    const playerRole = roles[0];
+    const pandaRole = roles[1];
+    const dinoRole = roles[2];
+    const monsterRole = roles[3];
+
+    const getWord = (r: "citizen" | "imposter") => 
+      r === "citizen" ? selectedPair.citizenWord : selectedPair.imposterWord;
+
+    const initialPlayers: ImposterPlayer[] = [
+      {
+        id: "player",
+        name: "You (Detective)",
+        emoji: "🕵️‍♂️",
+        isBot: false,
+        role: playerRole,
+        word: getWord(playerRole),
+        clue: "",
+        votesReceived: 0,
+      },
+      {
+        id: "panda",
+        name: "Panda Bot",
+        emoji: "🐼",
+        isBot: true,
+        role: pandaRole,
+        word: getWord(pandaRole),
+        clue: "",
+        votesReceived: 0,
+      },
+      {
+        id: "dino",
+        name: "Dino Bot",
+        emoji: "🦖",
+        isBot: true,
+        role: dinoRole,
+        word: getWord(dinoRole),
+        clue: "",
+        votesReceived: 0,
+      },
+      {
+        id: "monster",
+        name: "Monster Bot",
+        emoji: "👾",
+        isBot: true,
+        role: monsterRole,
+        word: getWord(monsterRole),
+        clue: "",
+        votesReceived: 0,
+      }
+    ];
+
+    setPlayers(initialPlayers);
+    setPhase("setup");
+  };
+
+  useEffect(() => {
+    startNewGame();
+  }, []);
+
+  const handleStartClues = () => {
+    const updatedPlayers = players.map(p => {
+      if (!p.isBot) return p;
+      const poolClues = p.role === "citizen" ? pair.citizenClues : pair.imposterClues;
+      const randomClue = poolClues[Math.floor(Math.random() * poolClues.length)];
+      return { ...p, clue: randomClue };
+    });
+
+    setPlayers(updatedPlayers);
+    setPhase("clues");
+  };
+
+  const handlePlayerClueSubmit = (clueStr: string) => {
+    if (!clueStr.trim()) return;
+
+    const updatedPlayers = players.map(p => {
+      if (p.id === "player") {
+        return { ...p, clue: clueStr.trim() };
+      }
+      return p;
+    });
+
+    setPlayers(updatedPlayers);
+    setPhase("voting");
+  };
+
+  const handleCastVote = (suspectId: string) => {
+    const updatedPlayers = players.map(p => {
+      if (p.id === "player") {
+        return { ...p, voteTarget: suspectId };
+      }
+      return p;
+    });
+
+    const imposterPlayer = updatedPlayers.find(p => p.role === "imposter")!;
+    const citizenPlayers = updatedPlayers.filter(p => p.role === "citizen");
+
+    const finalPlayers = updatedPlayers.map(p => {
+      if (!p.isBot) return p;
+
+      let targetId = "";
+      if (p.role === "imposter") {
+        const options = citizenPlayers.filter(c => c.id !== p.id);
+        targetId = options[Math.floor(Math.random() * options.length)].id;
+      } else {
+        if (Math.random() < 0.65) {
+          targetId = imposterPlayer.id;
+        } else {
+          const options = updatedPlayers.filter(o => o.id !== p.id);
+          targetId = options[Math.floor(Math.random() * options.length)].id;
+        }
+      }
+
+      return { ...p, voteTarget: targetId };
+    });
+
+    const voteCounts: Record<string, number> = {
+      player: 0,
+      panda: 0,
+      dino: 0,
+      monster: 0
+    };
+
+    finalPlayers.forEach(p => {
+      if (p.voteTarget) {
+        voteCounts[p.voteTarget] += 1;
+      }
+    });
+
+    const withVotes = finalPlayers.map(p => ({
+      ...p,
+      votesReceived: voteCounts[p.id]
+    }));
+
+    let highestVoted = withVotes[0];
+    let tie = false;
+    for (let i = 1; i < withVotes.length; i++) {
+      if (withVotes[i].votesReceived > highestVoted.votesReceived) {
+        highestVoted = withVotes[i];
+        tie = false;
+      } else if (withVotes[i].votesReceived === highestVoted.votesReceived) {
+        tie = true;
+      }
+    }
+
+    setPlayers(withVotes);
+    
+    if (!tie && highestVoted.role === "imposter") {
+      setWinnerTeam("citizen");
+    } else {
+      setWinnerTeam("imposter");
+    }
+
+    setPhase("reveal");
+  };
+
+  const getPlayerCardCluesOptions = () => {
+    return players.find(p => p.id === "player")?.role === "citizen" 
+      ? pair.citizenClues 
+      : pair.imposterClues;
+  };
+
+  return (
+    <div className="space-y-4 max-w-sm mx-auto py-2">
+      {phase === "setup" && (
+        <div className="space-y-5 text-center">
+          <div className="rounded-[28px] border border-border/60 bg-surface p-6 shadow-sm">
+            <div className="text-4xl">🕵️‍♂️🤫</div>
+            <h3 className="font-display text-lg font-bold text-ink mt-3">Your Secret Word Card</h3>
+            <p className="text-xs text-ink-soft mt-1">Keep it hidden from others!</p>
+
+            <div className="my-6 p-4 rounded-2xl bg-indigo-deep text-white text-center">
+              <span className="text-[10px] font-bold bg-white/20 px-2 py-0.5 rounded uppercase">
+                Category: {pair.category}
+              </span>
+              <h2 className="font-display text-3xl font-black mt-3 tracking-wider">
+                {players.find(p => p.id === "player")?.word}
+              </h2>
+            </div>
+
+            <div className="flex items-center justify-center gap-1.5 text-[11px] font-semibold text-ink-soft">
+              <AlertCircle className="h-3.5 w-3.5 text-indigo shrink-0" />
+              <span>Are you a Citizen or the Undercover Imposter?</span>
+            </div>
+          </div>
+
+          <button
+            onClick={handleStartClues}
+            className="w-full py-4 rounded-2xl bg-indigo-deep text-white font-display font-bold text-sm shadow-md active:scale-95 transition"
+          >
+            Start Clue Round 🏁
+          </button>
+        </div>
+      )}
+
+      {phase === "clues" && (
+        <div className="space-y-4">
+          <div className="rounded-2xl border border-border/60 bg-surface p-4 text-center">
+            <span className="text-[9px] font-bold bg-muted text-ink-soft px-2 py-0.5 rounded uppercase">
+              Topic: {pair.category}
+            </span>
+            <h4 className="text-xs font-bold text-ink-soft mt-2">
+              Your secret word is: <span className="text-indigo font-extrabold">{players.find(p => p.id === "player")?.word}</span>
+            </h4>
+          </div>
+
+          <div className="space-y-3">
+            {players.filter(p => p.id !== "player").map(p => (
+              <div key={p.id} className="flex items-start gap-3">
+                <div className="grid h-9 w-9 shrink-0 place-items-center rounded-xl bg-muted text-xl border border-border/40">
+                  {p.emoji}
+                </div>
+                <div className="flex-1 bg-surface border border-border/60 rounded-2xl rounded-tl-none p-3 shadow-xs">
+                  <p className="text-[10px] font-extrabold text-ink-soft">{p.name}</p>
+                  <p className="text-sm font-bold text-indigo mt-1">"{p.clue}"</p>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          <div className="pt-4 border-t border-border/40">
+            <h4 className="text-xs font-bold text-ink mb-2">Select a clue word to share:</h4>
+            <div className="grid grid-cols-2 gap-2">
+              {getPlayerCardCluesOptions().map((optClue) => (
+                <button
+                  key={optClue}
+                  onClick={() => handlePlayerClueSubmit(optClue)}
+                  className="px-3 py-2.5 rounded-xl border border-border/80 bg-surface hover:border-indigo text-xs font-bold text-ink transition active:scale-95 text-center"
+                >
+                  "{optClue}"
+                </button>
+              ))}
+            </div>
+            
+            <div className="mt-4">
+              <p className="text-[10px] font-semibold text-ink-soft text-center mb-1">— or write custom clue —</p>
+              <form 
+                onSubmit={(e) => {
+                  e.preventDefault();
+                  handlePlayerClueSubmit(playerClueInput);
+                }}
+                className="flex gap-2"
+              >
+                <input
+                  type="text"
+                  placeholder="One word clue..."
+                  value={playerClueInput}
+                  onChange={(e) => setPlayerClueInput(e.target.value)}
+                  className="flex-1 px-3 py-2.5 rounded-xl border border-border/60 bg-surface text-xs font-bold text-ink focus:outline-none"
+                />
+                <button
+                  type="submit"
+                  className="px-4 py-2 bg-indigo-deep text-white text-xs font-bold rounded-xl active:scale-95 transition"
+                >
+                  Send
+                </button>
+              </form>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {phase === "voting" && (
+        <div className="space-y-4">
+          <div className="rounded-2xl bg-indigo-deep/5 border border-indigo/20 p-4 text-center text-xs font-bold text-indigo-deep">
+            Look at everyone's clue card. Who has the "Imposter" word? 🕵️‍♂️🔍
+          </div>
+
+          <div className="space-y-2.5">
+            {players.map(p => (
+              <div 
+                key={p.id}
+                className="flex items-center justify-between gap-3 bg-surface border border-border/60 rounded-3xl p-3.5"
+              >
+                <div className="flex items-center gap-3 min-w-0">
+                  <div className="grid h-10 w-10 shrink-0 place-items-center rounded-2xl bg-muted text-xl">
+                    {p.emoji}
+                  </div>
+                  <div className="min-w-0">
+                    <p className="text-xs font-bold text-ink truncate">{p.name}</p>
+                    <p className="text-[11px] font-semibold text-indigo mt-0.5">Clue: "{p.clue}"</p>
+                  </div>
+                </div>
+
+                {p.id !== "player" ? (
+                  <button
+                    onClick={() => handleCastVote(p.id)}
+                    className="px-3.5 py-1.5 rounded-xl bg-indigo-deep text-white text-[10px] font-bold active:scale-95 transition"
+                  >
+                    Suspect 🤨
+                  </button>
+                ) : (
+                  <span className="text-[10px] font-bold text-ink-soft bg-muted px-2.5 py-1 rounded-xl">You</span>
+                )}
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
+
+      {phase === "reveal" && (
+        <div className="space-y-5 text-center">
+          <div className="rounded-[28px] border border-border/60 bg-surface p-6 shadow-sm">
+            <div className="text-5xl">
+              {winnerTeam === "citizen" ? "🏆🎉" : "🤫👾"}
+            </div>
+            
+            <h3 className="font-display text-xl font-extrabold text-ink mt-4">
+              {winnerTeam === "citizen" 
+                ? "Citizens Won! 🧑‍🎓" 
+                : "Imposter Won! 🤫"
+              }
+            </h3>
+
+            <p className="text-xs text-ink-soft mt-1.5 leading-relaxed">
+              {winnerTeam === "citizen"
+                ? "The imposter was successfully caught and kicked out of the group project!"
+                : "The undercover imposter successfully fooled everyone and took all the credit!"
+              }
+            </p>
+
+            <div className="mt-6 border-t border-border/40 pt-4 space-y-2.5 text-left">
+              <h4 className="text-[10px] font-bold uppercase tracking-wider text-ink-soft">Everyone's Identity:</h4>
+              {players.map(p => (
+                <div key={p.id} className="flex items-center justify-between text-xs">
+                  <span className="font-bold flex items-center gap-1.5">
+                    <span>{p.emoji}</span>
+                    <span>{p.name}</span>
+                  </span>
+                  <span className="flex items-center gap-2">
+                    <span className="font-semibold text-ink-soft">"{p.word}"</span>
+                    <span className={`px-2 py-0.5 rounded-lg text-[9px] font-extrabold uppercase ${
+                      p.role === "imposter" 
+                        ? "bg-blush text-red-700 dark:text-red-400" 
+                        : "bg-mint text-emerald-700 dark:text-emerald-400"
+                    }`}>
+                      {p.role}
+                    </span>
+                  </span>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <button
+            onClick={startNewGame}
+            className="w-full py-4 rounded-2xl bg-indigo-deep text-white font-display font-bold text-sm shadow-md active:scale-95 transition"
+          >
+            Play Another Round 🚀
+          </button>
         </div>
       )}
     </div>

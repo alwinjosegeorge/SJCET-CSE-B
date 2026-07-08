@@ -1,8 +1,8 @@
 import { r as __toESM } from "../_runtime.mjs";
 import { n as require_jsx_runtime, r as require_react } from "../_libs/react+tanstack__react-query.mjs";
-import { S as Bell, d as Moon, h as Heart, i as Trophy, l as RotateCcw, o as Sun, p as Info, t as X, u as Palette, v as CodeXml, w as ArrowLeft } from "../_libs/lucide-react.mjs";
+import { C as Bell, T as ArrowLeft, d as Moon, h as Heart, i as Trophy, l as RotateCcw, o as Sun, p as Info, t as X, u as Palette, v as CodeXml, y as CircleAlert } from "../_libs/lucide-react.mjs";
 import { t as AppShell } from "./app-shell-BTcutmU8.mjs";
-//#region node_modules/.nitro/vite/services/ssr/assets/settings-C86xjDI5.js
+//#region node_modules/.nitro/vite/services/ssr/assets/settings-DCmhKh4U.js
 var import_react = /* @__PURE__ */ __toESM(require_react());
 var import_jsx_runtime = require_jsx_runtime();
 function SecretGames({ onClose }) {
@@ -26,7 +26,8 @@ function SecretGames({ onClose }) {
 						mode === "menu" && /* @__PURE__ */ (0, import_jsx_runtime.jsx)(import_jsx_runtime.Fragment, { children: "Arcade Zone 👾" }),
 						mode === "tictactoe" && /* @__PURE__ */ (0, import_jsx_runtime.jsx)(import_jsx_runtime.Fragment, { children: "Panda vs Robot 🧸" }),
 						mode === "memory" && /* @__PURE__ */ (0, import_jsx_runtime.jsx)(import_jsx_runtime.Fragment, { children: "Emoji Match 🃏" }),
-						mode === "scramble" && /* @__PURE__ */ (0, import_jsx_runtime.jsx)(import_jsx_runtime.Fragment, { children: "Campus Guess 🧠" })
+						mode === "scramble" && /* @__PURE__ */ (0, import_jsx_runtime.jsx)(import_jsx_runtime.Fragment, { children: "Campus Guess 🧠" }),
+						mode === "imposter" && /* @__PURE__ */ (0, import_jsx_runtime.jsx)(import_jsx_runtime.Fragment, { children: "Imposter Finder 🕵️‍♂️" })
 					]
 				}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("p", {
 					className: "text-[10px] font-semibold text-ink-soft mt-0.5 leading-none",
@@ -34,7 +35,8 @@ function SecretGames({ onClose }) {
 						mode === "menu" && "Secret campus arcade. Shhh! 🤫",
 						mode === "tictactoe" && "Tic Tac Toe against AI bot",
 						mode === "memory" && "Find matching emoji pairs",
-						mode === "scramble" && "Unscramble CSE-B words"
+						mode === "scramble" && "Unscramble CSE-B words",
+						mode === "imposter" && "Who is the imposter in CSE-B? 🤫"
 					]
 				})] })]
 			}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("button", {
@@ -48,7 +50,8 @@ function SecretGames({ onClose }) {
 				mode === "menu" && /* @__PURE__ */ (0, import_jsx_runtime.jsx)(GameMenu, { onSelectGame: setMode }),
 				mode === "tictactoe" && /* @__PURE__ */ (0, import_jsx_runtime.jsx)(TicTacToe, {}),
 				mode === "memory" && /* @__PURE__ */ (0, import_jsx_runtime.jsx)(MemoryGame, {}),
-				mode === "scramble" && /* @__PURE__ */ (0, import_jsx_runtime.jsx)(WordScramble, {})
+				mode === "scramble" && /* @__PURE__ */ (0, import_jsx_runtime.jsx)(WordScramble, {}),
+				mode === "imposter" && /* @__PURE__ */ (0, import_jsx_runtime.jsx)(ImposterGame, {})
 			]
 		})]
 	});
@@ -80,6 +83,13 @@ function GameMenu({ onSelectGame }) {
 			/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
 				className: "space-y-3",
 				children: [
+					{
+						id: "imposter",
+						title: "Imposter Finder 🕵️‍♂️",
+						desc: "Find the sus classmate before they sabotage the group project!",
+						emoji: "🕵️‍♂️🤫",
+						color: "bg-lilac-soft text-indigo-deep"
+					},
 					{
 						id: "tictactoe",
 						title: "Panda vs Robot",
@@ -587,6 +597,464 @@ function WordScramble() {
 				})
 			]
 		})
+	});
+}
+var IMPOSTER_POOL = [
+	{
+		category: "Drinks ☕",
+		citizenWord: "CHAI",
+		imposterWord: "COFFEE",
+		citizenClues: [
+			"Leaves 🍃",
+			"Milk 🥛",
+			"Morning ☀️",
+			"Cup ☕"
+		],
+		imposterClues: [
+			"Beans 🫘",
+			"Black 🖤",
+			"Starbucks 🥤",
+			"Bitter 😵‍💫"
+		]
+	},
+	{
+		category: "College Places 🏫",
+		citizenWord: "CLASSROOM",
+		imposterWord: "LAB",
+		citizenClues: [
+			"Desk 🪑",
+			"Blackboard 📋",
+			"Lecture 🥱",
+			"Teacher 🧑‍🏫"
+		],
+		imposterClues: [
+			"Computers 💻",
+			"AC ❄️",
+			"Coding 🐍",
+			"Chairs 🪑"
+		]
+	},
+	{
+		category: "Chat Apps 📱",
+		citizenWord: "WHATSAPP",
+		imposterWord: "TELEGRAM",
+		citizenClues: [
+			"Green 💚",
+			"Status 🤳",
+			"Group chat 💬",
+			"Calls 📞"
+		],
+		imposterClues: [
+			"Channels 📢",
+			"Blue 💙",
+			"Files 📂",
+			"Stickers ✨"
+		]
+	},
+	{
+		category: "Devices 💻",
+		citizenWord: "LAPTOP",
+		imposterWord: "PHONE",
+		citizenClues: [
+			"Keyboard ⌨️",
+			"Screen 🖥️",
+			"Programming 💻",
+			"Heavy 🎒"
+		],
+		imposterClues: [
+			"Pocket 👖",
+			"Camera 📸",
+			"Touchscreen 📱",
+			"Vibrate 📳"
+		]
+	},
+	{
+		category: "SJCET Legends 🏫",
+		citizenWord: "SARJU",
+		imposterWord: "ALWIN",
+		citizenClues: [
+			"Machine learning 🤖",
+			"Syllabus 📚",
+			"Active 🏃",
+			"Guide 🧭"
+		],
+		imposterClues: [
+			"Student 🧑‍🎓",
+			"Vercel 🚀",
+			"Developer 💻",
+			"Code 💻"
+		]
+	}
+];
+function ImposterGame() {
+	const [phase, setPhase] = (0, import_react.useState)("setup");
+	const [pair, setPair] = (0, import_react.useState)(IMPOSTER_POOL[0]);
+	const [players, setPlayers] = (0, import_react.useState)([]);
+	const [playerClueInput, setPlayerClueInput] = (0, import_react.useState)("");
+	const [winnerTeam, setWinnerTeam] = (0, import_react.useState)(null);
+	const startNewGame = () => {
+		const selectedPair = IMPOSTER_POOL[Math.floor(Math.random() * IMPOSTER_POOL.length)];
+		setPair(selectedPair);
+		setPlayerClueInput("");
+		setWinnerTeam(null);
+		const roles = [
+			"citizen",
+			"citizen",
+			"citizen",
+			"imposter"
+		];
+		for (let i = roles.length - 1; i > 0; i--) {
+			const j = Math.floor(Math.random() * (i + 1));
+			[roles[i], roles[j]] = [roles[j], roles[i]];
+		}
+		const playerRole = roles[0];
+		const pandaRole = roles[1];
+		const dinoRole = roles[2];
+		const monsterRole = roles[3];
+		const getWord = (r) => r === "citizen" ? selectedPair.citizenWord : selectedPair.imposterWord;
+		const initialPlayers = [
+			{
+				id: "player",
+				name: "You (Detective)",
+				emoji: "🕵️‍♂️",
+				isBot: false,
+				role: playerRole,
+				word: getWord(playerRole),
+				clue: "",
+				votesReceived: 0
+			},
+			{
+				id: "panda",
+				name: "Panda Bot",
+				emoji: "🐼",
+				isBot: true,
+				role: pandaRole,
+				word: getWord(pandaRole),
+				clue: "",
+				votesReceived: 0
+			},
+			{
+				id: "dino",
+				name: "Dino Bot",
+				emoji: "🦖",
+				isBot: true,
+				role: dinoRole,
+				word: getWord(dinoRole),
+				clue: "",
+				votesReceived: 0
+			},
+			{
+				id: "monster",
+				name: "Monster Bot",
+				emoji: "👾",
+				isBot: true,
+				role: monsterRole,
+				word: getWord(monsterRole),
+				clue: "",
+				votesReceived: 0
+			}
+		];
+		setPlayers(initialPlayers);
+		setPhase("setup");
+	};
+	(0, import_react.useEffect)(() => {
+		startNewGame();
+	}, []);
+	const handleStartClues = () => {
+		const updatedPlayers = players.map((p) => {
+			if (!p.isBot) return p;
+			const poolClues = p.role === "citizen" ? pair.citizenClues : pair.imposterClues;
+			const randomClue = poolClues[Math.floor(Math.random() * poolClues.length)];
+			return {
+				...p,
+				clue: randomClue
+			};
+		});
+		setPlayers(updatedPlayers);
+		setPhase("clues");
+	};
+	const handlePlayerClueSubmit = (clueStr) => {
+		if (!clueStr.trim()) return;
+		const updatedPlayers = players.map((p) => {
+			if (p.id === "player") return {
+				...p,
+				clue: clueStr.trim()
+			};
+			return p;
+		});
+		setPlayers(updatedPlayers);
+		setPhase("voting");
+	};
+	const handleCastVote = (suspectId) => {
+		const updatedPlayers = players.map((p) => {
+			if (p.id === "player") return {
+				...p,
+				voteTarget: suspectId
+			};
+			return p;
+		});
+		const imposterPlayer = updatedPlayers.find((p) => p.role === "imposter");
+		const citizenPlayers = updatedPlayers.filter((p) => p.role === "citizen");
+		const finalPlayers = updatedPlayers.map((p) => {
+			if (!p.isBot) return p;
+			let targetId = "";
+			if (p.role === "imposter") {
+				const options = citizenPlayers.filter((c) => c.id !== p.id);
+				targetId = options[Math.floor(Math.random() * options.length)].id;
+			} else if (Math.random() < .65) targetId = imposterPlayer.id;
+			else {
+				const options = updatedPlayers.filter((o) => o.id !== p.id);
+				targetId = options[Math.floor(Math.random() * options.length)].id;
+			}
+			return {
+				...p,
+				voteTarget: targetId
+			};
+		});
+		const voteCounts = {
+			player: 0,
+			panda: 0,
+			dino: 0,
+			monster: 0
+		};
+		finalPlayers.forEach((p) => {
+			if (p.voteTarget) voteCounts[p.voteTarget] += 1;
+		});
+		const withVotes = finalPlayers.map((p) => ({
+			...p,
+			votesReceived: voteCounts[p.id]
+		}));
+		let highestVoted = withVotes[0];
+		let tie = false;
+		for (let i = 1; i < withVotes.length; i++) if (withVotes[i].votesReceived > highestVoted.votesReceived) {
+			highestVoted = withVotes[i];
+			tie = false;
+		} else if (withVotes[i].votesReceived === highestVoted.votesReceived) tie = true;
+		setPlayers(withVotes);
+		if (!tie && highestVoted.role === "imposter") setWinnerTeam("citizen");
+		else setWinnerTeam("imposter");
+		setPhase("reveal");
+	};
+	const getPlayerCardCluesOptions = () => {
+		return players.find((p) => p.id === "player")?.role === "citizen" ? pair.citizenClues : pair.imposterClues;
+	};
+	return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+		className: "space-y-4 max-w-sm mx-auto py-2",
+		children: [
+			phase === "setup" && /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+				className: "space-y-5 text-center",
+				children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+					className: "rounded-[28px] border border-border/60 bg-surface p-6 shadow-sm",
+					children: [
+						/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+							className: "text-4xl",
+							children: "🕵️‍♂️🤫"
+						}),
+						/* @__PURE__ */ (0, import_jsx_runtime.jsx)("h3", {
+							className: "font-display text-lg font-bold text-ink mt-3",
+							children: "Your Secret Word Card"
+						}),
+						/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+							className: "text-xs text-ink-soft mt-1",
+							children: "Keep it hidden from others!"
+						}),
+						/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+							className: "my-6 p-4 rounded-2xl bg-indigo-deep text-white text-center",
+							children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("span", {
+								className: "text-[10px] font-bold bg-white/20 px-2 py-0.5 rounded uppercase",
+								children: ["Category: ", pair.category]
+							}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("h2", {
+								className: "font-display text-3xl font-black mt-3 tracking-wider",
+								children: players.find((p) => p.id === "player")?.word
+							})]
+						}),
+						/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+							className: "flex items-center justify-center gap-1.5 text-[11px] font-semibold text-ink-soft",
+							children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(CircleAlert, { className: "h-3.5 w-3.5 text-indigo shrink-0" }), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { children: "Are you a Citizen or the Undercover Imposter?" })]
+						})
+					]
+				}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("button", {
+					onClick: handleStartClues,
+					className: "w-full py-4 rounded-2xl bg-indigo-deep text-white font-display font-bold text-sm shadow-md active:scale-95 transition",
+					children: "Start Clue Round 🏁"
+				})]
+			}),
+			phase === "clues" && /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+				className: "space-y-4",
+				children: [
+					/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+						className: "rounded-2xl border border-border/60 bg-surface p-4 text-center",
+						children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("span", {
+							className: "text-[9px] font-bold bg-muted text-ink-soft px-2 py-0.5 rounded uppercase",
+							children: ["Topic: ", pair.category]
+						}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("h4", {
+							className: "text-xs font-bold text-ink-soft mt-2",
+							children: ["Your secret word is: ", /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
+								className: "text-indigo font-extrabold",
+								children: players.find((p) => p.id === "player")?.word
+							})]
+						})]
+					}),
+					/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+						className: "space-y-3",
+						children: players.filter((p) => p.id !== "player").map((p) => /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+							className: "flex items-start gap-3",
+							children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+								className: "grid h-9 w-9 shrink-0 place-items-center rounded-xl bg-muted text-xl border border-border/40",
+								children: p.emoji
+							}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+								className: "flex-1 bg-surface border border-border/60 rounded-2xl rounded-tl-none p-3 shadow-xs",
+								children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+									className: "text-[10px] font-extrabold text-ink-soft",
+									children: p.name
+								}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("p", {
+									className: "text-sm font-bold text-indigo mt-1",
+									children: [
+										"\"",
+										p.clue,
+										"\""
+									]
+								})]
+							})]
+						}, p.id))
+					}),
+					/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+						className: "pt-4 border-t border-border/40",
+						children: [
+							/* @__PURE__ */ (0, import_jsx_runtime.jsx)("h4", {
+								className: "text-xs font-bold text-ink mb-2",
+								children: "Select a clue word to share:"
+							}),
+							/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+								className: "grid grid-cols-2 gap-2",
+								children: getPlayerCardCluesOptions().map((optClue) => /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("button", {
+									onClick: () => handlePlayerClueSubmit(optClue),
+									className: "px-3 py-2.5 rounded-xl border border-border/80 bg-surface hover:border-indigo text-xs font-bold text-ink transition active:scale-95 text-center",
+									children: [
+										"\"",
+										optClue,
+										"\""
+									]
+								}, optClue))
+							}),
+							/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+								className: "mt-4",
+								children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+									className: "text-[10px] font-semibold text-ink-soft text-center mb-1",
+									children: "— or write custom clue —"
+								}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("form", {
+									onSubmit: (e) => {
+										e.preventDefault();
+										handlePlayerClueSubmit(playerClueInput);
+									},
+									className: "flex gap-2",
+									children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("input", {
+										type: "text",
+										placeholder: "One word clue...",
+										value: playerClueInput,
+										onChange: (e) => setPlayerClueInput(e.target.value),
+										className: "flex-1 px-3 py-2.5 rounded-xl border border-border/60 bg-surface text-xs font-bold text-ink focus:outline-none"
+									}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("button", {
+										type: "submit",
+										className: "px-4 py-2 bg-indigo-deep text-white text-xs font-bold rounded-xl active:scale-95 transition",
+										children: "Send"
+									})]
+								})]
+							})
+						]
+					})
+				]
+			}),
+			phase === "voting" && /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+				className: "space-y-4",
+				children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+					className: "rounded-2xl bg-indigo-deep/5 border border-indigo/20 p-4 text-center text-xs font-bold text-indigo-deep",
+					children: "Look at everyone's clue card. Who has the \"Imposter\" word? 🕵️‍♂️🔍"
+				}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+					className: "space-y-2.5",
+					children: players.map((p) => /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+						className: "flex items-center justify-between gap-3 bg-surface border border-border/60 rounded-3xl p-3.5",
+						children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+							className: "flex items-center gap-3 min-w-0",
+							children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+								className: "grid h-10 w-10 shrink-0 place-items-center rounded-2xl bg-muted text-xl",
+								children: p.emoji
+							}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+								className: "min-w-0",
+								children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+									className: "text-xs font-bold text-ink truncate",
+									children: p.name
+								}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("p", {
+									className: "text-[11px] font-semibold text-indigo mt-0.5",
+									children: [
+										"Clue: \"",
+										p.clue,
+										"\""
+									]
+								})]
+							})]
+						}), p.id !== "player" ? /* @__PURE__ */ (0, import_jsx_runtime.jsx)("button", {
+							onClick: () => handleCastVote(p.id),
+							className: "px-3.5 py-1.5 rounded-xl bg-indigo-deep text-white text-[10px] font-bold active:scale-95 transition",
+							children: "Suspect 🤨"
+						}) : /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
+							className: "text-[10px] font-bold text-ink-soft bg-muted px-2.5 py-1 rounded-xl",
+							children: "You"
+						})]
+					}, p.id))
+				})]
+			}),
+			phase === "reveal" && /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+				className: "space-y-5 text-center",
+				children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+					className: "rounded-[28px] border border-border/60 bg-surface p-6 shadow-sm",
+					children: [
+						/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+							className: "text-5xl",
+							children: winnerTeam === "citizen" ? "🏆🎉" : "🤫👾"
+						}),
+						/* @__PURE__ */ (0, import_jsx_runtime.jsx)("h3", {
+							className: "font-display text-xl font-extrabold text-ink mt-4",
+							children: winnerTeam === "citizen" ? "Citizens Won! 🧑‍🎓" : "Imposter Won! 🤫"
+						}),
+						/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+							className: "text-xs text-ink-soft mt-1.5 leading-relaxed",
+							children: winnerTeam === "citizen" ? "The imposter was successfully caught and kicked out of the group project!" : "The undercover imposter successfully fooled everyone and took all the credit!"
+						}),
+						/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+							className: "mt-6 border-t border-border/40 pt-4 space-y-2.5 text-left",
+							children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("h4", {
+								className: "text-[10px] font-bold uppercase tracking-wider text-ink-soft",
+								children: "Everyone's Identity:"
+							}), players.map((p) => /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+								className: "flex items-center justify-between text-xs",
+								children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("span", {
+									className: "font-bold flex items-center gap-1.5",
+									children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { children: p.emoji }), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { children: p.name })]
+								}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("span", {
+									className: "flex items-center gap-2",
+									children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("span", {
+										className: "font-semibold text-ink-soft",
+										children: [
+											"\"",
+											p.word,
+											"\""
+										]
+									}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
+										className: `px-2 py-0.5 rounded-lg text-[9px] font-extrabold uppercase ${p.role === "imposter" ? "bg-blush text-red-700 dark:text-red-400" : "bg-mint text-emerald-700 dark:text-emerald-400"}`,
+										children: p.role
+									})]
+								})]
+							}, p.id))]
+						})
+					]
+				}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("button", {
+					onClick: startNewGame,
+					className: "w-full py-4 rounded-2xl bg-indigo-deep text-white font-display font-bold text-sm shadow-md active:scale-95 transition",
+					children: "Play Another Round 🚀"
+				})]
+			})
+		]
 	});
 }
 var rows = [
