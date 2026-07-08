@@ -1,4 +1,4 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { useMemo, useState } from "react";
 import { AppShell } from "@/components/app-shell";
 import { ScheduleRow } from "@/components/schedule-row";
@@ -266,6 +266,7 @@ function InClass({
   state: Extract<ReturnType<typeof computeNowState>, { phase: "in-class" }>;
   onSelectSubject: (name: string) => void;
 }) {
+  const navigate = useNavigate();
   const remainingClasses = state.today.filter(
     (x) => x.kind === "class" && x.startMin > state.current.startMin,
   ).length;
@@ -276,7 +277,7 @@ function InClass({
         item={state.current}
         minutesLeft={state.minutesLeft}
         progress={state.progress}
-        onClick={() => onSelectSubject(state.current.subject!)}
+        onClick={() => navigate({ to: "/countdown" })}
       />
       {state.next ? (
         <NextUpTile
@@ -327,11 +328,15 @@ function BreakBento({
   >;
   onSelectSubject: (name: string) => void;
 }) {
+  const navigate = useNavigate();
   const isLunch = state.phase === "lunch";
   const Icon = isLunch ? UtensilsCrossed : Coffee;
   return (
     <section className="grid grid-cols-3 gap-3">
-      <div className="relative col-span-3 overflow-hidden rounded-[28px] bg-indigo-deep p-5 text-white shadow-[0_20px_60px_-24px_oklch(0.32_0.19_285_/_0.7)]">
+      <div
+        onClick={() => navigate({ to: "/countdown" })}
+        className="relative col-span-3 overflow-hidden rounded-[28px] bg-indigo-deep p-5 text-white shadow-[0_20px_60px_-24px_oklch(0.32_0.19_285_/_0.7)] cursor-pointer hover:scale-[1.005] active:scale-[0.995] transition duration-200"
+      >
         <div className="pointer-events-none absolute inset-0 bg-dots text-white/10" />
         <div className="relative flex items-start justify-between gap-3">
           <div>
@@ -372,9 +377,13 @@ function BeforeDay({
   state: Extract<ReturnType<typeof computeNowState>, { phase: "before-day" }>;
   onSelectSubject: (name: string) => void;
 }) {
+  const navigate = useNavigate();
   return (
     <section className="grid grid-cols-3 gap-3">
-      <div className="relative col-span-3 overflow-hidden rounded-[28px] bg-indigo-deep p-5 text-white shadow-[0_20px_60px_-24px_oklch(0.32_0.19_285_/_0.7)]">
+      <div
+        onClick={() => navigate({ to: "/countdown" })}
+        className="relative col-span-3 overflow-hidden rounded-[28px] bg-indigo-deep p-5 text-white shadow-[0_20px_60px_-24px_oklch(0.32_0.19_285_/_0.7)] cursor-pointer hover:scale-[1.005] active:scale-[0.995] transition duration-200"
+      >
         <div className="pointer-events-none absolute inset-0 bg-dots text-white/10" />
         <div className="relative flex items-start justify-between gap-3">
           <div>
