@@ -1299,17 +1299,19 @@ function ImposterGame() {
                           <h2 className="font-display text-xl font-black">{selectedRevealPlayer.name}</h2>
                         </div>
                         <div className="py-2.5 border-y border-white/10">
-                          <span className="inline-flex items-center gap-1.5 rounded-full bg-red-500/30 px-3.5 py-1 text-xs font-extrabold uppercase tracking-wider text-red-200 border border-red-500/25">
+                          <span className="inline-flex items-center gap-1.5 rounded-full bg-red-500/30 px-3.5 py-1 text-xs font-extrabold uppercase tracking-wider text-red-200 border border-red-500/25 animate-pulse">
                             🕵️‍♂️ IMPOSTER (Undercover)
                           </span>
                         </div>
-                        <div className="py-2">
-                          <p className="text-[10px] font-bold uppercase tracking-wider text-white/60">Your Secret Word Card</p>
-                          <h1 className="font-display text-3xl font-black tracking-widest mt-1 uppercase text-butter">
-                            {selectedRevealPlayer.word}
-                          </h1>
+                        <div className="py-4 space-y-1">
+                          <p className="text-xs text-red-200/90 leading-relaxed font-bold">
+                            You don't have a secret word! 🤫
+                          </p>
+                          <p className="text-[11px] text-red-300/80 leading-relaxed max-w-[200px] mx-auto">
+                            Listen to other players' descriptions, try to blend in, and guess the word!
+                          </p>
                         </div>
-                        <p className="text-[10px] text-white/50 italic">Memorize the word and tap below to hide it immediately!</p>
+                        <p className="text-[10px] text-white/50 italic">Tap below to close the card safely.</p>
                       </div>
                     </div>
                   ) : (

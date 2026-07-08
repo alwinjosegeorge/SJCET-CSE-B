@@ -2,7 +2,7 @@ import { r as __toESM } from "../_runtime.mjs";
 import { n as require_jsx_runtime, r as require_react } from "../_libs/react+tanstack__react-query.mjs";
 import { S as Bell, d as Moon, h as Heart, i as Trophy, l as RotateCcw, o as Sun, p as Info, t as X, u as Palette, v as CodeXml, w as ArrowLeft } from "../_libs/lucide-react.mjs";
 import { t as AppShell } from "./app-shell-BTcutmU8.mjs";
-//#region node_modules/.nitro/vite/services/ssr/assets/settings-BK2QZjH-.js
+//#region node_modules/.nitro/vite/services/ssr/assets/settings-BO-qzepl.js
 var import_react = /* @__PURE__ */ __toESM(require_react());
 var import_jsx_runtime = require_jsx_runtime();
 function SecretGames({ onClose }) {
@@ -1644,23 +1644,23 @@ function ImposterGame() {
 									/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
 										className: "py-2.5 border-y border-white/10",
 										children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
-											className: "inline-flex items-center gap-1.5 rounded-full bg-red-500/30 px-3.5 py-1 text-xs font-extrabold uppercase tracking-wider text-red-200 border border-red-500/25",
+											className: "inline-flex items-center gap-1.5 rounded-full bg-red-500/30 px-3.5 py-1 text-xs font-extrabold uppercase tracking-wider text-red-200 border border-red-500/25 animate-pulse",
 											children: "🕵️‍♂️ IMPOSTER (Undercover)"
 										})
 									}),
 									/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-										className: "py-2",
+										className: "py-4 space-y-1",
 										children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
-											className: "text-[10px] font-bold uppercase tracking-wider text-white/60",
-											children: "Your Secret Word Card"
-										}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("h1", {
-											className: "font-display text-3xl font-black tracking-widest mt-1 uppercase text-butter",
-											children: selectedRevealPlayer.word
+											className: "text-xs text-red-200/90 leading-relaxed font-bold",
+											children: "You don't have a secret word! 🤫"
+										}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+											className: "text-[11px] text-red-300/80 leading-relaxed max-w-[200px] mx-auto",
+											children: "Listen to other players' descriptions, try to blend in, and guess the word!"
 										})]
 									}),
 									/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
 										className: "text-[10px] text-white/50 italic",
-										children: "Memorize the word and tap below to hide it immediately!"
+										children: "Tap below to close the card safely."
 									})
 								]
 							})]

@@ -1,1 +1,0 @@
-import{c as e,s as t}from"./index-BXidRZjO.js";var n=e(t());function r(e=1e3){let[t,r]=(0,n.useState)(null);return(0,n.useEffect)(()=>{r(new Date);let t=setInterval(()=>r(new Date),e);return()=>clearInterval(t)},[e]),t}export{r as t};
