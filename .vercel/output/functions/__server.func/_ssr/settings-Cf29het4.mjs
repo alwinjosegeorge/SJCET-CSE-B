@@ -2,7 +2,7 @@ import { r as __toESM } from "../_runtime.mjs";
 import { n as require_jsx_runtime, r as require_react } from "../_libs/react+tanstack__react-query.mjs";
 import { S as Bell, d as Moon, h as Heart, i as Trophy, l as RotateCcw, o as Sun, p as Info, t as X, u as Palette, v as CodeXml, w as ArrowLeft } from "../_libs/lucide-react.mjs";
 import { t as AppShell } from "./app-shell-BTcutmU8.mjs";
-//#region node_modules/.nitro/vite/services/ssr/assets/settings-BO-qzepl.js
+//#region node_modules/.nitro/vite/services/ssr/assets/settings-Cf29het4.js
 var import_react = /* @__PURE__ */ __toESM(require_react());
 var import_jsx_runtime = require_jsx_runtime();
 function SecretGames({ onClose }) {
@@ -1626,7 +1626,7 @@ function ImposterGame() {
 					}) : /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
 						className: "space-y-6",
 						children: [selectedRevealPlayer.role === "imposter" ? /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-							className: "rounded-[28px] bg-gradient-to-br from-red-600 to-rose-950 p-6 text-white text-center shadow-lg border border-red-500/30 relative overflow-hidden animate-slide-up",
+							className: "rounded-[28px] bg-gradient-to-br from-red-600 via-red-700 to-red-950 p-6 text-white text-center shadow-lg border border-red-500/30 relative overflow-hidden animate-slide-up",
 							children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { className: "absolute inset-0 bg-dots opacity-10" }), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
 								className: "relative space-y-4",
 								children: [
@@ -1665,7 +1665,7 @@ function ImposterGame() {
 								]
 							})]
 						}) : /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-							className: "rounded-[28px] bg-gradient-to-br from-emerald-600 to-teal-850 p-6 text-white text-center shadow-lg border border-emerald-500/30 relative overflow-hidden animate-slide-up",
+							className: "rounded-[28px] bg-gradient-to-br from-emerald-500 via-emerald-600 to-emerald-900 p-6 text-white text-center shadow-lg border border-emerald-500/30 relative overflow-hidden animate-slide-up",
 							children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { className: "absolute inset-0 bg-dots opacity-10" }), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
 								className: "relative space-y-4",
 								children: [

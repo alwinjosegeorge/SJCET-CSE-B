@@ -1290,7 +1290,7 @@ function ImposterGame() {
                 <div className="space-y-6">
                   {selectedRevealPlayer.role === "imposter" ? (
                     /* IMPOSTER CARD DESIGN */
-                    <div className="rounded-[28px] bg-gradient-to-br from-red-600 to-rose-950 p-6 text-white text-center shadow-lg border border-red-500/30 relative overflow-hidden animate-slide-up">
+                    <div className="rounded-[28px] bg-gradient-to-br from-red-600 via-red-700 to-red-950 p-6 text-white text-center shadow-lg border border-red-500/30 relative overflow-hidden animate-slide-up">
                       <div className="absolute inset-0 bg-dots opacity-10" />
                       <div className="relative space-y-4">
                         <div className="text-5xl">{selectedRevealPlayer.emoji}</div>
@@ -1316,7 +1316,7 @@ function ImposterGame() {
                     </div>
                   ) : (
                     /* CREWMATE CARD DESIGN */
-                    <div className="rounded-[28px] bg-gradient-to-br from-emerald-600 to-teal-850 p-6 text-white text-center shadow-lg border border-emerald-500/30 relative overflow-hidden animate-slide-up">
+                    <div className="rounded-[28px] bg-gradient-to-br from-emerald-500 via-emerald-600 to-emerald-900 p-6 text-white text-center shadow-lg border border-emerald-500/30 relative overflow-hidden animate-slide-up">
                       <div className="absolute inset-0 bg-dots opacity-10" />
                       <div className="relative space-y-4">
                         <div className="text-5xl">{selectedRevealPlayer.emoji}</div>
