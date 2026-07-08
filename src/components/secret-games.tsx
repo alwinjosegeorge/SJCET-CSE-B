@@ -121,9 +121,8 @@ function GameMenu({ onSelectGame }: { onSelectGame: (mode: GameMode) => void }) 
             onClick={() => onSelectGame(g.id)}
             className="w-full flex items-center gap-4 rounded-3xl border border-border/60 bg-surface p-4 text-left hover:border-indigo/25 transition active:scale-[0.99]"
           >
-            <div className={`relative h-12 w-12 shrink-0 flex items-center justify-center rounded-full ${g.color}`}>
+            <div className={`h-12 w-12 shrink-0 flex items-center justify-center rounded-full ${g.color}`}>
               <span className="text-2xl leading-none">{g.primaryEmoji}</span>
-              <span className="absolute -bottom-1 -left-1 text-base leading-none drop-shadow-sm">{g.secondaryEmoji}</span>
             </div>
             <div className="min-w-0 flex-1">
               <h4 className="font-display text-sm font-bold text-ink">{g.title}</h4>
