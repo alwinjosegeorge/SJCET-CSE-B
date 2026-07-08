@@ -1,11 +1,11 @@
 import { useState, useEffect } from "react";
-import { X, RotateCcw, ArrowLeft, Trophy, Sparkles, User, Cpu, Heart, Check, AlertCircle } from "lucide-react";
+import { X, RotateCcw, ArrowLeft, ArrowUp, ArrowDown, ArrowRight, Trophy, Sparkles, User, Cpu, Heart, Check, AlertCircle } from "lucide-react";
 
 interface SecretGamesProps {
   onClose: () => void;
 }
 
-type GameMode = "menu" | "tictactoe" | "memory" | "scramble" | "imposter";
+type GameMode = "menu" | "tictactoe" | "memory" | "scramble" | "imposter" | "snake";
 
 export function SecretGames({ onClose }: SecretGamesProps) {
   const [mode, setMode] = useState<GameMode>("menu");
@@ -29,7 +29,8 @@ export function SecretGames({ onClose }: SecretGamesProps) {
               {mode === "tictactoe" && <>Panda vs Robot 🧸</>}
               {mode === "memory" && <>Emoji Match 🃏</>}
               {mode === "scramble" && <>Campus Guess 🧠</>}
-              {mode === "imposter" && <>Imposter Finder 🕵️‍♂️</>}
+              {mode === "imposter" && <>Imposter Party 🕵️‍♂️</>}
+              {mode === "snake" && <>Campus Snake 🐍</>}
             </h2>
             <p className="text-[10px] font-semibold text-ink-soft mt-0.5 leading-none">
               {mode === "menu" && "Secret campus arcade. Shhh! 🤫"}
@@ -37,6 +38,7 @@ export function SecretGames({ onClose }: SecretGamesProps) {
               {mode === "memory" && "Find matching emoji pairs"}
               {mode === "scramble" && "Unscramble CSE-B words"}
               {mode === "imposter" && "Who is the imposter in CSE-B? 🤫"}
+              {mode === "snake" && "Eat campus foods and grow longer"}
             </p>
           </div>
         </div>
@@ -55,6 +57,7 @@ export function SecretGames({ onClose }: SecretGamesProps) {
         {mode === "memory" && <MemoryGame />}
         {mode === "scramble" && <WordScramble />}
         {mode === "imposter" && <ImposterGame />}
+        {mode === "snake" && <SnakeGame />}
       </main>
     </div>
   );
@@ -65,10 +68,9 @@ function GameMenu({ onSelectGame }: { onSelectGame: (mode: GameMode) => void }) 
   const games = [
     {
       id: "imposter" as GameMode,
-      title: "Imposter Finder 🕵️‍♂️",
-      desc: "Find the sus classmate before they sabotage the group project!",
+      title: "Imposter Party 🕵️‍♂️",
+      desc: "Local pass-and-play party game with your classmates!",
       primaryEmoji: "🕵️‍♂️",
-      secondaryEmoji: "🤫",
       color: "bg-indigo-50 dark:bg-indigo-950/30 text-indigo-deep border border-indigo-100/30 dark:border-indigo-900/30",
     },
     {
@@ -76,7 +78,6 @@ function GameMenu({ onSelectGame }: { onSelectGame: (mode: GameMode) => void }) 
       title: "Panda vs Robot",
       desc: "Play Tic Tac Toe against an AI Bot in your boring class!",
       primaryEmoji: "🤖",
-      secondaryEmoji: "🧸",
       color: "bg-red-50 dark:bg-red-950/30 text-red-900 border border-red-100/30 dark:border-red-900/30",
     },
     {
@@ -84,7 +85,6 @@ function GameMenu({ onSelectGame }: { onSelectGame: (mode: GameMode) => void }) 
       title: "Emoji Match",
       desc: "Test your memory limit by pairing cute campus emojis!",
       primaryEmoji: "🃏",
-      secondaryEmoji: "🧠",
       color: "bg-emerald-50 dark:bg-emerald-950/30 text-emerald-900 border border-emerald-100/30 dark:border-emerald-900/30",
     },
     {
@@ -92,8 +92,14 @@ function GameMenu({ onSelectGame }: { onSelectGame: (mode: GameMode) => void }) 
       title: "Campus Word Guess",
       desc: "Unscramble campus & teacher names from SJCET!",
       primaryEmoji: "🏫",
-      secondaryEmoji: "📝",
       color: "bg-amber-50 dark:bg-amber-950/30 text-amber-900 border border-amber-100/30 dark:border-amber-900/30",
+    },
+    {
+      id: "snake" as GameMode,
+      title: "Campus Snake 🐍",
+      desc: "Eat delicious college foods like Porotta & Chai to grow longer!",
+      primaryEmoji: "🐍",
+      color: "bg-teal-50 dark:bg-teal-950/30 text-teal-900 border border-teal-100/30 dark:border-teal-900/30",
     },
   ];
 
@@ -1414,6 +1420,291 @@ function ImposterGame() {
         </div>
       )}
 
+    </div>
+  );
+}
+
+/* -------------------------- Game: Campus Snake -------------------------- */
+const CAMPUS_FOODS = [
+  { emoji: "🥞", name: "Porotta" },
+  { emoji: "🍗", name: "Biriyani" },
+  { emoji: "☕", name: "Sulaimani" },
+  { emoji: "🥥", name: "Puttu" },
+  { emoji: "🍌", name: "Banana" },
+  { emoji: "🥩", name: "BeefFry" },
+  { emoji: "🍩", name: "Neyyappam" },
+  { emoji: "🥪", name: "Puffs" },
+  { emoji: "🥣", name: "Kanji" }
+];
+
+const SNAKE_GRID_SIZE = 15;
+
+function SnakeGame() {
+  const [snake, setSnake] = useState<{ x: number, y: number }[]>([
+    { x: 7, y: 7 },
+    { x: 7, y: 8 },
+    { x: 7, y: 9 }
+  ]);
+  const [food, setFood] = useState<{ x: number, y: number }>({ x: 7, y: 3 });
+  const [foodIndex, setFoodIndex] = useState(0);
+  const [direction, setDirection] = useState<"UP" | "DOWN" | "LEFT" | "RIGHT">("UP");
+  const [isGameOver, setIsGameOver] = useState(false);
+  const [isPlaying, setIsPlaying] = useState(false);
+  const [score, setScore] = useState(0);
+  const [highScore, setHighScore] = useState(0);
+
+  useEffect(() => {
+    const saved = localStorage.getItem("sjcet_snake_highscore");
+    if (saved) {
+      setHighScore(parseInt(saved, 10));
+    }
+  }, []);
+
+  const spawnFood = (currentSnake: { x: number, y: number }[]) => {
+    let newFood;
+    while (true) {
+      newFood = {
+        x: Math.floor(Math.random() * SNAKE_GRID_SIZE),
+        y: Math.floor(Math.random() * SNAKE_GRID_SIZE)
+      };
+      if (!currentSnake.some(s => s.x === newFood.x && s.y === newFood.y)) {
+        break;
+      }
+    }
+    setFood(newFood);
+    setFoodIndex(Math.floor(Math.random() * CAMPUS_FOODS.length));
+  };
+
+  const startNewGame = () => {
+    setSnake([
+      { x: 7, y: 7 },
+      { x: 7, y: 8 },
+      { x: 7, y: 9 }
+    ]);
+    setFood({ x: 7, y: 3 });
+    setFoodIndex(Math.floor(Math.random() * CAMPUS_FOODS.length));
+    setDirection("UP");
+    setIsGameOver(false);
+    setIsPlaying(true);
+    setScore(0);
+  };
+
+  const handleDirectionChange = (newDir: "UP" | "DOWN" | "LEFT" | "RIGHT") => {
+    setDirection((currDir) => {
+      if (newDir === "UP" && currDir === "DOWN") return currDir;
+      if (newDir === "DOWN" && currDir === "UP") return currDir;
+      if (newDir === "LEFT" && currDir === "RIGHT") return currDir;
+      if (newDir === "RIGHT" && currDir === "LEFT") return currDir;
+      return newDir;
+    });
+  };
+
+  const moveSnake = () => {
+    setSnake((prevSnake) => {
+      const head = prevSnake[0];
+      let dx = 0;
+      let dy = 0;
+
+      switch (direction) {
+        case "UP": dy = -1; break;
+        case "DOWN": dy = 1; break;
+        case "LEFT": dx = -1; break;
+        case "RIGHT": dx = 1; break;
+      }
+
+      const newHead = {
+        x: (head.x + dx + SNAKE_GRID_SIZE) % SNAKE_GRID_SIZE,
+        y: (head.y + dy + SNAKE_GRID_SIZE) % SNAKE_GRID_SIZE
+      };
+
+      // Check self-collision
+      if (prevSnake.some(segment => segment.x === newHead.x && segment.y === newHead.y)) {
+        setIsGameOver(true);
+        return prevSnake;
+      }
+
+      const newSnake = [newHead, ...prevSnake];
+
+      // Check if food eaten
+      if (newHead.x === food.x && newHead.y === food.y) {
+        setScore((s) => {
+          const nextScore = s + 10;
+          if (nextScore > highScore) {
+            setHighScore(nextScore);
+            localStorage.setItem("sjcet_snake_highscore", nextScore.toString());
+          }
+          return nextScore;
+        });
+        spawnFood(newSnake);
+      } else {
+        newSnake.pop();
+      }
+
+      return newSnake;
+    });
+  };
+
+  useEffect(() => {
+    if (!isPlaying || isGameOver) return;
+
+    const gameInterval = setInterval(() => {
+      moveSnake();
+    }, 160);
+
+    return () => clearInterval(gameInterval);
+  }, [isPlaying, isGameOver, direction]);
+
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (isGameOver || !isPlaying) return;
+      
+      switch (e.key) {
+        case "ArrowUp":
+        case "w":
+        case "W":
+          handleDirectionChange("UP");
+          break;
+        case "ArrowDown":
+        case "s":
+        case "S":
+          handleDirectionChange("DOWN");
+          break;
+        case "ArrowLeft":
+        case "a":
+        case "A":
+          handleDirectionChange("LEFT");
+          break;
+        case "ArrowRight":
+        case "d":
+        case "D":
+          handleDirectionChange("RIGHT");
+          break;
+      }
+    };
+
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [isPlaying, isGameOver]);
+
+  const renderCells = () => {
+    const cells = [];
+    for (let r = 0; r < SNAKE_GRID_SIZE; r++) {
+      for (let c = 0; c < SNAKE_GRID_SIZE; c++) {
+        const isHead = snake[0].x === c && snake[0].y === r;
+        const isBody = snake.slice(1).some(segment => segment.x === c && segment.y === r);
+        const isFood = food.x === c && food.y === r;
+
+        cells.push(
+          <div
+            key={`${r}-${c}`}
+            className="flex items-center justify-center aspect-square text-xs select-none"
+          >
+            {isHead && <span className="text-[14px]">🐍</span>}
+            {isBody && <div className="w-[85%] h-[85%] rounded-[6px] bg-emerald-500 border border-emerald-600/30 scale-95" />}
+            {isFood && <span className="text-[14px] animate-pulse">{CAMPUS_FOODS[foodIndex].emoji}</span>}
+            {!isHead && !isBody && !isFood && (
+              <div className="w-1 h-1 rounded-full bg-slate-800/40" />
+            )}
+          </div>
+        );
+      }
+    }
+    return cells;
+  };
+
+  return (
+    <div className="space-y-4 max-w-sm mx-auto py-2">
+      {/* Score Header */}
+      <div className="flex justify-between items-center bg-surface border border-border/60 p-3.5 rounded-2xl text-xs font-bold shadow-xs">
+        <span className="text-ink-soft">Score: <span className="text-emerald-600 dark:text-emerald-400 font-extrabold text-sm">{score}</span></span>
+        <span className="text-ink-soft">Best: <span className="text-indigo font-extrabold text-sm">{highScore}</span></span>
+      </div>
+
+      {!isPlaying ? (
+        <div className="rounded-[28px] border border-border/60 bg-surface p-6 shadow-sm text-center space-y-4">
+          <div className="text-5xl animate-pulse">🐍🥞</div>
+          <h3 className="font-display text-lg font-bold text-ink">Campus Snake</h3>
+          <p className="text-xs text-ink-soft leading-relaxed px-4">
+            Eat delicious SJCET college food items like Porotta, Puttu & Chai to grow longer!
+          </p>
+          <button
+            onClick={startNewGame}
+            className="w-full py-3.5 rounded-2xl bg-indigo-deep text-white font-display font-bold text-sm shadow-md active:scale-95 transition"
+          >
+            Start Eating 🚀
+          </button>
+        </div>
+      ) : (
+        <div className="space-y-4">
+          {/* LED Display Box */}
+          <div className="rounded-[28px] bg-slate-900 border-[6px] border-slate-950 p-2 shadow-inner relative overflow-hidden aspect-square w-full max-w-[280px] mx-auto">
+            <div 
+              style={{
+                display: 'grid',
+                gridTemplateColumns: 'repeat(15, minmax(0, 1fr))',
+                gridTemplateRows: 'repeat(15, minmax(0, 1fr))'
+              }}
+              className="w-full h-full"
+            >
+              {renderCells()}
+            </div>
+
+            {isGameOver && (
+              <div className="absolute inset-0 bg-slate-950/80 backdrop-blur-xs flex flex-col items-center justify-center text-center p-4">
+                <span className="text-4xl">😵‍💫💥</span>
+                <h4 className="font-display text-lg font-bold text-white mt-3">Game Over!</h4>
+                <p className="text-xs text-slate-400 mt-1">You bit yourself! final score: {score}</p>
+                <button
+                  onClick={startNewGame}
+                  className="mt-4 px-5 py-2.5 bg-indigo text-white text-xs font-bold rounded-xl active:scale-95 transition"
+                >
+                  Play Again 🚀
+                </button>
+              </div>
+            )}
+          </div>
+
+          {/* Food Info Status */}
+          <div className="text-center text-[10px] font-bold uppercase text-ink-soft/60">
+            Next Snack: <span className="text-indigo">{CAMPUS_FOODS[foodIndex].name} {CAMPUS_FOODS[foodIndex].emoji}</span>
+          </div>
+
+          {/* D-Pad controls */}
+          <div className="grid grid-cols-3 gap-2.5 w-36 mx-auto mt-2">
+            <div></div>
+            <button
+              onClick={() => handleDirectionChange("UP")}
+              className="w-11 h-11 bg-surface border border-border/80 flex items-center justify-center rounded-2xl active:scale-90 transition shadow-xs text-ink"
+            >
+              <ArrowUp className="h-5 w-5" />
+            </button>
+            <div></div>
+
+            <button
+              onClick={() => handleDirectionChange("LEFT")}
+              className="w-11 h-11 bg-surface border border-border/80 flex items-center justify-center rounded-2xl active:scale-90 transition shadow-xs text-ink"
+            >
+              <ArrowLeft className="h-5 w-5" />
+            </button>
+            <div className="w-11 h-11 flex items-center justify-center text-xs font-bold text-ink-soft opacity-30">🕹️</div>
+            <button
+              onClick={() => handleDirectionChange("RIGHT")}
+              className="w-11 h-11 bg-surface border border-border/80 flex items-center justify-center rounded-2xl active:scale-90 transition shadow-xs text-ink"
+            >
+              <ArrowRight className="h-5 w-5" />
+            </button>
+
+            <div></div>
+            <button
+              onClick={() => handleDirectionChange("DOWN")}
+              className="w-11 h-11 bg-surface border border-border/80 flex items-center justify-center rounded-2xl active:scale-90 transition shadow-xs text-ink"
+            >
+              <ArrowDown className="h-5 w-5" />
+            </button>
+            <div></div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

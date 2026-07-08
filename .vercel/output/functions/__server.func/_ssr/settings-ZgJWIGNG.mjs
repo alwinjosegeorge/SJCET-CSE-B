@@ -1,8 +1,8 @@
 import { r as __toESM } from "../_runtime.mjs";
 import { n as require_jsx_runtime, r as require_react } from "../_libs/react+tanstack__react-query.mjs";
-import { S as Bell, d as Moon, h as Heart, i as Trophy, l as RotateCcw, o as Sun, p as Info, t as X, u as Palette, v as CodeXml, w as ArrowLeft } from "../_libs/lucide-react.mjs";
+import { C as ArrowUp, D as ArrowDown, E as ArrowLeft, S as Bell, T as ArrowRight, d as Moon, h as Heart, i as Trophy, l as RotateCcw, o as Sun, p as Info, t as X, u as Palette, v as CodeXml } from "../_libs/lucide-react.mjs";
 import { t as AppShell } from "./app-shell-BTcutmU8.mjs";
-//#region node_modules/.nitro/vite/services/ssr/assets/settings-BnrTuyUn.js
+//#region node_modules/.nitro/vite/services/ssr/assets/settings-ZgJWIGNG.js
 var import_react = /* @__PURE__ */ __toESM(require_react());
 var import_jsx_runtime = require_jsx_runtime();
 function SecretGames({ onClose }) {
@@ -27,7 +27,8 @@ function SecretGames({ onClose }) {
 						mode === "tictactoe" && /* @__PURE__ */ (0, import_jsx_runtime.jsx)(import_jsx_runtime.Fragment, { children: "Panda vs Robot 🧸" }),
 						mode === "memory" && /* @__PURE__ */ (0, import_jsx_runtime.jsx)(import_jsx_runtime.Fragment, { children: "Emoji Match 🃏" }),
 						mode === "scramble" && /* @__PURE__ */ (0, import_jsx_runtime.jsx)(import_jsx_runtime.Fragment, { children: "Campus Guess 🧠" }),
-						mode === "imposter" && /* @__PURE__ */ (0, import_jsx_runtime.jsx)(import_jsx_runtime.Fragment, { children: "Imposter Finder 🕵️‍♂️" })
+						mode === "imposter" && /* @__PURE__ */ (0, import_jsx_runtime.jsx)(import_jsx_runtime.Fragment, { children: "Imposter Party 🕵️‍♂️" }),
+						mode === "snake" && /* @__PURE__ */ (0, import_jsx_runtime.jsx)(import_jsx_runtime.Fragment, { children: "Campus Snake 🐍" })
 					]
 				}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("p", {
 					className: "text-[10px] font-semibold text-ink-soft mt-0.5 leading-none",
@@ -36,7 +37,8 @@ function SecretGames({ onClose }) {
 						mode === "tictactoe" && "Tic Tac Toe against AI bot",
 						mode === "memory" && "Find matching emoji pairs",
 						mode === "scramble" && "Unscramble CSE-B words",
-						mode === "imposter" && "Who is the imposter in CSE-B? 🤫"
+						mode === "imposter" && "Who is the imposter in CSE-B? 🤫",
+						mode === "snake" && "Eat campus foods and grow longer"
 					]
 				})] })]
 			}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("button", {
@@ -51,7 +53,8 @@ function SecretGames({ onClose }) {
 				mode === "tictactoe" && /* @__PURE__ */ (0, import_jsx_runtime.jsx)(TicTacToe, {}),
 				mode === "memory" && /* @__PURE__ */ (0, import_jsx_runtime.jsx)(MemoryGame, {}),
 				mode === "scramble" && /* @__PURE__ */ (0, import_jsx_runtime.jsx)(WordScramble, {}),
-				mode === "imposter" && /* @__PURE__ */ (0, import_jsx_runtime.jsx)(ImposterGame, {})
+				mode === "imposter" && /* @__PURE__ */ (0, import_jsx_runtime.jsx)(ImposterGame, {}),
+				mode === "snake" && /* @__PURE__ */ (0, import_jsx_runtime.jsx)(SnakeGame, {})
 			]
 		})]
 	});
@@ -85,10 +88,9 @@ function GameMenu({ onSelectGame }) {
 				children: [
 					{
 						id: "imposter",
-						title: "Imposter Finder 🕵️‍♂️",
-						desc: "Find the sus classmate before they sabotage the group project!",
+						title: "Imposter Party 🕵️‍♂️",
+						desc: "Local pass-and-play party game with your classmates!",
 						primaryEmoji: "🕵️‍♂️",
-						secondaryEmoji: "🤫",
 						color: "bg-indigo-50 dark:bg-indigo-950/30 text-indigo-deep border border-indigo-100/30 dark:border-indigo-900/30"
 					},
 					{
@@ -96,7 +98,6 @@ function GameMenu({ onSelectGame }) {
 						title: "Panda vs Robot",
 						desc: "Play Tic Tac Toe against an AI Bot in your boring class!",
 						primaryEmoji: "🤖",
-						secondaryEmoji: "🧸",
 						color: "bg-red-50 dark:bg-red-950/30 text-red-900 border border-red-100/30 dark:border-red-900/30"
 					},
 					{
@@ -104,7 +105,6 @@ function GameMenu({ onSelectGame }) {
 						title: "Emoji Match",
 						desc: "Test your memory limit by pairing cute campus emojis!",
 						primaryEmoji: "🃏",
-						secondaryEmoji: "🧠",
 						color: "bg-emerald-50 dark:bg-emerald-950/30 text-emerald-900 border border-emerald-100/30 dark:border-emerald-900/30"
 					},
 					{
@@ -112,8 +112,14 @@ function GameMenu({ onSelectGame }) {
 						title: "Campus Word Guess",
 						desc: "Unscramble campus & teacher names from SJCET!",
 						primaryEmoji: "🏫",
-						secondaryEmoji: "📝",
 						color: "bg-amber-50 dark:bg-amber-950/30 text-amber-900 border border-amber-100/30 dark:border-amber-900/30"
+					},
+					{
+						id: "snake",
+						title: "Campus Snake 🐍",
+						desc: "Eat delicious college foods like Porotta & Chai to grow longer!",
+						primaryEmoji: "🐍",
+						color: "bg-teal-50 dark:bg-teal-950/30 text-teal-900 border border-teal-100/30 dark:border-teal-900/30"
 					}
 				].map((g) => /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("button", {
 					onClick: () => onSelectGame(g.id),
@@ -1803,6 +1809,348 @@ function ImposterGame() {
 				})]
 			})
 		]
+	});
+}
+var CAMPUS_FOODS = [
+	{
+		emoji: "🥞",
+		name: "Porotta"
+	},
+	{
+		emoji: "🍗",
+		name: "Biriyani"
+	},
+	{
+		emoji: "☕",
+		name: "Sulaimani"
+	},
+	{
+		emoji: "🥥",
+		name: "Puttu"
+	},
+	{
+		emoji: "🍌",
+		name: "Banana"
+	},
+	{
+		emoji: "🥩",
+		name: "BeefFry"
+	},
+	{
+		emoji: "🍩",
+		name: "Neyyappam"
+	},
+	{
+		emoji: "🥪",
+		name: "Puffs"
+	},
+	{
+		emoji: "🥣",
+		name: "Kanji"
+	}
+];
+var SNAKE_GRID_SIZE = 15;
+function SnakeGame() {
+	const [snake, setSnake] = (0, import_react.useState)([
+		{
+			x: 7,
+			y: 7
+		},
+		{
+			x: 7,
+			y: 8
+		},
+		{
+			x: 7,
+			y: 9
+		}
+	]);
+	const [food, setFood] = (0, import_react.useState)({
+		x: 7,
+		y: 3
+	});
+	const [foodIndex, setFoodIndex] = (0, import_react.useState)(0);
+	const [direction, setDirection] = (0, import_react.useState)("UP");
+	const [isGameOver, setIsGameOver] = (0, import_react.useState)(false);
+	const [isPlaying, setIsPlaying] = (0, import_react.useState)(false);
+	const [score, setScore] = (0, import_react.useState)(0);
+	const [highScore, setHighScore] = (0, import_react.useState)(0);
+	(0, import_react.useEffect)(() => {
+		const saved = localStorage.getItem("sjcet_snake_highscore");
+		if (saved) setHighScore(parseInt(saved, 10));
+	}, []);
+	const spawnFood = (currentSnake) => {
+		let newFood;
+		while (true) {
+			newFood = {
+				x: Math.floor(Math.random() * SNAKE_GRID_SIZE),
+				y: Math.floor(Math.random() * SNAKE_GRID_SIZE)
+			};
+			if (!currentSnake.some((s) => s.x === newFood.x && s.y === newFood.y)) break;
+		}
+		setFood(newFood);
+		setFoodIndex(Math.floor(Math.random() * CAMPUS_FOODS.length));
+	};
+	const startNewGame = () => {
+		setSnake([
+			{
+				x: 7,
+				y: 7
+			},
+			{
+				x: 7,
+				y: 8
+			},
+			{
+				x: 7,
+				y: 9
+			}
+		]);
+		setFood({
+			x: 7,
+			y: 3
+		});
+		setFoodIndex(Math.floor(Math.random() * CAMPUS_FOODS.length));
+		setDirection("UP");
+		setIsGameOver(false);
+		setIsPlaying(true);
+		setScore(0);
+	};
+	const handleDirectionChange = (newDir) => {
+		setDirection((currDir) => {
+			if (newDir === "UP" && currDir === "DOWN") return currDir;
+			if (newDir === "DOWN" && currDir === "UP") return currDir;
+			if (newDir === "LEFT" && currDir === "RIGHT") return currDir;
+			if (newDir === "RIGHT" && currDir === "LEFT") return currDir;
+			return newDir;
+		});
+	};
+	const moveSnake = () => {
+		setSnake((prevSnake) => {
+			const head = prevSnake[0];
+			let dx = 0;
+			let dy = 0;
+			switch (direction) {
+				case "UP":
+					dy = -1;
+					break;
+				case "DOWN":
+					dy = 1;
+					break;
+				case "LEFT":
+					dx = -1;
+					break;
+				case "RIGHT":
+					dx = 1;
+					break;
+			}
+			const newHead = {
+				x: (head.x + dx + SNAKE_GRID_SIZE) % SNAKE_GRID_SIZE,
+				y: (head.y + dy + SNAKE_GRID_SIZE) % SNAKE_GRID_SIZE
+			};
+			if (prevSnake.some((segment) => segment.x === newHead.x && segment.y === newHead.y)) {
+				setIsGameOver(true);
+				return prevSnake;
+			}
+			const newSnake = [newHead, ...prevSnake];
+			if (newHead.x === food.x && newHead.y === food.y) {
+				setScore((s) => {
+					const nextScore = s + 10;
+					if (nextScore > highScore) {
+						setHighScore(nextScore);
+						localStorage.setItem("sjcet_snake_highscore", nextScore.toString());
+					}
+					return nextScore;
+				});
+				spawnFood(newSnake);
+			} else newSnake.pop();
+			return newSnake;
+		});
+	};
+	(0, import_react.useEffect)(() => {
+		if (!isPlaying || isGameOver) return;
+		const gameInterval = setInterval(() => {
+			moveSnake();
+		}, 160);
+		return () => clearInterval(gameInterval);
+	}, [
+		isPlaying,
+		isGameOver,
+		direction
+	]);
+	(0, import_react.useEffect)(() => {
+		const handleKeyDown = (e) => {
+			if (isGameOver || !isPlaying) return;
+			switch (e.key) {
+				case "ArrowUp":
+				case "w":
+				case "W":
+					handleDirectionChange("UP");
+					break;
+				case "ArrowDown":
+				case "s":
+				case "S":
+					handleDirectionChange("DOWN");
+					break;
+				case "ArrowLeft":
+				case "a":
+				case "A":
+					handleDirectionChange("LEFT");
+					break;
+				case "ArrowRight":
+				case "d":
+				case "D":
+					handleDirectionChange("RIGHT");
+					break;
+			}
+		};
+		window.addEventListener("keydown", handleKeyDown);
+		return () => window.removeEventListener("keydown", handleKeyDown);
+	}, [isPlaying, isGameOver]);
+	const renderCells = () => {
+		const cells = [];
+		for (let r = 0; r < SNAKE_GRID_SIZE; r++) for (let c = 0; c < SNAKE_GRID_SIZE; c++) {
+			const isHead = snake[0].x === c && snake[0].y === r;
+			const isBody = snake.slice(1).some((segment) => segment.x === c && segment.y === r);
+			const isFood = food.x === c && food.y === r;
+			cells.push(/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+				className: "flex items-center justify-center aspect-square text-xs select-none",
+				children: [
+					isHead && /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
+						className: "text-[14px]",
+						children: "🐍"
+					}),
+					isBody && /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { className: "w-[85%] h-[85%] rounded-[6px] bg-emerald-500 border border-emerald-600/30 scale-95" }),
+					isFood && /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
+						className: "text-[14px] animate-pulse",
+						children: CAMPUS_FOODS[foodIndex].emoji
+					}),
+					!isHead && !isBody && !isFood && /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { className: "w-1 h-1 rounded-full bg-slate-800/40" })
+				]
+			}, `${r}-${c}`));
+		}
+		return cells;
+	};
+	return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+		className: "space-y-4 max-w-sm mx-auto py-2",
+		children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+			className: "flex justify-between items-center bg-surface border border-border/60 p-3.5 rounded-2xl text-xs font-bold shadow-xs",
+			children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("span", {
+				className: "text-ink-soft",
+				children: ["Score: ", /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
+					className: "text-emerald-600 dark:text-emerald-400 font-extrabold text-sm",
+					children: score
+				})]
+			}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("span", {
+				className: "text-ink-soft",
+				children: ["Best: ", /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
+					className: "text-indigo font-extrabold text-sm",
+					children: highScore
+				})]
+			})]
+		}), !isPlaying ? /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+			className: "rounded-[28px] border border-border/60 bg-surface p-6 shadow-sm text-center space-y-4",
+			children: [
+				/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+					className: "text-5xl animate-pulse",
+					children: "🐍🥞"
+				}),
+				/* @__PURE__ */ (0, import_jsx_runtime.jsx)("h3", {
+					className: "font-display text-lg font-bold text-ink",
+					children: "Campus Snake"
+				}),
+				/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+					className: "text-xs text-ink-soft leading-relaxed px-4",
+					children: "Eat delicious SJCET college food items like Porotta, Puttu & Chai to grow longer!"
+				}),
+				/* @__PURE__ */ (0, import_jsx_runtime.jsx)("button", {
+					onClick: startNewGame,
+					className: "w-full py-3.5 rounded-2xl bg-indigo-deep text-white font-display font-bold text-sm shadow-md active:scale-95 transition",
+					children: "Start Eating 🚀"
+				})
+			]
+		}) : /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+			className: "space-y-4",
+			children: [
+				/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+					className: "rounded-[28px] bg-slate-900 border-[6px] border-slate-950 p-2 shadow-inner relative overflow-hidden aspect-square w-full max-w-[280px] mx-auto",
+					children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+						style: {
+							display: "grid",
+							gridTemplateColumns: "repeat(15, minmax(0, 1fr))",
+							gridTemplateRows: "repeat(15, minmax(0, 1fr))"
+						},
+						className: "w-full h-full",
+						children: renderCells()
+					}), isGameOver && /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+						className: "absolute inset-0 bg-slate-950/80 backdrop-blur-xs flex flex-col items-center justify-center text-center p-4",
+						children: [
+							/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
+								className: "text-4xl",
+								children: "😵‍💫💥"
+							}),
+							/* @__PURE__ */ (0, import_jsx_runtime.jsx)("h4", {
+								className: "font-display text-lg font-bold text-white mt-3",
+								children: "Game Over!"
+							}),
+							/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("p", {
+								className: "text-xs text-slate-400 mt-1",
+								children: ["You bit yourself! final score: ", score]
+							}),
+							/* @__PURE__ */ (0, import_jsx_runtime.jsx)("button", {
+								onClick: startNewGame,
+								className: "mt-4 px-5 py-2.5 bg-indigo text-white text-xs font-bold rounded-xl active:scale-95 transition",
+								children: "Play Again 🚀"
+							})
+						]
+					})]
+				}),
+				/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+					className: "text-center text-[10px] font-bold uppercase text-ink-soft/60",
+					children: ["Next Snack: ", /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("span", {
+						className: "text-indigo",
+						children: [
+							CAMPUS_FOODS[foodIndex].name,
+							" ",
+							CAMPUS_FOODS[foodIndex].emoji
+						]
+					})]
+				}),
+				/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+					className: "grid grid-cols-3 gap-2.5 w-36 mx-auto mt-2",
+					children: [
+						/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {}),
+						/* @__PURE__ */ (0, import_jsx_runtime.jsx)("button", {
+							onClick: () => handleDirectionChange("UP"),
+							className: "w-11 h-11 bg-surface border border-border/80 flex items-center justify-center rounded-2xl active:scale-90 transition shadow-xs text-ink",
+							children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(ArrowUp, { className: "h-5 w-5" })
+						}),
+						/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {}),
+						/* @__PURE__ */ (0, import_jsx_runtime.jsx)("button", {
+							onClick: () => handleDirectionChange("LEFT"),
+							className: "w-11 h-11 bg-surface border border-border/80 flex items-center justify-center rounded-2xl active:scale-90 transition shadow-xs text-ink",
+							children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(ArrowLeft, { className: "h-5 w-5" })
+						}),
+						/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+							className: "w-11 h-11 flex items-center justify-center text-xs font-bold text-ink-soft opacity-30",
+							children: "🕹️"
+						}),
+						/* @__PURE__ */ (0, import_jsx_runtime.jsx)("button", {
+							onClick: () => handleDirectionChange("RIGHT"),
+							className: "w-11 h-11 bg-surface border border-border/80 flex items-center justify-center rounded-2xl active:scale-90 transition shadow-xs text-ink",
+							children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(ArrowRight, { className: "h-5 w-5" })
+						}),
+						/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {}),
+						/* @__PURE__ */ (0, import_jsx_runtime.jsx)("button", {
+							onClick: () => handleDirectionChange("DOWN"),
+							className: "w-11 h-11 bg-surface border border-border/80 flex items-center justify-center rounded-2xl active:scale-90 transition shadow-xs text-ink",
+							children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(ArrowDown, { className: "h-5 w-5" })
+						}),
+						/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {})
+					]
+				})
+			]
+		})]
 	});
 }
 var rows = [

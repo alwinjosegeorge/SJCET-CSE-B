@@ -115,6 +115,19 @@ var createLucideIcon = (iconName, iconNode) => {
 * This source code is licensed under the ISC license.
 * See the LICENSE file in the root directory of this source tree.
 */
+var ArrowDown = createLucideIcon("arrow-down", [["path", {
+	d: "M12 5v14",
+	key: "s699le"
+}], ["path", {
+	d: "m19 12-7 7-7-7",
+	key: "1idqje"
+}]]);
+/**
+* @license lucide-react v0.575.0 - ISC
+*
+* This source code is licensed under the ISC license.
+* See the LICENSE file in the root directory of this source tree.
+*/
 var ArrowLeft = createLucideIcon("arrow-left", [["path", {
 	d: "m12 19-7-7 7-7",
 	key: "1l729n"
@@ -128,12 +141,38 @@ var ArrowLeft = createLucideIcon("arrow-left", [["path", {
 * This source code is licensed under the ISC license.
 * See the LICENSE file in the root directory of this source tree.
 */
+var ArrowRight = createLucideIcon("arrow-right", [["path", {
+	d: "M5 12h14",
+	key: "1ays0h"
+}], ["path", {
+	d: "m12 5 7 7-7 7",
+	key: "xquz4c"
+}]]);
+/**
+* @license lucide-react v0.575.0 - ISC
+*
+* This source code is licensed under the ISC license.
+* See the LICENSE file in the root directory of this source tree.
+*/
 var ArrowUpRight = createLucideIcon("arrow-up-right", [["path", {
 	d: "M7 7h10v10",
 	key: "1tivn9"
 }], ["path", {
 	d: "M7 17 17 7",
 	key: "1vkiza"
+}]]);
+/**
+* @license lucide-react v0.575.0 - ISC
+*
+* This source code is licensed under the ISC license.
+* See the LICENSE file in the root directory of this source tree.
+*/
+var ArrowUp = createLucideIcon("arrow-up", [["path", {
+	d: "m5 12 7-7 7 7",
+	key: "hav0vg"
+}], ["path", {
+	d: "M12 19V5",
+	key: "x0mq9r"
 }]]);
 /**
 * @license lucide-react v0.575.0 - ISC
@@ -620,4 +659,4 @@ var X = createLucideIcon("x", [["path", {
 	key: "d8bk6v"
 }]]);
 //#endregion
-export { ArrowUpRight as C, Bell as S, Coffee as _, Timer as a, CalendarDays as b, Settings as c, Moon as d, Layers as f, GraduationCap as g, Heart as h, Trophy as i, RotateCcw as l, House as m, Utensils as n, Sun as o, Info as p, UtensilsCrossed as r, Sparkles as s, X as t, Palette as u, CodeXml as v, ArrowLeft as w, BookOpen as x, Check as y };
+export { ArrowUp as C, ArrowDown as D, ArrowLeft as E, Bell as S, ArrowRight as T, Coffee as _, Timer as a, CalendarDays as b, Settings as c, Moon as d, Layers as f, GraduationCap as g, Heart as h, Trophy as i, RotateCcw as l, House as m, Utensils as n, Sun as o, Info as p, UtensilsCrossed as r, Sparkles as s, X as t, Palette as u, CodeXml as v, ArrowUpRight as w, BookOpen as x, Check as y };
