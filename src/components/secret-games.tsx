@@ -940,11 +940,9 @@ function ImposterGame() {
   const [eliminationConfirmPlayer, setEliminationConfirmPlayer] = useState<PartyPlayer | null>(null);
   const [winnerTeam, setWinnerTeam] = useState<"citizen" | "imposter" | null>(null);
 
-  // Initialize default player names when playerCount changes
+  // Initialize empty player names when playerCount changes
   useEffect(() => {
-    const list = [...DEFAULT_CANDIDATE_NAMES].sort(() => Math.random() - 0.5);
-    const newNames = Array(playerCount).fill("").map((_, i) => list[i % list.length]);
-    setPlayerNames(newNames);
+    setPlayerNames(Array(playerCount).fill(""));
   }, [playerCount]);
 
   const handleStartSetup = () => {
@@ -1144,7 +1142,7 @@ function ImposterGame() {
                     type="text"
                     value={name}
                     onChange={(e) => handleNameChange(idx, e.target.value)}
-                    placeholder={`Name ${idx + 1}`}
+                    placeholder={`Player ${idx + 1}`}
                     className="flex-1 px-3 py-2 rounded-xl border border-border/60 bg-surface text-xs font-bold text-ink focus:outline-none focus:border-indigo"
                   />
                 </div>

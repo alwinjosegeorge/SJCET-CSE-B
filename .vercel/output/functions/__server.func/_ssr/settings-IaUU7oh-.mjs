@@ -2,7 +2,7 @@ import { r as __toESM } from "../_runtime.mjs";
 import { n as require_jsx_runtime, r as require_react } from "../_libs/react+tanstack__react-query.mjs";
 import { S as Bell, d as Moon, h as Heart, i as Trophy, l as RotateCcw, o as Sun, p as Info, t as X, u as Palette, v as CodeXml, w as ArrowLeft } from "../_libs/lucide-react.mjs";
 import { t as AppShell } from "./app-shell-BTcutmU8.mjs";
-//#region node_modules/.nitro/vite/services/ssr/assets/settings-BGkWyrPB.js
+//#region node_modules/.nitro/vite/services/ssr/assets/settings-IaUU7oh-.js
 var import_react = /* @__PURE__ */ __toESM(require_react());
 var import_jsx_runtime = require_jsx_runtime();
 function SecretGames({ onClose }) {
@@ -1298,24 +1298,6 @@ var AVATAR_EMOJIS = [
 	"🦫",
 	"🦦"
 ];
-var DEFAULT_CANDIDATE_NAMES = [
-	"Joby",
-	"Sarju",
-	"Achayan",
-	"Harpic",
-	"Puttu",
-	"Bucket",
-	"Porotta",
-	"BeefFry",
-	"Mandan",
-	"Sigma",
-	"Vicks",
-	"Akshaya",
-	"Akshay",
-	"Alwin",
-	"Innocent",
-	"HOD"
-];
 function ImposterGame() {
 	const [phase, setPhase] = (0, import_react.useState)("welcome");
 	const [playerCount, setPlayerCount] = (0, import_react.useState)(6);
@@ -1328,9 +1310,7 @@ function ImposterGame() {
 	const [eliminationConfirmPlayer, setEliminationConfirmPlayer] = (0, import_react.useState)(null);
 	const [winnerTeam, setWinnerTeam] = (0, import_react.useState)(null);
 	(0, import_react.useEffect)(() => {
-		const list = [...DEFAULT_CANDIDATE_NAMES].sort(() => Math.random() - .5);
-		const newNames = Array(playerCount).fill("").map((_, i) => list[i % list.length]);
-		setPlayerNames(newNames);
+		setPlayerNames(Array(playerCount).fill(""));
 	}, [playerCount]);
 	const handleStartSetup = () => {
 		setPhase("players");
@@ -1508,7 +1488,7 @@ function ImposterGame() {
 								type: "text",
 								value: name,
 								onChange: (e) => handleNameChange(idx, e.target.value),
-								placeholder: `Name ${idx + 1}`,
+								placeholder: `Player ${idx + 1}`,
 								className: "flex-1 px-3 py-2 rounded-xl border border-border/60 bg-surface text-xs font-bold text-ink focus:outline-none focus:border-indigo"
 							})]
 						}, idx))
