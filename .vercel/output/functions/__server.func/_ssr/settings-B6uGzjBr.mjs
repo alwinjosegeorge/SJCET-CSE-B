@@ -2,7 +2,7 @@ import { r as __toESM } from "../_runtime.mjs";
 import { n as require_jsx_runtime, r as require_react } from "../_libs/react+tanstack__react-query.mjs";
 import { C as ArrowUp, D as ArrowDown, E as ArrowLeft, S as Bell, T as ArrowRight, d as Moon, h as Heart, i as Trophy, l as RotateCcw, o as Sun, p as Info, t as X, u as Palette, v as CodeXml } from "../_libs/lucide-react.mjs";
 import { t as AppShell } from "./app-shell-BTcutmU8.mjs";
-//#region node_modules/.nitro/vite/services/ssr/assets/settings-B2Y6o-bT.js
+//#region node_modules/.nitro/vite/services/ssr/assets/settings-B6uGzjBr.js
 var import_react = /* @__PURE__ */ __toESM(require_react());
 var import_jsx_runtime = require_jsx_runtime();
 function SecretGames({ onClose }) {
@@ -584,10 +584,6 @@ function WordScramble() {
 			hint: "Our engineering college acronym 🏫"
 		},
 		{
-			word: "STUDIO",
-			hint: "Codexora ____ 💻"
-		},
-		{
 			word: "NETWORKS",
 			hint: "Subject P1 starts with Computer ____ 🌐"
 		},
@@ -600,16 +596,20 @@ function WordScramble() {
 			hint: "Design and Analysis of ____ 🧩"
 		},
 		{
-			word: "CHAIPEDI",
-			hint: "Where we grab morning tea & snacks ☕🥐"
+			word: "MARADONA",
+			hint: "Our favorite hangout cafe for hot tea & snacks ☕"
 		},
 		{
-			word: "CODEXORA",
-			hint: "The name behind the studio 🎨"
+			word: "GANDHIJI",
+			hint: "Whose statue stands in our SJCET college campus? 🗿"
+		},
+		{
+			word: "JOBY",
+			hint: "Bald HOD whose head reflects sunlight like a solar panel! ☀️👨‍🦲"
 		},
 		{
 			word: "POROTTA",
-			hint: "The ultimate layered Kerala bread 🥞"
+			hint: "Canteen lile beef fry nte best combination item! 🥞"
 		},
 		{
 			word: "BEEFFRY",
@@ -628,20 +628,12 @@ function WordScramble() {
 			hint: "Where class group discussions happen ☕"
 		},
 		{
-			word: "BIRIYANI",
-			hint: "The king of festive food items! 🍗🍛"
-		},
-		{
 			word: "KSRTC",
 			hint: "Red and yellow government fast passenger bus 🚌"
 		},
 		{
 			word: "CHANDRIKA",
 			hint: "Our favorite traditional green soap 🧼"
-		},
-		{
-			word: "POONJAR",
-			hint: "The PC George legend location 🏞️"
 		},
 		{
 			word: "MEDIMIX",
