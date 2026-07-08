@@ -229,34 +229,6 @@ var Check = createLucideIcon("check", [["path", {
 * This source code is licensed under the ISC license.
 * See the LICENSE file in the root directory of this source tree.
 */
-var CircleAlert = createLucideIcon("circle-alert", [
-	["circle", {
-		cx: "12",
-		cy: "12",
-		r: "10",
-		key: "1mglay"
-	}],
-	["line", {
-		x1: "12",
-		x2: "12",
-		y1: "8",
-		y2: "12",
-		key: "1pkeuh"
-	}],
-	["line", {
-		x1: "12",
-		x2: "12.01",
-		y1: "16",
-		y2: "16",
-		key: "4dfq90"
-	}]
-]);
-/**
-* @license lucide-react v0.575.0 - ISC
-*
-* This source code is licensed under the ISC license.
-* See the LICENSE file in the root directory of this source tree.
-*/
 var CodeXml = createLucideIcon("code-xml", [
 	["path", {
 		d: "m18 16 4-4-4-4",
@@ -648,4 +620,4 @@ var X = createLucideIcon("x", [["path", {
 	key: "d8bk6v"
 }]]);
 //#endregion
-export { Bell as C, BookOpen as S, ArrowLeft as T, Coffee as _, Timer as a, Check as b, Settings as c, Moon as d, Layers as f, GraduationCap as g, Heart as h, Trophy as i, RotateCcw as l, House as m, Utensils as n, Sun as o, Info as p, UtensilsCrossed as r, Sparkles as s, X as t, Palette as u, CodeXml as v, ArrowUpRight as w, CalendarDays as x, CircleAlert as y };
+export { ArrowUpRight as C, Bell as S, Coffee as _, Timer as a, CalendarDays as b, Settings as c, Moon as d, Layers as f, GraduationCap as g, Heart as h, Trophy as i, RotateCcw as l, House as m, Utensils as n, Sun as o, Info as p, UtensilsCrossed as r, Sparkles as s, X as t, Palette as u, CodeXml as v, ArrowLeft as w, BookOpen as x, Check as y };

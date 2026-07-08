@@ -1,7 +1,7 @@
 import { r as __toESM } from "../_runtime.mjs";
 import { n as require_jsx_runtime, r as require_react } from "../_libs/react+tanstack__react-query.mjs";
 import { _ as useNavigate } from "../_libs/@tanstack/react-router+[...].mjs";
-import { _ as Coffee, d as Moon, o as Sun, r as UtensilsCrossed, s as Sparkles, w as ArrowUpRight } from "../_libs/lucide-react.mjs";
+import { C as ArrowUpRight, _ as Coffee, d as Moon, o as Sun, r as UtensilsCrossed, s as Sparkles } from "../_libs/lucide-react.mjs";
 import { l as fmt12, n as DAY_LABEL, s as computeNowState, t as AppShell } from "./app-shell-BTcutmU8.mjs";
 import { t as useNow } from "./use-now-DwH2zO-0.mjs";
 import { n as SubjectDetailsModal, t as ScheduleRow } from "./subject-details-modal-tWWnESba.mjs";

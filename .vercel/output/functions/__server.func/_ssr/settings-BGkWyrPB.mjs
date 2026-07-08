@@ -1,8 +1,8 @@
 import { r as __toESM } from "../_runtime.mjs";
 import { n as require_jsx_runtime, r as require_react } from "../_libs/react+tanstack__react-query.mjs";
-import { C as Bell, T as ArrowLeft, d as Moon, h as Heart, i as Trophy, l as RotateCcw, o as Sun, p as Info, t as X, u as Palette, v as CodeXml, y as CircleAlert } from "../_libs/lucide-react.mjs";
+import { S as Bell, d as Moon, h as Heart, i as Trophy, l as RotateCcw, o as Sun, p as Info, t as X, u as Palette, v as CodeXml, w as ArrowLeft } from "../_libs/lucide-react.mjs";
 import { t as AppShell } from "./app-shell-BTcutmU8.mjs";
-//#region node_modules/.nitro/vite/services/ssr/assets/settings-Bu0oJzsz.js
+//#region node_modules/.nitro/vite/services/ssr/assets/settings-BGkWyrPB.js
 var import_react = /* @__PURE__ */ __toESM(require_react());
 var import_jsx_runtime = require_jsx_runtime();
 function SecretGames({ onClose }) {
@@ -1273,372 +1273,508 @@ var IMPOSTER_POOL = [
 		]
 	}
 ];
+var PASTEL_COLORS = [
+	"bg-amber-100 dark:bg-amber-950/40 text-amber-900 dark:text-amber-100 border-amber-200 dark:border-amber-900/40",
+	"bg-red-50 dark:bg-red-950/40 text-red-900 dark:text-red-100 border-red-100 dark:border-red-900/40",
+	"bg-emerald-50 dark:bg-emerald-950/40 text-emerald-900 dark:text-emerald-100 border-emerald-100 dark:border-emerald-900/40",
+	"bg-blue-50 dark:bg-blue-950/40 text-blue-900 dark:text-blue-100 border-blue-100 dark:border-blue-900/40",
+	"bg-purple-50 dark:bg-purple-950/40 text-purple-900 dark:text-purple-100 border-purple-100 dark:border-purple-900/40",
+	"bg-pink-50 dark:bg-pink-950/40 text-pink-900 dark:text-pink-100 border-pink-100 dark:border-pink-900/40"
+];
+var AVATAR_EMOJIS = [
+	"🐼",
+	"🦊",
+	"🦖",
+	"🦁",
+	"🐨",
+	"🐯",
+	"🐵",
+	"🦄",
+	"🦥",
+	"🦉",
+	"🐧",
+	"🐙",
+	"👻",
+	"🦫",
+	"🦦"
+];
+var DEFAULT_CANDIDATE_NAMES = [
+	"Joby",
+	"Sarju",
+	"Achayan",
+	"Harpic",
+	"Puttu",
+	"Bucket",
+	"Porotta",
+	"BeefFry",
+	"Mandan",
+	"Sigma",
+	"Vicks",
+	"Akshaya",
+	"Akshay",
+	"Alwin",
+	"Innocent",
+	"HOD"
+];
 function ImposterGame() {
-	const [phase, setPhase] = (0, import_react.useState)("setup");
-	const [pair, setPair] = (0, import_react.useState)(IMPOSTER_POOL[0]);
-	const [players, setPlayers] = (0, import_react.useState)([]);
-	const [playerClueInput, setPlayerClueInput] = (0, import_react.useState)("");
+	const [phase, setPhase] = (0, import_react.useState)("welcome");
+	const [playerCount, setPlayerCount] = (0, import_react.useState)(6);
+	const [playerNames, setPlayerNames] = (0, import_react.useState)([]);
+	const [imposterCount, setImposterCount] = (0, import_react.useState)(1);
+	const [gamePlayers, setGamePlayers] = (0, import_react.useState)([]);
+	const [wordPair, setWordPair] = (0, import_react.useState)(IMPOSTER_POOL[0]);
+	const [currentRevealIdx, setCurrentRevealIdx] = (0, import_react.useState)(0);
+	const [revealState, setRevealState] = (0, import_react.useState)("hidden");
+	const [eliminationConfirmPlayer, setEliminationConfirmPlayer] = (0, import_react.useState)(null);
 	const [winnerTeam, setWinnerTeam] = (0, import_react.useState)(null);
-	const startNewGame = () => {
-		const selectedPair = IMPOSTER_POOL[Math.floor(Math.random() * IMPOSTER_POOL.length)];
-		setPair(selectedPair);
-		setPlayerClueInput("");
-		setWinnerTeam(null);
-		const roles = [
-			"citizen",
-			"citizen",
-			"citizen",
-			"imposter"
-		];
-		for (let i = roles.length - 1; i > 0; i--) {
-			const j = Math.floor(Math.random() * (i + 1));
-			[roles[i], roles[j]] = [roles[j], roles[i]];
-		}
-		const playerRole = roles[0];
-		const pandaRole = roles[1];
-		const dinoRole = roles[2];
-		const monsterRole = roles[3];
-		const getWord = (r) => r === "citizen" ? selectedPair.citizenWord : selectedPair.imposterWord;
-		const initialPlayers = [
-			{
-				id: "player",
-				name: "You (Detective)",
-				emoji: "🕵️‍♂️",
-				isBot: false,
-				role: playerRole,
-				word: getWord(playerRole),
-				clue: "",
-				votesReceived: 0
-			},
-			{
-				id: "panda",
-				name: "Panda Bot",
-				emoji: "🐼",
-				isBot: true,
-				role: pandaRole,
-				word: getWord(pandaRole),
-				clue: "",
-				votesReceived: 0
-			},
-			{
-				id: "dino",
-				name: "Dino Bot",
-				emoji: "🦖",
-				isBot: true,
-				role: dinoRole,
-				word: getWord(dinoRole),
-				clue: "",
-				votesReceived: 0
-			},
-			{
-				id: "monster",
-				name: "Monster Bot",
-				emoji: "👾",
-				isBot: true,
-				role: monsterRole,
-				word: getWord(monsterRole),
-				clue: "",
-				votesReceived: 0
-			}
-		];
-		setPlayers(initialPlayers);
-		setPhase("setup");
-	};
 	(0, import_react.useEffect)(() => {
-		startNewGame();
-	}, []);
-	const handleStartClues = () => {
-		const updatedPlayers = players.map((p) => {
-			if (!p.isBot) return p;
-			const poolClues = p.role === "citizen" ? pair.citizenClues : pair.imposterClues;
-			const randomClue = poolClues[Math.floor(Math.random() * poolClues.length)];
-			return {
-				...p,
-				clue: randomClue
-			};
-		});
-		setPlayers(updatedPlayers);
-		setPhase("clues");
+		const list = [...DEFAULT_CANDIDATE_NAMES].sort(() => Math.random() - .5);
+		const newNames = Array(playerCount).fill("").map((_, i) => list[i % list.length]);
+		setPlayerNames(newNames);
+	}, [playerCount]);
+	const handleStartSetup = () => {
+		setPhase("players");
 	};
-	const handlePlayerClueSubmit = (clueStr) => {
-		if (!clueStr.trim()) return;
-		const updatedPlayers = players.map((p) => {
-			if (p.id === "player") return {
-				...p,
-				clue: clueStr.trim()
-			};
-			return p;
-		});
-		setPlayers(updatedPlayers);
-		setPhase("voting");
+	const handleContinueToNames = () => {
+		setPhase("names");
 	};
-	const handleCastVote = (suspectId) => {
-		const updatedPlayers = players.map((p) => {
-			if (p.id === "player") return {
-				...p,
-				voteTarget: suspectId
-			};
-			return p;
-		});
-		const imposterPlayer = updatedPlayers.find((p) => p.role === "imposter");
-		const citizenPlayers = updatedPlayers.filter((p) => p.role === "citizen");
-		const finalPlayers = updatedPlayers.map((p) => {
-			if (!p.isBot) return p;
-			let targetId = "";
-			if (p.role === "imposter") {
-				const options = citizenPlayers.filter((c) => c.id !== p.id);
-				targetId = options[Math.floor(Math.random() * options.length)].id;
-			} else if (Math.random() < .65) targetId = imposterPlayer.id;
-			else {
-				const options = updatedPlayers.filter((o) => o.id !== p.id);
-				targetId = options[Math.floor(Math.random() * options.length)].id;
+	const handleNameChange = (idx, val) => {
+		const updated = [...playerNames];
+		updated[idx] = val;
+		setPlayerNames(updated);
+	};
+	const handleContinueToImposters = () => {
+		const cleanNames = playerNames.map((n, idx) => n.trim() ? n.trim() : `Player ${idx + 1}`);
+		setPlayerNames(cleanNames);
+		if (playerCount < 5) setImposterCount(1);
+		else if (playerCount < 8 && imposterCount > 2) setImposterCount(2);
+		setPhase("imposters");
+	};
+	const handleSetupGameData = () => {
+		const selectedPair = IMPOSTER_POOL[Math.floor(Math.random() * IMPOSTER_POOL.length)];
+		setWordPair(selectedPair);
+		const roles = Array(playerCount).fill("citizen");
+		let placedImposters = 0;
+		while (placedImposters < imposterCount) {
+			const idx = Math.floor(Math.random() * playerCount);
+			if (roles[idx] === "citizen") {
+				roles[idx] = "imposter";
+				placedImposters++;
 			}
+		}
+		const shuffledAvatars = [...AVATAR_EMOJIS].sort(() => Math.random() - .5);
+		const initialPlayers = playerNames.map((name, idx) => {
+			const role = roles[idx];
+			const word = role === "citizen" ? selectedPair.citizenWord : selectedPair.imposterWord;
 			return {
-				...p,
-				voteTarget: targetId
+				id: `player_${idx}`,
+				name,
+				emoji: shuffledAvatars[idx % shuffledAvatars.length],
+				colorClass: PASTEL_COLORS[idx % PASTEL_COLORS.length],
+				role,
+				word,
+				isEliminated: false
 			};
 		});
-		const voteCounts = {
-			player: 0,
-			panda: 0,
-			dino: 0,
-			monster: 0
-		};
-		finalPlayers.forEach((p) => {
-			if (p.voteTarget) voteCounts[p.voteTarget] += 1;
-		});
-		const withVotes = finalPlayers.map((p) => ({
-			...p,
-			votesReceived: voteCounts[p.id]
-		}));
-		let highestVoted = withVotes[0];
-		let tie = false;
-		for (let i = 1; i < withVotes.length; i++) if (withVotes[i].votesReceived > highestVoted.votesReceived) {
-			highestVoted = withVotes[i];
-			tie = false;
-		} else if (withVotes[i].votesReceived === highestVoted.votesReceived) tie = true;
-		setPlayers(withVotes);
-		if (!tie && highestVoted.role === "imposter") setWinnerTeam("citizen");
-		else setWinnerTeam("imposter");
+		setGamePlayers(initialPlayers);
+		setCurrentRevealIdx(0);
+		setRevealState("hidden");
+		setWinnerTeam(null);
 		setPhase("reveal");
 	};
-	const getPlayerCardCluesOptions = () => {
-		return players.find((p) => p.id === "player")?.role === "citizen" ? pair.citizenClues : pair.imposterClues;
+	const handleRevealCard = () => {
+		setRevealState("revealed");
+		if (typeof navigator !== "undefined" && navigator.vibrate) navigator.vibrate([60]);
 	};
+	const handleHideAndNext = () => {
+		setRevealState("hidden");
+		if (currentRevealIdx + 1 < playerCount) setCurrentRevealIdx((prev) => prev + 1);
+		else setPhase("gameplay");
+	};
+	const checkGameWinner = (currentPlayers) => {
+		const active = currentPlayers.filter((p) => !p.isEliminated);
+		const activeImposters = active.filter((p) => p.role === "imposter").length;
+		const activeCitizens = active.filter((p) => p.role === "citizen").length;
+		if (activeImposters === 0) {
+			setWinnerTeam("citizen");
+			setPhase("revealWinners");
+		} else if (activeImposters >= activeCitizens) {
+			setWinnerTeam("imposter");
+			setPhase("revealWinners");
+		}
+	};
+	const handleEliminatePlayer = (p) => {
+		setEliminationConfirmPlayer(p);
+	};
+	const confirmEliminate = () => {
+		if (!eliminationConfirmPlayer) return;
+		const updated = gamePlayers.map((p) => {
+			if (p.id === eliminationConfirmPlayer.id) return {
+				...p,
+				isEliminated: true
+			};
+			return p;
+		});
+		setGamePlayers(updated);
+		setEliminationConfirmPlayer(null);
+		checkGameWinner(updated);
+		if (typeof navigator !== "undefined" && navigator.vibrate) navigator.vibrate([100]);
+	};
+	const restartGame = () => {
+		setPhase("welcome");
+	};
+	const activeImposters = gamePlayers.filter((p) => p.role === "imposter" && !p.isEliminated).length;
+	const activeCitizens = gamePlayers.filter((p) => p.role === "citizen" && !p.isEliminated).length;
 	return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
 		className: "space-y-4 max-w-sm mx-auto py-2",
 		children: [
-			phase === "setup" && /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-				className: "space-y-5 text-center",
+			phase === "welcome" && /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+				className: "space-y-5 text-center py-6",
 				children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
 					className: "rounded-[28px] border border-border/60 bg-surface p-6 shadow-sm",
 					children: [
 						/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
-							className: "text-4xl",
+							className: "text-5xl animate-pulse",
 							children: "🕵️‍♂️🤫"
 						}),
 						/* @__PURE__ */ (0, import_jsx_runtime.jsx)("h3", {
-							className: "font-display text-lg font-bold text-ink mt-3",
-							children: "Your Secret Word Card"
+							className: "font-display text-xl font-extrabold text-ink mt-4",
+							children: "Imposter Party"
 						}),
 						/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
-							className: "text-xs text-ink-soft mt-1",
-							children: "Keep it hidden from others!"
-						}),
-						/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-							className: "my-6 p-4 rounded-2xl bg-indigo-deep text-white text-center",
-							children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("span", {
-								className: "text-[10px] font-bold bg-white/20 px-2 py-0.5 rounded uppercase",
-								children: ["Category: ", pair.category]
-							}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("h2", {
-								className: "font-display text-3xl font-black mt-3 tracking-wider",
-								children: players.find((p) => p.id === "player")?.word
-							})]
-						}),
-						/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-							className: "flex items-center justify-center gap-1.5 text-[11px] font-semibold text-ink-soft",
-							children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(CircleAlert, { className: "h-3.5 w-3.5 text-indigo shrink-0" }), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { children: "Are you a Citizen or the Undercover Imposter?" })]
+							className: "text-xs text-ink-soft mt-2 leading-relaxed",
+							children: "Pass-and-play party game with your classroom friends! Guess who holds the secret Imposter word card."
 						})
 					]
 				}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("button", {
-					onClick: handleStartClues,
+					onClick: handleStartSetup,
 					className: "w-full py-4 rounded-2xl bg-indigo-deep text-white font-display font-bold text-sm shadow-md active:scale-95 transition",
-					children: "Start Clue Round 🏁"
+					children: "Start Setup 🏁"
 				})]
 			}),
-			phase === "clues" && /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-				className: "space-y-4",
+			phase === "players" && /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+				className: "space-y-5 text-center py-4",
+				children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+					className: "rounded-[28px] border border-border/60 bg-surface p-6 shadow-sm space-y-4",
+					children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("h3", {
+						className: "font-display text-lg font-bold text-ink",
+						children: "How many players?"
+					}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+						className: "flex items-center justify-center gap-6 py-4",
+						children: [
+							/* @__PURE__ */ (0, import_jsx_runtime.jsx)("button", {
+								disabled: playerCount <= 3,
+								onClick: () => setPlayerCount((prev) => prev - 1),
+								className: "grid h-12 w-12 place-items-center rounded-2xl border border-border bg-surface text-2xl font-bold text-ink active:scale-90 transition disabled:opacity-40",
+								children: "-"
+							}),
+							/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
+								className: "font-display text-4xl font-black text-indigo",
+								children: playerCount
+							}),
+							/* @__PURE__ */ (0, import_jsx_runtime.jsx)("button", {
+								disabled: playerCount >= 12,
+								onClick: () => setPlayerCount((prev) => prev + 1),
+								className: "grid h-12 w-12 place-items-center rounded-2xl border border-border bg-surface text-2xl font-bold text-ink active:scale-90 transition disabled:opacity-40",
+								children: "+"
+							})
+						]
+					})]
+				}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("button", {
+					onClick: handleContinueToNames,
+					className: "w-full py-4 rounded-2xl bg-indigo-deep text-white font-display font-bold text-sm shadow-md active:scale-95 transition",
+					children: "Continue →"
+				})]
+			}),
+			phase === "names" && /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+				className: "space-y-5 py-2",
+				children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+					className: "rounded-[28px] border border-border/60 bg-surface p-5 shadow-sm space-y-4",
+					children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("h3", {
+						className: "font-display text-base font-bold text-ink text-center",
+						children: "Enter Player Names"
+					}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+						className: "space-y-2.5 max-h-[280px] overflow-y-auto pr-1 no-scrollbar",
+						children: playerNames.map((name, idx) => /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+							className: "flex items-center gap-3",
+							children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("span", {
+								className: "w-16 text-xs font-bold text-ink-soft",
+								children: [
+									"Player ",
+									idx + 1,
+									":"
+								]
+							}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("input", {
+								type: "text",
+								value: name,
+								onChange: (e) => handleNameChange(idx, e.target.value),
+								placeholder: `Name ${idx + 1}`,
+								className: "flex-1 px-3 py-2 rounded-xl border border-border/60 bg-surface text-xs font-bold text-ink focus:outline-none focus:border-indigo"
+							})]
+						}, idx))
+					})]
+				}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("button", {
+					onClick: handleContinueToImposters,
+					className: "w-full py-4 rounded-2xl bg-indigo-deep text-white font-display font-bold text-sm shadow-md active:scale-95 transition",
+					children: "Continue →"
+				})]
+			}),
+			phase === "imposters" && /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+				className: "space-y-5 text-center py-4",
+				children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+					className: "rounded-[28px] border border-border/60 bg-surface p-6 shadow-sm space-y-4",
+					children: [
+						/* @__PURE__ */ (0, import_jsx_runtime.jsx)("h3", {
+							className: "font-display text-lg font-bold text-ink",
+							children: "How many Imposters?"
+						}),
+						/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+							className: "text-xs text-ink-soft",
+							children: "Secret saboteurs in the class"
+						}),
+						/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+							className: "flex items-center justify-center gap-4 py-4",
+							children: [
+								1,
+								2,
+								3
+							].map((num) => {
+								if (!(num < playerCount - 1)) return null;
+								return /* @__PURE__ */ (0, import_jsx_runtime.jsx)("button", {
+									onClick: () => setImposterCount(num),
+									className: `h-14 w-14 rounded-2xl font-display text-lg font-extrabold flex items-center justify-center border transition active:scale-95 ${imposterCount === num ? "border-transparent bg-indigo-deep text-white shadow-md" : "border-border/60 bg-surface text-ink hover:border-indigo"}`,
+									children: num
+								}, num);
+							})
+						})
+					]
+				}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("button", {
+					onClick: handleSetupGameData,
+					className: "w-full py-4 rounded-2xl bg-indigo-deep text-white font-display font-bold text-sm shadow-md active:scale-95 transition",
+					children: "Generate Secret Cards 🎴"
+				})]
+			}),
+			phase === "reveal" && /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+				className: "space-y-6 text-center py-4",
+				children: revealState === "hidden" ? /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+					className: "space-y-6",
+					children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+						className: "rounded-[28px] border border-border/60 bg-surface p-8 shadow-sm text-center",
+						children: [
+							/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+								className: "text-[10px] font-bold uppercase tracking-wider text-ink-soft",
+								children: "Pass the phone to:"
+							}),
+							/* @__PURE__ */ (0, import_jsx_runtime.jsx)("h2", {
+								className: "font-display text-2xl font-black text-indigo mt-2",
+								children: gamePlayers[currentRevealIdx]?.name
+							}),
+							/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+								className: "mt-8 text-6xl animate-bounce",
+								children: "🎴"
+							}),
+							/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+								className: "text-xs text-ink-soft mt-8 leading-relaxed",
+								children: "Make sure no one else is looking, then tap the card to check your secret role!"
+							})
+						]
+					}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("button", {
+						onClick: handleRevealCard,
+						className: "w-full py-4 rounded-2xl bg-indigo-deep text-white font-display font-bold text-sm shadow-md active:scale-95 transition",
+						children: "Tap to Reveal Card 🔑"
+					})]
+				}) : /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+					className: "space-y-6",
+					children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+						className: "rounded-[28px] bg-indigo-deep p-6 text-white text-center shadow-lg relative overflow-hidden animate-slide-up",
+						children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { className: "absolute inset-0 bg-dots opacity-10" }), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+							className: "relative space-y-4",
+							children: [
+								/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+									className: "text-5xl",
+									children: gamePlayers[currentRevealIdx]?.emoji
+								}),
+								/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+									className: "text-[10px] font-bold uppercase tracking-wider text-white/60",
+									children: "Your Name"
+								}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("h2", {
+									className: "font-display text-xl font-black",
+									children: gamePlayers[currentRevealIdx]?.name
+								})] }),
+								/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+									className: "py-3 border-y border-white/10",
+									children: gamePlayers[currentRevealIdx]?.role === "citizen" ? /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
+										className: "inline-flex items-center gap-1.5 rounded-full bg-emerald-500/25 px-3 py-1 text-xs font-bold uppercase tracking-wider text-emerald-300",
+										children: "🟢 CREWMATE (Citizen)"
+									}) : /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
+										className: "inline-flex items-center gap-1.5 rounded-full bg-red-500/25 px-3 py-1 text-xs font-bold uppercase tracking-wider text-red-300",
+										children: "🔴 IMPOSTER (Undercover)"
+									})
+								}),
+								/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+									className: "py-2",
+									children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+										className: "text-[10px] font-bold uppercase tracking-wider text-white/60",
+										children: "Your Secret Word Card"
+									}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("h1", {
+										className: "font-display text-3xl font-black tracking-widest mt-1 uppercase text-butter",
+										children: gamePlayers[currentRevealIdx]?.word
+									})]
+								}),
+								/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+									className: "text-[10px] text-white/50 italic",
+									children: "Memorize the word and tap below to hide it immediately!"
+								})
+							]
+						})]
+					}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("button", {
+						onClick: handleHideAndNext,
+						className: "w-full py-4 rounded-2xl bg-indigo-deep text-white font-display font-bold text-sm shadow-md active:scale-95 transition",
+						children: "Hide Card & Continue 🤫"
+					})]
+				})
+			}),
+			phase === "gameplay" && /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+				className: "space-y-4 py-2",
 				children: [
 					/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-						className: "rounded-2xl border border-border/60 bg-surface p-4 text-center",
+						className: "rounded-2xl border border-border/60 bg-surface p-3.5 flex justify-between text-xs font-bold text-ink-soft",
 						children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("span", {
-							className: "text-[9px] font-bold bg-muted text-ink-soft px-2 py-0.5 rounded uppercase",
-							children: ["Topic: ", pair.category]
-						}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("h4", {
-							className: "text-xs font-bold text-ink-soft mt-2",
-							children: ["Your secret word is: ", /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
-								className: "text-indigo font-extrabold",
-								children: players.find((p) => p.id === "player")?.word
-							})]
+							className: "flex items-center gap-1",
+							children: ["🟢 Citizens: ", activeCitizens]
+						}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("span", {
+							className: "flex items-center gap-1",
+							children: ["🔴 Imposters: ", activeImposters]
 						})]
 					}),
 					/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
-						className: "space-y-3",
-						children: players.filter((p) => p.id !== "player").map((p) => /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-							className: "flex items-start gap-3",
-							children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
-								className: "grid h-9 w-9 shrink-0 place-items-center rounded-xl bg-muted text-xl border border-border/40",
-								children: p.emoji
-							}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-								className: "flex-1 bg-surface border border-border/60 rounded-2xl rounded-tl-none p-3 shadow-xs",
-								children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
-									className: "text-[10px] font-extrabold text-ink-soft",
+						className: "rounded-2xl bg-indigo-deep/5 border border-indigo/25 p-3.5 text-center text-xs font-semibold text-indigo",
+						children: "Take turns describing your word card in one word. Talk to each other, then vote who is faking it! 🕵️‍♂️💬"
+					}),
+					/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+						className: "grid grid-cols-2 gap-3",
+						children: gamePlayers.map((p) => /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+							onClick: () => !p.isEliminated && handleEliminatePlayer(p),
+							className: `relative border rounded-[22px] p-4 text-center transition-all duration-300 select-none ${p.isEliminated ? "border-border/40 bg-surface/50 opacity-40 scale-95" : `${p.colorClass} border-transparent shadow-xs cursor-pointer hover:scale-[1.015] active:scale-[0.985]`}`,
+							children: [
+								/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+									className: "text-4xl mb-2",
+									children: p.emoji
+								}),
+								/* @__PURE__ */ (0, import_jsx_runtime.jsx)("h4", {
+									className: "font-display text-sm font-bold truncate leading-tight",
 									children: p.name
-								}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("p", {
-									className: "text-sm font-bold text-indigo mt-1",
-									children: [
-										"\"",
-										p.clue,
-										"\""
-									]
-								})]
-							})]
+								}),
+								p.isEliminated ? /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
+									className: "mt-2 inline-flex items-center gap-1 rounded-full bg-slate-200/50 px-2 py-0.5 text-[8px] font-extrabold uppercase tracking-wider text-slate-500",
+									children: "💀 Voted Out"
+								}) : /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
+									className: "mt-2 inline-flex items-center gap-1 rounded-full bg-white/20 px-2 py-0.5 text-[8px] font-extrabold uppercase tracking-wider",
+									children: "Alive"
+								})
+							]
 						}, p.id))
 					}),
-					/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-						className: "pt-4 border-t border-border/40",
-						children: [
-							/* @__PURE__ */ (0, import_jsx_runtime.jsx)("h4", {
-								className: "text-xs font-bold text-ink mb-2",
-								children: "Select a clue word to share:"
-							}),
-							/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
-								className: "grid grid-cols-2 gap-2",
-								children: getPlayerCardCluesOptions().map((optClue) => /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("button", {
-									onClick: () => handlePlayerClueSubmit(optClue),
-									className: "px-3 py-2.5 rounded-xl border border-border/80 bg-surface hover:border-indigo text-xs font-bold text-ink transition active:scale-95 text-center",
+					eliminationConfirmPlayer && /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+						className: "fixed inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-xs p-5",
+						children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+							className: "w-full max-w-[280px] rounded-3xl bg-surface border border-border/80 p-5 text-center shadow-lg animate-slide-up",
+							children: [
+								/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+									className: "text-4xl",
+									children: eliminationConfirmPlayer.emoji
+								}),
+								/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("h3", {
+									className: "font-display text-base font-bold text-ink mt-3",
 									children: [
-										"\"",
-										optClue,
-										"\""
+										"Vote out ",
+										eliminationConfirmPlayer.name,
+										"?"
 									]
-								}, optClue))
-							}),
-							/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-								className: "mt-4",
-								children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
-									className: "text-[10px] font-semibold text-ink-soft text-center mb-1",
-									children: "— or write custom clue —"
-								}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("form", {
-									onSubmit: (e) => {
-										e.preventDefault();
-										handlePlayerClueSubmit(playerClueInput);
-									},
-									className: "flex gap-2",
-									children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("input", {
-										type: "text",
-										placeholder: "One word clue...",
-										value: playerClueInput,
-										onChange: (e) => setPlayerClueInput(e.target.value),
-										className: "flex-1 px-3 py-2.5 rounded-xl border border-border/60 bg-surface text-xs font-bold text-ink focus:outline-none"
+								}),
+								/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+									className: "text-xs text-ink-soft mt-1 leading-relaxed",
+									children: "This will reveal their secret role to everyone."
+								}),
+								/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+									className: "mt-5 flex gap-3.5",
+									children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("button", {
+										onClick: () => setEliminationConfirmPlayer(null),
+										className: "flex-1 py-2.5 rounded-xl border border-border/60 text-ink text-xs font-bold transition active:scale-95",
+										children: "Cancel"
 									}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("button", {
-										type: "submit",
-										className: "px-4 py-2 bg-indigo-deep text-white text-xs font-bold rounded-xl active:scale-95 transition",
-										children: "Send"
+										onClick: confirmEliminate,
+										className: "flex-1 py-2.5 rounded-xl bg-red-600 text-white text-xs font-bold transition active:scale-95",
+										children: "Yes, Vote Out"
 									})]
-								})]
-							})
-						]
+								})
+							]
+						})
 					})
 				]
 			}),
-			phase === "voting" && /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-				className: "space-y-4",
-				children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
-					className: "rounded-2xl bg-indigo-deep/5 border border-indigo/20 p-4 text-center text-xs font-bold text-indigo-deep",
-					children: "Look at everyone's clue card. Who has the \"Imposter\" word? 🕵️‍♂️🔍"
-				}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
-					className: "space-y-2.5",
-					children: players.map((p) => /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-						className: "flex items-center justify-between gap-3 bg-surface border border-border/60 rounded-3xl p-3.5",
-						children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-							className: "flex items-center gap-3 min-w-0",
-							children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
-								className: "grid h-10 w-10 shrink-0 place-items-center rounded-2xl bg-muted text-xl",
-								children: p.emoji
-							}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-								className: "min-w-0",
-								children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
-									className: "text-xs font-bold text-ink truncate",
-									children: p.name
-								}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("p", {
-									className: "text-[11px] font-semibold text-indigo mt-0.5",
-									children: [
-										"Clue: \"",
-										p.clue,
-										"\""
-									]
-								})]
-							})]
-						}), p.id !== "player" ? /* @__PURE__ */ (0, import_jsx_runtime.jsx)("button", {
-							onClick: () => handleCastVote(p.id),
-							className: "px-3.5 py-1.5 rounded-xl bg-indigo-deep text-white text-[10px] font-bold active:scale-95 transition",
-							children: "Suspect 🤨"
-						}) : /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
-							className: "text-[10px] font-bold text-ink-soft bg-muted px-2.5 py-1 rounded-xl",
-							children: "You"
-						})]
-					}, p.id))
-				})]
-			}),
-			phase === "reveal" && /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-				className: "space-y-5 text-center",
+			phase === "revealWinners" && /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+				className: "space-y-5 text-center py-4",
 				children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-					className: "rounded-[28px] border border-border/60 bg-surface p-6 shadow-sm",
+					className: "rounded-[28px] border border-border/60 bg-surface p-6 shadow-sm space-y-4",
 					children: [
 						/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
-							className: "text-5xl",
+							className: "text-5xl animate-bounce",
 							children: winnerTeam === "citizen" ? "🏆🎉" : "🤫👾"
 						}),
 						/* @__PURE__ */ (0, import_jsx_runtime.jsx)("h3", {
-							className: "font-display text-xl font-extrabold text-ink mt-4",
-							children: winnerTeam === "citizen" ? "Citizens Won! 🧑‍🎓" : "Imposter Won! 🤫"
+							className: "font-display text-xl font-extrabold text-ink",
+							children: winnerTeam === "citizen" ? "Crewmates Win! 🧑‍🎓" : "Imposters Win! 🤫"
 						}),
 						/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
-							className: "text-xs text-ink-soft mt-1.5 leading-relaxed",
-							children: winnerTeam === "citizen" ? "The imposter was successfully caught and kicked out of the group project!" : "The undercover imposter successfully fooled everyone and took all the credit!"
+							className: "text-xs text-ink-soft leading-relaxed",
+							children: winnerTeam === "citizen" ? "The citizens successfully identified and voted out all the hidden imposters!" : "The undercover imposters successfully survived and sabotaged the class!"
 						}),
 						/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-							className: "mt-6 border-t border-border/40 pt-4 space-y-2.5 text-left",
+							className: "border-t border-border/40 pt-4 text-left space-y-2.5",
 							children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("h4", {
 								className: "text-[10px] font-bold uppercase tracking-wider text-ink-soft",
-								children: "Everyone's Identity:"
-							}), players.map((p) => /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-								className: "flex items-center justify-between text-xs",
+								children: "The Imposters Were:"
+							}), gamePlayers.filter((p) => p.role === "imposter").map((p) => /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+								className: "flex items-center justify-between text-xs font-semibold",
 								children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("span", {
-									className: "font-bold flex items-center gap-1.5",
+									className: "flex items-center gap-1.5",
 									children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { children: p.emoji }), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { children: p.name })]
 								}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("span", {
-									className: "flex items-center gap-2",
-									children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("span", {
-										className: "font-semibold text-ink-soft",
-										children: [
-											"\"",
-											p.word,
-											"\""
-										]
-									}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
-										className: `px-2 py-0.5 rounded-lg text-[9px] font-extrabold uppercase ${p.role === "imposter" ? "bg-blush text-red-700 dark:text-red-400" : "bg-mint text-emerald-700 dark:text-emerald-400"}`,
-										children: p.role
-									})]
+									className: "text-red-600 dark:text-red-400 uppercase text-[10px] font-extrabold",
+									children: [
+										"\"",
+										p.word,
+										"\""
+									]
+								})]
+							}, p.id))]
+						}),
+						/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+							className: "border-t border-border/40 pt-4 text-left space-y-2.5",
+							children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("h4", {
+								className: "text-[10px] font-bold uppercase tracking-wider text-ink-soft",
+								children: "The Crewmates Were:"
+							}), gamePlayers.filter((p) => p.role === "citizen").map((p) => /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+								className: "flex items-center justify-between text-xs font-semibold",
+								children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("span", {
+									className: "flex items-center gap-1.5",
+									children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { children: p.emoji }), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { children: p.name })]
+								}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("span", {
+									className: "text-emerald-600 dark:text-emerald-400 uppercase text-[10px] font-extrabold",
+									children: [
+										"\"",
+										p.word,
+										"\""
+									]
 								})]
 							}, p.id))]
 						})
 					]
 				}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("button", {
-					onClick: startNewGame,
+					onClick: restartGame,
 					className: "w-full py-4 rounded-2xl bg-indigo-deep text-white font-display font-bold text-sm shadow-md active:scale-95 transition",
-					children: "Play Another Round 🚀"
+					children: "Play Again 🚀"
 				})]
 			})
 		]

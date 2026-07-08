@@ -898,376 +898,492 @@ const IMPOSTER_POOL: ImposterWordPair[] = [
   }
 ];
 
-type ImposterPhase = "setup" | "clues" | "voting" | "reveal";
+type ImposterPhase = "welcome" | "players" | "names" | "imposters" | "reveal" | "gameplay" | "revealWinners";
 
-interface ImposterPlayer {
+interface PartyPlayer {
   id: string;
   name: string;
   emoji: string;
-  isBot: boolean;
+  colorClass: string;
   role: "citizen" | "imposter";
   word: string;
-  clue: string;
-  voteTarget?: string;
-  votesReceived: number;
+  isEliminated: boolean;
 }
 
+const PASTEL_COLORS = [
+  "bg-amber-100 dark:bg-amber-950/40 text-amber-900 dark:text-amber-100 border-amber-200 dark:border-amber-900/40",
+  "bg-red-50 dark:bg-red-950/40 text-red-900 dark:text-red-100 border-red-100 dark:border-red-900/40",
+  "bg-emerald-50 dark:bg-emerald-950/40 text-emerald-900 dark:text-emerald-100 border-emerald-100 dark:border-emerald-900/40",
+  "bg-blue-50 dark:bg-blue-950/40 text-blue-900 dark:text-blue-100 border-blue-100 dark:border-blue-900/40",
+  "bg-purple-50 dark:bg-purple-950/40 text-purple-900 dark:text-purple-100 border-purple-100 dark:border-purple-900/40",
+  "bg-pink-50 dark:bg-pink-950/40 text-pink-900 dark:text-pink-100 border-pink-100 dark:border-pink-900/40"
+];
+
+const AVATAR_EMOJIS = ["🐼", "🦊", "🦖", "🦁", "🐨", "🐯", "🐵", "🦄", "🦥", "🦉", "🐧", "🐙", "👻", "🦫", "🦦"];
+
+const DEFAULT_CANDIDATE_NAMES = [
+  "Joby", "Sarju", "Achayan", "Harpic", "Puttu", "Bucket", "Porotta", "BeefFry",
+  "Mandan", "Sigma", "Vicks", "Akshaya", "Akshay", "Alwin", "Innocent", "HOD"
+];
+
 function ImposterGame() {
-  const [phase, setPhase] = useState<ImposterPhase>("setup");
-  const [pair, setPair] = useState<ImposterWordPair>(IMPOSTER_POOL[0]);
-  const [players, setPlayers] = useState<ImposterPlayer[]>([]);
-  const [playerClueInput, setPlayerClueInput] = useState("");
+  const [phase, setPhase] = useState<ImposterPhase>("welcome");
+  const [playerCount, setPlayerCount] = useState(6);
+  const [playerNames, setPlayerNames] = useState<string[]>([]);
+  const [imposterCount, setImposterCount] = useState(1);
+  
+  const [gamePlayers, setGamePlayers] = useState<PartyPlayer[]>([]);
+  const [wordPair, setWordPair] = useState<ImposterWordPair>(IMPOSTER_POOL[0]);
+  const [currentRevealIdx, setCurrentRevealIdx] = useState(0);
+  const [revealState, setRevealState] = useState<"hidden" | "revealed">("hidden");
+  
+  const [eliminationConfirmPlayer, setEliminationConfirmPlayer] = useState<PartyPlayer | null>(null);
   const [winnerTeam, setWinnerTeam] = useState<"citizen" | "imposter" | null>(null);
 
-  const startNewGame = () => {
-    const selectedPair = IMPOSTER_POOL[Math.floor(Math.random() * IMPOSTER_POOL.length)];
-    setPair(selectedPair);
-    setPlayerClueInput("");
-    setWinnerTeam(null);
-
-    const roles: ("citizen" | "imposter")[] = ["citizen", "citizen", "citizen", "imposter"];
-    for (let i = roles.length - 1; i > 0; i--) {
-      const j = Math.floor(Math.random() * (i + 1));
-      [roles[i], roles[j]] = [roles[j], roles[i]];
-    }
-
-    const playerRole = roles[0];
-    const pandaRole = roles[1];
-    const dinoRole = roles[2];
-    const monsterRole = roles[3];
-
-    const getWord = (r: "citizen" | "imposter") => 
-      r === "citizen" ? selectedPair.citizenWord : selectedPair.imposterWord;
-
-    const initialPlayers: ImposterPlayer[] = [
-      {
-        id: "player",
-        name: "You (Detective)",
-        emoji: "🕵️‍♂️",
-        isBot: false,
-        role: playerRole,
-        word: getWord(playerRole),
-        clue: "",
-        votesReceived: 0,
-      },
-      {
-        id: "panda",
-        name: "Panda Bot",
-        emoji: "🐼",
-        isBot: true,
-        role: pandaRole,
-        word: getWord(pandaRole),
-        clue: "",
-        votesReceived: 0,
-      },
-      {
-        id: "dino",
-        name: "Dino Bot",
-        emoji: "🦖",
-        isBot: true,
-        role: dinoRole,
-        word: getWord(dinoRole),
-        clue: "",
-        votesReceived: 0,
-      },
-      {
-        id: "monster",
-        name: "Monster Bot",
-        emoji: "👾",
-        isBot: true,
-        role: monsterRole,
-        word: getWord(monsterRole),
-        clue: "",
-        votesReceived: 0,
-      }
-    ];
-
-    setPlayers(initialPlayers);
-    setPhase("setup");
-  };
-
+  // Initialize default player names when playerCount changes
   useEffect(() => {
-    startNewGame();
-  }, []);
+    const list = [...DEFAULT_CANDIDATE_NAMES].sort(() => Math.random() - 0.5);
+    const newNames = Array(playerCount).fill("").map((_, i) => list[i % list.length]);
+    setPlayerNames(newNames);
+  }, [playerCount]);
 
-  const handleStartClues = () => {
-    const updatedPlayers = players.map(p => {
-      if (!p.isBot) return p;
-      const poolClues = p.role === "citizen" ? pair.citizenClues : pair.imposterClues;
-      const randomClue = poolClues[Math.floor(Math.random() * poolClues.length)];
-      return { ...p, clue: randomClue };
-    });
-
-    setPlayers(updatedPlayers);
-    setPhase("clues");
+  const handleStartSetup = () => {
+    setPhase("players");
   };
 
-  const handlePlayerClueSubmit = (clueStr: string) => {
-    if (!clueStr.trim()) return;
-
-    const updatedPlayers = players.map(p => {
-      if (p.id === "player") {
-        return { ...p, clue: clueStr.trim() };
-      }
-      return p;
-    });
-
-    setPlayers(updatedPlayers);
-    setPhase("voting");
+  const handleContinueToNames = () => {
+    setPhase("names");
   };
 
-  const handleCastVote = (suspectId: string) => {
-    const updatedPlayers = players.map(p => {
-      if (p.id === "player") {
-        return { ...p, voteTarget: suspectId };
-      }
-      return p;
-    });
+  const handleNameChange = (idx: number, val: string) => {
+    const updated = [...playerNames];
+    updated[idx] = val;
+    setPlayerNames(updated);
+  };
 
-    const imposterPlayer = updatedPlayers.find(p => p.role === "imposter")!;
-    const citizenPlayers = updatedPlayers.filter(p => p.role === "citizen");
-
-    const finalPlayers = updatedPlayers.map(p => {
-      if (!p.isBot) return p;
-
-      let targetId = "";
-      if (p.role === "imposter") {
-        const options = citizenPlayers.filter(c => c.id !== p.id);
-        targetId = options[Math.floor(Math.random() * options.length)].id;
-      } else {
-        if (Math.random() < 0.65) {
-          targetId = imposterPlayer.id;
-        } else {
-          const options = updatedPlayers.filter(o => o.id !== p.id);
-          targetId = options[Math.floor(Math.random() * options.length)].id;
-        }
-      }
-
-      return { ...p, voteTarget: targetId };
-    });
-
-    const voteCounts: Record<string, number> = {
-      player: 0,
-      panda: 0,
-      dino: 0,
-      monster: 0
-    };
-
-    finalPlayers.forEach(p => {
-      if (p.voteTarget) {
-        voteCounts[p.voteTarget] += 1;
-      }
-    });
-
-    const withVotes = finalPlayers.map(p => ({
-      ...p,
-      votesReceived: voteCounts[p.id]
-    }));
-
-    let highestVoted = withVotes[0];
-    let tie = false;
-    for (let i = 1; i < withVotes.length; i++) {
-      if (withVotes[i].votesReceived > highestVoted.votesReceived) {
-        highestVoted = withVotes[i];
-        tie = false;
-      } else if (withVotes[i].votesReceived === highestVoted.votesReceived) {
-        tie = true;
-      }
-    }
-
-    setPlayers(withVotes);
+  const handleContinueToImposters = () => {
+    // Validate names are not empty
+    const cleanNames = playerNames.map((n, idx) => n.trim() ? n.trim() : `Player ${idx + 1}`);
+    setPlayerNames(cleanNames);
     
-    if (!tie && highestVoted.role === "imposter") {
-      setWinnerTeam("citizen");
-    } else {
-      setWinnerTeam("imposter");
+    // Suggest imposter counts
+    if (playerCount < 5) {
+      setImposterCount(1);
+    } else if (playerCount < 8 && imposterCount > 2) {
+      setImposterCount(2);
+    }
+    setPhase("imposters");
+  };
+
+  const handleSetupGameData = () => {
+    // 1. Pick a random word pair
+    const selectedPair = IMPOSTER_POOL[Math.floor(Math.random() * IMPOSTER_POOL.length)];
+    setWordPair(selectedPair);
+
+    // 2. Assign roles
+    const roles: ("citizen" | "imposter")[] = Array(playerCount).fill("citizen");
+    let placedImposters = 0;
+    while (placedImposters < imposterCount) {
+      const idx = Math.floor(Math.random() * playerCount);
+      if (roles[idx] === "citizen") {
+        roles[idx] = "imposter";
+        placedImposters++;
+      }
     }
 
+    // 3. Create players
+    const shuffledAvatars = [...AVATAR_EMOJIS].sort(() => Math.random() - 0.5);
+    const initialPlayers: PartyPlayer[] = playerNames.map((name, idx) => {
+      const role = roles[idx];
+      const word = role === "citizen" ? selectedPair.citizenWord : selectedPair.imposterWord;
+      return {
+        id: `player_${idx}`,
+        name,
+        emoji: shuffledAvatars[idx % shuffledAvatars.length],
+        colorClass: PASTEL_COLORS[idx % PASTEL_COLORS.length],
+        role,
+        word,
+        isEliminated: false
+      };
+    });
+
+    setGamePlayers(initialPlayers);
+    setCurrentRevealIdx(0);
+    setRevealState("hidden");
+    setWinnerTeam(null);
     setPhase("reveal");
   };
 
-  const getPlayerCardCluesOptions = () => {
-    return players.find(p => p.id === "player")?.role === "citizen" 
-      ? pair.citizenClues 
-      : pair.imposterClues;
+  const handleRevealCard = () => {
+    setRevealState("revealed");
+    if (typeof navigator !== "undefined" && navigator.vibrate) {
+      navigator.vibrate([60]);
+    }
   };
+
+  const handleHideAndNext = () => {
+    setRevealState("hidden");
+    if (currentRevealIdx + 1 < playerCount) {
+      setCurrentRevealIdx(prev => prev + 1);
+    } else {
+      setPhase("gameplay");
+    }
+  };
+
+  const checkGameWinner = (currentPlayers: PartyPlayer[]) => {
+    const active = currentPlayers.filter(p => !p.isEliminated);
+    const activeImposters = active.filter(p => p.role === "imposter").length;
+    const activeCitizens = active.filter(p => p.role === "citizen").length;
+
+    if (activeImposters === 0) {
+      setWinnerTeam("citizen");
+      setPhase("revealWinners");
+    } else if (activeImposters >= activeCitizens) {
+      setWinnerTeam("imposter");
+      setPhase("revealWinners");
+    }
+  };
+
+  const handleEliminatePlayer = (p: PartyPlayer) => {
+    setEliminationConfirmPlayer(p);
+  };
+
+  const confirmEliminate = () => {
+    if (!eliminationConfirmPlayer) return;
+    
+    const updated = gamePlayers.map(p => {
+      if (p.id === eliminationConfirmPlayer.id) {
+        return { ...p, isEliminated: true };
+      }
+      return p;
+    });
+    
+    setGamePlayers(updated);
+    setEliminationConfirmPlayer(null);
+    checkGameWinner(updated);
+
+    if (typeof navigator !== "undefined" && navigator.vibrate) {
+      navigator.vibrate([100]);
+    }
+  };
+
+  const restartGame = () => {
+    setPhase("welcome");
+  };
+
+  const activeImposters = gamePlayers.filter(p => p.role === "imposter" && !p.isEliminated).length;
+  const activeCitizens = gamePlayers.filter(p => p.role === "citizen" && !p.isEliminated).length;
 
   return (
     <div className="space-y-4 max-w-sm mx-auto py-2">
-      {phase === "setup" && (
-        <div className="space-y-5 text-center">
+      
+      {/* 1. Welcome Screen */}
+      {phase === "welcome" && (
+        <div className="space-y-5 text-center py-6">
           <div className="rounded-[28px] border border-border/60 bg-surface p-6 shadow-sm">
-            <div className="text-4xl">🕵️‍♂️🤫</div>
-            <h3 className="font-display text-lg font-bold text-ink mt-3">Your Secret Word Card</h3>
-            <p className="text-xs text-ink-soft mt-1">Keep it hidden from others!</p>
-
-            <div className="my-6 p-4 rounded-2xl bg-indigo-deep text-white text-center">
-              <span className="text-[10px] font-bold bg-white/20 px-2 py-0.5 rounded uppercase">
-                Category: {pair.category}
-              </span>
-              <h2 className="font-display text-3xl font-black mt-3 tracking-wider">
-                {players.find(p => p.id === "player")?.word}
-              </h2>
-            </div>
-
-            <div className="flex items-center justify-center gap-1.5 text-[11px] font-semibold text-ink-soft">
-              <AlertCircle className="h-3.5 w-3.5 text-indigo shrink-0" />
-              <span>Are you a Citizen or the Undercover Imposter?</span>
-            </div>
+            <div className="text-5xl animate-pulse">🕵️‍♂️🤫</div>
+            <h3 className="font-display text-xl font-extrabold text-ink mt-4">Imposter Party</h3>
+            <p className="text-xs text-ink-soft mt-2 leading-relaxed">
+              Pass-and-play party game with your classroom friends! Guess who holds the secret Imposter word card.
+            </p>
           </div>
 
           <button
-            onClick={handleStartClues}
+            onClick={handleStartSetup}
             className="w-full py-4 rounded-2xl bg-indigo-deep text-white font-display font-bold text-sm shadow-md active:scale-95 transition"
           >
-            Start Clue Round 🏁
+            Start Setup 🏁
           </button>
         </div>
       )}
 
-      {phase === "clues" && (
-        <div className="space-y-4">
-          <div className="rounded-2xl border border-border/60 bg-surface p-4 text-center">
-            <span className="text-[9px] font-bold bg-muted text-ink-soft px-2 py-0.5 rounded uppercase">
-              Topic: {pair.category}
-            </span>
-            <h4 className="text-xs font-bold text-ink-soft mt-2">
-              Your secret word is: <span className="text-indigo font-extrabold">{players.find(p => p.id === "player")?.word}</span>
-            </h4>
-          </div>
-
-          <div className="space-y-3">
-            {players.filter(p => p.id !== "player").map(p => (
-              <div key={p.id} className="flex items-start gap-3">
-                <div className="grid h-9 w-9 shrink-0 place-items-center rounded-xl bg-muted text-xl border border-border/40">
-                  {p.emoji}
-                </div>
-                <div className="flex-1 bg-surface border border-border/60 rounded-2xl rounded-tl-none p-3 shadow-xs">
-                  <p className="text-[10px] font-extrabold text-ink-soft">{p.name}</p>
-                  <p className="text-sm font-bold text-indigo mt-1">"{p.clue}"</p>
-                </div>
-              </div>
-            ))}
-          </div>
-
-          <div className="pt-4 border-t border-border/40">
-            <h4 className="text-xs font-bold text-ink mb-2">Select a clue word to share:</h4>
-            <div className="grid grid-cols-2 gap-2">
-              {getPlayerCardCluesOptions().map((optClue) => (
-                <button
-                  key={optClue}
-                  onClick={() => handlePlayerClueSubmit(optClue)}
-                  className="px-3 py-2.5 rounded-xl border border-border/80 bg-surface hover:border-indigo text-xs font-bold text-ink transition active:scale-95 text-center"
-                >
-                  "{optClue}"
-                </button>
-              ))}
-            </div>
-            
-            <div className="mt-4">
-              <p className="text-[10px] font-semibold text-ink-soft text-center mb-1">— or write custom clue —</p>
-              <form 
-                onSubmit={(e) => {
-                  e.preventDefault();
-                  handlePlayerClueSubmit(playerClueInput);
-                }}
-                className="flex gap-2"
+      {/* 2. Number of Players */}
+      {phase === "players" && (
+        <div className="space-y-5 text-center py-4">
+          <div className="rounded-[28px] border border-border/60 bg-surface p-6 shadow-sm space-y-4">
+            <h3 className="font-display text-lg font-bold text-ink">How many players?</h3>
+            <div className="flex items-center justify-center gap-6 py-4">
+              <button
+                disabled={playerCount <= 3}
+                onClick={() => setPlayerCount(prev => prev - 1)}
+                className="grid h-12 w-12 place-items-center rounded-2xl border border-border bg-surface text-2xl font-bold text-ink active:scale-90 transition disabled:opacity-40"
               >
-                <input
-                  type="text"
-                  placeholder="One word clue..."
-                  value={playerClueInput}
-                  onChange={(e) => setPlayerClueInput(e.target.value)}
-                  className="flex-1 px-3 py-2.5 rounded-xl border border-border/60 bg-surface text-xs font-bold text-ink focus:outline-none"
-                />
-                <button
-                  type="submit"
-                  className="px-4 py-2 bg-indigo-deep text-white text-xs font-bold rounded-xl active:scale-95 transition"
-                >
-                  Send
-                </button>
-              </form>
+                -
+              </button>
+              <span className="font-display text-4xl font-black text-indigo">{playerCount}</span>
+              <button
+                disabled={playerCount >= 12}
+                onClick={() => setPlayerCount(prev => prev + 1)}
+                className="grid h-12 w-12 place-items-center rounded-2xl border border-border bg-surface text-2xl font-bold text-ink active:scale-90 transition disabled:opacity-40"
+              >
+                +
+              </button>
             </div>
           </div>
+
+          <button
+            onClick={handleContinueToNames}
+            className="w-full py-4 rounded-2xl bg-indigo-deep text-white font-display font-bold text-sm shadow-md active:scale-95 transition"
+          >
+            Continue →
+          </button>
         </div>
       )}
 
-      {phase === "voting" && (
-        <div className="space-y-4">
-          <div className="rounded-2xl bg-indigo-deep/5 border border-indigo/20 p-4 text-center text-xs font-bold text-indigo-deep">
-            Look at everyone's clue card. Who has the "Imposter" word? 🕵️‍♂️🔍
+      {/* 3. Enter Player Names */}
+      {phase === "names" && (
+        <div className="space-y-5 py-2">
+          <div className="rounded-[28px] border border-border/60 bg-surface p-5 shadow-sm space-y-4">
+            <h3 className="font-display text-base font-bold text-ink text-center">Enter Player Names</h3>
+            
+            <div className="space-y-2.5 max-h-[280px] overflow-y-auto pr-1 no-scrollbar">
+              {playerNames.map((name, idx) => (
+                <div key={idx} className="flex items-center gap-3">
+                  <span className="w-16 text-xs font-bold text-ink-soft">Player {idx + 1}:</span>
+                  <input
+                    type="text"
+                    value={name}
+                    onChange={(e) => handleNameChange(idx, e.target.value)}
+                    placeholder={`Name ${idx + 1}`}
+                    className="flex-1 px-3 py-2 rounded-xl border border-border/60 bg-surface text-xs font-bold text-ink focus:outline-none focus:border-indigo"
+                  />
+                </div>
+              ))}
+            </div>
           </div>
 
-          <div className="space-y-2.5">
-            {players.map(p => (
-              <div 
-                key={p.id}
-                className="flex items-center justify-between gap-3 bg-surface border border-border/60 rounded-3xl p-3.5"
-              >
-                <div className="flex items-center gap-3 min-w-0">
-                  <div className="grid h-10 w-10 shrink-0 place-items-center rounded-2xl bg-muted text-xl">
-                    {p.emoji}
-                  </div>
-                  <div className="min-w-0">
-                    <p className="text-xs font-bold text-ink truncate">{p.name}</p>
-                    <p className="text-[11px] font-semibold text-indigo mt-0.5">Clue: "{p.clue}"</p>
-                  </div>
-                </div>
+          <button
+            onClick={handleContinueToImposters}
+            className="w-full py-4 rounded-2xl bg-indigo-deep text-white font-display font-bold text-sm shadow-md active:scale-95 transition"
+          >
+            Continue →
+          </button>
+        </div>
+      )}
 
-                {p.id !== "player" ? (
+      {/* 4. Choose Number of Imposters */}
+      {phase === "imposters" && (
+        <div className="space-y-5 text-center py-4">
+          <div className="rounded-[28px] border border-border/60 bg-surface p-6 shadow-sm space-y-4">
+            <h3 className="font-display text-lg font-bold text-ink">How many Imposters?</h3>
+            <p className="text-xs text-ink-soft">Secret saboteurs in the class</p>
+            
+            <div className="flex items-center justify-center gap-4 py-4">
+              {[1, 2, 3].map((num) => {
+                const isPossible = num < playerCount - 1;
+                if (!isPossible) return null;
+                return (
                   <button
-                    onClick={() => handleCastVote(p.id)}
-                    className="px-3.5 py-1.5 rounded-xl bg-indigo-deep text-white text-[10px] font-bold active:scale-95 transition"
+                    key={num}
+                    onClick={() => setImposterCount(num)}
+                    className={`h-14 w-14 rounded-2xl font-display text-lg font-extrabold flex items-center justify-center border transition active:scale-95 ${
+                      imposterCount === num
+                        ? "border-transparent bg-indigo-deep text-white shadow-md"
+                        : "border-border/60 bg-surface text-ink hover:border-indigo"
+                    }`}
                   >
-                    Suspect 🤨
+                    {num}
                   </button>
+                );
+              })}
+            </div>
+          </div>
+
+          <button
+            onClick={handleSetupGameData}
+            className="w-full py-4 rounded-2xl bg-indigo-deep text-white font-display font-bold text-sm shadow-md active:scale-95 transition"
+          >
+            Generate Secret Cards 🎴
+          </button>
+        </div>
+      )}
+
+      {/* 5. Reveal Cards One by One */}
+      {phase === "reveal" && (
+        <div className="space-y-6 text-center py-4">
+          {revealState === "hidden" ? (
+            <div className="space-y-6">
+              <div className="rounded-[28px] border border-border/60 bg-surface p-8 shadow-sm text-center">
+                <p className="text-[10px] font-bold uppercase tracking-wider text-ink-soft">Pass the phone to:</p>
+                <h2 className="font-display text-2xl font-black text-indigo mt-2">
+                  {gamePlayers[currentRevealIdx]?.name}
+                </h2>
+                <div className="mt-8 text-6xl animate-bounce">🎴</div>
+                <p className="text-xs text-ink-soft mt-8 leading-relaxed">
+                  Make sure no one else is looking, then tap the card to check your secret role!
+                </p>
+              </div>
+
+              <button
+                onClick={handleRevealCard}
+                className="w-full py-4 rounded-2xl bg-indigo-deep text-white font-display font-bold text-sm shadow-md active:scale-95 transition"
+              >
+                Tap to Reveal Card 🔑
+              </button>
+            </div>
+          ) : (
+            <div className="space-y-6">
+              <div className="rounded-[28px] bg-indigo-deep p-6 text-white text-center shadow-lg relative overflow-hidden animate-slide-up">
+                <div className="absolute inset-0 bg-dots opacity-10" />
+                
+                <div className="relative space-y-4">
+                  <div className="text-5xl">{gamePlayers[currentRevealIdx]?.emoji}</div>
+                  
+                  <div>
+                    <p className="text-[10px] font-bold uppercase tracking-wider text-white/60">Your Name</p>
+                    <h2 className="font-display text-xl font-black">{gamePlayers[currentRevealIdx]?.name}</h2>
+                  </div>
+                  
+                  <div className="py-3 border-y border-white/10">
+                    {gamePlayers[currentRevealIdx]?.role === "citizen" ? (
+                      <span className="inline-flex items-center gap-1.5 rounded-full bg-emerald-500/25 px-3 py-1 text-xs font-bold uppercase tracking-wider text-emerald-300">
+                        🟢 CREWMATE (Citizen)
+                      </span>
+                    ) : (
+                      <span className="inline-flex items-center gap-1.5 rounded-full bg-red-500/25 px-3 py-1 text-xs font-bold uppercase tracking-wider text-red-300">
+                        🔴 IMPOSTER (Undercover)
+                      </span>
+                    )}
+                  </div>
+                  
+                  <div className="py-2">
+                    <p className="text-[10px] font-bold uppercase tracking-wider text-white/60">Your Secret Word Card</p>
+                    <h1 className="font-display text-3xl font-black tracking-widest mt-1 uppercase text-butter">
+                      {gamePlayers[currentRevealIdx]?.word}
+                    </h1>
+                  </div>
+
+                  <p className="text-[10px] text-white/50 italic">Memorize the word and tap below to hide it immediately!</p>
+                </div>
+              </div>
+
+              <button
+                onClick={handleHideAndNext}
+                className="w-full py-4 rounded-2xl bg-indigo-deep text-white font-display font-bold text-sm shadow-md active:scale-95 transition"
+              >
+                Hide Card & Continue 🤫
+              </button>
+            </div>
+          )}
+        </div>
+      )}
+
+      {/* 6. Active Gameplay List (Bento-style Grid) */}
+      {phase === "gameplay" && (
+        <div className="space-y-4 py-2">
+          {/* Top Info Bar */}
+          <div className="rounded-2xl border border-border/60 bg-surface p-3.5 flex justify-between text-xs font-bold text-ink-soft">
+            <span className="flex items-center gap-1">🟢 Citizens: {activeCitizens}</span>
+            <span className="flex items-center gap-1">🔴 Imposters: {activeImposters}</span>
+          </div>
+
+          <div className="rounded-2xl bg-indigo-deep/5 border border-indigo/25 p-3.5 text-center text-xs font-semibold text-indigo">
+            Take turns describing your word card in one word. Talk to each other, then vote who is faking it! 🕵️‍♂️💬
+          </div>
+
+          {/* Cards Grid */}
+          <div className="grid grid-cols-2 gap-3">
+            {gamePlayers.map((p) => (
+              <div
+                key={p.id}
+                onClick={() => !p.isEliminated && handleEliminatePlayer(p)}
+                className={`relative border rounded-[22px] p-4 text-center transition-all duration-300 select-none ${
+                  p.isEliminated
+                    ? "border-border/40 bg-surface/50 opacity-40 scale-95"
+                    : `${p.colorClass} border-transparent shadow-xs cursor-pointer hover:scale-[1.015] active:scale-[0.985]`
+                }`}
+              >
+                <div className="text-4xl mb-2">{p.emoji}</div>
+                <h4 className="font-display text-sm font-bold truncate leading-tight">{p.name}</h4>
+                
+                {p.isEliminated ? (
+                  <span className="mt-2 inline-flex items-center gap-1 rounded-full bg-slate-200/50 px-2 py-0.5 text-[8px] font-extrabold uppercase tracking-wider text-slate-500">
+                    💀 Voted Out
+                  </span>
                 ) : (
-                  <span className="text-[10px] font-bold text-ink-soft bg-muted px-2.5 py-1 rounded-xl">You</span>
+                  <span className="mt-2 inline-flex items-center gap-1 rounded-full bg-white/20 px-2 py-0.5 text-[8px] font-extrabold uppercase tracking-wider">
+                    Alive
+                  </span>
                 )}
               </div>
             ))}
           </div>
+
+          {/* Elimination Confirmation Dialog Overlay */}
+          {eliminationConfirmPlayer && (
+            <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-xs p-5">
+              <div className="w-full max-w-[280px] rounded-3xl bg-surface border border-border/80 p-5 text-center shadow-lg animate-slide-up">
+                <div className="text-4xl">{eliminationConfirmPlayer.emoji}</div>
+                <h3 className="font-display text-base font-bold text-ink mt-3">
+                  Vote out {eliminationConfirmPlayer.name}?
+                </h3>
+                <p className="text-xs text-ink-soft mt-1 leading-relaxed">
+                  This will reveal their secret role to everyone.
+                </p>
+                <div className="mt-5 flex gap-3.5">
+                  <button
+                    onClick={() => setEliminationConfirmPlayer(null)}
+                    className="flex-1 py-2.5 rounded-xl border border-border/60 text-ink text-xs font-bold transition active:scale-95"
+                  >
+                    Cancel
+                  </button>
+                  <button
+                    onClick={confirmEliminate}
+                    className="flex-1 py-2.5 rounded-xl bg-red-600 text-white text-xs font-bold transition active:scale-95"
+                  >
+                    Yes, Vote Out
+                  </button>
+                </div>
+              </div>
+            </div>
+          )}
         </div>
       )}
 
-      {phase === "reveal" && (
-        <div className="space-y-5 text-center">
-          <div className="rounded-[28px] border border-border/60 bg-surface p-6 shadow-sm">
-            <div className="text-5xl">
+      {/* 7. Reveal Winners */}
+      {phase === "revealWinners" && (
+        <div className="space-y-5 text-center py-4">
+          <div className="rounded-[28px] border border-border/60 bg-surface p-6 shadow-sm space-y-4">
+            <div className="text-5xl animate-bounce">
               {winnerTeam === "citizen" ? "🏆🎉" : "🤫👾"}
             </div>
             
-            <h3 className="font-display text-xl font-extrabold text-ink mt-4">
-              {winnerTeam === "citizen" 
-                ? "Citizens Won! 🧑‍🎓" 
-                : "Imposter Won! 🤫"
-              }
+            <h3 className="font-display text-xl font-extrabold text-ink">
+              {winnerTeam === "citizen" ? "Crewmates Win! 🧑‍🎓" : "Imposters Win! 🤫"}
             </h3>
-
-            <p className="text-xs text-ink-soft mt-1.5 leading-relaxed">
+            
+            <p className="text-xs text-ink-soft leading-relaxed">
               {winnerTeam === "citizen"
-                ? "The imposter was successfully caught and kicked out of the group project!"
-                : "The undercover imposter successfully fooled everyone and took all the credit!"
-              }
+                ? "The citizens successfully identified and voted out all the hidden imposters!"
+                : "The undercover imposters successfully survived and sabotaged the class!"
+            }
             </p>
 
-            <div className="mt-6 border-t border-border/40 pt-4 space-y-2.5 text-left">
-              <h4 className="text-[10px] font-bold uppercase tracking-wider text-ink-soft">Everyone's Identity:</h4>
-              {players.map(p => (
-                <div key={p.id} className="flex items-center justify-between text-xs">
-                  <span className="font-bold flex items-center gap-1.5">
+            <div className="border-t border-border/40 pt-4 text-left space-y-2.5">
+              <h4 className="text-[10px] font-bold uppercase tracking-wider text-ink-soft">The Imposters Were:</h4>
+              {gamePlayers.filter(p => p.role === "imposter").map(p => (
+                <div key={p.id} className="flex items-center justify-between text-xs font-semibold">
+                  <span className="flex items-center gap-1.5">
                     <span>{p.emoji}</span>
                     <span>{p.name}</span>
                   </span>
-                  <span className="flex items-center gap-2">
-                    <span className="font-semibold text-ink-soft">"{p.word}"</span>
-                    <span className={`px-2 py-0.5 rounded-lg text-[9px] font-extrabold uppercase ${
-                      p.role === "imposter" 
-                        ? "bg-blush text-red-700 dark:text-red-400" 
-                        : "bg-mint text-emerald-700 dark:text-emerald-400"
-                    }`}>
-                      {p.role}
-                    </span>
+                  <span className="text-red-600 dark:text-red-400 uppercase text-[10px] font-extrabold">
+                    "{p.word}"
+                  </span>
+                </div>
+              ))}
+            </div>
+
+            <div className="border-t border-border/40 pt-4 text-left space-y-2.5">
+              <h4 className="text-[10px] font-bold uppercase tracking-wider text-ink-soft">The Crewmates Were:</h4>
+              {gamePlayers.filter(p => p.role === "citizen").map(p => (
+                <div key={p.id} className="flex items-center justify-between text-xs font-semibold">
+                  <span className="flex items-center gap-1.5">
+                    <span>{p.emoji}</span>
+                    <span>{p.name}</span>
+                  </span>
+                  <span className="text-emerald-600 dark:text-emerald-400 uppercase text-[10px] font-extrabold">
+                    "{p.word}"
                   </span>
                 </div>
               ))}
@@ -1275,13 +1391,14 @@ function ImposterGame() {
           </div>
 
           <button
-            onClick={startNewGame}
+            onClick={restartGame}
             className="w-full py-4 rounded-2xl bg-indigo-deep text-white font-display font-bold text-sm shadow-md active:scale-95 transition"
           >
-            Play Another Round 🚀
+            Play Again 🚀
           </button>
         </div>
       )}
+
     </div>
   );
 }
