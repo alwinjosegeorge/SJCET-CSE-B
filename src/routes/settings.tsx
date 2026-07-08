@@ -1,7 +1,8 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { AppShell } from "@/components/app-shell";
-import { Info, Bell, Palette, Heart, Code2, Sun, Moon, Laptop } from "lucide-react";
+import { Info, Bell, Palette, Heart, Code2, Sun, Moon } from "lucide-react";
 import { useState, useEffect } from "react";
+import { SecretGames } from "@/components/secret-games";
 
 export const Route = createFileRoute("/settings")({
   head: () => ({
@@ -30,6 +31,8 @@ const rows = [
 function SettingsPage() {
   const [notificationsEnabled, setNotificationsEnabled] = useState(false);
   const [theme, setTheme] = useState<"light" | "dark">("light");
+  const [showGames, setShowGames] = useState(false);
+  const [tapCount, setTapCount] = useState(0);
 
   useEffect(() => {
     setNotificationsEnabled(
@@ -37,6 +40,21 @@ function SettingsPage() {
     );
     setTheme((localStorage.getItem("sjcet_theme") as any) || "light");
   }, []);
+
+  const handleHeaderTap = () => {
+    setTapCount((prev) => {
+      const next = prev + 1;
+      if (next >= 2) {
+        setShowGames(true);
+        if (typeof navigator !== "undefined" && navigator.vibrate) {
+          navigator.vibrate([80, 50, 80]);
+        }
+        return 0;
+      }
+      setTimeout(() => setTapCount(0), 800);
+      return next;
+    });
+  };
 
   const applyTheme = (targetTheme: "light" | "dark") => {
     if (targetTheme === "dark") {
@@ -87,12 +105,16 @@ function SettingsPage() {
           <p className="text-[11px] font-bold uppercase tracking-[0.22em] text-indigo">
             SJCET CSE-B ✦
           </p>
-          <h1 className="mt-1 font-display text-[28px] font-bold text-ink">
+          <h1
+            onClick={handleHeaderTap}
+            className="mt-1 font-display text-[28px] font-bold text-ink cursor-pointer select-none active:scale-[0.97] transition inline-flex items-center gap-1"
+          >
             Settings ⚙️
           </h1>
         </header>
       }
     >
+      {showGames && <SecretGames onClose={() => setShowGames(false)} />}
       <div className="space-y-2.5">
         {rows.map((r) => {
           const isLink = !!r.href;

@@ -115,6 +115,19 @@ var createLucideIcon = (iconName, iconNode) => {
 * This source code is licensed under the ISC license.
 * See the LICENSE file in the root directory of this source tree.
 */
+var ArrowLeft = createLucideIcon("arrow-left", [["path", {
+	d: "m12 19-7-7 7-7",
+	key: "1l729n"
+}], ["path", {
+	d: "M19 12H5",
+	key: "x3x0zl"
+}]]);
+/**
+* @license lucide-react v0.575.0 - ISC
+*
+* This source code is licensed under the ISC license.
+* See the LICENSE file in the root directory of this source tree.
+*/
 var ArrowUpRight = createLucideIcon("arrow-up-right", [["path", {
 	d: "M7 7h10v10",
 	key: "1tivn9"
@@ -395,6 +408,19 @@ var Palette = createLucideIcon("palette", [
 * This source code is licensed under the ISC license.
 * See the LICENSE file in the root directory of this source tree.
 */
+var RotateCcw = createLucideIcon("rotate-ccw", [["path", {
+	d: "M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8",
+	key: "1357e3"
+}], ["path", {
+	d: "M3 3v5h5",
+	key: "1xhq8a"
+}]]);
+/**
+* @license lucide-react v0.575.0 - ISC
+*
+* This source code is licensed under the ISC license.
+* See the LICENSE file in the root directory of this source tree.
+*/
 var Settings = createLucideIcon("settings", [["path", {
 	d: "M9.671 4.136a2.34 2.34 0 0 1 4.659 0 2.34 2.34 0 0 0 3.319 1.915 2.34 2.34 0 0 1 2.33 4.033 2.34 2.34 0 0 0 0 3.831 2.34 2.34 0 0 1-2.33 4.033 2.34 2.34 0 0 0-3.319 1.915 2.34 2.34 0 0 1-4.659 0 2.34 2.34 0 0 0-3.32-1.915 2.34 2.34 0 0 1-2.33-4.033 2.34 2.34 0 0 0 0-3.831A2.34 2.34 0 0 1 6.35 6.051a2.34 2.34 0 0 0 3.319-1.915",
 	key: "1i5ecw"
@@ -510,6 +536,38 @@ var Timer = createLucideIcon("timer", [
 * This source code is licensed under the ISC license.
 * See the LICENSE file in the root directory of this source tree.
 */
+var Trophy = createLucideIcon("trophy", [
+	["path", {
+		d: "M10 14.66v1.626a2 2 0 0 1-.976 1.696A5 5 0 0 0 7 21.978",
+		key: "1n3hpd"
+	}],
+	["path", {
+		d: "M14 14.66v1.626a2 2 0 0 0 .976 1.696A5 5 0 0 1 17 21.978",
+		key: "rfe1zi"
+	}],
+	["path", {
+		d: "M18 9h1.5a1 1 0 0 0 0-5H18",
+		key: "7xy6bh"
+	}],
+	["path", {
+		d: "M4 22h16",
+		key: "57wxv0"
+	}],
+	["path", {
+		d: "M6 9a6 6 0 0 0 12 0V3a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1z",
+		key: "1mhfuq"
+	}],
+	["path", {
+		d: "M6 9H4.5a1 1 0 0 1 0-5H6",
+		key: "tex48p"
+	}]
+]);
+/**
+* @license lucide-react v0.575.0 - ISC
+*
+* This source code is licensed under the ISC license.
+* See the LICENSE file in the root directory of this source tree.
+*/
 var UtensilsCrossed = createLucideIcon("utensils-crossed", [
 	["path", {
 		d: "m16 2-2.3 2.3a3 3 0 0 0 0 4.2l1.8 1.8a3 3 0 0 0 4.2 0L22 8",
@@ -562,4 +620,4 @@ var X = createLucideIcon("x", [["path", {
 	key: "d8bk6v"
 }]]);
 //#endregion
-export { Check as _, Sun as a, Bell as b, Palette as c, Info as d, House as f, CodeXml as g, Coffee as h, Timer as i, Moon as l, GraduationCap as m, Utensils as n, Sparkles as o, Heart as p, UtensilsCrossed as r, Settings as s, X as t, Layers as u, CalendarDays as v, ArrowUpRight as x, BookOpen as y };
+export { ArrowUpRight as C, Bell as S, Coffee as _, Timer as a, CalendarDays as b, Settings as c, Moon as d, Layers as f, GraduationCap as g, Heart as h, Trophy as i, RotateCcw as l, House as m, Utensils as n, Sun as o, Info as p, UtensilsCrossed as r, Sparkles as s, X as t, Palette as u, CodeXml as v, ArrowLeft as w, BookOpen as x, Check as y };

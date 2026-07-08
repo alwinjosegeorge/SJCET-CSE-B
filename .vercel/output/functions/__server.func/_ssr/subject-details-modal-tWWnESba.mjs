@@ -1,5 +1,5 @@
 import { n as require_jsx_runtime } from "../_libs/react+tanstack__react-query.mjs";
-import { _ as Check, h as Coffee, m as GraduationCap, o as Sparkles, r as UtensilsCrossed, t as X, u as Layers, y as BookOpen } from "../_libs/lucide-react.mjs";
+import { _ as Coffee, f as Layers, g as GraduationCap, r as UtensilsCrossed, s as Sparkles, t as X, x as BookOpen, y as Check } from "../_libs/lucide-react.mjs";
 import { l as fmt12, u as subjectEmoji } from "./app-shell-BTcutmU8.mjs";
 //#region node_modules/.nitro/vite/services/ssr/assets/subject-details-modal-tWWnESba.js
 var import_jsx_runtime = require_jsx_runtime();
