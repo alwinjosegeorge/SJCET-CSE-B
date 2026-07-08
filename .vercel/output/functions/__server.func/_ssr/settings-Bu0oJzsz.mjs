@@ -2,7 +2,7 @@ import { r as __toESM } from "../_runtime.mjs";
 import { n as require_jsx_runtime, r as require_react } from "../_libs/react+tanstack__react-query.mjs";
 import { C as Bell, T as ArrowLeft, d as Moon, h as Heart, i as Trophy, l as RotateCcw, o as Sun, p as Info, t as X, u as Palette, v as CodeXml, y as CircleAlert } from "../_libs/lucide-react.mjs";
 import { t as AppShell } from "./app-shell-BTcutmU8.mjs";
-//#region node_modules/.nitro/vite/services/ssr/assets/settings-DCmhKh4U.js
+//#region node_modules/.nitro/vite/services/ssr/assets/settings-Bu0oJzsz.js
 var import_react = /* @__PURE__ */ __toESM(require_react());
 var import_jsx_runtime = require_jsx_runtime();
 function SecretGames({ onClose }) {
@@ -441,6 +441,66 @@ function WordScramble() {
 		{
 			word: "CODEXORA",
 			hint: "The name behind the studio 🎨"
+		},
+		{
+			word: "POROTTA",
+			hint: "The ultimate layered Kerala bread 🥞"
+		},
+		{
+			word: "BEEFFRY",
+			hint: "Best combination with Porotta! 🥩🔥"
+		},
+		{
+			word: "PUTTU",
+			hint: "Cylinder-shaped steamed rice cake 🥥"
+		},
+		{
+			word: "SULAIMANI",
+			hint: "Black tea with a splash of lemon 🍋☕"
+		},
+		{
+			word: "TEAKADA",
+			hint: "Where class group discussions happen ☕"
+		},
+		{
+			word: "BIRIYANI",
+			hint: "The king of festive food items! 🍗🍛"
+		},
+		{
+			word: "KSRTC",
+			hint: "Red and yellow government fast passenger bus 🚌"
+		},
+		{
+			word: "CHANDRIKA",
+			hint: "Our favorite traditional green soap 🧼"
+		},
+		{
+			word: "POONJAR",
+			hint: "The PC George legend location 🏞️"
+		},
+		{
+			word: "MEDIMIX",
+			hint: "Herbal ayurvedic green soap 🌿"
+		},
+		{
+			word: "LABRECORD",
+			hint: "The booklet we write codes and diagrams in 📓"
+		},
+		{
+			word: "GRACEMARK",
+			hint: "Extra marks from NCC, NSS or Sports 🎁"
+		},
+		{
+			word: "KSEB",
+			hint: "Department responsible for classroom power cuts 🔌"
+		},
+		{
+			word: "AKSHAYA",
+			hint: "Where we print documents and pay fees 🏛️"
+		},
+		{
+			word: "ASSIGNMENT",
+			hint: "Handwritten sheets submitted at the last minute 📝"
 		}
 	];
 	const [level, setLevel] = (0, import_react.useState)(0);
@@ -683,6 +743,533 @@ var IMPOSTER_POOL = [
 			"Vercel 🚀",
 			"Developer 💻",
 			"Code 💻"
+		]
+	},
+	{
+		category: "Breakfast 🍛",
+		citizenWord: "PUTTU",
+		imposterWord: "KAPPA",
+		citizenClues: [
+			"Cylinder 🛢️",
+			"Coconut 🥥",
+			"Kadala 🧆",
+			"Steam 💨"
+		],
+		imposterClues: [
+			"Root 🪵",
+			"Fish curry 🐟",
+			"Chenda 🥁",
+			"Tapioca 🍠"
+		]
+	},
+	{
+		category: "Malabari Dinner 🍛",
+		citizenWord: "POROTTA",
+		imposterWord: "BIRIYANI",
+		citizenClues: [
+			"Layered 🥞",
+			"Maida 🌾",
+			"Beef 🥩",
+			"Keralite ❤️"
+		],
+		imposterClues: [
+			"Rice 🍚",
+			"Chicken 🍗",
+			"Masala 🌶️",
+			"Khaibar 🍛"
+		]
+	},
+	{
+		category: "Dinner 🍲",
+		citizenWord: "BEEFFRY",
+		imposterWord: "KANJI",
+		citizenClues: [
+			"Black 🖤",
+			"Coconut bits 🥥",
+			"Spicy 🥵",
+			"Porotta companion 🥞"
+		],
+		imposterClues: [
+			"Watery 🥣",
+			"Payar 🫘",
+			"Sick day 🤒",
+			"Rice bowl 🍚"
+		]
+	},
+	{
+		category: "Beverages 🥛",
+		citizenWord: "SULAIMANI",
+		imposterWord: "MORU",
+		citizenClues: [
+			"Black tea ☕",
+			"Lemon 🍋",
+			"Sweet 🍯",
+			"Biriyani ender 🍛"
+		],
+		imposterClues: [
+			"Sour 🥛",
+			"Ginger 🫚",
+			"Butter milk 🥛",
+			"Lunch drink 🍛"
+		]
+	},
+	{
+		category: "Snacks 🍩",
+		citizenWord: "NEYYAPPAM",
+		imposterWord: "PAPPADAM",
+		citizenClues: [
+			"Sweet 🍯",
+			"Fried 🍳",
+			"Rice flour 🌾",
+			"Dark brown 🟤"
+		],
+		imposterClues: [
+			"Thin 🫓",
+			"Crispy 🥨",
+			"Sadhya 🍛",
+			"Round ⭕"
+		]
+	},
+	{
+		category: "Internet 🌐",
+		citizenWord: "WIFI",
+		imposterWord: "HOTSPOT",
+		citizenClues: [
+			"Router 📡",
+			"Campus 🏫",
+			"Free 💸",
+			"Fast ⚡"
+		],
+		imposterClues: [
+			"Mobile 📱",
+			"Friend 🧑‍🤝‍🧑",
+			"Data limit 📉",
+			"Battery drain 🔋"
+		]
+	},
+	{
+		category: "Class Tricks 🤫",
+		citizenWord: "PROXY",
+		imposterWord: "ATTENDANCE",
+		citizenClues: [
+			"Fake 🤫",
+			"Friend help 🧑‍🤝‍🧑",
+			"Voice change 🗣️",
+			"Risk ⚠️"
+		],
+		imposterClues: [
+			"Sheet 📄",
+			"Biometric ☝️",
+			"Percentage 📊",
+			"Shortage 📉"
+		]
+	},
+	{
+		category: "Academic Pain 😢",
+		citizenWord: "SUPPLY",
+		imposterWord: "BACKLOG",
+		citizenClues: [
+			"Exam again 📝",
+			"Paper fee 💸",
+			"Series test 📈",
+			"KTU special 🎓"
+		],
+		imposterClues: [
+			"Count 📊",
+			"Clearance 🧼",
+			"Certificate hold 📄",
+			"Stress 🤯"
+		]
+	},
+	{
+		category: "Marks 📝",
+		citizenWord: "INTERNAL",
+		imposterWord: "GRACEMARK",
+		citizenClues: [
+			"Series test 📝",
+			"Attendance 📊",
+			"Fifty 💯",
+			"Teacher hand ✍️"
+		],
+		imposterClues: [
+			"NSS/NCC 🎖️",
+			"Sports 🏆",
+			"Free gift 🎁",
+			"Add-on ➕"
+		]
+	},
+	{
+		category: "Records 📚",
+		citizenWord: "LABRECORD",
+		imposterWord: "ASSIGNMENT",
+		citizenClues: [
+			"Rough book 📓",
+			"Output page 📄",
+			"Graph 📊",
+			"Signature ✍️"
+		],
+		imposterClues: [
+			"Copy paste 📄",
+			"A4 sheet 📃",
+			"Deadline ⏰",
+			"Submit 📤"
+		]
+	},
+	{
+		category: "Faculty & Staff 🏫",
+		citizenWord: "HOD",
+		imposterWord: "JOBY",
+		citizenClues: [
+			"Cabin 🏢",
+			"Rules 📜",
+			"Permission ✍️",
+			"Cabin boss 👨‍💼"
+		],
+		imposterClues: [
+			"Lab staff 👨‍🔧",
+			"Systems 💻",
+			"Server 🖥️",
+			"Key holder 🔑"
+		]
+	},
+	{
+		category: "Campus Spots 🏫",
+		citizenWord: "STAFFROOM",
+		imposterWord: "WORKSHOP",
+		citizenClues: [
+			"Tea ☕",
+			"Corrections 📝",
+			"Scolding 🗣️",
+			"Teachers 👩‍🏫"
+		],
+		imposterClues: [
+			"Carpentry 🪚",
+			"Smithy 🔥",
+			"Fitting ⚙️",
+			"File tool 🗜️"
+		]
+	},
+	{
+		category: "Services 📄",
+		citizenWord: "XEROX",
+		imposterWord: "AKSHAYA",
+		citizenClues: [
+			"Copier 📠",
+			"One rupee 🪙",
+			"Notes 📝",
+			"Double side 📄"
+		],
+		imposterClues: [
+			"Govt portal 🏛️",
+			"PAN card 💳",
+			"Certificate 📜",
+			"Token number 🎫"
+		]
+	},
+	{
+		category: "Transport 🚌",
+		citizenWord: "KSRTC",
+		imposterWord: "SPLENDOR",
+		citizenClues: [
+			"Red & Yellow 🔴🟡",
+			"Fast passenger 🚌",
+			"Horn 🔊",
+			"Government 🏛️"
+		],
+		imposterClues: [
+			"Bike 🏍️",
+			"Mileage ⛽",
+			"Hero 🦸",
+			"Kick start 🦵"
+		]
+	},
+	{
+		category: "Vehicles 🛵",
+		citizenWord: "BULLET",
+		imposterWord: "AUTO",
+		citizenClues: [
+			"Royal 👑",
+			"Thump sound 🔊",
+			"Heavy 🏍️",
+			"Enfield 🇬🇧"
+		],
+		imposterClues: [
+			"Three wheel 🛺",
+			"Meter 📟",
+			"Yellow top 🟨",
+			"Loud engine 🔊"
+		]
+	},
+	{
+		category: "Locations 📍",
+		citizenWord: "POONJAR",
+		imposterWord: "ERATTUPETTA",
+		citizenClues: [
+			"MLA 🏛️",
+			"River 🌊",
+			"Hilly ⛰️",
+			"Route 🛣️"
+		],
+		imposterClues: [
+			"Town 🏙️",
+			"Halwa 🥮",
+			"Traffic 🚦",
+			"Near Pala 🛣️"
+		]
+	},
+	{
+		category: "Towns 📍",
+		citizenWord: "THODUPUZHA",
+		imposterWord: "PALA",
+		citizenClues: [
+			"River town 🌊",
+			"Idukki gate ⛰️",
+			"Cinema shooting 🎬",
+			"Greenery 🌳"
+		],
+		imposterClues: [
+			"Meenachil 🌊",
+			"Kottayam 🏙️",
+			"Achayan land 🍷",
+			"Brilliance 🎓"
+		]
+	},
+	{
+		category: "Hardware 💻",
+		citizenWord: "KEYBOARD",
+		imposterWord: "MOUSE",
+		citizenClues: [
+			"Keys ⌨️",
+			"Typing 💬",
+			"Spacebar ⌨️",
+			"RGB light 🌈"
+		],
+		imposterClues: [
+			"Click 🖱️",
+			"Cursor ↖️",
+			"Scroll wheel ⚙️",
+			"Laser light 🔴"
+		]
+	},
+	{
+		category: "Desktop 🖥️",
+		citizenWord: "CPU",
+		imposterWord: "MONITOR",
+		citizenClues: [
+			"Box 📦",
+			"Processor 🧠",
+			"Power button 🔌",
+			"Fan sound 💨"
+		],
+		imposterClues: [
+			"Display 📺",
+			"Screen 🖥️",
+			"HDMI 🔌",
+			"VGA port 🔌"
+		]
+	},
+	{
+		category: "Power ⚡",
+		citizenWord: "CHARGER",
+		imposterWord: "POWERBANK",
+		citizenClues: [
+			"Wall plug 🔌",
+			"Wire 🧵",
+			"Type-C 🔌",
+			"Adapter 🔌"
+		],
+		imposterClues: [
+			"Portable 🔋",
+			"Heavy block 🧱",
+			"Travel 🎒",
+			"USB port 🔌"
+		]
+	},
+	{
+		category: "Toiletries 🧼",
+		citizenWord: "HARPIC",
+		imposterWord: "MEDIMIX",
+		citizenClues: [
+			"Blue liquid 🧪",
+			"Acid ☣️",
+			"Clean toilet 🚽",
+			"Bottle 🧴"
+		],
+		imposterClues: [
+			"Green soap 🧼",
+			"Herbal 🌿",
+			"Bath 🛁",
+			"Ayurvedic 🍃"
+		]
+	},
+	{
+		category: "Adhesives 🪵",
+		citizenWord: "FEVICOL",
+		imposterWord: "CELLOTAPE",
+		citizenClues: [
+			"White glue 🧴",
+			"Woodwork 🪚",
+			"Elephants logo 🐘",
+			"Sticky liquid 🧪"
+		],
+		imposterClues: [
+			"Transparent 🎞️",
+			"Plastic roll 🎞️",
+			"Paper wrap 🎁",
+			"Sticky strip 🎗️"
+		]
+	},
+	{
+		category: "Laundry 🧼",
+		citizenWord: "RIN",
+		imposterWord: "SURFEXCEL",
+		citizenClues: [
+			"Blue bar 🧼",
+			"White wash 👕",
+			"Lightning logo ⚡",
+			"Cheap 🪙"
+		],
+		imposterClues: [
+			"Powder 🧪",
+			"Stain remover 🧼",
+			"Bucket soak 🪣",
+			"Premium 💸"
+		]
+	},
+	{
+		category: "Relief 🩹",
+		citizenWord: "ZANDUBALM",
+		imposterWord: "VICKS",
+		citizenClues: [
+			"Headache 🤕",
+			"Green jar 🟢",
+			"Strong smell 👃",
+			"Ayurvedic 🌿"
+		],
+		imposterClues: [
+			"Cold & Cough 🤧",
+			"Blue jar 🔵",
+			"Menthol 🍃",
+			"Rub on chest 🧴"
+		]
+	},
+	{
+		category: "Govt Depts 🏢",
+		citizenWord: "KSEB",
+		imposterWord: "PWD",
+		citizenClues: [
+			"Current cut 🔌",
+			"Electric post 🛜",
+			"Bill meter 📟",
+			"Fuse wire 🔌"
+		],
+		imposterClues: [
+			"Road tarring 🛣️",
+			"Potholes 🕳️",
+			"Bridges 🌉",
+			"Concrete 🏗️"
+		]
+	},
+	{
+		category: "Heavy Vehicles 🚜",
+		citizenWord: "OMNI",
+		imposterWord: "JCB",
+		citizenClues: [
+			"Kidnap van 🚐",
+			"Maruti 🚗",
+			"Sliding door 🚪",
+			"White color ⚪"
+		],
+		imposterClues: [
+			"Yellow digger 🚜",
+			"Mud excavation 🪵",
+			"Big wheels 🛞",
+			"Hydraulic arm 💪"
+		]
+	},
+	{
+		category: "Legends 🎭",
+		citizenWord: "ACHAYAN",
+		imposterWord: "INNOCENT",
+		citizenClues: [
+			"Kottayam guy 🍷",
+			"Gold chain 🪙",
+			"Mundu style 🥻",
+			"Pala accent 🗣️"
+		],
+		imposterClues: [
+			"Actor 🎬",
+			"Trissur accent 🗣️",
+			"Funny jokes 🗣️",
+			"MP 🏛️"
+		]
+	},
+	{
+		category: "Brainrot 🧠",
+		citizenWord: "SIGMA",
+		imposterWord: "SKIBIDI",
+		citizenClues: [
+			"Gigachad 😎",
+			"Mewing 🤫",
+			"Alpha male 🐺",
+			"Phonk music 🎵"
+		],
+		imposterClues: [
+			"Toilet 🚽",
+			"Gyatt 🍑",
+			"Gen Alpha 🧒",
+			"Rizzler 🤵"
+		]
+	},
+	{
+		category: "Slangs 🤪",
+		citizenWord: "POTTAN",
+		imposterWord: "MANDAN",
+		citizenClues: [
+			"Deaf-mute literal 🔇",
+			"Foolish behavior 🤪",
+			"Malayali insult 🗣️",
+			"Crazy 🧠"
+		],
+		imposterClues: [
+			"Dumb 🧠",
+			"Slow learner 🐌",
+			"Silly mistake 🤦‍♂️",
+			"Idiot 🤪"
+		]
+	},
+	{
+		category: "Veggie/Fruit 🥥",
+		citizenWord: "THENGA",
+		imposterWord: "POTATO",
+		citizenClues: [
+			"Coconut 🥥",
+			"Shell 🥥",
+			"Chutney 🍛",
+			"Tree height 🌴"
+		],
+		imposterClues: [
+			"Underground 🥔",
+			"French fries 🍟",
+			"Samosa filling 🥟",
+			"Brown skin 🥔"
+		]
+	},
+	{
+		category: "Food Spots 🥪",
+		citizenWord: "CANTEEN",
+		imposterWord: "BAKERY",
+		citizenClues: [
+			"Meals 🍛",
+			"Tea break ☕",
+			"Token queue 🎟️",
+			"Campus ground 🏫"
+		],
+		imposterClues: [
+			"Puffs 🥐",
+			"Cool drink 🥤",
+			"Cake slice 🍰",
+			"Outside campus 🛣️"
 		]
 	}
 ];
