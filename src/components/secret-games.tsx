@@ -611,7 +611,9 @@ function WordScramble() {
     { word: "GRACEMARK", hint: "Extra marks from NCC, NSS or Sports 🎁" },
     { word: "KSEB", hint: "Department responsible for classroom power cuts 🔌" },
     { word: "AKSHAYA", hint: "Where we print documents and pay fees 🏛🏽" },
-    { word: "ASSIGNMENT", hint: "Handwritten sheets submitted at the last minute 📝" }
+    { word: "ASSIGNMENT", hint: "Handwritten sheets submitted at the last minute 📝" },
+    { word: "VIVA", hint: "Smiling at the external examiner while your brain goes completely blank 🧠❌" },
+    { word: "COPYPASTE", hint: "The ultimate programming skill used in coding labs 💻" }
   ];
 
   const shuffleArray = <T,>(array: T[]): T[] => {
