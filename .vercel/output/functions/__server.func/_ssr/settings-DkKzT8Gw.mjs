@@ -2,7 +2,7 @@ import { r as __toESM } from "../_runtime.mjs";
 import { n as require_jsx_runtime, r as require_react } from "../_libs/react+tanstack__react-query.mjs";
 import { C as ArrowUp, D as ArrowDown, E as ArrowLeft, S as Bell, T as ArrowRight, d as Moon, h as Heart, i as Trophy, l as RotateCcw, o as Sun, p as Info, t as X, u as Palette, v as CodeXml } from "../_libs/lucide-react.mjs";
 import { t as AppShell } from "./app-shell-BTcutmU8.mjs";
-//#region node_modules/.nitro/vite/services/ssr/assets/settings-B6uGzjBr.js
+//#region node_modules/.nitro/vite/services/ssr/assets/settings-DkKzT8Gw.js
 var import_react = /* @__PURE__ */ __toESM(require_react());
 var import_jsx_runtime = require_jsx_runtime();
 function SecretGames({ onClose }) {
@@ -596,7 +596,7 @@ function WordScramble() {
 			hint: "Design and Analysis of ____ 🧩"
 		},
 		{
-			word: "MARADONA",
+			word: "MADONA",
 			hint: "Our favorite hangout cafe for hot tea & snacks ☕"
 		},
 		{
@@ -653,18 +653,30 @@ function WordScramble() {
 		},
 		{
 			word: "AKSHAYA",
-			hint: "Where we print documents and pay fees 🏛️"
+			hint: "Where we print documents and pay fees 🏛🏽"
 		},
 		{
 			word: "ASSIGNMENT",
 			hint: "Handwritten sheets submitted at the last minute 📝"
 		}
 	];
+	const shuffleArray = (array) => {
+		const arr = [...array];
+		for (let i = arr.length - 1; i > 0; i--) {
+			const j = Math.floor(Math.random() * (i + 1));
+			[arr[i], arr[j]] = [arr[j], arr[i]];
+		}
+		return arr;
+	};
+	const [shuffledPool, setShuffledPool] = (0, import_react.useState)([]);
 	const [level, setLevel] = (0, import_react.useState)(0);
 	const [scrambled, setScrambled] = (0, import_react.useState)("");
 	const [guess, setGuess] = (0, import_react.useState)("");
 	const [isCorrect, setIsCorrect] = (0, import_react.useState)(null);
 	const [score, setScore] = (0, import_react.useState)(0);
+	(0, import_react.useEffect)(() => {
+		setShuffledPool(shuffleArray(POOL));
+	}, []);
 	const scramble = (w) => {
 		const arr = w.split("");
 		for (let i = arr.length - 1; i > 0; i--) {
@@ -675,23 +687,24 @@ function WordScramble() {
 		if (res === w && w.length > 1) return scramble(w);
 		return res;
 	};
-	const loadLevel = (lv) => {
-		if (lv >= POOL.length) {
+	const loadLevel = (lv, currentPool) => {
+		if (currentPool.length === 0) return;
+		if (lv >= currentPool.length) {
 			setScrambled("");
 			return;
 		}
-		setScrambled(scramble(POOL[lv].word));
+		setScrambled(scramble(currentPool[lv].word));
 		setGuess("");
 		setIsCorrect(null);
 	};
 	(0, import_react.useEffect)(() => {
-		loadLevel(level);
-	}, [level]);
+		if (shuffledPool.length > 0) loadLevel(level, shuffledPool);
+	}, [level, shuffledPool]);
 	const handleSubmit = (e) => {
 		e.preventDefault();
-		if (!guess.trim()) return;
-		const correctWord = POOL[level].word;
-		const isAnswerCorrect = guess.toUpperCase().trim() === correctWord;
+		if (!guess.trim() || shuffledPool.length === 0) return;
+		const correctWord = shuffledPool[level].word;
+		const isAnswerCorrect = guess.replace(/\s+/g, "").toUpperCase() === correctWord.replace(/\s+/g, "").toUpperCase();
 		setIsCorrect(isAnswerCorrect);
 		if (isAnswerCorrect) {
 			setScore((prev) => prev + 10);
@@ -702,14 +715,14 @@ function WordScramble() {
 		setLevel((prev) => prev + 1);
 	};
 	const handleRestart = () => {
+		setShuffledPool(shuffleArray(POOL));
 		setLevel(0);
 		setScore(0);
-		loadLevel(0);
 	};
-	const currentLevel = POOL[level];
+	const currentLevel = shuffledPool[level];
 	return /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
 		className: "flex flex-col items-center justify-center py-2 max-w-sm mx-auto",
-		children: level >= POOL.length ? /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+		children: shuffledPool.length > 0 && level >= shuffledPool.length ? /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
 			className: "text-center py-6",
 			children: [
 				/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Trophy, { className: "h-12 w-12 text-butter fill-butter mx-auto animate-bounce mb-3" }),
@@ -744,7 +757,7 @@ function WordScramble() {
 						"Word ",
 						level + 1,
 						" of ",
-						POOL.length
+						shuffledPool.length
 					] }), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("span", { children: [
 						"Score: ",
 						score,
@@ -1464,6 +1477,19 @@ function ImposterGame() {
 	const [wordPair, setWordPair] = (0, import_react.useState)(IMPOSTER_POOL[0]);
 	const [selectedRevealPlayer, setSelectedRevealPlayer] = (0, import_react.useState)(null);
 	const [revealCardState, setRevealCardState] = (0, import_react.useState)("hidden");
+	const [shuffledImposterPool, setShuffledImposterPool] = (0, import_react.useState)([]);
+	const [imposterIndex, setImposterIndex] = (0, import_react.useState)(0);
+	const shuffleImposters = (array) => {
+		const arr = [...array];
+		for (let i = arr.length - 1; i > 0; i--) {
+			const j = Math.floor(Math.random() * (i + 1));
+			[arr[i], arr[j]] = [arr[j], arr[i]];
+		}
+		return arr;
+	};
+	(0, import_react.useEffect)(() => {
+		setShuffledImposterPool(shuffleImposters(IMPOSTER_POOL));
+	}, []);
 	(0, import_react.useEffect)(() => {
 		setPlayerNames(Array(playerCount).fill(""));
 	}, [playerCount]);
@@ -1486,8 +1512,21 @@ function ImposterGame() {
 		setPhase("imposters");
 	};
 	const handleSetupGameData = () => {
-		const selectedPair = IMPOSTER_POOL[Math.floor(Math.random() * IMPOSTER_POOL.length)];
+		let currentPool = shuffledImposterPool;
+		let nextIndex = imposterIndex;
+		if (currentPool.length === 0) {
+			currentPool = shuffleImposters(IMPOSTER_POOL);
+			setShuffledImposterPool(currentPool);
+			nextIndex = 0;
+		}
+		if (nextIndex >= currentPool.length) {
+			currentPool = shuffleImposters(IMPOSTER_POOL);
+			setShuffledImposterPool(currentPool);
+			nextIndex = 0;
+		}
+		const selectedPair = currentPool[nextIndex];
 		setWordPair(selectedPair);
+		setImposterIndex(nextIndex + 1);
 		const roles = Array(playerCount).fill("citizen");
 		let placedImposters = 0;
 		while (placedImposters < imposterCount) {

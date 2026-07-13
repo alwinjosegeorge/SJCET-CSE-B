@@ -596,7 +596,7 @@ function WordScramble() {
     { word: "NETWORKS", hint: "Subject P1 starts with Computer ____ 🌐" },
     { word: "LUNCH", hint: "12:45 PM – 1:35 PM Break 🍱" },
     { word: "ALGORITHMS", hint: "Design and Analysis of ____ 🧩" },
-    { word: "MARADONA", hint: "Our favorite hangout cafe for hot tea & snacks ☕" },
+    { word: "MADONA", hint: "Our favorite hangout cafe for hot tea & snacks ☕" },
     { word: "GANDHIJI", hint: "Whose statue stands in our SJCET college campus? 🗿" },
     { word: "JOBY", hint: "Bald HOD whose head reflects sunlight like a solar panel! ☀️👨‍🦲" },
     { word: "POROTTA", hint: "Canteen lile beef fry nte best combination item! 🥞" },
@@ -610,15 +610,29 @@ function WordScramble() {
     { word: "LABRECORD", hint: "The booklet we write codes and diagrams in 📓" },
     { word: "GRACEMARK", hint: "Extra marks from NCC, NSS or Sports 🎁" },
     { word: "KSEB", hint: "Department responsible for classroom power cuts 🔌" },
-    { word: "AKSHAYA", hint: "Where we print documents and pay fees 🏛️" },
+    { word: "AKSHAYA", hint: "Where we print documents and pay fees 🏛🏽" },
     { word: "ASSIGNMENT", hint: "Handwritten sheets submitted at the last minute 📝" }
   ];
 
+  const shuffleArray = <T,>(array: T[]): T[] => {
+    const arr = [...array];
+    for (let i = arr.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [arr[i], arr[j]] = [arr[j], arr[i]];
+    }
+    return arr;
+  };
+
+  const [shuffledPool, setShuffledPool] = useState<CampusWord[]>([]);
   const [level, setLevel] = useState(0);
   const [scrambled, setScrambled] = useState("");
   const [guess, setGuess] = useState("");
   const [isCorrect, setIsCorrect] = useState<boolean | null>(null);
   const [score, setScore] = useState(0);
+
+  useEffect(() => {
+    setShuffledPool(shuffleArray(POOL));
+  }, []);
 
   const scramble = (w: string) => {
     const arr = w.split("");
@@ -631,26 +645,31 @@ function WordScramble() {
     return res;
   };
 
-  const loadLevel = (lv: number) => {
-    if (lv >= POOL.length) {
+  const loadLevel = (lv: number, currentPool: CampusWord[]) => {
+    if (currentPool.length === 0) return;
+    if (lv >= currentPool.length) {
       setScrambled("");
       return;
     }
-    setScrambled(scramble(POOL[lv].word));
+    setScrambled(scramble(currentPool[lv].word));
     setGuess("");
     setIsCorrect(null);
   };
 
   useEffect(() => {
-    loadLevel(level);
-  }, [level]);
+    if (shuffledPool.length > 0) {
+      loadLevel(level, shuffledPool);
+    }
+  }, [level, shuffledPool]);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (!guess.trim()) return;
+    if (!guess.trim() || shuffledPool.length === 0) return;
 
-    const correctWord = POOL[level].word;
-    const isAnswerCorrect = guess.toUpperCase().trim() === correctWord;
+    const correctWord = shuffledPool[level].word;
+    const cleanGuess = guess.replace(/\s+/g, "").toUpperCase();
+    const cleanCorrect = correctWord.replace(/\s+/g, "").toUpperCase();
+    const isAnswerCorrect = cleanGuess === cleanCorrect;
 
     setIsCorrect(isAnswerCorrect);
 
@@ -671,13 +690,13 @@ function WordScramble() {
   };
 
   const handleRestart = () => {
+    setShuffledPool(shuffleArray(POOL));
     setLevel(0);
     setScore(0);
-    loadLevel(0);
   };
 
-  const currentLevel = POOL[level];
-  const isFinished = level >= POOL.length;
+  const currentLevel = shuffledPool[level];
+  const isFinished = shuffledPool.length > 0 && level >= shuffledPool.length;
 
   return (
     <div className="flex flex-col items-center justify-center py-2 max-w-sm mx-auto">
@@ -704,7 +723,7 @@ function WordScramble() {
         <div className="w-full space-y-5">
           {/* Status */}
           <div className="flex justify-between items-center text-xs font-bold text-ink-soft">
-            <span>Word {level + 1} of {POOL.length}</span>
+            <span>Word {level + 1} of {shuffledPool.length}</span>
             <span>Score: {score} pts</span>
           </div>
 
@@ -1082,6 +1101,22 @@ function ImposterGame() {
   const [selectedRevealPlayer, setSelectedRevealPlayer] = useState<PartyPlayer | null>(null);
   const [revealCardState, setRevealCardState] = useState<"hidden" | "revealed">("hidden");
 
+  const [shuffledImposterPool, setShuffledImposterPool] = useState<ImposterWordPair[]>([]);
+  const [imposterIndex, setImposterIndex] = useState(0);
+
+  const shuffleImposters = (array: ImposterWordPair[]): ImposterWordPair[] => {
+    const arr = [...array];
+    for (let i = arr.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [arr[i], arr[j]] = [arr[j], arr[i]];
+    }
+    return arr;
+  };
+
+  useEffect(() => {
+    setShuffledImposterPool(shuffleImposters(IMPOSTER_POOL));
+  }, []);
+
   // Initialize empty player names when playerCount changes
   useEffect(() => {
     setPlayerNames(Array(playerCount).fill(""));
@@ -1116,9 +1151,25 @@ function ImposterGame() {
   };
 
   const handleSetupGameData = () => {
-    // 1. Pick a random word pair
-    const selectedPair = IMPOSTER_POOL[Math.floor(Math.random() * IMPOSTER_POOL.length)];
+    // 1. Pick a random word pair sequentially from shuffled pool
+    let currentPool = shuffledImposterPool;
+    let nextIndex = imposterIndex;
+
+    if (currentPool.length === 0) {
+      currentPool = shuffleImposters(IMPOSTER_POOL);
+      setShuffledImposterPool(currentPool);
+      nextIndex = 0;
+    }
+
+    if (nextIndex >= currentPool.length) {
+      currentPool = shuffleImposters(IMPOSTER_POOL);
+      setShuffledImposterPool(currentPool);
+      nextIndex = 0;
+    }
+
+    const selectedPair = currentPool[nextIndex];
     setWordPair(selectedPair);
+    setImposterIndex(nextIndex + 1);
 
     // 2. Assign roles
     const roles: ("citizen" | "imposter")[] = Array(playerCount).fill("citizen");
