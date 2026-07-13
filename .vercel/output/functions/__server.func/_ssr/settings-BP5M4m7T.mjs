@@ -2,7 +2,7 @@ import { r as __toESM } from "../_runtime.mjs";
 import { n as require_jsx_runtime, r as require_react } from "../_libs/react+tanstack__react-query.mjs";
 import { C as ArrowUp, D as ArrowDown, E as ArrowLeft, S as Bell, T as ArrowRight, d as Moon, h as Heart, i as Trophy, l as RotateCcw, o as Sun, p as Info, t as X, u as Palette, v as CodeXml } from "../_libs/lucide-react.mjs";
 import { t as AppShell } from "./app-shell-BTcutmU8.mjs";
-//#region node_modules/.nitro/vite/services/ssr/assets/settings-t7PuOeOO.js
+//#region node_modules/.nitro/vite/services/ssr/assets/settings-BP5M4m7T.js
 var import_react = /* @__PURE__ */ __toESM(require_react());
 var import_jsx_runtime = require_jsx_runtime();
 function SecretGames({ onClose }) {
@@ -773,23 +773,23 @@ function WordScramble() {
 					] })]
 				}),
 				/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-					className: "rounded-3xl border border-border/60 bg-surface p-5 text-center shadow-sm",
+					className: "rounded-3xl border border-border/60 bg-surface p-5 text-center shadow-sm max-w-full overflow-hidden",
 					children: [
 						/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
 							className: "text-[10px] font-bold uppercase tracking-wider text-ink-soft/75",
 							children: "Unscramble the letters:"
 						}),
 						/* @__PURE__ */ (0, import_jsx_runtime.jsx)("h3", {
-							className: "font-display text-3xl font-black text-indigo tracking-widest mt-2 uppercase",
+							className: `font-display font-black text-indigo uppercase mt-2 break-all ${scrambled.length > 8 ? "text-xl sm:text-2xl tracking-wider" : "text-2.5xl sm:text-3xl tracking-widest"}`,
 							children: scrambled
 						}),
 						/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-							className: "mt-4 bg-muted/60 dark:bg-surface-2 rounded-2xl p-3 inline-flex items-center gap-1.5 max-w-full",
+							className: "mt-4 bg-muted/60 dark:bg-surface-2 rounded-2xl p-3 flex items-start gap-1.5 max-w-full text-left",
 							children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
-								className: "text-[10px] font-bold bg-indigo text-white px-1.5 py-0.5 rounded uppercase",
+								className: "text-[10px] font-bold bg-indigo text-white px-1.5 py-0.5 rounded uppercase shrink-0 mt-0.5",
 								children: "Hint"
 							}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
-								className: "text-xs text-ink-soft truncate font-semibold",
+								className: "text-xs text-ink-soft font-semibold leading-relaxed break-words",
 								children: currentLevel?.hint
 							})]
 						})

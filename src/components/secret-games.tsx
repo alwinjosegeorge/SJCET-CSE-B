@@ -730,18 +730,22 @@ function WordScramble() {
           </div>
 
           {/* Question card */}
-          <div className="rounded-3xl border border-border/60 bg-surface p-5 text-center shadow-sm">
+          <div className="rounded-3xl border border-border/60 bg-surface p-5 text-center shadow-sm max-w-full overflow-hidden">
             <p className="text-[10px] font-bold uppercase tracking-wider text-ink-soft/75">
               Unscramble the letters:
             </p>
-            <h3 className="font-display text-3xl font-black text-indigo tracking-widest mt-2 uppercase">
+            <h3 className={`font-display font-black text-indigo uppercase mt-2 break-all ${
+              scrambled.length > 8 
+                ? "text-xl sm:text-2xl tracking-wider" 
+                : "text-2.5xl sm:text-3xl tracking-widest"
+            }`}>
               {scrambled}
             </h3>
             
             {/* Clue Hint */}
-            <div className="mt-4 bg-muted/60 dark:bg-surface-2 rounded-2xl p-3 inline-flex items-center gap-1.5 max-w-full">
-              <span className="text-[10px] font-bold bg-indigo text-white px-1.5 py-0.5 rounded uppercase">Hint</span>
-              <p className="text-xs text-ink-soft truncate font-semibold">{currentLevel?.hint}</p>
+            <div className="mt-4 bg-muted/60 dark:bg-surface-2 rounded-2xl p-3 flex items-start gap-1.5 max-w-full text-left">
+              <span className="text-[10px] font-bold bg-indigo text-white px-1.5 py-0.5 rounded uppercase shrink-0 mt-0.5">Hint</span>
+              <p className="text-xs text-ink-soft font-semibold leading-relaxed break-words">{currentLevel?.hint}</p>
             </div>
           </div>
 

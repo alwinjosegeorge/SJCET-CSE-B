@@ -1,4 +1,4 @@
-//#region node_modules/.nitro/vite/services/ssr/assets/_tanstack-start-manifest_v-BQdZTwbh.js
+//#region node_modules/.nitro/vite/services/ssr/assets/_tanstack-start-manifest_v-NbXnG35z.js
 var tsrStartManifest = () => ({ routes: {
 	__root__: {
 		filePath: "C:/Users/there/Downloads/csb-daily-flow-main/src/routes/__root.tsx",
@@ -9,53 +9,53 @@ var tsrStartManifest = () => ({ routes: {
 			"/settings",
 			"/sitemap.xml"
 		],
-		preloads: ["/assets/index-wRVZT8ti.js"],
+		preloads: ["/assets/index-DfwUma79.js"],
 		scripts: [{ attrs: {
 			type: "module",
 			async: !0,
-			src: "/assets/index-wRVZT8ti.js"
+			src: "/assets/index-DfwUma79.js"
 		} }]
 	},
 	"/": {
 		filePath: "C:/Users/there/Downloads/csb-daily-flow-main/src/routes/index.tsx",
 		children: void 0,
 		preloads: [
-			"/assets/routes-CUZWhjB2.js",
-			"/assets/app-shell-B9PBEVFq.js",
-			"/assets/utensils-crossed-uyB8sEsE.js",
-			"/assets/subject-details-modal-BBA7m-AK.js",
-			"/assets/sun-CQJRqQ5W.js",
-			"/assets/use-now-D8YKuXEf.js"
+			"/assets/routes-B3VoKn8t.js",
+			"/assets/app-shell-XQdoCEnS.js",
+			"/assets/utensils-crossed-C9zU1s5a.js",
+			"/assets/subject-details-modal-DJM45S9W.js",
+			"/assets/sun-BJ_ymL4e.js",
+			"/assets/use-now-CetxLWGC.js"
 		]
 	},
 	"/countdown": {
 		filePath: "C:/Users/there/Downloads/csb-daily-flow-main/src/routes/countdown.tsx",
 		children: void 0,
 		preloads: [
-			"/assets/countdown-B_DhHXul.js",
-			"/assets/app-shell-B9PBEVFq.js",
-			"/assets/utensils-crossed-uyB8sEsE.js",
-			"/assets/sun-CQJRqQ5W.js",
-			"/assets/use-now-D8YKuXEf.js"
+			"/assets/countdown-BI9baIF4.js",
+			"/assets/app-shell-XQdoCEnS.js",
+			"/assets/utensils-crossed-C9zU1s5a.js",
+			"/assets/sun-BJ_ymL4e.js",
+			"/assets/use-now-CetxLWGC.js"
 		]
 	},
 	"/schedule": {
 		filePath: "C:/Users/there/Downloads/csb-daily-flow-main/src/routes/schedule.tsx",
 		children: void 0,
 		preloads: [
-			"/assets/schedule-CZWLlfR2.js",
-			"/assets/app-shell-B9PBEVFq.js",
-			"/assets/subject-details-modal-BBA7m-AK.js"
+			"/assets/schedule-BWcA8cLv.js",
+			"/assets/app-shell-XQdoCEnS.js",
+			"/assets/subject-details-modal-DJM45S9W.js"
 		]
 	},
 	"/settings": {
 		filePath: "C:/Users/there/Downloads/csb-daily-flow-main/src/routes/settings.tsx",
 		children: void 0,
 		preloads: [
-			"/assets/settings-BqfE4Am_.js",
-			"/assets/app-shell-B9PBEVFq.js",
-			"/assets/sun-CQJRqQ5W.js",
-			"/assets/x-BTgdVNLb.js"
+			"/assets/settings-LE921Fml.js",
+			"/assets/app-shell-XQdoCEnS.js",
+			"/assets/sun-BJ_ymL4e.js",
+			"/assets/x-BDfENJvO.js"
 		]
 	}
 } });
