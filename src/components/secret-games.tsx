@@ -614,7 +614,13 @@ function WordScramble() {
     { word: "ASSIGNMENT", hint: "Handwritten sheets submitted at the last minute 📝" },
     { word: "VIVA", hint: "Smiling at the external examiner while your brain goes completely blank 🧠❌" },
     { word: "COPYPASTE", hint: "The ultimate programming skill used in coding labs 💻" },
-    { word: "ETLAB", hint: "The college portal we check daily for attendance percentage and internal marks 📊💻" }
+    { word: "ETLAB", hint: "The college portal we check daily for attendance percentage and internal marks 📊💻" },
+    { word: "THATTUKADA", hint: "The local street food spot we visit for night tea and double omelette 🍳" },
+    { word: "MUTTAPUFFS", hint: "Our favorite crispy bakery snack containing half an egg 🥚🥐" },
+    { word: "PAZHAMPORI", hint: "The ultimate yellow sweet banana fritter in college canteen 🍌" },
+    { word: "AUTO", hint: "The three-wheeled vehicle we run to catch when late for class 🛺" },
+    { word: "KUDA", hint: "The folding umbrella that protects us from heavy rains on SJCET campus ☔" },
+    { word: "LULUMALL", hint: "The massive shopping mall in Kochi where everyone goes for weekend trips 🛍️" }
   ];
 
   const shuffleArray = <T,>(array: T[]): T[] => {
