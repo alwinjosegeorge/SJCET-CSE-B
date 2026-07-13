@@ -2,7 +2,7 @@ import { r as __toESM } from "../_runtime.mjs";
 import { n as require_jsx_runtime, r as require_react } from "../_libs/react+tanstack__react-query.mjs";
 import { C as ArrowUp, D as ArrowDown, E as ArrowLeft, S as Bell, T as ArrowRight, d as Moon, h as Heart, i as Trophy, l as RotateCcw, o as Sun, p as Info, t as X, u as Palette, v as CodeXml } from "../_libs/lucide-react.mjs";
 import { t as AppShell } from "./app-shell-BTcutmU8.mjs";
-//#region node_modules/.nitro/vite/services/ssr/assets/settings-BP5M4m7T.js
+//#region node_modules/.nitro/vite/services/ssr/assets/settings-AtlfLPhT.js
 var import_react = /* @__PURE__ */ __toESM(require_react());
 var import_jsx_runtime = require_jsx_runtime();
 function SecretGames({ onClose }) {
@@ -666,6 +666,10 @@ function WordScramble() {
 		{
 			word: "COPYPASTE",
 			hint: "The ultimate programming skill used in coding labs 💻"
+		},
+		{
+			word: "ETLAB",
+			hint: "The college portal we check daily for attendance percentage and internal marks 📊💻"
 		}
 	];
 	const shuffleArray = (array) => {
@@ -1449,6 +1453,329 @@ var IMPOSTER_POOL = [
 			"Cake slice 🍰",
 			"Outside campus 🛣️"
 		]
+	},
+	{
+		category: "Game Roles 🎮",
+		citizenWord: "CREWMATE",
+		imposterWord: "IMPOSTER",
+		citizenClues: [
+			"Tasks 📋",
+			"Report 📢",
+			"Voted out 🗳️",
+			"Space suit 🧑‍🚀"
+		],
+		imposterClues: [
+			"Vents 🕳️",
+			"Fake tasks 📋",
+			"Kill button 🔪",
+			"Sabotage ⚡"
+		]
+	},
+	{
+		category: "Structures 🏗️",
+		citizenWord: "TOWER",
+		imposterWord: "BUILDING",
+		citizenClues: [
+			"Tall height 🗼",
+			"Antenna 📡",
+			"Observation deck 🔭",
+			"Eiffel 🗼"
+		],
+		imposterClues: [
+			"Rooms 🏢",
+			"Concrete 🧱",
+			"Windows 🪟",
+			"Multi-story 🏢"
+		]
+	},
+	{
+		category: "Feelings 🎭",
+		citizenWord: "MOODSWINGS",
+		imposterWord: "DEPRESSION",
+		citizenClues: [
+			"Happy then sad 📈📉",
+			"Temporary ⏰",
+			"Changing emotions 🎢",
+			"Unpredictable 🌀"
+		],
+		imposterClues: [
+			"Dark room 🥱",
+			"Long term ⏳",
+			"Sadness 😢",
+			"Therapy 🛋️"
+		]
+	},
+	{
+		category: "Superstars 🎭",
+		citizenWord: "MOHANLAL",
+		imposterWord: "MAMMOOTTY",
+		citizenClues: [
+			"Lalettan 🕶️",
+			"Complete Actor 👑",
+			"Meesha fold 👨",
+			"Odiyan 🦉"
+		],
+		imposterClues: [
+			"Mega star 👑",
+			"Mammookka 🕶️",
+			"Bilal 🧥",
+			"Age-defying 👨"
+		]
+	},
+	{
+		category: "New-Gen Hits 🎬",
+		citizenWord: "KUMBALANGINIGHTS",
+		imposterWord: "PREMAM",
+		citizenClues: [
+			"Fahadh Faasil 👨",
+			"Shammi hero da 🦸",
+			"Brothers 🧑‍🤝‍🧑",
+			"Fishing net 🎣"
+		],
+		imposterClues: [
+			"Nivin Pauly 🧑‍🦱",
+			"Mary Malar Celine 👩‍⚕️",
+			"Butterfly 🦋",
+			"College gang 🎓"
+		]
+	},
+	{
+		category: "Dileep Comedies 🎬",
+		citizenWord: "CIDMOOSA",
+		imposterWord: "PUNJABIHOUSE",
+		citizenClues: [
+			"Dog Arjun 🐕",
+			"Moosa 🕵️‍♂️",
+			"Detective 🔍",
+			"Thorappan Kochunni 🥷"
+		],
+		imposterClues: [
+			"Silent act 🤫",
+			"Boat rescue ⛵",
+			"Gangadharan 👳",
+			"Ramanan 🧑"
+		]
+	},
+	{
+		category: "Classic Movies 🎬",
+		citizenWord: "MANICHITRATHAZHU",
+		imposterWord: "RAMJIRAOSPEAKING",
+		citizenClues: [
+			"Ganga Nagavalli 💃",
+			"Madampally 🏰",
+			"Dr. Sunny 🩺",
+			"Mental hospital 🏥"
+		],
+		imposterClues: [
+			"Urvashi Theater 🎭",
+			"Wrong number ☎️",
+			"Garudan 🦅",
+			"Kidnapping 💼"
+		]
+	},
+	{
+		category: "Malayalam Media 📺",
+		citizenWord: "KARIKKU",
+		imposterWord: "MINNALMURALI",
+		citizenClues: [
+			"YouTube 📺",
+			"George Lolan 🧑‍🤝‍🧑",
+			"Thera Para 🚶‍♂️",
+			"Web series 🎞️"
+		],
+		imposterClues: [
+			"Superhero 🦸‍♂️",
+			"Kurukkanmoola 🏘️",
+			"Lightning strike ⚡",
+			"Basil Joseph 🎬"
+		]
+	},
+	{
+		category: "Kerala Attire 🥻",
+		citizenWord: "MUNDU",
+		imposterWord: "THORTHU",
+		citizenClues: [
+			"White cotton 🤍",
+			"Folding double 🫱",
+			"Kasavu border 🎗️",
+			"Traditional look 🥻"
+		],
+		imposterClues: [
+			"Wet body 🛁",
+			"Quick dry 💨",
+			"Thin cotton 🫱",
+			"Bath time 🚿"
+		]
+	},
+	{
+		category: "Street Life 🛣️",
+		citizenWord: "AUTO",
+		imposterWord: "THATTUKADA",
+		citizenClues: [
+			"Three wheel 🛺",
+			"Meter charge 📟",
+			"Yellow hood 🟨",
+			"Loud sound 🔊"
+		],
+		imposterClues: [
+			"Double omelette 🍳",
+			"Night food 🌙",
+			"Kattu chaya ☕",
+			"Dosa set 🥞"
+		]
+	},
+	{
+		category: "Footwear & Rain ☔",
+		citizenWord: "CHERUPPU",
+		imposterWord: "KUDA",
+		citizenClues: [
+			"Slippers 🩴",
+			"Feet protect 👣",
+			"Bata brand 🩴",
+			"Walking 🚶‍♂️"
+		],
+		imposterClues: [
+			"Umbrella ☔",
+			"Monsoon rain 🌧️",
+			"Paper fold 📄",
+			"Wind blow 💨"
+		]
+	},
+	{
+		category: "Evening Snacks ☕",
+		citizenWord: "PAZHAMPORI",
+		imposterWord: "KATTANCHAYA",
+		citizenClues: [
+			"Banana fritter 🍌",
+			"Yellow color 🟨",
+			"Sweet taste 🍯",
+			"Maida batter 🥣"
+		],
+		imposterClues: [
+			"Black tea ☕",
+			"Lemon slice 🍋",
+			"Hot glass 🥛",
+			"No milk 🥛"
+		]
+	},
+	{
+		category: "Kerala Trees 🌴",
+		citizenWord: "CHAKKA",
+		imposterWord: "THENGU",
+		citizenClues: [
+			"Jackfruit 🍈",
+			"State fruit 🍈",
+			"Thorny skin 🌵",
+			"Sweet chula 🟡"
+		],
+		imposterClues: [
+			"Coconut tree 🌴",
+			"Climbing ropes 🪢",
+			"Green frond 🌿",
+			"Copra oil 🛢️"
+		]
+	},
+	{
+		category: "Lulu Mall 🛍️",
+		citizenWord: "LULUMALL",
+		imposterWord: "AKSHAYA",
+		citizenClues: [
+			"Edappally Kochi 🏙️",
+			"Hypermarket 🛒",
+			"Escalator 🪜",
+			"Crowded lobby 👥"
+		],
+		imposterClues: [
+			"Government portal 🏛️",
+			"PAN card application 💳",
+			"Token queue 🎫",
+			"Certificates 📜"
+		]
+	},
+	{
+		category: "Blockbusters 🎬",
+		citizenWord: "MEESAMADHAVAN",
+		imposterWord: "THENKASIPATTANAM",
+		citizenClues: [
+			"Madhavan thief 🥷",
+			"Hairpin key 🗝️",
+			"Pillechan 👴",
+			"Pattalam Purushu 👮‍♂️"
+		],
+		imposterClues: [
+			"Two friends 👬",
+			"Market fight 🥩",
+			"Kannan Shatrughan 👬",
+			"Secret letters ✉️"
+		]
+	},
+	{
+		category: "Family Comedies 🎬",
+		citizenWord: "KALYANARAMAN",
+		imposterWord: "GODFATHER",
+		citizenClues: [
+			"Pyari wedding planner 🤵",
+			"Motha copy 📝",
+			"Ramkumar 👨",
+			"Bhavani 👩"
+		],
+		imposterClues: [
+			"Anjooran 👴",
+			"Feud family ⚔️",
+			"Malappuram style 🏰",
+			"Lal director 🎬"
+		]
+	},
+	{
+		category: "Hostel Comedies 🎬",
+		citizenWord: "INHARIHARNAGAR",
+		imposterWord: "ADIKAPYAREKOOTAMANI",
+		citizenClues: [
+			"Mahadevan Govindan 👬",
+			"Maya house 🏡",
+			"Thomaskutty 🧑",
+			"Wrong address 📍"
+		],
+		imposterClues: [
+			"Father cameo 👴",
+			"Girl in hostel 👧",
+			"Ghost spirit 👻",
+			"Rent money 💵"
+		]
+	},
+	{
+		category: "Household 🏺",
+		citizenWord: "KINDI",
+		imposterWord: "VETTILA",
+		citizenClues: [
+			"Water vessel 🏺",
+			"Brass metal 🪙",
+			"Spout pipe 🚰",
+			"Wash feet 👣"
+		],
+		imposterClues: [
+			"Betel leaf 🍃",
+			"Chewing chunnambu 🦷",
+			"Sadya digest 🍛",
+			"Pawn shop 🍂"
+		]
+	},
+	{
+		category: "Snack Foods 🥐",
+		citizenWord: "MUTTAPUFFS",
+		imposterWord: "SAMOSA",
+		citizenClues: [
+			"Egg inside 🥚",
+			"Layered pastry 🥐",
+			"Yellow yolk 🟡",
+			"Bakery shelf 🧁"
+		],
+		imposterClues: [
+			"Triangle shape 🔺",
+			"Potato filling 🥔",
+			"Maida crust 🫓",
+			"Deep fried 🛢️"
+		]
 	}
 ];
 var PASTEL_COLORS = [
@@ -1993,10 +2320,17 @@ function ImposterGame() {
 							}, p.id))]
 						})
 					]
-				}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("button", {
-					onClick: restartGame,
-					className: "w-full py-4 rounded-2xl bg-indigo-deep text-white font-display font-bold text-sm shadow-md active:scale-95 transition",
-					children: "Play Again 🚀"
+				}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+					className: "flex flex-col gap-3",
+					children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("button", {
+						onClick: handleSetupGameData,
+						className: "w-full py-4 rounded-2xl bg-indigo-deep text-white font-display font-bold text-sm shadow-md active:scale-95 transition flex items-center justify-center gap-2",
+						children: "Play Again (Same Players) 🔄"
+					}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("button", {
+						onClick: restartGame,
+						className: "w-full py-4 rounded-2xl bg-muted border border-border/80 text-ink font-display font-bold text-sm active:scale-95 transition",
+						children: "Setup New Game ⚙️"
+					})]
 				})]
 			})
 		]
