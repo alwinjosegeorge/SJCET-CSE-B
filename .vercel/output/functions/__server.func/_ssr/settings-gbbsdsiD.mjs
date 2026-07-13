@@ -2,7 +2,7 @@ import { r as __toESM } from "../_runtime.mjs";
 import { n as require_jsx_runtime, r as require_react } from "../_libs/react+tanstack__react-query.mjs";
 import { C as ArrowUp, D as ArrowDown, E as ArrowLeft, S as Bell, T as ArrowRight, d as Moon, h as Heart, i as Trophy, l as RotateCcw, o as Sun, p as Info, t as X, u as Palette, v as CodeXml } from "../_libs/lucide-react.mjs";
 import { t as AppShell } from "./app-shell-BTcutmU8.mjs";
-//#region node_modules/.nitro/vite/services/ssr/assets/settings-Bs2W5WB-.js
+//#region node_modules/.nitro/vite/services/ssr/assets/settings-gbbsdsiD.js
 var import_react = /* @__PURE__ */ __toESM(require_react());
 var import_jsx_runtime = require_jsx_runtime();
 function SecretGames({ onClose }) {
@@ -694,6 +694,10 @@ function WordScramble() {
 		{
 			word: "LULUMALL",
 			hint: "The massive shopping mall in Kochi where everyone goes for weekend trips 🛍️"
+		},
+		{
+			word: "HOTSPOT",
+			hint: "The mobile internet connection we beg our friends to turn on 📱"
 		}
 	];
 	const shuffleArray = (array) => {

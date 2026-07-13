@@ -620,7 +620,8 @@ function WordScramble() {
     { word: "PAZHAMPORI", hint: "The ultimate yellow sweet banana fritter in college canteen 🍌" },
     { word: "AUTO", hint: "The three-wheeled vehicle we run to catch when late for class 🛺" },
     { word: "KUDA", hint: "The folding umbrella that protects us from heavy rains on SJCET campus ☔" },
-    { word: "LULUMALL", hint: "The massive shopping mall in Kochi where everyone goes for weekend trips 🛍️" }
+    { word: "LULUMALL", hint: "The massive shopping mall in Kochi where everyone goes for weekend trips 🛍️" },
+    { word: "HOTSPOT", hint: "The mobile internet connection we beg our friends to turn on 📱" }
   ];
 
   const shuffleArray = <T,>(array: T[]): T[] => {
