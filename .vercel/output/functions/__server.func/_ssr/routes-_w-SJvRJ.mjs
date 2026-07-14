@@ -4,8 +4,8 @@ import { _ as useNavigate } from "../_libs/@tanstack/react-router+[...].mjs";
 import { T as ArrowUpRight, f as Moon, o as Sun, r as UtensilsCrossed, s as Sparkles, v as Coffee } from "../_libs/lucide-react.mjs";
 import { l as fmt12, n as DAY_LABEL, s as computeNowState, t as AppShell } from "./app-shell-BTcutmU8.mjs";
 import { t as useNow } from "./use-now-DwH2zO-0.mjs";
-import { n as SubjectDetailsModal, t as ScheduleRow } from "./subject-details-modal-CNcmdnB2.mjs";
-//#region node_modules/.nitro/vite/services/ssr/assets/routes-CkF2oggp.js
+import { n as SubjectDetailsModal, t as ScheduleRow } from "./subject-details-modal-Cn1IH94s.mjs";
+//#region node_modules/.nitro/vite/services/ssr/assets/routes-_w-SJvRJ.js
 var import_react = /* @__PURE__ */ __toESM(require_react());
 var import_jsx_runtime = require_jsx_runtime();
 var SUBJECT_EMOJI = {

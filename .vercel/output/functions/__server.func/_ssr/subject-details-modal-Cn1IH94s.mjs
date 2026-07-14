@@ -1,7 +1,7 @@
 import { n as require_jsx_runtime } from "../_libs/react+tanstack__react-query.mjs";
 import { S as BookOpen, _ as GraduationCap, b as Check, p as Layers, r as UtensilsCrossed, s as Sparkles, t as X, u as Phone, v as Coffee } from "../_libs/lucide-react.mjs";
 import { l as fmt12, u as subjectEmoji } from "./app-shell-BTcutmU8.mjs";
-//#region node_modules/.nitro/vite/services/ssr/assets/subject-details-modal-CNcmdnB2.js
+//#region node_modules/.nitro/vite/services/ssr/assets/subject-details-modal-Cn1IH94s.js
 var import_jsx_runtime = require_jsx_runtime();
 function ScheduleRow({ item, status, onClick }) {
 	if (item.kind === "break" || item.kind === "lunch") {
@@ -236,24 +236,24 @@ function SubjectDetailsModal({ subjectName, itemKey, onClose }) {
 								] }), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
 									className: "flex flex-col gap-1.5 mt-1.5",
 									children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
-										className: "font-semibold text-ink-soft text-xs",
+										className: "font-semibold text-ink-soft text-[11px] tracking-wide",
 										children: "Teachers:"
 									}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
 										className: "space-y-2",
 										children: [{ name: "Mary Treesa Thomas" }, { name: "Ashly Thomas" }].map((teacher) => {
 											const contact = TEACHER_CONTACTS[teacher.name];
 											return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-												className: "flex items-center justify-between gap-2",
+												className: "flex items-center justify-between gap-2 border-b border-border/5 last:border-b-0 pb-1.5 last:pb-0",
 												children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
-													className: "text-xs font-semibold text-ink",
+													className: "text-[13px] font-bold text-ink leading-tight",
 													children: teacher.name
 												}), contact && /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-													className: "flex items-center gap-2 shrink-0",
+													className: "flex items-center gap-1 bg-muted/80 dark:bg-border/20 p-0.5 rounded-full border border-border/40 shadow-xs shrink-0",
 													children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("a", {
 														href: `https://wa.me/${contact.whatsapp}`,
 														target: "_blank",
 														rel: "noopener noreferrer",
-														className: "grid h-6.5 w-6.5 place-items-center rounded-lg bg-emerald-500/10 text-emerald-600 dark:bg-emerald-500/20 dark:text-emerald-400 hover:scale-110 active:scale-90 transition duration-150 shadow-sm",
+														className: "grid h-6.5 w-6.5 place-items-center rounded-full bg-[#25D366] text-white hover:scale-105 active:scale-95 transition duration-150 shadow-xs",
 														title: "Chat on WhatsApp",
 														children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)("svg", {
 															className: "h-3.5 w-3.5 fill-current",
@@ -262,11 +262,11 @@ function SubjectDetailsModal({ subjectName, itemKey, onClose }) {
 														})
 													}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("a", {
 														href: `tel:${contact.phone}`,
-														className: "grid h-6.5 w-6.5 place-items-center rounded-lg bg-blue-500/10 text-blue-600 dark:bg-blue-500/20 dark:text-blue-400 hover:scale-110 active:scale-90 transition duration-150 shadow-sm",
+														className: "grid h-6.5 w-6.5 place-items-center rounded-full bg-blue-600 text-white hover:scale-105 active:scale-95 transition duration-150 shadow-xs",
 														title: "Call",
 														children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Phone, {
-															className: "h-3.5 w-3.5",
-															strokeWidth: 2.4
+															className: "h-3 w-3",
+															strokeWidth: 2.6
 														})
 													})]
 												})]
@@ -302,24 +302,24 @@ function SubjectDetailsModal({ subjectName, itemKey, onClose }) {
 								] }), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
 									className: "flex flex-col gap-1.5 mt-1.5",
 									children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
-										className: "font-semibold text-ink-soft text-xs",
+										className: "font-semibold text-ink-soft text-[11px] tracking-wide",
 										children: "Teachers:"
 									}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
 										className: "space-y-2",
 										children: [{ name: "Sarju S" }, { name: "Merlin Joshi" }].map((teacher) => {
 											const contact = TEACHER_CONTACTS[teacher.name];
 											return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-												className: "flex items-center justify-between gap-2",
+												className: "flex items-center justify-between gap-2 border-b border-border/5 last:border-b-0 pb-1.5 last:pb-0",
 												children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
-													className: "text-xs font-semibold text-ink",
+													className: "text-[13px] font-bold text-ink leading-tight",
 													children: teacher.name
 												}), contact && /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-													className: "flex items-center gap-2 shrink-0",
+													className: "flex items-center gap-1 bg-muted/80 dark:bg-border/20 p-0.5 rounded-full border border-border/40 shadow-xs shrink-0",
 													children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("a", {
 														href: `https://wa.me/${contact.whatsapp}`,
 														target: "_blank",
 														rel: "noopener noreferrer",
-														className: "grid h-6.5 w-6.5 place-items-center rounded-lg bg-emerald-500/10 text-emerald-600 dark:bg-emerald-500/20 dark:text-emerald-400 hover:scale-110 active:scale-90 transition duration-150 shadow-sm",
+														className: "grid h-6.5 w-6.5 place-items-center rounded-full bg-[#25D366] text-white hover:scale-105 active:scale-95 transition duration-150 shadow-xs",
 														title: "Chat on WhatsApp",
 														children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)("svg", {
 															className: "h-3.5 w-3.5 fill-current",
@@ -328,11 +328,11 @@ function SubjectDetailsModal({ subjectName, itemKey, onClose }) {
 														})
 													}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("a", {
 														href: `tel:${contact.phone}`,
-														className: "grid h-6.5 w-6.5 place-items-center rounded-lg bg-blue-500/10 text-blue-600 dark:bg-blue-500/20 dark:text-blue-400 hover:scale-110 active:scale-90 transition duration-150 shadow-sm",
+														className: "grid h-6.5 w-6.5 place-items-center rounded-full bg-blue-600 text-white hover:scale-105 active:scale-95 transition duration-150 shadow-xs",
 														title: "Call",
 														children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Phone, {
-															className: "h-3.5 w-3.5",
-															strokeWidth: 2.4
+															className: "h-3 w-3",
+															strokeWidth: 2.6
 														})
 													})]
 												})]
@@ -407,12 +407,12 @@ function SubjectDetailsModal({ subjectName, itemKey, onClose }) {
 												className: "text-[13px] font-bold text-ink leading-tight",
 												children: teacherName
 											}), contact && /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-												className: "flex items-center gap-2 shrink-0",
+												className: "flex items-center gap-1 bg-muted/80 dark:bg-border/20 p-0.5 rounded-full border border-border/40 shadow-xs shrink-0",
 												children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("a", {
 													href: `https://wa.me/${contact.whatsapp}`,
 													target: "_blank",
 													rel: "noopener noreferrer",
-													className: "grid h-7 w-7 place-items-center rounded-xl bg-emerald-500/10 text-emerald-600 dark:bg-emerald-500/20 dark:text-emerald-400 hover:scale-110 active:scale-90 transition duration-150 shadow-sm",
+													className: "grid h-7 w-7 place-items-center rounded-full bg-[#25D366] text-white hover:scale-105 active:scale-95 transition duration-150 shadow-xs",
 													title: "Chat on WhatsApp",
 													children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)("svg", {
 														className: "h-3.5 w-3.5 fill-current",
@@ -421,11 +421,11 @@ function SubjectDetailsModal({ subjectName, itemKey, onClose }) {
 													})
 												}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("a", {
 													href: `tel:${contact.phone}`,
-													className: "grid h-7 w-7 place-items-center rounded-xl bg-blue-500/10 text-blue-600 dark:bg-blue-500/20 dark:text-blue-400 hover:scale-110 active:scale-90 transition duration-150 shadow-sm",
+													className: "grid h-7 w-7 place-items-center rounded-full bg-blue-600 text-white hover:scale-105 active:scale-95 transition duration-150 shadow-xs",
 													title: "Call",
 													children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Phone, {
 														className: "h-3.5 w-3.5",
-														strokeWidth: 2.4
+														strokeWidth: 2.6
 													})
 												})]
 											})]

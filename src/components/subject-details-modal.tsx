@@ -178,7 +178,7 @@ export function SubjectDetailsModal({ subjectName, itemKey, onClose }: SubjectDe
                   </code>
                 </p>
                 <div className="flex flex-col gap-1.5 mt-1.5">
-                  <span className="font-semibold text-ink-soft text-xs">Teachers:</span>
+                  <span className="font-semibold text-ink-soft text-[11px] tracking-wide">Teachers:</span>
                   <div className="space-y-2">
                     {[
                       { name: "Mary Treesa Thomas" },
@@ -186,17 +186,17 @@ export function SubjectDetailsModal({ subjectName, itemKey, onClose }: SubjectDe
                     ].map((teacher) => {
                       const contact = TEACHER_CONTACTS[teacher.name];
                       return (
-                        <div key={teacher.name} className="flex items-center justify-between gap-2">
-                          <span className="text-xs font-semibold text-ink">
+                        <div key={teacher.name} className="flex items-center justify-between gap-2 border-b border-border/5 last:border-b-0 pb-1.5 last:pb-0">
+                          <span className="text-[13px] font-bold text-ink leading-tight">
                             {teacher.name}
                           </span>
                           {contact && (
-                            <div className="flex items-center gap-2 shrink-0">
+                            <div className="flex items-center gap-1 bg-muted/80 dark:bg-border/20 p-0.5 rounded-full border border-border/40 shadow-xs shrink-0">
                               <a
                                 href={`https://wa.me/${contact.whatsapp}`}
                                 target="_blank"
                                 rel="noopener noreferrer"
-                                className="grid h-6.5 w-6.5 place-items-center rounded-lg bg-emerald-500/10 text-emerald-600 dark:bg-emerald-500/20 dark:text-emerald-400 hover:scale-110 active:scale-90 transition duration-150 shadow-sm"
+                                className="grid h-6.5 w-6.5 place-items-center rounded-full bg-[#25D366] text-white hover:scale-105 active:scale-95 transition duration-150 shadow-xs"
                                 title="Chat on WhatsApp"
                               >
                                 <svg className="h-3.5 w-3.5 fill-current" viewBox="0 0 24 24">
@@ -205,10 +205,10 @@ export function SubjectDetailsModal({ subjectName, itemKey, onClose }: SubjectDe
                               </a>
                               <a
                                 href={`tel:${contact.phone}`}
-                                className="grid h-6.5 w-6.5 place-items-center rounded-lg bg-blue-500/10 text-blue-600 dark:bg-blue-500/20 dark:text-blue-400 hover:scale-110 active:scale-90 transition duration-150 shadow-sm"
+                                className="grid h-6.5 w-6.5 place-items-center rounded-full bg-blue-600 text-white hover:scale-105 active:scale-95 transition duration-150 shadow-xs"
                                 title="Call"
                               >
-                                <Phone className="h-3.5 w-3.5" strokeWidth={2.4} />
+                                <Phone className="h-3 w-3" strokeWidth={2.6} />
                               </a>
                             </div>
                           )}
@@ -236,7 +236,7 @@ export function SubjectDetailsModal({ subjectName, itemKey, onClose }: SubjectDe
                   </code>
                 </p>
                 <div className="flex flex-col gap-1.5 mt-1.5">
-                  <span className="font-semibold text-ink-soft text-xs">Teachers:</span>
+                  <span className="font-semibold text-ink-soft text-[11px] tracking-wide">Teachers:</span>
                   <div className="space-y-2">
                     {[
                       { name: "Sarju S" },
@@ -244,17 +244,17 @@ export function SubjectDetailsModal({ subjectName, itemKey, onClose }: SubjectDe
                     ].map((teacher) => {
                       const contact = TEACHER_CONTACTS[teacher.name];
                       return (
-                        <div key={teacher.name} className="flex items-center justify-between gap-2">
-                          <span className="text-xs font-semibold text-ink">
+                        <div key={teacher.name} className="flex items-center justify-between gap-2 border-b border-border/5 last:border-b-0 pb-1.5 last:pb-0">
+                          <span className="text-[13px] font-bold text-ink leading-tight">
                             {teacher.name}
                           </span>
                           {contact && (
-                            <div className="flex items-center gap-2 shrink-0">
+                            <div className="flex items-center gap-1 bg-muted/80 dark:bg-border/20 p-0.5 rounded-full border border-border/40 shadow-xs shrink-0">
                               <a
                                 href={`https://wa.me/${contact.whatsapp}`}
                                 target="_blank"
                                 rel="noopener noreferrer"
-                                className="grid h-6.5 w-6.5 place-items-center rounded-lg bg-emerald-500/10 text-emerald-600 dark:bg-emerald-500/20 dark:text-emerald-400 hover:scale-110 active:scale-90 transition duration-150 shadow-sm"
+                                className="grid h-6.5 w-6.5 place-items-center rounded-full bg-[#25D366] text-white hover:scale-105 active:scale-95 transition duration-150 shadow-xs"
                                 title="Chat on WhatsApp"
                               >
                                 <svg className="h-3.5 w-3.5 fill-current" viewBox="0 0 24 24">
@@ -263,10 +263,10 @@ export function SubjectDetailsModal({ subjectName, itemKey, onClose }: SubjectDe
                               </a>
                               <a
                                 href={`tel:${contact.phone}`}
-                                className="grid h-6.5 w-6.5 place-items-center rounded-lg bg-blue-500/10 text-blue-600 dark:bg-blue-500/20 dark:text-blue-400 hover:scale-110 active:scale-90 transition duration-150 shadow-sm"
+                                className="grid h-6.5 w-6.5 place-items-center rounded-full bg-blue-600 text-white hover:scale-105 active:scale-95 transition duration-150 shadow-xs"
                                 title="Call"
                               >
-                                <Phone className="h-3.5 w-3.5" strokeWidth={2.4} />
+                                <Phone className="h-3 w-3" strokeWidth={2.6} />
                               </a>
                             </div>
                           )}
@@ -328,12 +328,12 @@ export function SubjectDetailsModal({ subjectName, itemKey, onClose }: SubjectDe
                           {teacherName}
                         </span>
                         {contact && (
-                          <div className="flex items-center gap-2 shrink-0">
+                          <div className="flex items-center gap-1 bg-muted/80 dark:bg-border/20 p-0.5 rounded-full border border-border/40 shadow-xs shrink-0">
                             <a
                               href={`https://wa.me/${contact.whatsapp}`}
                               target="_blank"
                               rel="noopener noreferrer"
-                              className="grid h-7 w-7 place-items-center rounded-xl bg-emerald-500/10 text-emerald-600 dark:bg-emerald-500/20 dark:text-emerald-400 hover:scale-110 active:scale-90 transition duration-150 shadow-sm"
+                              className="grid h-7 w-7 place-items-center rounded-full bg-[#25D366] text-white hover:scale-105 active:scale-95 transition duration-150 shadow-xs"
                               title="Chat on WhatsApp"
                             >
                               <svg className="h-3.5 w-3.5 fill-current" viewBox="0 0 24 24">
@@ -342,10 +342,10 @@ export function SubjectDetailsModal({ subjectName, itemKey, onClose }: SubjectDe
                             </a>
                             <a
                               href={`tel:${contact.phone}`}
-                              className="grid h-7 w-7 place-items-center rounded-xl bg-blue-500/10 text-blue-600 dark:bg-blue-500/20 dark:text-blue-400 hover:scale-110 active:scale-90 transition duration-150 shadow-sm"
+                              className="grid h-7 w-7 place-items-center rounded-full bg-blue-600 text-white hover:scale-105 active:scale-95 transition duration-150 shadow-xs"
                               title="Call"
                             >
-                              <Phone className="h-3.5 w-3.5" strokeWidth={2.4} />
+                              <Phone className="h-3.5 w-3.5" strokeWidth={2.6} />
                             </a>
                           </div>
                         )}
