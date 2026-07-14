@@ -1,14 +1,15 @@
 import { r as __toESM } from "../_runtime.mjs";
 import { n as require_jsx_runtime, r as require_react } from "../_libs/react+tanstack__react-query.mjs";
 import { c as currentDayKey, i as DAY_SHORT, n as DAY_LABEL, o as buildDaySchedule, r as DAY_ORDER, t as AppShell } from "./app-shell-BTcutmU8.mjs";
-import { n as SubjectDetailsModal, t as ScheduleRow } from "./subject-details-modal-tWWnESba.mjs";
-//#region node_modules/.nitro/vite/services/ssr/assets/schedule-DHiSqTfV.js
+import { n as SubjectDetailsModal, t as ScheduleRow } from "./subject-details-modal-CNcmdnB2.mjs";
+//#region node_modules/.nitro/vite/services/ssr/assets/schedule-DONU1LzH.js
 var import_react = /* @__PURE__ */ __toESM(require_react());
 var import_jsx_runtime = require_jsx_runtime();
 function SchedulePage() {
 	const [day, setDay] = (0, import_react.useState)("mon");
 	const [todayKey, setTodayKey] = (0, import_react.useState)(null);
 	const [selectedSubject, setSelectedSubject] = (0, import_react.useState)(null);
+	const [selectedItemKey, setSelectedItemKey] = (0, import_react.useState)(null);
 	(0, import_react.useEffect)(() => {
 		const key = currentDayKey(/* @__PURE__ */ new Date());
 		setTodayKey(key);
@@ -53,12 +54,19 @@ function SchedulePage() {
 				children: items.map((item) => /* @__PURE__ */ (0, import_jsx_runtime.jsx)(ScheduleRow, {
 					item,
 					status: "upcoming",
-					onClick: item.kind === "class" ? () => setSelectedSubject(item.subject) : void 0
+					onClick: item.kind === "class" ? () => {
+						setSelectedSubject(item.subject);
+						setSelectedItemKey(item.key);
+					} : void 0
 				}, item.key))
 			}),
 			/* @__PURE__ */ (0, import_jsx_runtime.jsx)(SubjectDetailsModal, {
 				subjectName: selectedSubject,
-				onClose: () => setSelectedSubject(null)
+				itemKey: selectedItemKey,
+				onClose: () => {
+					setSelectedSubject(null);
+					setSelectedItemKey(null);
+				}
 			})
 		]
 	});

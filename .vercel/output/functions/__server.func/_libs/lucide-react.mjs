@@ -447,6 +447,16 @@ var Palette = createLucideIcon("palette", [
 * This source code is licensed under the ISC license.
 * See the LICENSE file in the root directory of this source tree.
 */
+var Phone = createLucideIcon("phone", [["path", {
+	d: "M13.832 16.568a1 1 0 0 0 1.213-.303l.355-.465A2 2 0 0 1 17 15h3a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2A18 18 0 0 1 2 4a2 2 0 0 1 2-2h3a2 2 0 0 1 2 2v3a2 2 0 0 1-.8 1.6l-.468.351a1 1 0 0 0-.292 1.233 14 14 0 0 0 6.392 6.384",
+	key: "9njp5v"
+}]]);
+/**
+* @license lucide-react v0.575.0 - ISC
+*
+* This source code is licensed under the ISC license.
+* See the LICENSE file in the root directory of this source tree.
+*/
 var RotateCcw = createLucideIcon("rotate-ccw", [["path", {
 	d: "M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8",
 	key: "1357e3"
@@ -659,4 +669,4 @@ var X = createLucideIcon("x", [["path", {
 	key: "d8bk6v"
 }]]);
 //#endregion
-export { ArrowUp as C, ArrowDown as D, ArrowLeft as E, Bell as S, ArrowRight as T, Coffee as _, Timer as a, CalendarDays as b, Settings as c, Moon as d, Layers as f, GraduationCap as g, Heart as h, Trophy as i, RotateCcw as l, House as m, Utensils as n, Sun as o, Info as p, UtensilsCrossed as r, Sparkles as s, X as t, Palette as u, CodeXml as v, ArrowUpRight as w, BookOpen as x, Check as y };
+export { Bell as C, ArrowLeft as D, ArrowRight as E, ArrowDown as O, BookOpen as S, ArrowUpRight as T, GraduationCap as _, Timer as a, Check as b, Settings as c, Palette as d, Moon as f, Heart as g, House as h, Trophy as i, RotateCcw as l, Info as m, Utensils as n, Sun as o, Layers as p, UtensilsCrossed as r, Sparkles as s, X as t, Phone as u, Coffee as v, ArrowUp as w, CalendarDays as x, CodeXml as y };

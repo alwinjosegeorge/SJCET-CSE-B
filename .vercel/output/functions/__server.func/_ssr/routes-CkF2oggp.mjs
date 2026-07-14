@@ -1,11 +1,11 @@
 import { r as __toESM } from "../_runtime.mjs";
 import { n as require_jsx_runtime, r as require_react } from "../_libs/react+tanstack__react-query.mjs";
 import { _ as useNavigate } from "../_libs/@tanstack/react-router+[...].mjs";
-import { _ as Coffee, d as Moon, o as Sun, r as UtensilsCrossed, s as Sparkles, w as ArrowUpRight } from "../_libs/lucide-react.mjs";
+import { T as ArrowUpRight, f as Moon, o as Sun, r as UtensilsCrossed, s as Sparkles, v as Coffee } from "../_libs/lucide-react.mjs";
 import { l as fmt12, n as DAY_LABEL, s as computeNowState, t as AppShell } from "./app-shell-BTcutmU8.mjs";
 import { t as useNow } from "./use-now-DwH2zO-0.mjs";
-import { n as SubjectDetailsModal, t as ScheduleRow } from "./subject-details-modal-tWWnESba.mjs";
-//#region node_modules/.nitro/vite/services/ssr/assets/routes-BVRSrHwK.js
+import { n as SubjectDetailsModal, t as ScheduleRow } from "./subject-details-modal-CNcmdnB2.mjs";
+//#region node_modules/.nitro/vite/services/ssr/assets/routes-CkF2oggp.js
 var import_react = /* @__PURE__ */ __toESM(require_react());
 var import_jsx_runtime = require_jsx_runtime();
 var SUBJECT_EMOJI = {
@@ -46,6 +46,11 @@ function Home() {
 	const now = useNow(1e3);
 	const state = (0, import_react.useMemo)(() => now ? computeNowState(now) : null, [now]);
 	const [selectedSubject, setSelectedSubject] = (0, import_react.useState)(null);
+	const [selectedItemKey, setSelectedItemKey] = (0, import_react.useState)(null);
+	const handleSelectSubject = (name, key) => {
+		setSelectedSubject(name);
+		setSelectedItemKey(key || null);
+	};
 	if (!now || !state) return /* @__PURE__ */ (0, import_jsx_runtime.jsx)(AppShell, { children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
 		className: "flex h-[50vh] items-center justify-center",
 		children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { className: "h-6 w-6 animate-spin rounded-full border-2 border-indigo border-t-transparent" })
@@ -91,32 +96,36 @@ function Home() {
 		children: [
 			state.phase === "in-class" && /* @__PURE__ */ (0, import_jsx_runtime.jsx)(InClass, {
 				state,
-				onSelectSubject: setSelectedSubject
+				onSelectSubject: handleSelectSubject
 			}),
 			(state.phase === "break" || state.phase === "lunch") && /* @__PURE__ */ (0, import_jsx_runtime.jsx)(BreakBento, {
 				state,
-				onSelectSubject: setSelectedSubject
+				onSelectSubject: handleSelectSubject
 			}),
 			state.phase === "before-day" && /* @__PURE__ */ (0, import_jsx_runtime.jsx)(BeforeDay, {
 				state,
-				onSelectSubject: setSelectedSubject
+				onSelectSubject: handleSelectSubject
 			}),
 			state.phase === "after-day" && /* @__PURE__ */ (0, import_jsx_runtime.jsx)(AfterDay, {
 				state,
-				onSelectSubject: setSelectedSubject
+				onSelectSubject: handleSelectSubject
 			}),
 			state.phase === "weekend" && /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Weekend, {
 				state,
-				onSelectSubject: setSelectedSubject
+				onSelectSubject: handleSelectSubject
 			}),
 			state.phase !== "weekend" && state.phase !== "after-day" && /* @__PURE__ */ (0, import_jsx_runtime.jsx)(TodaySchedule, {
 				state,
 				now,
-				onSelectSubject: setSelectedSubject
+				onSelectSubject: handleSelectSubject
 			}),
 			/* @__PURE__ */ (0, import_jsx_runtime.jsx)(SubjectDetailsModal, {
 				subjectName: selectedSubject,
-				onClose: () => setSelectedSubject(null)
+				itemKey: selectedItemKey,
+				onClose: () => {
+					setSelectedSubject(null);
+					setSelectedItemKey(null);
+				}
 			})
 		]
 	});
@@ -293,7 +302,7 @@ function InClass({ state, onSelectSubject }) {
 			}),
 			state.next ? /* @__PURE__ */ (0, import_jsx_runtime.jsx)(NextUpTile, {
 				item: state.next,
-				onClick: () => onSelectSubject(state.next.subject)
+				onClick: () => onSelectSubject(state.next.subject, state.next.key)
 			}) : /* @__PURE__ */ (0, import_jsx_runtime.jsx)(StatTile, {
 				bg: "bg-mint",
 				label: "Almost done",
@@ -352,7 +361,7 @@ function BreakBento({ state, onSelectSubject }) {
 			}),
 			state.next && /* @__PURE__ */ (0, import_jsx_runtime.jsx)(NextUpTile, {
 				item: state.next,
-				onClick: () => onSelectSubject(state.next.subject)
+				onClick: () => onSelectSubject(state.next.subject, state.next.key)
 			}),
 			/* @__PURE__ */ (0, import_jsx_runtime.jsx)(StatTile, {
 				bg: "bg-butter",
@@ -394,7 +403,7 @@ function BeforeDay({ state, onSelectSubject }) {
 			}),
 			/* @__PURE__ */ (0, import_jsx_runtime.jsx)(NextUpTile, {
 				item: state.next,
-				onClick: () => onSelectSubject(state.next.subject)
+				onClick: () => onSelectSubject(state.next.subject, state.next.key)
 			}),
 			/* @__PURE__ */ (0, import_jsx_runtime.jsx)(StatTile, {
 				bg: "bg-butter",
@@ -448,7 +457,7 @@ function AfterDay({ state, onSelectSubject }) {
 			}),
 			/* @__PURE__ */ (0, import_jsx_runtime.jsx)(NextUpTile, {
 				item: firstTomorrow,
-				onClick: () => onSelectSubject(firstTomorrow.subject)
+				onClick: () => onSelectSubject(firstTomorrow.subject, firstTomorrow.key)
 			}),
 			/* @__PURE__ */ (0, import_jsx_runtime.jsx)(StatTile, {
 				bg: "bg-butter",
@@ -461,7 +470,7 @@ function AfterDay({ state, onSelectSubject }) {
 				children: state.tomorrowSchedule.map((item) => /* @__PURE__ */ (0, import_jsx_runtime.jsx)(ScheduleRow, {
 					item,
 					status: "upcoming",
-					onClick: item.kind === "class" ? () => onSelectSubject(item.subject) : void 0
+					onClick: item.kind === "class" ? () => onSelectSubject(item.subject, item.key) : void 0
 				}, item.key))
 			})
 		] })]
@@ -500,7 +509,7 @@ function Weekend({ state, onSelectSubject }) {
 			}),
 			/* @__PURE__ */ (0, import_jsx_runtime.jsx)(NextUpTile, {
 				item: firstTomorrow,
-				onClick: () => onSelectSubject(firstTomorrow.subject)
+				onClick: () => onSelectSubject(firstTomorrow.subject, firstTomorrow.key)
 			}),
 			/* @__PURE__ */ (0, import_jsx_runtime.jsx)(StatTile, {
 				bg: "bg-butter",
@@ -513,7 +522,7 @@ function Weekend({ state, onSelectSubject }) {
 				children: state.tomorrowSchedule.map((item) => /* @__PURE__ */ (0, import_jsx_runtime.jsx)(ScheduleRow, {
 					item,
 					status: "upcoming",
-					onClick: item.kind === "class" ? () => onSelectSubject(item.subject) : void 0
+					onClick: item.kind === "class" ? () => onSelectSubject(item.subject, item.key) : void 0
 				}, item.key))
 			})
 		] })]
@@ -550,7 +559,7 @@ function TodaySchedule({ state, now, onSelectSubject }) {
 					return /* @__PURE__ */ (0, import_jsx_runtime.jsx)(ScheduleRow, {
 						item,
 						status,
-						onClick: item.kind === "class" ? () => onSelectSubject(item.subject) : void 0
+						onClick: item.kind === "class" ? () => onSelectSubject(item.subject, item.key) : void 0
 					}, item.key);
 				})
 			}),
