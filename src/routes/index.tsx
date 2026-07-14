@@ -41,6 +41,12 @@ function Home() {
   const now = useNow(1000);
   const state = useMemo(() => (now ? computeNowState(now) : null), [now]);
   const [selectedSubject, setSelectedSubject] = useState<string | null>(null);
+  const [selectedItemKey, setSelectedItemKey] = useState<string | null>(null);
+
+  const handleSelectSubject = (name: string, key?: string) => {
+    setSelectedSubject(name);
+    setSelectedItemKey(key || null);
+  };
 
   if (!now || !state) {
     return (
@@ -86,32 +92,36 @@ function Home() {
       }
     >
       {state.phase === "in-class" && (
-        <InClass state={state} onSelectSubject={setSelectedSubject} />
+        <InClass state={state} onSelectSubject={handleSelectSubject} />
       )}
       {(state.phase === "break" || state.phase === "lunch") && (
-        <BreakBento state={state} onSelectSubject={setSelectedSubject} />
+        <BreakBento state={state} onSelectSubject={handleSelectSubject} />
       )}
       {state.phase === "before-day" && (
-        <BeforeDay state={state} onSelectSubject={setSelectedSubject} />
+        <BeforeDay state={state} onSelectSubject={handleSelectSubject} />
       )}
       {state.phase === "after-day" && (
-        <AfterDay state={state} onSelectSubject={setSelectedSubject} />
+        <AfterDay state={state} onSelectSubject={handleSelectSubject} />
       )}
       {state.phase === "weekend" && (
-        <Weekend state={state} onSelectSubject={setSelectedSubject} />
+        <Weekend state={state} onSelectSubject={handleSelectSubject} />
       )}
 
       {state.phase !== "weekend" && state.phase !== "after-day" && (
         <TodaySchedule
           state={state}
           now={now}
-          onSelectSubject={setSelectedSubject}
+          onSelectSubject={handleSelectSubject}
         />
       )}
 
       <SubjectDetailsModal
         subjectName={selectedSubject}
-        onClose={() => setSelectedSubject(null)}
+        itemKey={selectedItemKey}
+        onClose={() => {
+          setSelectedSubject(null);
+          setSelectedItemKey(null);
+        }}
       />
     </AppShell>
   );
@@ -264,7 +274,7 @@ function InClass({
   onSelectSubject,
 }: {
   state: Extract<ReturnType<typeof computeNowState>, { phase: "in-class" }>;
-  onSelectSubject: (name: string) => void;
+  onSelectSubject: (name: string, key?: string) => void;
 }) {
   const navigate = useNavigate();
   const remainingClasses = state.today.filter(
@@ -282,7 +292,7 @@ function InClass({
       {state.next ? (
         <NextUpTile
           item={state.next}
-          onClick={() => onSelectSubject(state.next!.subject!)}
+          onClick={() => onSelectSubject(state.next!.subject!, state.next!.key)}
         />
       ) : (
         <StatTile
@@ -326,7 +336,7 @@ function BreakBento({
     ReturnType<typeof computeNowState>,
     { phase: "break" | "lunch" }
   >;
-  onSelectSubject: (name: string) => void;
+  onSelectSubject: (name: string, key?: string) => void;
 }) {
   const navigate = useNavigate();
   const isLunch = state.phase === "lunch";
@@ -357,7 +367,7 @@ function BreakBento({
       {state.next && (
         <NextUpTile
           item={state.next}
-          onClick={() => onSelectSubject(state.next!.subject!)}
+          onClick={() => onSelectSubject(state.next!.subject!, state.next!.key)}
         />
       )}
       <StatTile
@@ -375,7 +385,7 @@ function BeforeDay({
   onSelectSubject,
 }: {
   state: Extract<ReturnType<typeof computeNowState>, { phase: "before-day" }>;
-  onSelectSubject: (name: string) => void;
+  onSelectSubject: (name: string, key?: string) => void;
 }) {
   const navigate = useNavigate();
   return (
@@ -402,7 +412,7 @@ function BeforeDay({
       </div>
       <NextUpTile
         item={state.next}
-        onClick={() => onSelectSubject(state.next.subject!)}
+        onClick={() => onSelectSubject(state.next.subject!, state.next.key)}
       />
       <StatTile
         bg="bg-butter"
@@ -419,7 +429,7 @@ function AfterDay({
   onSelectSubject,
 }: {
   state: Extract<ReturnType<typeof computeNowState>, { phase: "after-day" }>;
-  onSelectSubject: (name: string) => void;
+  onSelectSubject: (name: string, key?: string) => void;
 }) {
   const firstTomorrow = state.tomorrowSchedule.find((x) => x.kind === "class");
   return (
@@ -455,7 +465,7 @@ function AfterDay({
           </div>
           <NextUpTile
             item={firstTomorrow}
-            onClick={() => onSelectSubject(firstTomorrow.subject!)}
+            onClick={() => onSelectSubject(firstTomorrow.subject!, firstTomorrow.key)}
           />
           <StatTile
             bg="bg-butter"
@@ -471,7 +481,7 @@ function AfterDay({
                 status="upcoming"
                 onClick={
                   item.kind === "class"
-                    ? () => onSelectSubject(item.subject!)
+                    ? () => onSelectSubject(item.subject!, item.key)
                     : undefined
                 }
               />
@@ -488,7 +498,7 @@ function Weekend({
   onSelectSubject,
 }: {
   state: Extract<ReturnType<typeof computeNowState>, { phase: "weekend" }>;
-  onSelectSubject: (name: string) => void;
+  onSelectSubject: (name: string, key?: string) => void;
 }) {
   const firstTomorrow = state.tomorrowSchedule.find((x) => x.kind === "class");
   return (
@@ -518,7 +528,7 @@ function Weekend({
           </div>
           <NextUpTile
             item={firstTomorrow}
-            onClick={() => onSelectSubject(firstTomorrow.subject!)}
+            onClick={() => onSelectSubject(firstTomorrow.subject!, firstTomorrow.key)}
           />
           <StatTile
             bg="bg-butter"
@@ -534,7 +544,7 @@ function Weekend({
                 status="upcoming"
                 onClick={
                   item.kind === "class"
-                    ? () => onSelectSubject(item.subject!)
+                    ? () => onSelectSubject(item.subject!, item.key)
                     : undefined
                 }
               />
@@ -556,7 +566,7 @@ function TodaySchedule({
     { phase: "in-class" | "break" | "lunch" | "before-day" }
   >;
   now: Date;
-  onSelectSubject: (name: string) => void;
+  onSelectSubject: (name: string, key?: string) => void;
 }) {
   const nowMin =
     now.getHours() * 60 + now.getMinutes();
@@ -586,7 +596,7 @@ function TodaySchedule({
               status={status}
               onClick={
                 item.kind === "class"
-                  ? () => onSelectSubject(item.subject!)
+                  ? () => onSelectSubject(item.subject!, item.key)
                   : undefined
               }
             />

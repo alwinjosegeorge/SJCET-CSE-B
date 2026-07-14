@@ -1,4 +1,4 @@
-import { X, BookOpen, GraduationCap, Layers } from "lucide-react";
+import { X, BookOpen, GraduationCap, Layers, Phone } from "lucide-react";
 import { subjectEmoji } from "@/lib/timetable";
 
 export interface SubjectDetails {
@@ -77,20 +77,57 @@ export const SUBJECT_DETAILS: Record<string, SubjectDetails> = {
   }
 };
 
+export const TEACHER_CONTACTS: Record<string, { phone: string; whatsapp: string }> = {
+  "Sarju S": {
+    phone: "+919447233663",
+    whatsapp: "919447233663",
+  },
+  "Mary Treesa Thomas": {
+    phone: "+918547213581",
+    whatsapp: "918547213581",
+  },
+  "Renju Renjith": {
+    phone: "+918086868751",
+    whatsapp: "918086868751",
+  },
+  "Neena K Pius": {
+    phone: "+918921630491",
+    whatsapp: "918921630491",
+  },
+  "Amala Maria Kuruvilla": {
+    phone: "+917736956782",
+    whatsapp: "917736956782",
+  },
+  "Anu V Kottath": {
+    phone: "+918281669490",
+    whatsapp: "918281669490",
+  },
+};
+
 interface SubjectDetailsModalProps {
   subjectName: string | null;
+  itemKey?: string | null;
   onClose: () => void;
 }
 
-export function SubjectDetailsModal({ subjectName, onClose }: SubjectDetailsModalProps) {
+export function SubjectDetailsModal({ subjectName, itemKey, onClose }: SubjectDetailsModalProps) {
   if (!subjectName) return null;
 
-  const details = SUBJECT_DETAILS[subjectName] || {
+  const details = { ...(SUBJECT_DETAILS[subjectName] || {
     code: "N/A",
     name: subjectName,
     type: "Theory",
     teachers: ["N/A"],
-  };
+  }) };
+
+  // Split Tuesday Placement Training by period slot
+  if (subjectName === "Placement Training" && itemKey) {
+    if (itemKey.includes("p5")) {
+      details.teachers = ["Neena K Pius"];
+    } else if (itemKey.includes("p7")) {
+      details.teachers = ["Amala Maria Kuruvilla"];
+    }
+  }
 
   const emoji = subjectEmoji(subjectName);
 
@@ -140,10 +177,46 @@ export function SubjectDetailsModal({ subjectName, onClose }: SubjectDetailsModa
                     24SJPCCSL507
                   </code>
                 </p>
-                <p>
-                  <span className="font-semibold text-ink-soft">Teachers:</span>{" "}
-                  Mary Treesa Thomas & Ashly Thomas
-                </p>
+                <div className="flex flex-col gap-1.5 mt-1.5">
+                  <span className="font-semibold text-ink-soft text-xs">Teachers:</span>
+                  <div className="space-y-2">
+                    {[
+                      { name: "Mary Treesa Thomas" },
+                      { name: "Ashly Thomas" },
+                    ].map((teacher) => {
+                      const contact = TEACHER_CONTACTS[teacher.name];
+                      return (
+                        <div key={teacher.name} className="flex items-center justify-between gap-2">
+                          <span className="text-xs font-semibold text-ink">
+                            {teacher.name}
+                          </span>
+                          {contact && (
+                            <div className="flex items-center gap-2 shrink-0">
+                              <a
+                                href={`https://wa.me/${contact.whatsapp}`}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="grid h-6.5 w-6.5 place-items-center rounded-lg bg-emerald-500/10 text-emerald-600 dark:bg-emerald-500/20 dark:text-emerald-400 hover:scale-110 active:scale-90 transition duration-150 shadow-sm"
+                                title="Chat on WhatsApp"
+                              >
+                                <svg className="h-3.5 w-3.5 fill-current" viewBox="0 0 24 24">
+                                  <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L0 24l6.335-1.662c1.746.953 3.71 1.458 5.704 1.459h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z" />
+                                </svg>
+                              </a>
+                              <a
+                                href={`tel:${contact.phone}`}
+                                className="grid h-6.5 w-6.5 place-items-center rounded-lg bg-blue-500/10 text-blue-600 dark:bg-blue-500/20 dark:text-blue-400 hover:scale-110 active:scale-90 transition duration-150 shadow-sm"
+                                title="Call"
+                              >
+                                <Phone className="h-3.5 w-3.5" strokeWidth={2.4} />
+                              </a>
+                            </div>
+                          )}
+                        </div>
+                      );
+                    })}
+                  </div>
+                </div>
               </div>
             </div>
 
@@ -162,10 +235,46 @@ export function SubjectDetailsModal({ subjectName, onClose }: SubjectDetailsModa
                     24SJPCCSL508
                   </code>
                 </p>
-                <p>
-                  <span className="font-semibold text-ink-soft">Teachers:</span>{" "}
-                  Sarju S & Merlin Joshi
-                </p>
+                <div className="flex flex-col gap-1.5 mt-1.5">
+                  <span className="font-semibold text-ink-soft text-xs">Teachers:</span>
+                  <div className="space-y-2">
+                    {[
+                      { name: "Sarju S" },
+                      { name: "Merlin Joshi" },
+                    ].map((teacher) => {
+                      const contact = TEACHER_CONTACTS[teacher.name];
+                      return (
+                        <div key={teacher.name} className="flex items-center justify-between gap-2">
+                          <span className="text-xs font-semibold text-ink">
+                            {teacher.name}
+                          </span>
+                          {contact && (
+                            <div className="flex items-center gap-2 shrink-0">
+                              <a
+                                href={`https://wa.me/${contact.whatsapp}`}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="grid h-6.5 w-6.5 place-items-center rounded-lg bg-emerald-500/10 text-emerald-600 dark:bg-emerald-500/20 dark:text-emerald-400 hover:scale-110 active:scale-90 transition duration-150 shadow-sm"
+                                title="Chat on WhatsApp"
+                              >
+                                <svg className="h-3.5 w-3.5 fill-current" viewBox="0 0 24 24">
+                                  <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L0 24l6.335-1.662c1.746.953 3.71 1.458 5.704 1.459h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z" />
+                                </svg>
+                              </a>
+                              <a
+                                href={`tel:${contact.phone}`}
+                                className="grid h-6.5 w-6.5 place-items-center rounded-lg bg-blue-500/10 text-blue-600 dark:bg-blue-500/20 dark:text-blue-400 hover:scale-110 active:scale-90 transition duration-150 shadow-sm"
+                                title="Call"
+                              >
+                                <Phone className="h-3.5 w-3.5" strokeWidth={2.4} />
+                              </a>
+                            </div>
+                          )}
+                        </div>
+                      );
+                    })}
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -202,17 +311,48 @@ export function SubjectDetailsModal({ subjectName, onClose }: SubjectDetailsModa
             </div>
 
             {/* Teacher */}
-            <div className="flex items-center gap-3 rounded-2xl border border-border/50 bg-surface/50 p-3">
-              <div className="grid h-9 w-9 shrink-0 place-items-center rounded-xl bg-butter text-ink">
+            <div className="flex items-start gap-3 rounded-2xl border border-border/50 bg-surface/50 p-3">
+              <div className="grid h-9 w-9 shrink-0 place-items-center rounded-xl bg-butter text-ink mt-0.5">
                 <GraduationCap className="h-4.5 w-4.5 text-ink" strokeWidth={2.4} />
               </div>
-              <div className="min-w-0 flex-1">
+              <div className="min-w-0 flex-1 space-y-2">
                 <p className="text-[10px] font-bold uppercase tracking-wider text-ink-soft">
-                  Teacher
+                  {details.teachers.length > 1 ? "Teachers" : "Teacher"}
                 </p>
-                <p className="text-[13px] font-bold text-ink mt-0.5 leading-tight">
-                  {details.teachers.join(" & ")}
-                </p>
+                <div className="space-y-2.5">
+                  {details.teachers.map((teacherName) => {
+                    const contact = TEACHER_CONTACTS[teacherName];
+                    return (
+                      <div key={teacherName} className="flex items-center justify-between gap-2 border-b border-border/5 last:border-b-0 pb-1.5 last:pb-0">
+                        <span className="text-[13px] font-bold text-ink leading-tight">
+                          {teacherName}
+                        </span>
+                        {contact && (
+                          <div className="flex items-center gap-2 shrink-0">
+                            <a
+                              href={`https://wa.me/${contact.whatsapp}`}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="grid h-7 w-7 place-items-center rounded-xl bg-emerald-500/10 text-emerald-600 dark:bg-emerald-500/20 dark:text-emerald-400 hover:scale-110 active:scale-90 transition duration-150 shadow-sm"
+                              title="Chat on WhatsApp"
+                            >
+                              <svg className="h-3.5 w-3.5 fill-current" viewBox="0 0 24 24">
+                                <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L0 24l6.335-1.662c1.746.953 3.71 1.458 5.704 1.459h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z" />
+                              </svg>
+                            </a>
+                            <a
+                              href={`tel:${contact.phone}`}
+                              className="grid h-7 w-7 place-items-center rounded-xl bg-blue-500/10 text-blue-600 dark:bg-blue-500/20 dark:text-blue-400 hover:scale-110 active:scale-90 transition duration-150 shadow-sm"
+                              title="Call"
+                            >
+                              <Phone className="h-3.5 w-3.5" strokeWidth={2.4} />
+                            </a>
+                          </div>
+                        )}
+                      </div>
+                    );
+                  })}
+                </div>
               </div>
             </div>
           </div>

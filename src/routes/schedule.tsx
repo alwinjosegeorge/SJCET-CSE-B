@@ -20,6 +20,7 @@ function SchedulePage() {
   const [day, setDay] = useState<DayKey>("mon");
   const [todayKey, setTodayKey] = useState<DayKey | "sat" | "sun" | null>(null);
   const [selectedSubject, setSelectedSubject] = useState<string | null>(null);
+  const [selectedItemKey, setSelectedItemKey] = useState<string | null>(null);
 
   useEffect(() => {
     const key = currentDayKey(new Date());
@@ -81,7 +82,10 @@ function SchedulePage() {
             status="upcoming"
             onClick={
               item.kind === "class"
-                ? () => setSelectedSubject(item.subject!)
+                ? () => {
+                    setSelectedSubject(item.subject!);
+                    setSelectedItemKey(item.key);
+                  }
                 : undefined
             }
           />
@@ -90,7 +94,11 @@ function SchedulePage() {
 
       <SubjectDetailsModal
         subjectName={selectedSubject}
-        onClose={() => setSelectedSubject(null)}
+        itemKey={selectedItemKey}
+        onClose={() => {
+          setSelectedSubject(null);
+          setSelectedItemKey(null);
+        }}
       />
     </AppShell>
   );
